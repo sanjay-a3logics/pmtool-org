@@ -1,0 +1,50 @@
+<apex:page sidebar="false" standardController="emma__Emma_Mailing__c" standardStylesheets="false" extensions="emma.NewEmmaMailingCtlr">
+<apex:stylesheet value="{!URLFOR($Resource.emma__jqueryui,'css/smoothness/jquery-ui-1.10.3.custom.min.css')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.emma__jqueryui, 'js/jquery-1.9.1.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.emma__jqueryui, 'js/jquery-ui-1.10.3.custom.min.js')}" />
+
+    <script>
+    var j$ = jQuery.noConflict();
+    
+    j$(document).ready(function(){
+    
+    	j$('#navConfirm').dialog({
+    	
+    		modal: true,
+    		buttons: {
+    			'Yes':function(){
+    				openPopup();    			
+    			},
+    			'No':function(){
+    				location.href = '/{!prefix}/o';
+    			}
+    			
+    		}
+    	
+    	});    	
+    
+    });
+    
+    function openPopup(){
+    
+    	var popup = window.open('https://app.e2ma.net/app2/campaigns','_blank');
+
+	    setTimeout(function() {
+		    if(!popup || popup.closed || parseInt(popup.innerWidth) == 0 || typeof(popup) == 'undefined' || parseInt(popup.outerHeight) == 0){
+		        //POPUP BLOCKED
+		        j$('#errorMsg').show();
+		    }
+		    else{
+		        location.href = '/{!prefix}/o';
+		    }
+	    }, 500);    
+    }
+    </script>
+    <div id="navConfirm" title="New Emma Mailing">
+    	<p>Do you want to create a new mailing in your Emma account?</p>
+    	<div class="ui-state-error ui-corner-all" style="display:none;padding:5px;" id="errorMsg">
+    		Please disable your browser popup blocker in order to continue.
+    	</div>
+    </div>
+</apex:page>

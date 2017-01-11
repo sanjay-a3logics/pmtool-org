@@ -1,0 +1,25 @@
+<apex:page action="{!loadPmReview}" standardController="PM_Tool_V2__c" extensions="PM_Review">
+    <apex:form >
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:sectionHeader title="Review Stages"/>
+        
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!saveStages}" value="Save"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!pmStageList}" var="stage">
+                <apex:column value="{!stage.Business_Installation_Stage__r.Name}" />
+                <apex:column value="{!stage.Business_Status__r.Name}" />
+                <apex:column >
+                    <apex:outputPanel rendered="{!stage.PM_Review__c}">
+                        <apex:inputField html-disabled="{!stage.PM_Review__c}" value="{!stage.PM_Review__c}"/>    
+                    </apex:outputPanel>
+                    <apex:outputPanel rendered="{!!stage.PM_Review__c}">
+                        <apex:inputField value="{!stage.PM_Review__c}"/>
+                    </apex:outputPanel>
+                    
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

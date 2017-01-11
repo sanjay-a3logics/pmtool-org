@@ -1,0 +1,11 @@
+SetupOwnerId,success__Number_Value__c,success__Date_Value__c,success__Current_Version__c,Name,success__DateTime_Value__c,success__Value__c
+00Dd0000000hRRTEA2,7,null,null,daysPointsExpire,null,null
+00Dd0000000hRRTEA2,null,null,null,rewardEnabledFields,null,[]
+00Dd0000000hRRTEA2,null,null,null,userChallengeEnabledFields,null,[]
+00Dd0000000hRRTEA2,null,null,null,chatterDigestFrequency,null,Never
+00Dd0000000hRRTEA2,5,null,null,maxNumberOfScheduledJobs,null,null
+00Dd0000000hRRTEA2,0,null,null,archivedPerformanceChartMode,null,null
+00Dd0000000hRRTEA2,120,null,null,inspirePollDuration,null,null
+00Dd0000000hRRTEA2,90,null,null,inspireLeaderboardExtensionDuration,null,null
+00Dd0000000hRRTEA2,45,null,null,inspireBroadcastDuration,null,null
+00Dd0000000hRRTEA2,30,null,null,inspireLeaderboardIterationDuration,null,null

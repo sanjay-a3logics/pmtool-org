@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>FolderID__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field is used to store the folder id when the files are uploaded to BOX</description>
+        <externalId>false</externalId>
+        <label>FolderID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RelatedLeadId__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>RelatedLeadId</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+</CustomObject>

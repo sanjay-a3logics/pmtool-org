@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Mobile_View</compactLayoutAssignment>
+    <compactLayouts>
+        <fullName>Mobile_View</fullName>
+        <fields>Name</fields>
+        <fields>DefectType__c</fields>
+        <fields>Ops_Defect_Severity__c</fields>
+        <fields>CreatedById</fields>
+        <fields>Subcontractor_Action_Needed__c</fields>
+        <fields>Corrective_Action_Accepted__c</fields>
+        <label>Mobile View</label>
+    </compactLayouts>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Contractor_Explanation__c</fullName>
+        <externalId>false</externalId>
+        <label>Contractor Explanation</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Corrective_Action_Accepted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Corrective Action Accepted</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Corrective_Action_Taken__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Corrective Action Taken</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>DefectType__c</fullName>
+        <externalId>false</externalId>
+        <label>Defect Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ducts Not Done</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Health And Safety Risk</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insulation Incorrect</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Missing Air Sealing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Missing Filters</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Missing Light Bulbs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Missing Thermostat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Documentation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Operation &amp; Production</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Code Compliance</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Racking &amp; Mounting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Environmental Suitability</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Damage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Aesthetics</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer interaction</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <picklist>
+            <controllingField>DefectType__c</controllingField>
+            <picklistValues>
+                <fullName>C</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Layout</fullName>
+                <default>false</default>
+                <controllingFieldValues>Documentation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Modules</fullName>
+                <default>false</default>
+                <controllingFieldValues>Documentation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inverter(s)</fullName>
+                <default>false</default>
+                <controllingFieldValues>Documentation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Meter</fullName>
+                <default>false</default>
+                <controllingFieldValues>Documentation</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>String lengths</fullName>
+                <default>false</default>
+                <controllingFieldValues>Operation &amp; Production</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Polarity</fullName>
+                <default>false</default>
+                <controllingFieldValues>Operation &amp; Production</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wiring Terminations</fullName>
+                <default>false</default>
+                <controllingFieldValues>Operation &amp; Production</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shading issues</fullName>
+                <default>false</default>
+                <controllingFieldValues>Operation &amp; Production</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Error codes</fullName>
+                <default>false</default>
+                <controllingFieldValues>Operation &amp; Production</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Labels/placards</fullName>
+                <default>false</default>
+                <controllingFieldValues>Code Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Grounding</fullName>
+                <default>false</default>
+                <controllingFieldValues>Code Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disconnect</fullName>
+                <default>false</default>
+                <controllingFieldValues>Code Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Breakers</fullName>
+                <default>false</default>
+                <controllingFieldValues>Code Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wire/conduit</fullName>
+                <default>false</default>
+                <controllingFieldValues>Code Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Junction boxes accessible</fullName>
+                <default>false</default>
+                <controllingFieldValues>Code Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Equipment clearances</fullName>
+                <default>false</default>
+                <controllingFieldValues>Code Compliance</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hardware</fullName>
+                <default>false</default>
+                <controllingFieldValues>Racking &amp; Mounting</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rail span</fullName>
+                <default>false</default>
+                <controllingFieldValues>Racking &amp; Mounting</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cantilever</fullName>
+                <default>false</default>
+                <controllingFieldValues>Racking &amp; Mounting</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Flashing</fullName>
+                <default>false</default>
+                <controllingFieldValues>Environmental Suitability</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Connectors</fullName>
+                <default>false</default>
+                <controllingFieldValues>Environmental Suitability</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Combiner boxes sealed</fullName>
+                <default>false</default>
+                <controllingFieldValues>Environmental Suitability</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Exposed conductors</fullName>
+                <default>false</default>
+                <controllingFieldValues>Environmental Suitability</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Leaks</fullName>
+                <default>false</default>
+                <controllingFieldValues>Damage</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Shingles/roof material</fullName>
+                <default>false</default>
+                <controllingFieldValues>Damage</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Equipment</fullName>
+                <default>false</default>
+                <controllingFieldValues>Damage</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Property</fullName>
+                <default>false</default>
+                <controllingFieldValues>Damage</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Gutters</fullName>
+                <default>false</default>
+                <controllingFieldValues>Damage</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <controllingFieldValues>Damage</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Flush and straight arrays</fullName>
+                <default>false</default>
+                <controllingFieldValues>Aesthetics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Equipment tidiness</fullName>
+                <default>false</default>
+                <controllingFieldValues>Aesthetics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wire management</fullName>
+                <default>false</default>
+                <controllingFieldValues>Aesthetics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Conduit appearance</fullName>
+                <default>false</default>
+                <controllingFieldValues>Aesthetics</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install trash left on site</fullName>
+                <default>false</default>
+                <controllingFieldValues>Aesthetics</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Explanation_Accepted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Explanation Accepted</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Fine_assessed__c</fullName>
+        <description>Fines assessed for any defect in project found.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Pick the amount of fine to assess for the defect.</inlineHelpText>
+        <label>Fine assessed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>100</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>500</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ops_Defect_Severity__c</fullName>
+        <description>Severity Level of the Op.</description>
+        <externalId>false</externalId>
+        <label>Ops Defect Severity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Project_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.Record_Type_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <externalId>false</externalId>
+        <label>Project</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipName>Defects</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Repaired_By_Field_Tech__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check box if a field tech resolve the deficiency</inlineHelpText>
+        <label>Repaired By Field Tech</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Subcontractor_Action_Needed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Does the Vendor need to resolve this issue.</description>
+        <externalId>false</externalId>
+        <label>Subcontractor Action Needed</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Violation_severity__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( Explanation_Accepted__c = true,0, IF( ISPICKVAL(DefectType__c , &quot;Ducts Not Done&quot;), 1, 0)  +  IF( ISPICKVAL(DefectType__c , &quot;Health And Safety Risk&quot;), 3, 0)+ IF(ISPICKVAL(DefectType__c , &quot;Insulation Incorrect&quot;), 1, 0)+ IF( ISPICKVAL(DefectType__c , &quot;Missing Air Sealing&quot;), 1, 0)+ IF( ISPICKVAL(DefectType__c ,&quot;Missing Filters&quot;), 1, 0)+ IF( ISPICKVAL(DefectType__c ,  &quot;Missing Light Bulbs&quot;), 1, 0)+ IF( ISPICKVAL(DefectType__c , &quot;Missing Thermostat&quot;), 1, 0)+ IF(ISPICKVAL(DefectType__c , &quot;Other&quot;), 1, 0))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Calculates violation severity. 1 for each violation,3 for health and safety</inlineHelpText>
+        <label>Violation severity</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>comments__c</fullName>
+        <externalId>false</externalId>
+        <label>Comments</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>5</visibleLines>
+    </fields>
+    <label>Defect</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>Project_Type__c</columns>
+        <columns>Project__c</columns>
+        <columns>DefectType__c</columns>
+        <columns>Subcontractor_Action_Needed__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>EE_Defects</fullName>
+        <columns>NAME</columns>
+        <columns>DefectType__c</columns>
+        <columns>Violation_severity__c</columns>
+        <columns>Subcontractor_Action_Needed__c</columns>
+        <columns>Corrective_Action_Taken__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Defect__c.EE_QC</value>
+        </filters>
+        <label>EE Defects</label>
+    </listViews>
+    <listViews>
+        <fullName>PV_Install_Defects</fullName>
+        <columns>NAME</columns>
+        <columns>Project__c</columns>
+        <columns>DefectType__c</columns>
+        <columns>Description__c</columns>
+        <columns>Ops_Defect_Severity__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Project_Type__c</field>
+            <operation>contains</operation>
+            <value>install</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Defect__c.PV_Install_QC</value>
+        </filters>
+        <label>PV Install Defects</label>
+    </listViews>
+    <nameField>
+        <displayFormat>DEF-{00000}</displayFormat>
+        <label>Defect ID</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Defects</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>EE_QC</fullName>
+        <active>true</active>
+        <label>EE QC</label>
+        <picklistValues>
+            <picklist>DefectType__c</picklist>
+            <values>
+                <fullName>Aesthetics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer interaction</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Documentation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ducts Not Done</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Health And Safety Risk</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Insulation Incorrect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Missing Air Sealing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Missing Filters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Missing Light Bulbs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Missing Thermostat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Description__c</picklist>
+            <values>
+                <fullName>C</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fine_assessed__c</picklist>
+            <values>
+                <fullName>100</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>500</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Ops_Defect_Severity__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>PV_Install_QC</fullName>
+        <active>true</active>
+        <label>PV Install QC</label>
+        <picklistValues>
+            <picklist>DefectType__c</picklist>
+            <values>
+                <fullName>Aesthetics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Code Compliance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Damage</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Documentation</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Environmental Suitability</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Operation %26 Production</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Racking %26 Mounting</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Description__c</picklist>
+            <values>
+                <fullName>Breakers</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>C</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cantilever</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Combiner boxes sealed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Conduit appearance</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Connectors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disconnect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Equipment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Equipment clearances</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Equipment tidiness</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Error codes</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Exposed conductors</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Flashing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Flush and straight arrays</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Grounding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gutters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hardware</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install trash left on site</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inverter%28s%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Junction boxes accessible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Labels%2Fplacards</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Leaks</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Modules</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Polarity</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Property</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rail span</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shading issues</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shingles%2Froof material</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>String lengths</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wire management</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wire%2Fconduit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wiring Terminations</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Fine_assessed__c</picklist>
+            <values>
+                <fullName>100</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>500</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Ops_Defect_Severity__c</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

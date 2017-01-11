@@ -1,0 +1,36 @@
+<apex:page standardController="success__Achievement__c" extensions="success.AchievementController,success.AchievementWrapper" action="{!redirect}">
+	
+	<apex:form id="mainForm">
+      <apex:pageBlock title="{!$Label.step} 1: {!$Label.select} {!$ObjectType.success__Achievement__c.Fields.success__Object__c.Label}" mode="edit" >
+  		<apex:pagemessages />
+      	<apex:pageBlockButtons location="top">
+      		<apex:actionStatus id="mainStatus">
+      			<apex:facet name="stop">
+      				<apex:outputPanel >
+    		        	<apex:commandButton title="{!$Label.next}" value="{!$Label.next}" action="{!Step2}" disabled="{!objectName == null}"/>
+            			<apex:commandButton title="{!$Label.cancel}" value="{!$Label.cancel}" action="{!Cancel}"/>
+        			</apex:outputPanel>
+        		</apex:facet>
+
+      			<apex:facet name="start">
+      				<apex:outputPanel >
+    		        	<apex:commandButton title="{!$Label.next}" value="{!$Label.next}" disabled="true"/>
+            			<apex:commandButton title="{!$Label.cancel}" value="{!$Label.cancel}" disabled="true"/>
+        			</apex:outputPanel>
+        		</apex:facet>        		
+        	</apex:actionStatus>
+        </apex:pageBlockButtons>
+     	
+		<apex:pageBlockSection title="{!$Label.achievement_step1_helptext}">
+			<apex:outputPanel styleClass="requiredInput" layout="block" >
+	    		<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+				<apex:SelectList value="{!objectName}" size="1"  rendered="{!$ObjectType.success__Achievement__c.Fields.success__Object__c.updateable}">
+			      <apex:selectOptions value="{!ObjectNames}"></apex:selectOptions>
+			      <apex:actionSupport event="onchange" action="{!justRefresh}" reRender="mainForm" status="mainStatus"/>
+			    </apex:SelectList>
+		    </apex:outputPanel>
+		</apex:pageBlockSection>  
+      </apex:pageBlock>
+	</apex:form>
+	
+</apex:page>

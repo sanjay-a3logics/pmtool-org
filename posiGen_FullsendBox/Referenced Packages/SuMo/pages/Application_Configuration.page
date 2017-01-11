@@ -1,0 +1,1272 @@
+<apex:page controller="success.ApplicationConfigurationController" >
+    
+ <apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/neutral/jquery-ui-1.11.1.custom.min.css')}" />
+    
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.11.1.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.11.1.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQueryPajinate)}" />
+<script type="text/javascript">var $sj = successJQ.noConflict();</script>
+<apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+
+    <script>
+        var selectedUserRolesArray = [];
+
+        (function($) {
+            
+            $(function() {
+                $( "#accordion" ).accordion({
+                    heightStyle: "content",
+                    navigation: true,
+                    collapsible: true,
+                    header: "h3.jUIHeader"
+                });
+            });
+
+
+        })($sj);
+
+
+        _sumoversions = {};
+
+    </script>
+    <c:Visibility edition="Inspire">
+        <script type="text/javascript">
+            _sumoversions.inspire = true;
+        </script>
+    </c:Visibility>
+    <c:Visibility edition="Energise">
+        <script type="text/javascript">
+            _sumoversions.energise = true;
+        </script>
+    </c:Visibility>
+    <c:Visibility edition="Achieve">
+        <script type="text/javascript">
+            _sumoversions.achieve = true;
+        </script>
+    </c:Visibility>
+
+
+
+
+    <script type="text/javascript" 
+        src="{!URLFOR($Resource.DeployCustomObjectTriggerBundle, 'vendor/jsforce.min.js')}"></script>
+    <script type="text/javascript" src="{!URLFOR($Resource.JSZip)}"></script>
+    <!-- Mandatory in IE 6, 7, 8 and 9. -->
+    <!--[if IE]>
+        <script type="text/javascript" src="dist/jszip-utils-ie.js">
+        !function a(b,c,d){function e(g,h){if(!c[g]){if(!b[g]){var i="function"==typeof require&&require;if(!h&&i)return i(g,!0);if(f)return f(g,!0);throw new Error("Cannot find module '"+g+"'")}var j=c[g]={exports:{}};b[g][0].call(j.exports,function(a){var c=b[g][1][a];return e(c?c:a)},j,j.exports,a,b,c,d)}return c[g].exports}for(var f="function"==typeof require&&require,g=0;g<d.length;g++)e(d[g]);return e}({1:[function(){var a="undefined"!=typeof self?self:"undefined"!=typeof window?window:{},b="\r\n<script type='text/vbscript'>\r\nFunction IEBinaryToArray_ByteStr(Binary)\r\n   IEBinaryToArray_ByteStr = CStr(Binary)\r\nEnd Function\r\nFunction IEBinaryToArray_ByteStr_Last(Binary)\r\n   Dim lastIndex\r\n   lastIndex = LenB(Binary)\r\n   if lastIndex mod 2 Then\r\n       IEBinaryToArray_ByteStr_Last = Chr( AscB( MidB( Binary, lastIndex, 1 ) ) )\r\n   Else\r\n       IEBinaryToArray_ByteStr_Last = \"\"\r\n   End If\r\nEnd Function\r\n</script>\r\n";document.write(b),a.JSZipUtils._getBinaryFromXHR=function(a){for(var b=a.responseBody,c={},d=0;256>d;d++)for(var e=0;256>e;e++)c[String.fromCharCode(d+(e<<8))]=String.fromCharCode(d)+String.fromCharCode(e);var f=IEBinaryToArray_ByteStr(b),g=IEBinaryToArray_ByteStr_Last(b);return f.replace(/[\s\S]/g,function(a){return c[a]})+g}},{}]},{},[1]);
+        </script>
+    <![endif]-->
+
+
+
+    <script type="text/javascript">
+
+    window.successpostinstall__timer = undefined;
+    window.successpostinstall__debugLineTickIndex = 0;
+    window.successpostinstall__debugLineTick = function () {
+        successpostinstall__debugLineTickIndex++;
+        var n = (successpostinstall__debugLineTickIndex % 10) < 5
+            ? (successpostinstall__debugLineTickIndex % 10)
+            : 5 - (successpostinstall__debugLineTickIndex % 5);
+        $sj('#postinstall-status').html(successpostinstall__debugLine + new Array(++n).join('.') );
+    };
+
+    window.successpostinstall__setDebugLine = function (_text, _doNotTick) {
+        window.successpostinstall__debugLineTickIndex = 0;
+        successpostinstall__debugLine = _text;
+        $sj('#postinstall-status').html(_text);
+        if (successpostinstall__timer) clearInterval(successpostinstall__timer);
+        if (!_doNotTick) {
+            successpostinstall__timer = setInterval(successpostinstall__debugLineTick, 1800);
+        }
+    };
+
+    window.successpostinstall__appendDebugLine = function (_text) {
+        if (successpostinstall__timer) clearInterval(successpostinstall__timer);
+        $sj('#postinstall-status').html(successpostinstall__debugLine + '... ' + _text);
+    };
+
+
+    window.successpostinstall__running = false;
+
+    var runningUserName = '{!$User.Username}',
+        hasNamespace = '{!$ObjectType.User.fields.Experience__c.Name}'.toLowerCase()
+                            !=
+                        '{!$ObjectType.User.fields.Experience__c.LocalName}'.toLowerCase(),
+        nsprefix = hasNamespace ? 'success__' : '',        
+        __sfdcSessionId = '{!$Api.Session_Id}';
+
+    jsforce.modules.api.Metadata.prototype.pollInterval = 5000; //5 seconds
+    jsforce.modules.api.Metadata.prototype.pollTimeout = 1000 * 60 * 60 * 2; //2 hours
+
+    window.jsForceConnection = new jsforce.Connection({
+      serverUrl : window.location.protocol + '//' + window.location.host,
+      sessionId : '{!$Api.Session_Id}',
+      version: 34
+    });
+
+    successpostinstall__errors = [];
+
+    function startPostInstall () {
+
+        if (successpostinstall__running) return false;
+
+        successpostinstall__errors = [];
+        successpostinstall__running = true;
+
+        if (_sumoversions.inspire) {
+            
+            successpostinstall__setDebugLine(
+                'Scheduling the Inspire Message housekeeping job.'
+            );
+
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.ApplicationConfigurationController.setupInspire}',
+                function (res, event) {
+                    if (event.status) {
+                        successpostinstall__appendDebugLine('Done');
+                        setTimeout(function () {
+                            continuePostInstall2();
+                        }, 1500);
+                    }
+                    else {
+                        successpostinstall__appendDebugLine('Error');
+                        successpostinstall__errors.push({
+                            item: 'Inspire Setup',
+                            err: $sj('<div />').text(event.message).html()
+                        });
+                        setTimeout(function () {
+                            continuePostInstall2();
+                        }, 1500);
+                    }
+                }
+            )
+        }
+        else {
+            continuePostInstall2();
+        }
+
+        return false;
+
+    }
+
+    function continuePostInstall () {
+
+        if (_sumoversions.inspire) {
+            successpostinstall__appendDebugLine('Done');
+        }
+        else {
+            successpostinstall__appendDebugLine('Ready');
+        }
+
+        setTimeout(function () {
+            continuePostInstall2();
+        }, 1500);
+
+    }
+
+
+    function continuePostInstall2 () {
+
+        successpostinstall__setDebugLine(
+            'Setting the status of seed Achievements.'
+        );
+
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.ApplicationConfigurationController.setDefaultSeedAchievementsStatusByEdition}',
+            function (res, event) {
+                if (event.status) {
+                    successpostinstall__appendDebugLine('Done');
+                    setTimeout(function () {
+                        continuePostInstall2AndAPenny();
+                    }, 1500);
+                }
+                else {
+                    successpostinstall__appendDebugLine('Error');
+                    successpostinstall__errors.push({
+                        item: 'Seed Achievements Setup',
+                        err: $sj('<div />').text(event.message).html()
+                    });
+                    setTimeout(function () {
+                        continuePostInstall2AndAPenny();
+                    }, 1500);
+                }
+            }
+        );
+
+    }
+
+    function continuePostInstall2AndAPenny () {
+
+        if ('{!$Organization.Id}'.substr(0, 15).toLowerCase() == '00Dd0000000hRRT'.toLowerCase()) {
+            
+            successpostinstall__setDebugLine(
+                'Thou shalt not deploy in the Packaging Org - Process COMPLETED for ya'
+            );
+
+            return;
+
+        }
+
+        successpostinstall__setDebugLine(
+            'Preparing for Metadata deployment'
+        );
+
+        JSZipUtils.getBinaryContent('{!URLFOR($Resource.PostInstallMetadata, '')}', function(err, data) {
+            
+            if(err) {
+                throw err; // or handle err
+            }
+
+            continuePostInstall2AndAHalf(new JSZip(data));
+
+        });
+
+    };
+
+    var deployZip = function (_zipFile, _multiPkg) {
+
+        var defer = $sj.Deferred();
+        
+        window.jsForceConnection
+            .metadata
+            .deploy(_zipFile, {
+                singlePackage: false, //!_multiPkg,
+                rollbackOnError: true,
+                runAllTests: false,
+                autoUpdatePackage: true
+            })
+            .progress(function (asyncDeploymentResult) {
+                console.log(arguments);
+
+            })
+            .complete(true, function(err, result) {
+                console.log(arguments);
+                defer.resolve({err: err, result: result});
+            });
+
+        return defer.promise();
+
+    };
+
+
+    var successpostinstall__hasAchievementManagedAllListView = false;
+
+    var successpostinstall__rewardTimeLimitWf,
+        successpostinstall__competitionStartDateWf,
+        successpostinstall__competitionEndDateWf;
+
+    function continuePostInstall2AndAHalf (fullZip) {
+
+        if (!_sumoversions.energise) {
+            continuePostInstall3(fullZip);
+            return;
+        }
+
+        window.jsForceConnection
+            .metadata
+            .list([{type: 'WorkflowRule'},{type: 'ListView'}], function(err, result) {
+
+                if (err) { 
+
+                    successpostinstall__appendDebugLine('Ready');
+
+                    setTimeout(function () {
+                        continuePostInstall3(fullZip);
+                    }, 1800);
+
+                    return;
+                }
+
+                var _wfToCheck = [];
+                _.each(result, function (el, i) {
+                    
+                    if (el.type == "ListView" && !(el.manageableState == 'unmanaged') && el.fullName) {
+                        var lvlower = el.fullName.toLowerCase();
+                        if (lvlower == 'success__achievement__c.success__all') {
+                            successpostinstall__hasAchievementManagedAllListView = true;
+                        }
+                        else if (lvlower == 'success__team__c.success__level_ups') {
+                            successpostinstall__hasAchievementManagedLevelsListView = true;
+                        }
+                        else if (lvlower == 'success__team__c.success__challenge_achievements') {
+                            successpostinstall__hasAchievementManagedChallengesListView = true;
+                        }
+                        else if (lvlower == 'success__team__c.success__perpetual_group') {
+                            successpostinstall__hasTeamManagedGroupListView = true;
+                        }
+                        else if (lvlower == 'success__team__c.success__targeted_behaviour') {
+                            successpostinstall__hasTeamManagedTargetListView = true;
+                        }
+                    }
+                    else if (
+                        el.fullName
+                        && el.manageableState == 'unmanaged'
+                        && (el.fullName.toLowerCase().indexOf('reward__c') > -1 
+                            || el.fullName.toLowerCase().indexOf('team__c') > -1)
+                        && (!hasNamespace 
+                            || el.fullName.toLowerCase().indexOf('success__') > -1)
+                    ) {
+                        _wfToCheck.push(el.fullName);
+                    }
+                });
+
+                if (_wfToCheck.length == 0) {
+                    
+                    successpostinstall__appendDebugLine('Ready');
+                    
+                    setTimeout(function () {
+                        continuePostInstall3(fullZip);
+                    }, 1800);
+
+                    return;
+                }
+
+                var _chunks = Math.ceil(_wfToCheck.length / 10);
+
+                var _chunki = 0, _done = false;
+
+                var _doneWithWfCheckChunk = function () {
+                    if (++_chunki == _chunks && !_done) {
+
+                        _done = true;
+
+                        successpostinstall__appendDebugLine('Ready');
+
+                        setTimeout(function () {
+                            continuePostInstall3(fullZip);
+                        }, 1800);
+                    }
+                };
+
+                for (var _ix = 0; _ix < _chunks; _ix++) {
+
+                    window.jsForceConnection
+                            .metadata
+                            .read( 
+                                'WorkflowRule', 
+                                _wfToCheck.slice(_ix * 10, Math.min((_ix + 1) * 10, _wfToCheck.length)), 
+                                function(err, metadata) {
+
+                                    if (err) { 
+                                        _doneWithWfCheckChunk();
+                                        return;
+                                    }
+
+                                    for (var i=0; i < metadata.length; i++) {
+
+                                        var _el = metadata[i];
+
+                                        //fix bug whereby empty objects are returned
+                                        if (!_el.fullName) {
+                                            continue;
+                                        }
+
+                                        if (_el.fullName.toLowerCase().indexOf('reward') > -1) {
+                                            /* check for rew time limit set */
+                                            if (_el.workflowTimeTriggers) {
+                                                if (_el.workflowTimeTriggers.push) {
+                                                    for (var ii=0; ii < _el.workflowTimeTriggers.length; ii++) {
+                                                        if (_el.workflowTimeTriggers[ii].offsetFromField
+                                                                    .toLowerCase()
+                                                                    .indexOf('time_limit_date_time__c') > -1) 
+                                                        {
+                                                            successpostinstall__rewardTimeLimitWf = _el.fullName;
+                                                        }
+                                                    }
+                                                }
+                                                else {
+                                                    if (_el.workflowTimeTriggers.offsetFromField
+                                                                .toLowerCase()
+                                                                .indexOf('time_limit_date_time__c') > -1) 
+                                                    {
+                                                        successpostinstall__rewardTimeLimitWf = _el.fullName
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            /* check for team with start date */
+                                            /* check for team with end date */
+                                            if (_el.workflowTimeTriggers) {
+                                                if (_el.workflowTimeTriggers.push) {
+                                                    for (var ii=0; ii < _el.workflowTimeTriggers.length; ii++) {
+                                                        if (_el.workflowTimeTriggers[ii].offsetFromField
+                                                                    .toLowerCase()
+                                                                    .indexOf('start_date_time__c') > -1) 
+                                                        {
+                                                            successpostinstall__competitionStartDateWf = _el.fullName;
+                                                        }
+                                                        else if (_el.workflowTimeTriggers[ii].offsetFromField
+                                                                    .toLowerCase()
+                                                                    .indexOf('end_date_time__c') > -1) 
+                                                        {
+                                                            successpostinstall__competitionEndDateWf = _el.fullName;
+                                                        }
+                                                    }
+                                                }
+                                                else {
+                                                    if (_el.workflowTimeTriggers.offsetFromField
+                                                                .toLowerCase()
+                                                                .indexOf('start_date_time__c') > -1) 
+                                                    {
+                                                        successpostinstall__competitionStartDateWf = _el.fullName;
+                                                    }
+                                                    else if (_el.workflowTimeTriggers.offsetFromField
+                                                                .toLowerCase()
+                                                                .indexOf('end_date_time__c') > -1) 
+                                                    {
+                                                        successpostinstall__competitionEndDateWf = _el.fullName;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    _doneWithWfCheckChunk();
+
+                                });
+                }
+            });
+
+
+
+    };
+
+    function continuePostInstall3 (fullZip) {
+
+        /**********************/
+
+        //var fullZip = new JSZip(data);
+
+        /**********************/
+
+        var defer = $sj.Deferred();
+
+        var deployZips = [];
+
+        deployZips.push(new JSZip());
+
+        deployZips[0].file('unpackaged/package.xml', fullZip.file('package.xml').asText());
+
+        /* time-based workflows */
+        var teamWorkflows = fullZip.file('workflows/Team__c.workflow').asText(),
+            rewardWorkflows = fullZip.file('workflows/Reward__c.workflow').asText();
+
+        var cmpstartwfname = successpostinstall__competitionStartDateWf
+                        ? successpostinstall__competitionStartDateWf.substring(successpostinstall__competitionStartDateWf.indexOf('.') + 1)
+                        : 'Ready Competition With Start Date (Active)';
+        teamWorkflows = teamWorkflows.replace(/COMPETITIONSTARTDATEWORKFLOWNAME/g, cmpstartwfname);
+
+        var cmpendwfname = successpostinstall__competitionEndDateWf
+                        ? successpostinstall__competitionEndDateWf.substring(successpostinstall__competitionEndDateWf.indexOf('.') + 1)
+                        : 'Running Competition With End Date (Active)';
+        teamWorkflows = teamWorkflows.replace(/COMPETITIONENDDATEWORKFLOWNAME/g, cmpendwfname);
+
+        var rwwfname = successpostinstall__rewardTimeLimitWf
+                        ? successpostinstall__rewardTimeLimitWf.substring(successpostinstall__rewardTimeLimitWf.indexOf('.') + 1)
+                        : 'Time Limit Set (Active)';                        
+        rewardWorkflows = rewardWorkflows.replace(/REWARDWORKFLOWRULENAME/g, rwwfname);
+
+        teamWorkflows = teamWorkflows.replace(/\\$NS\\$/g, nsprefix);
+        rewardWorkflows = rewardWorkflows.replace(/\\$NS\\$/g, nsprefix);
+
+        deployZips[0].file('unpackaged/workflows/' + nsprefix + 'Team__c.workflow', teamWorkflows);
+        deployZips[0].file('unpackaged/workflows/' + nsprefix + 'Reward__c.workflow', rewardWorkflows);
+
+        /* workflow activation */
+        if (_sumoversions.achieve || _sumoversions.energise) {
+
+            deployZips.push(new JSZip());
+
+            deployZips[1].file('unpackaged/package.xml', fullZip.file('package.xml').asText());
+
+            teamWorkflows = teamWorkflows.replace(/\<active\>false\<\/active\>/g, '<active>true</active>');
+            rewardWorkflows = rewardWorkflows.replace(/\<active\>false\<\/active\>/g, '<active>true</active>');
+
+            deployZips[1].file('unpackaged/workflows/' + nsprefix + 'Team__c.workflow', teamWorkflows);
+            deployZips[1].file('unpackaged/workflows/' + nsprefix + 'Reward__c.workflow', rewardWorkflows);
+
+        }
+
+        var _postfix = (_sumoversions.achieve || _sumoversions.inspire)
+                                ? (
+                                    _sumoversions.achieve ?
+                                        (_sumoversions.inspire ?
+                                            '.achieve-inspire'
+                                            : '.achieve')
+                                        : (_sumoversions.energise
+                                            ? '.inspire-energise'
+                                            : '.inspire-only')
+                                )
+                                : '.energise-only';
+
+
+        /* application tabs menu */
+
+        deployZips[0].file('unpackaged/applications/' + nsprefix + 'CloudApps_SuMo.app', 
+            fullZip.file('applications/CloudApps_SuMo.app' + _postfix)
+                .asText()
+                .replace(/\\$NS\\$/g, nsprefix));
+
+        var achieveAllNs = window.successpostinstall__hasAchievementManagedAllListView
+                                ? 'success__'
+                                : '';
+
+        var achieveLevelNs = window.successpostinstall__hasAchievementManagedLevelsListView
+                                ? 'success__'
+                                : '';
+
+        var achieveChallengeNs = window.successpostinstall__hasAchievementManagedChallengesListView
+                                ? 'success__'
+                                : '';
+
+        var teamGroupNs = window.successpostinstall__hasTeamManagedGroupListView
+                                ? 'success__'
+                                : '';
+
+        var targetGroupNs = window.successpostinstall__hasTeamManagedTargetListView
+                                ? 'success__'
+                                : '';
+
+        /* achievement list views */
+        if (_sumoversions.achieve) {
+
+            deployZips[0].file('unpackaged/objects/' + nsprefix + 'Team__c.object', 
+                fullZip.file('objects/Team__c.object.achieve')
+                    .asText()
+                    .replace(/\\$NS\\$/g, nsprefix)
+                    .replace(/\\$NSGROUPTEAMS\\$/g, teamGroupNs)
+                    .replace(/\\$NSTARGETTEAMS\\$/g, targetGroupNs));
+
+            deployZips[0].file('unpackaged/objects/' + nsprefix + 'Achievement__c.object', 
+                fullZip.file('objects/Achievement__c.object.achieve')
+                    .asText()
+                    .replace(/\\$NS\\$/g, nsprefix)
+                    .replace(/\\$NSALLACHIEVEMENTS\\$/g, achieveAllNs)
+                    .replace(/\\$NSLEVEL\\$/g, achieveLevelNs)
+                    .replace(/\\$NSCHALLENGE\\$/g, achieveChallengeNs));
+
+
+        }
+        else {
+
+            deployZips[0].file('unpackaged/objects/' + nsprefix + 'Team__c.object', 
+                fullZip.file('objects/Team__c.object.non-achieve')
+                    .asText()
+                    .replace(/\\$NS\\$/g, nsprefix)
+                    .replace(/\\$NSGROUPTEAMS\\$/g, teamGroupNs)
+                    .replace(/\\$NSTARGETTEAMS\\$/g, targetGroupNs));
+
+            deployZips[0].file('unpackaged/objects/' + nsprefix + 'Achievement__c.object', 
+                fullZip.file('objects/Achievement__c.object.non-achieve')
+                    .asText()
+                    .replace(/\\$NS\\$/g, nsprefix)
+                    .replace(/\\$NSALLACHIEVEMENTS\\$/g, achieveAllNs)
+                    .replace(/\\$NSLEVEL\\$/g, achieveLevelNs)
+                    .replace(/\\$NSCHALLENGE\\$/g, achieveChallengeNs));
+        }
+
+        successpostinstall__setDebugLine('Deploying Metadata');
+
+        deployZip(deployZips[0].generate()).then(function (result) {
+
+            var _failed = false;
+
+            if (result.result.success === false || result.result.success === 'false') {
+
+                _failed = true;
+
+                var err = result.result.details.componentFailures
+                                        ? (result.result.details.componentFailures.push
+                                                ? result.result.details.componentFailures[0].problem
+                                                : result.result.details.componentFailures.problem )
+                                        : (result.result.errorMessage
+                                            ? result.result.errorMessage
+                                            : 'Unknown error');
+                //successpostinstall__appendDebugLine('FAILED - First Error: ' + err);
+
+                successpostinstall__errors.push({
+                    item: 'Metadata Deployment',
+                    err: err
+                });
+
+            }
+
+            if (!_failed && deployZips.length > 1) {
+                
+                successpostinstall__appendDebugLine('Done');
+
+                setTimeout(function () {
+
+                    successpostinstall__setDebugLine('Activating Workflows');
+
+                    deployZip(deployZips[1].generate()).then(function (result) {
+
+                        if (result.result.success === false || result.result.success === 'false') {
+
+                            var err = result.result.details.componentFailures
+                                        ? (result.result.details.componentFailures.push
+                                                ? result.result.details.componentFailures[0].problem
+                                                : result.result.details.componentFailures.problem )
+                                        : (result.result.errorMessage
+                                            ? result.result.errorMessage
+                                            : 'Unknown error');
+
+                            successpostinstall__errors.push({
+                                item: 'Workflow Rule Activation',
+                                err: err
+                            });
+                        }
+
+                        successpostinstall__setDebugLine('Process COMPLETED', true);
+
+                        var _txt = 'Process COMPLETED';
+
+                        if (successpostinstall__errors.length) {
+                            _txt += ' (with Errors)<br />';
+                            for (var i = 0; i < successpostinstall__errors.length; i++) {
+                                _txt += successpostinstall__errors[i].item + ': ' + successpostinstall__errors[i].err;
+                            }
+                        }
+
+                        successpostinstall__setDebugLine(_txt, true);
+                        successpostinstall__running = false;
+
+                    });
+
+                }, 1800);
+            }
+            else {
+
+                var _txt = 'Process COMPLETED';
+
+                if (successpostinstall__errors.length) {
+                    _txt += ' (with Errors)<br />';
+                    for (var i = 0; i < successpostinstall__errors.length; i++) {
+                        _txt += successpostinstall__errors[i].item + ': ' + successpostinstall__errors[i].err;
+                    }
+                }
+
+                successpostinstall__setDebugLine(_txt, true);
+                successpostinstall__running = false;
+            }
+
+        });
+
+
+    };
+
+
+
+
+    successseeddata__actions = [
+        {item: 'Graphics', act: '{!$RemoteAction.ApplicationConfigurationController.loadGraphics}'},
+        {item: 'Level Sets', act: '{!$RemoteAction.ApplicationConfigurationController.loadSets}'},
+        {depends: 1, item: 'Achievements', act: '{!$RemoteAction.ApplicationConfigurationController.loadAchievements}'},
+        {depends: 2, item: 'Challenges', act: '{!$RemoteAction.ApplicationConfigurationController.loadChallenges}'},
+        {depends: 3, item: 'Challenge Criteria', act: '{!$RemoteAction.ApplicationConfigurationController.loadChallengeCriterias}'},
+        {depends: 2, item: 'Achievement Criteria', act: '{!$RemoteAction.ApplicationConfigurationController.loadAchievementCriterias}'},
+        {depends: 2, item: 'Competitions', act: '{!$RemoteAction.ApplicationConfigurationController.loadCompetitions}'},
+        {depends: 2, item: 'Objectives', act: '{!$RemoteAction.ApplicationConfigurationController.loadObjectives}'},
+        {depends: [2, 6], item: 'Competition Achievements', act: '{!$RemoteAction.ApplicationConfigurationController.loadCompetitionAchievements}'},
+        {item: 'Styles', act: '{!$RemoteAction.ApplicationConfigurationController.loadStyles}'},
+        {item: 'Channels', act: '{!$RemoteAction.ApplicationConfigurationController.loadChannels}'}
+    ];
+
+    window.successseeddata__timer = undefined;
+    window.successseeddata__debugLineTickIndex = 0;
+    window.successseeddata__debugLineTick = function () {
+        successseeddata__debugLineTickIndex++;
+        var n = (successseeddata__debugLineTickIndex % 10) < 5
+            ? (successseeddata__debugLineTickIndex % 10)
+            : 5 - (successseeddata__debugLineTickIndex % 5);
+        $sj('#seeddata-status').html(successseeddata__debugLine + new Array(++n).join('.') );
+    };
+
+    window.successseeddata__setDebugLine = function (_text, _doNotTick) {
+        window.successseeddata__debugLineTickIndex = 0;
+        successseeddata__debugLine = _text;
+        $sj('#seeddata-status').html(_text);
+        if (successseeddata__timer) clearInterval(successseeddata__timer);
+        if (!_doNotTick) {
+            successseeddata__timer = setInterval(successseeddata__debugLineTick, 1800);
+        }
+    };
+
+    window.successseeddata__appendDebugLine = function (_text) {
+        if (successseeddata__timer) clearInterval(successseeddata__timer);
+        $sj('#seeddata-status').html(successseeddata__debugLine + '... ' + _text);
+    };
+
+    successseeddata__index = 0;
+    successseeddata__running = false;
+    successseeddata__errors = [];
+
+    function successseeddata__load () {
+
+        if (successseeddata__running) return false;
+
+        successseeddata__index = 0;
+
+        successseeddata__running = true;
+
+        successseeddata__errors = [];
+
+        successseeddata__overwrite = !!successseeddata__checkbox.is(':checked');
+
+        successseeddata__executeCall();
+
+        return false;
+
+    };
+
+    function successseeddata__executeCall () {
+
+        /* update msg */
+        var _vvv = successseeddata__overwrite
+                    ? 'Inserting & Updating'
+                    : 'Inserting';
+
+        successseeddata__setDebugLine(_vvv + ' ' + successseeddata__actions[successseeddata__index].item);
+
+        Visualforce.remoting.Manager.invokeAction(
+            successseeddata__actions[successseeddata__index].act,
+            successseeddata__overwrite,
+            successseeddata__callFinished
+        );
+
+    };
+
+    function successseeddata__executeThemesCall (cback) {
+
+        /* update msg */
+        var _vvv = successseeddata__overwrite
+                    ? 'Inserting &amp; Updating'
+                    : 'Inserting';
+
+        successseeddata__setDebugLine(_vvv + ' Theme Settings');
+
+        Visualforce.remoting.Manager.invokeAction(
+            '{!$RemoteAction.ApplicationConfigurationController.loadThemeSettings}',
+            cback
+        );
+
+    };
+
+
+    function successseeddata__callFinished (res, event) {
+
+        if (event.status) {
+            successseeddata__actions[successseeddata__index].ok = true;
+            successseeddata__appendDebugLine('Done');
+        }
+        else {
+            successseeddata__actions[successseeddata__index].ok = false;
+            successseeddata__errors.push({
+                el: successseeddata__actions[successseeddata__index],
+                err: $sj('<div />').text(event.message).html()
+            });
+            successseeddata__appendDebugLine('Error');
+        }
+
+        /* update msg DONE */
+
+        var _finish = function (res, event) {
+
+             if (event && !event.status) {
+                successseeddata__errors.push({
+                    el: 'Theme Settings',
+                    err: $sj('<div />').text(event.message).html()
+                });
+            }
+
+            var _txt = 'Process COMPLETED';
+
+            if (successseeddata__errors.length) {
+                _txt += ' (with Errors)<br />';
+            }
+
+            for (var i = 0; i < successseeddata__errors.length; i++) {
+                if (!successseeddata__errors[i].skept) {
+                    _txt += successseeddata__errors[i].el.item + ': ' + successseeddata__errors[i].err + '<br />';
+                }
+            }
+            for (var i = 0; i < successseeddata__errors.length; i++) {
+                if (successseeddata__errors[i].skept) {
+                    _txt += successseeddata__errors[i].el.item 
+                            + ' not '
+                            + (successseeddata__overwrite
+                                ? 'Inserted/Updated'
+                                : 'Inserted')
+                            + '<br />';
+                }
+            }
+
+            successseeddata__setDebugLine(_txt, true);
+            successseeddata__running = false;
+        };
+
+        var _prefinish = function () {
+            if (successseeddata__overwrite) {
+                /* update msg */
+                setTimeout(function () {
+                    successseeddata__executeThemesCall(_finish);
+                }, 1800);
+            }
+            else {
+                /* finished */
+                _finish();
+            }
+        };
+
+        if (successseeddata__index == (successseeddata__actions.length - 1)) {
+            _prefinish();
+        }
+        else {
+
+            while (successseeddata__index != (successseeddata__actions.length - 1)) {
+
+                successseeddata__index++;
+
+                var _skip = false;
+
+                if (successseeddata__actions[successseeddata__index].depends) {
+                    if (successseeddata__actions[successseeddata__index].depends.push) {
+                        for (var ei = 0; ei < successseeddata__actions[successseeddata__index].depends.length; ei++) {
+                            if (successseeddata__actions[successseeddata__actions[successseeddata__index].depends[ei]].ok != true) {
+                                _skip = true;
+                            }
+                        }
+                    }
+                    else {
+                        if (successseeddata__actions[successseeddata__actions[successseeddata__index].depends].ok  != true) {
+                            _skip = true;
+                        }
+                    }
+                }
+
+                if (_skip) {
+                    successseeddata__errors.push({
+                        el: successseeddata__actions[successseeddata__index],
+                        skept: true
+                    });
+                    continue;
+                }
+
+                setTimeout(successseeddata__executeCall, 1800);
+
+                return;
+
+            }
+
+            _prefinish();
+
+        }
+
+    };
+
+    </script>
+
+
+    
+    <style>
+        .jUIHeader {display:block;}
+        .page_navigation {width:200px;margin:0 auto}
+        .page_navigation {padding-bottom:25px}
+        .page_navigation a{padding:3px 5px;margin:2px;color:#222;text-decoration:none;float:left;font-family:Arial,"Lucida Grande",sans-serif;font-size:12px;background-color:transparent !important; line-height:16px; height: 16px;text-decoration: none !important}
+        .page_navigation a:hover {color:#222 !important;}
+        .page_navigation .active_page {font-weight: bold;}
+        .page_navigation .ellipse {display:none !important;}
+        .page_navigation .page_link {display:none !important;}
+        .page_navigation .no_more {cursor:default;opacity:.35;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=35)";filter: alpha(opacity=35);-moz-opacity: 0.35;}
+
+        .page_navigation .first_link{font-size: 14px!important;padding-top: 2px !important;}
+        .page_navigation .previous_link{font-size: 14px!important;padding-top: 2px !important;}
+        .page_navigation .next_link{font-size: 14px!important;padding-top: 2px !important;}
+        .page_navigation .last_link{font-size: 14px!important;padding-top: 2px !important;}
+
+        .page_navigation .paginationTitle {font-size:12px !important;}
+        /* override standard jQuery UI theme */
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+            border: 1px solid #a2def2 !important;
+            background: #cfeef8 !important;
+            outline: 0 !important;
+        }
+        .ui-state-hover{
+            border: 1px solid #b8e6f5 !important;
+            background: #b8e6f5 !important;
+            outline: 0 !important;
+        }
+        .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+            border: 1px solid #1797c0 !important;
+            background: #1797c0 !important;
+            outline: 0 !important;
+        }
+        .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+            color: #ffffff !important;
+            font-weight: bold !important;
+            outline: 0 !important;
+        }
+    </style>
+    
+<apex:form >
+
+    <apex:image url="{!$Resource.success__Settings_icon}" width="50" height="50" />
+    
+    <div id="accordion">
+        <h3 class="jUIHeader"><a href="#section1">{!$Label.config_documentation}</a></h3>
+        <div>
+                <apex:pageBlock title="{!$Label.config_releases}" mode="maindetail">
+                     <apex:pageBlockSection title="Version 5" columns="1" collapsible="false">
+                        <apex:outputPanel >
+                            <apex:outputLink target="_blank" value="{!featureGuideURL}" rendered="{!NOT(ISNULL(featureGuideURL))}">
+                                {!$Label.config_feature_guide}
+                            </apex:outputLink>
+                            <br/>                       
+                            <apex:outputLink target="_blank" value="{!installGuideURL}" rendered="{!NOT(ISNULL(installGuideURL))}">
+                                {!$Label.config_install_guide}
+                            </apex:outputLink>
+                            <br/>
+                            <apex:outputLink target="_blank" value="{!upgradeGuideURL}" rendered="{!NOT(ISNULL(upgradeGuideURL))}">
+                                {!$Label.config_upgrade_guide}
+                            </apex:outputLink>
+                            <br/>
+                            <apex:outputLink target="_blank" value="{!releaseNotesURL}" rendered="{!NOT(ISNULL(releaseNotesURL))}">
+                                {!$Label.config_release_notes}
+                            </apex:outputLink>
+                        </apex:outputPanel>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+        </div>
+ 
+
+       
+        
+         <h3 class="jUIHeader"><a href="#section2">{!$Label.installation}</a></h3>
+        
+        <div>
+
+
+
+
+               <apex:pageBlock mode="maindetail" title="{!$Label.inspire_postinstall}" id="postInstallSetup">
+                    <apex:pageBlockButtons location="top"> 
+                        <apex:CommandButton value="{!$Label.run}" 
+                                                reRender=""
+                                                onclick="return startPostInstall();"
+                                                oncomplete="continuePostInstall();" />
+                        <span id="postinstall-status"></span>
+                    </apex:pageBlockButtons>
+
+                    <apex:pageBlockSection title="" collapsible="false" columns="1">
+                        <div>
+                            {!$Label.inspire_postinstall_helptext}
+                            <p/>
+                        </div>
+                    </apex:pageBlockSection>
+                </apex:pageBlock>
+
+
+
+
+
+           
+
+        <apex:pageBlock title="{!$Label.config_seedDataMgmt}" mode="maindetail" id="seedDataBlock">
+             <apex:pageMessages />
+
+                <apex:pageBlockButtons location="top">
+                    <apex:CommandButton value="{!$Label.run}" id="updateSeedData" reRender="" onclick="return successseeddata__load()" />
+                    <span id="seeddata-status"></span>                  
+                </apex:pageBlockButtons>
+                
+                <apex:pageBlockSection title="{!$Label.config_seedDataUpdate}" columns="1" collapsible="false"> 
+                     <div id="seedDataContainer">
+                    {!$Label.config_seedDataUpdatehelptext}
+                    <p/>
+                     {!$Label.config_seedDataUpdatehelptext1}
+                    <p/>
+                    </div>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.config_seedDataUpdateoverwrite}" for="overwriteCheckbox" />
+                        <apex:outputPanel >
+                            <apex:inputCheckbox id="overwriteCheckbox" />
+                            <script type="text/javascript">
+                                successseeddata__checkbox = $sj(document.getElementById('{!$Component.overwriteCheckbox}'));
+                            </script>
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>                
+        </apex:pageBlock> 
+
+
+
+        </div>
+        
+        
+        
+
+        <h3 class="jUIHeader"><a href="#section3">{!$Label.configuration}</a></h3>
+        <div>   
+
+        <c:Visibility edition="Energise">
+        <!-- ENERGISE AND ACHIEVE ONLY -->
+
+             <apex:pageBlock title="Objects" mode="maindetail" id="configurationPanel">
+                <apex:pageMessages />
+                <apex:pageBlockSection title="{!$Label.config_triggerenabledobjects}" columns="1" collapsible="false">
+                         <div id="triggerObjectsContainer">
+                                {!$Label.config_triggerenabledobjectshelptext}
+                                <p/>
+                                {!$Label.config_triggerenabledobjectshelptext1}
+                                <p/>
+                                {!$Label.config_triggerenabledobjectshelptext2}&nbsp;<b><a href="{!URLFOR($Page.DeployCustomObjectTrigger)}">{!$Label.triggerDeploy_toolName} {!$Label.tool}</a></b>.
+                                <p/>
+                             </div>                  
+
+                        <apex:outputPanel >                                                    
+                            <apex:pageBlockSectionItem >
+                                <apex:outputLabel value="{!$Label.config_triggerenabledaddobject}" />
+                                <apex:selectList value="{!objectToAdd}" multiselect="false" size="1">
+                                    <apex:actionSupport event="onchange" action="{!addObject}" reRender="configurationPanel" status="postInstallStatus"/>
+                                    <apex:selectOptions value="{!enableableObjects}"/>
+                                </apex:selectList>
+                            </apex:pageBlockSectionItem>
+
+                            <apex:actionStatus id="postInstallStatus">
+                                <apex:facet name="start">
+                                <apex:image value="/img/loading.gif"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:outputPanel>
+                        
+                        <apex:pageBlockTable id="list" value="{!triggerEnabledObjects}" var="o">
+                            <apex:column headerValue="{!$Label.active}">                 
+                                <apex:inputCheckbox value="{!o.isActive}">
+                                    <apex:actionSupport event="onchange" action="{!Save}" reRender="configurationPanel" status="postInstallStatus"/> 
+                                </apex:inputCheckbox>
+                            </apex:column>           
+                            <apex:column headerValue="{!$Label.object_label}" value="{!o.Label}" />
+                            <apex:column headerValue="{!$Label.object_name}" value="{!o.Name}" />
+                            <apex:column headerValue="Edit">
+                                <apex:commandLink action="{!deleteObject}" value="[{!$Label.delete}]" rendered="{!NOT(o.isStandard)}" reRender="configurationPanel" status="postInstallStatus">
+                                    <apex:param name="objectToEditInSettings" value="{!o.Name}" assignTo="{!objectToEditInSettings}"/>
+                                </apex:commandLink>
+                            </apex:column>
+                        </apex:pageBlockTable>
+
+
+
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+
+        </c:Visibility>
+
+        <c:Visibility edition="Inspire">
+
+            <apex:pageBlock mode="maindetail" id="inspireTimingSettings" title="{!$Label.config_inspireTimings_title}">
+
+                <apex:pageMessages />
+
+                <apex:pageBlockButtons location="top">
+                     <apex:commandButton action="{!saveSettings}" value="{!$Label.save}" reRender="inspireTimingSettings" status="inspireTimingStatus" />
+                     <apex:actionStatus id="inspireTimingStatus">
+                        <apex:facet name="start">
+                            <apex:image value="/img/loading.gif"/>
+                        </apex:facet>
+                     </apex:actionStatus>
+                </apex:pageBlockButtons>
+
+                <apex:pageBlockSection title="" columns="1" collapsible="false" id="timeLimitOptions">
+                    
+                    <div>
+                        {!$Label.config_inspireTimings_description}
+                        <p/>
+                    </div>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.config_inspireTimings_broadcast}" />
+                        <apex:outputPanel >
+                            <apex:inputText style="text-align: right" size="3" value="{!inspireBroadcastDuration}" />
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.config_inspireTimings_extDuration}" />
+                        <apex:outputPanel >
+                            <apex:inputText style="text-align: right" size="3" value="{!inspireLeaderboardExtensionDuration}" />
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.config_inspireTimings_iterDuration}" />
+                        <apex:outputPanel >
+                            <apex:inputText style="text-align: right" size="3" value="{!inspireLeaderboardIterationDuration}" />
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.config_inspireTimings_pollDuration}" />
+                        <apex:outputPanel >
+                            <apex:inputText style="text-align: right" size="3" value="{!inspirePollDuration}" />
+                        </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+                </apex:pageBlockSection>
+
+            </apex:pageBlock>
+
+        </c:Visibility>
+
+        </div>
+
+        <c:Visibility edition="Energise">
+        <!-- ENERGISE AND ACHIEVE ONLY -->
+       
+        <h3 class="jUIHeader">{!$Label.customisation}</h3>
+            
+            <div>
+
+            <c:Visibility edition="Achieve">
+            <!-- ACHIEVE ONLY -->       
+                    <apex:pageBlock mode="maindetail" title="{!$Label.config_rewardingarchived}">
+
+                        <apex:pageBlockButtons location="top"> 
+                             <apex:CommandButton action="{!saveSettings}" value="Save" reRender="setComponentVisibilityBlock" status="setComponentVisibilityStatus"/>
+                             <apex:actionStatus id="setComponentVisibilityStatus">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif"/>
+                                </apex:facet>
+                             </apex:actionStatus>
+                        </apex:pageBlockButtons>
+
+                        <apex:pageBlockSection title="" columns="1" collapsible="false">
+                        
+                             <div id="rewardingarchivedContainer">
+                            {!$Label.config_rewardingarchivedtext1}
+                            <p/>
+                            </div>
+                        
+                            <apex:pageBlockSectionItem >
+                               <apex:outputLabel value="{!$Label.config_rewardingarchivedbehavior}" />
+                               <apex:selectList value="{!archivedPerformanceChartMode}" multiselect="false" size="1">
+                                    <apex:selectOption itemValue="0" itemLabel="{!$Label.config_rewardingarchivedbehavior1}" />
+                                    <apex:selectOption itemValue="1" itemLabel="{!$Label.config_rewardingarchivedbehavior2}" />
+                               </apex:selectList>
+                           </apex:pageBlockSectionItem>
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+                
+            </c:Visibility>
+
+            <apex:pageBlock mode="maindetail" title="{!$Label.config_timelimitconfiguration}">
+                <apex:pageMessages id="businessConfigPageMessages"/>
+
+                <apex:pageBlockButtons location="top"> 
+                     <apex:CommandButton action="{!saveSettings}" value="Save" reRender="businessConfigPageMessages,timeLimitOptions" status="businessConfigStatus"/>
+                     <apex:actionStatus id="businessConfigStatus">
+                        <apex:facet name="start">
+                            <apex:image value="/img/loading.gif"/>
+                        </apex:facet>
+                     </apex:actionStatus>
+                </apex:pageBlockButtons>
+
+                
+
+                <apex:pageBlockSection title="" columns="1" collapsible="false" id="timeLimitOptions">
+
+                     <div id="timeLimitConfigurationContainer">
+                        {!$Label.config_timelimitconfigurationhelptext}
+                        <p/>
+                        </div>
+
+                
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="{!$Label.config_timelimitconfiguration}" />
+                        <apex:selectList value="{!isTimeLimitBusinessHours}" multiselect="false" size="1" >
+                            <apex:actionSupport event="onchange"  reRender="businessConfigPageMessages,timeLimitOptions" status="businessConfigStatus"/>
+                            <apex:selectOption itemValue="0" itemLabel="{!$Label.config_timelimitbehavior1}" />
+                            <apex:selectOption itemValue="1" itemLabel="{!$Label.config_timelimitbehavior2}" />
+                       </apex:selectList>
+                    </apex:pageBlockSectionItem>
+
+                
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Business Week Start" />
+                        <apex:selectList value="{!businessWeekStart}" multiselect="false" size="1" disabled="{!isTimeLimitBusinessHours == 0}">
+                            <apex:selectOptions value="{!weekDays}"/>
+                       </apex:selectList>
+
+
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Business Week End" />
+                        <apex:selectList value="{!businessWeekEnd}" multiselect="false" size="1" disabled="{!isTimeLimitBusinessHours == 0}">
+                            <apex:selectOptions value="{!weekDays}"/>
+                       </apex:selectList>
+                    </apex:pageBlockSectionItem>
+
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Business Hours Start" />
+                        <apex:selectList value="{!businessHoursStart}" multiselect="false" size="1" disabled="{!isTimeLimitBusinessHours == 0}">
+                            <apex:selectOptions value="{!dayHours}"/>
+                       </apex:selectList>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Business Hours End" />
+                        <apex:selectList value="{!businessHoursEnd}" multiselect="false" size="1"  disabled="{!isTimeLimitBusinessHours == 0}">
+                            <apex:selectOptions value="{!dayHours}"/>
+                       </apex:selectList>
+                    </apex:pageBlockSectionItem>
+
+                     <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Fiscal Year Start Month" />
+                        <apex:selectList value="{!fiscalYearStartMonth}" multiselect="false" size="1" disabled="{!isTimeLimitBusinessHours == 0}">
+                            <apex:selectOptions value="{!months}"/>
+                       </apex:selectList>
+                    </apex:pageBlockSectionItem>
+
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+
+            <c:Visibility edition="Achieve">
+            <!-- ACHIEVE ONLY -->      
+                    <apex:pageBlock mode="maindetail" title="{!$Label.config_levelsetsclean}">
+                        <apex:pageBlockButtons location="top">
+                            <apex:CommandButton action="{!removeInvalidSetIdsOnUsers}" value="Remove" reRender="setOptionsBlock" status="setOptionsStatus"/>
+                            <apex:actionStatus id="setOptionsStatus">
+                                <apex:facet name="start">
+                                    <apex:image value="/img/loading.gif"/>
+                                </apex:facet>
+                            </apex:actionStatus>
+                        </apex:pageBlockButtons>
+                        
+                        <apex:pageBlockSection title="" columns="1" collapsible="false">
+                        
+                                <div id="levelsetContainer">
+                            {!$Label.config_levelsetscleanhelptext}
+                            <p/>
+                            </div>
+                                
+                        </apex:pageBlockSection>
+                    </apex:pageBlock>
+            </c:Visibility>
+
+            </div>
+
+
+
+
+        <!-- END :ENERGISE AND ACHIEVE ONLY -->
+        </c:Visibility>
+
+
+    </div>
+
+    </apex:form>
+</apex:page>

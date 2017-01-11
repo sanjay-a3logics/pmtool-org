@@ -1,0 +1,87 @@
+<apex:component controller="ProjectTimeTableController">
+    <div class="bRelatedList" >
+    <a name="a29d0000000LRVT_00Nd0000007gGaA_target"></a>
+    <!-- Begin ListElement -->
+    <!-- motif: Custom70 -->
+    <!-- WrappingClass -->
+    <div class="listRelatedObject Custom18Block">
+        <div class="bPageBlock brandSecondaryBrd secondaryPalette">
+            <div class="pbHeader">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td class="pbTitle">
+                                <!-- THIS IS WHERE YOU'LL UPDATE THE HEADER IMAGE FOR THE LIST -->
+                                <img src="/s.gif" alt="" width="1" height="1" class="minWidth" title=""></img>
+                                <img src="/s.gif" alt="" class="relatedListIcon" title=""></img>
+                                <h3 id="a29d0000000LRVT_00Nd0000007gGaA_title">
+                                    <!-- THIS IS WHERE YOU'LL UPDATE THE HEADER TITLE FOR THE LIST -->
+                                    Times
+                                </h3>
+                            </td>
+                            <td class="pbButton">
+                                 
+                            </td>
+                            <td class="pbHelp">
+                                <span class="help" title="">
+                                     
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>   
+          <div class="pbBody" id="a29d0000000LRVT_00Nd0000007gGaA_body" >
+                <table class="list" border="0" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr class="headerRow">
+                            <th scope="col" class=" zen-deemphasize">Project</th>
+                            <th scope="col" class=" zen-deemphasize">Task</th>
+                            <th scope="col" class=" zen-deemphasize">Name</th>
+                            <th scope="col" class=" zen-deemphasize">Date Incurred</th>
+                            <th scope="col" class=" zen-deemphasize">Incurred By</th>
+                            <th scope="col" class=" zen-deemphasize">Description</th>
+                            <th scope="col" class=" zen-deemphasize">Hours Worked</th>
+                        </tr>
+                    
+                        <!-- ListRow -->
+                        <apex:repeat value="{!taskTimes}" var="taskTime">
+                        <tr class=" dataRow even last first">    
+                            <td class="dataCell">
+                                <apex:outputLink value="../{!taskTime.Task__r.ProjectId__c}" target="_blank" ><apex:outputText value="{!taskTime.Task__r.Project_Name__c}"/></apex:outputLink>
+                            </td>
+                            <td class="dataCell">
+                                <apex:outputLink value="../{!taskTime.Task__r.Id}" target="_blank" ><apex:outputText value="{!taskTime.Task__r.Name}"/> </apex:outputLink>                              
+                            </td>
+                            <td class="dataCell">
+                                <apex:outputLink value="../{!taskTime.Id}" target="_blank" ><apex:outputText value="{!taskTime.Name}"/> </apex:outputLink>                              
+                            </td>
+                            <td class="dataCell">
+                                 <apex:outputText value="{0,date,short}"> 
+                                	<apex:param value="{!taskTime.Date_Incurred__c}" /> 
+                                </apex:outputText>
+                            </td>
+                            <td class="dataCell">
+                                <apex:outputLink value="../{!taskTime.Incurred_By__c}" target="_blank" ><apex:outputText value="{!taskTime.Incurred_By__r.Name}"/> </apex:outputLink>                              
+                            </td>
+                            <td class="dataCell">
+                                <apex:outputText value="{!taskTime.Description__c}"/>
+                                 
+                            </td>
+                            <td class="dataCell">
+                                <apex:outputText value="{!taskTime.Hours_Worked__c}"/> 
+                                 
+                            </td>
+                            
+                        </tr>  
+                        </apex:repeat>
+                    </tbody>
+                </table>
+                
+            </div><div class="pbFooter secondaryPalette"><div class="bg"></div></div>
+        </div>
+    </div><div class="listElementBottomNav"></div>
+    <script>try { sfdcPage.registerRelatedList('a29d0000000LRVT_00Nd0000007gGaA', '0', 'Sales Orders', false, '/a29d0000000LRVT', 'relatedListId=00Nd0000007gGaA&hideDL=1&noh=1&keepPref=1', false, true, true, '00Nd0000007gGaA'); } catch (e) { }</script>
+    <!-- End ListElement -->
+</div>
+</apex:component>

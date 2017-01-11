@@ -1,0 +1,838 @@
+<apex:page docType="html"
+	showHeader="false" 
+	sidebar="false"
+	standardStylesheets="false"
+	cache="true"
+	controller="success.ProfileController">
+
+<apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/custom/jquery-ui-1.10.1.custom.min.css')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.10.1.custom.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQueryDataTablesPlugin, 'jquery.dataTables.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery.knob.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+<apex:includeScript value="{!URLFOR($Resource.success__Moment)}" />
+
+<style>
+img{-ms-interpolation-mode:bicubic}
+body {width: 750px;margin: 20px auto 0 auto;font-family: Arial,"Lucida Grande",sans-serif;}
+
+.button { color: #474747;border-width: 1px;border-style: solid;-moz-border-radius: 3px;border-radius: 3px;line-height: 18px;text-decoration: none;cursor: pointer;background-color: #f5f5f5;border-color: #e2e2e2;font-size: 12px;}
+#indicatorsOuterContainer { display:none; height:210px; width:750px; position:relative; overflow:hidden;}
+#indicatorsContainer { height:200px; width:750px; position:absolute; left:0;}
+.indicator {float:left; width:150px; padding-right:50px;}
+.indicators-page {width: 1.5em;height: 1.5em;border: 1px solid #e0e0e0;text-align: center;text-decoration: none;color: #777777;display: inline-block;line-height: 1.5em;margin-right: .5em;cursor: pointer;background-color:#FAFAFA;}
+.indicators-page:hover {background-color:#F4F4F4;}
+.indicators-page.selected {background-color:#F4F4F4; cursor: default;color: #2A2A2A}
+.circular-bar{width:150px; height:150px;}
+.circular-bar .circular-bar-content {margin-bottom: 70px;margin-top: -88px;text-align: center;}
+.circular-bar .circular-bar-content label {display:block;font-size:28px;font-weight:600;color:#797F79;}
+.indicator .label{font-size: 16px;color: #424242;text-align: center;margin-top: 12px;margin-bottom: 0px;height: 38px;overflow: hidden;padding: 0;}
+
+.badge{width:60px;height:60px;float:left;margin:5px;position: relative;} 
+.badge img{padding-left:10px;padding-top:10px;width:42px;height:42px;margin:0!important;}
+.promotion{position:absolute;left:5px;top:2px;font-weight:bold;font-size:12px;color:#fff}
+table.dataTable{table-layout:fixed;clear:both;width:100%;margin:0 auto;padding-top: 30px;margin-bottom: 10px;border-collapse:collapse;} 
+table.dataTable thead th{cursor:pointer;height:31px;padding:3px 18px 3px 10px; border-top: 1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;font-size:13px;color:#2A2A2A;font-weight:normal;}
+.title{font-weight:bold;color:#015BA7;}
+.achievementMessage{color: #000000;font-weight: bold;font-size: 13px;}
+.rewardDescription{color: #777777;font-size: 12px;line-height: 15px;padding-top: 4px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; max-height: 45px;}
+table.dataTable tfoot th{border-top:1px solid #000;font-weight:700;padding:3px 18px 3px 10px;} 
+table.dataTable td{vertical-align:middle;padding:10px 10px 5px 10px;*border-bottom: 1px solid #cccccc;} 
+#dataTable_filter { display: none; margin-top: -2px;}
+table.dataTable td.center,table.dataTable td.dataTables_empty{text-align:center;} 
+table.dataTable tr.odd{border-bottom: 1px solid #cccccc;} 
+table.dataTable tr.even{border-bottom: 1px solid #cccccc;} 
+
+.dataTables_paginate {
+	margin: 0 auto;
+	text-align: center;
+	width: 250px;
+}
+
+.dataTables_wrapper{position:relative;clear:both;zoom:1;} 
+.dataTables_length{float:left;padding-left:10px;} 
+.dataTables_info{clear:both;float:left;padding-left:10px;} 
+.paginate_disabled_previous,.paginate_enabled_previous,.paginate_disabled_next,.paginate_enabled_next{height:19px;float:left;cursor:pointer;color:#111!important;} 
+.paginate_disabled_previous:hover,.paginate_enabled_previous:hover,.paginate_disabled_next:hover,.paginate_enabled_next:hover{text-decoration:none!important;} 
+.paginate_disabled_previous,.paginate_disabled_next{
+	opacity: .35;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=35)";
+	filter: alpha(opacity=35);
+	-moz-opacity: 0.35;
+	cursor:default!important;
+} 
+.paginate_disabled_previous,.paginate_enabled_previous{padding-left:13px;} 
+.paginate_disabled_next,.paginate_enabled_next{padding-right:3px;margin-left:10px;}
+
+.dataTables_processing{position:absolute;top:50%;left:50%;width:250px;height:30px;margin-left:-125px;margin-top:-15px;border:1px solid #ddd;text-align:center;color:#999;font-size:14px;background-color:#FFF;padding:14px 0 2px;} 
+.sorting{background:url('{!URLFOR($Resource.jQueryDataTablesPlugin, 'images/sort_both.png')}') no-repeat center right;} 
+.sorting_asc{background:url('{!URLFOR($Resource.jQueryDataTablesPlugin, 'images/sort_asc.png')}') no-repeat center right;} 
+.sorting_desc{background:url('{!URLFOR($Resource.jQueryDataTablesPlugin, 'images/sort_desc.png')}') no-repeat center right;} 
+.sorting_asc_disabled{background:url('{!URLFOR($Resource.jQueryDataTablesPlugin, 'images/sort_asc_disabled.png')}') no-repeat center right;} 
+.sorting_desc_disabled{background:url('{!URLFOR($Resource.jQueryDataTablesPlugin, 'images/sort_desc_disabled.png')}') no-repeat center right;} 
+.DataTables_sort_icon{float:right;} 
+.dataTables_scroll{clear:both;} 
+.dataTables_scrollBody{margin-top:-1px;-webkit-overflow-scrolling:touch;} 
+td{color:#222222;font-size:13px;} 
+.ui-widget-header{border:0;background:transparent !important;color:#333333;height:30px;font-weight:normal;font-size:13px;font-family:'Arial','Helvetica',sans-serif;} 
+.ui-state-disabled span{ 
+	opacity:.35;
+	-ms-filter: "alpha(opacity=35)";
+	filter: alpha(opacity=35);
+	-moz-opacity: 0.35;
+}
+.ui-state-default{border-top:1px;border-left:0;border-right:0;border-bottom:0;background:#fafafa url(images/ui-bg_flat_100_fafafa_40x100.png) 50% 50% repeat-x;color:#222222;} 
+.fg-button{border:2px solid transparent!important;background:transparent !important;color:#000000 !important;} 
+.dataTables_filter{float:right;text-align:center;}
+.paging_two_button{float:none;text-align:center;} 
+.paginate_disabled_previous:active,.paginate_enabled_previous:active,.paginate_disabled_next:active,.paginate_enabled_next:active,.paging_full_numbers a:active,table.dataTable thead th:active,table.dataTable thead td:active{outline:none;}
+.group{zoom:1}
+.clear{clear:both}
+.sectionHeader{background:#c7c7c7;-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#C7C7C7, endColorstr=#F7F7F7, GradientType=1)";filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#C7C7C7',endColorstr='#F7F7F7',GradientType=1);background:-webkit-gradient(linear,left top,right top,from(#c7c7c7),to(#f7f7f7));background:-moz-linear-gradient(left,#c7c7c7,#f7f7f7);color:#fff;height:35px;margin-bottom:2px}
+.sectionHeader .sectionTitle{color:#FFF;font-weight:400;font-size:18px;letter-spacing:.01em;line-height:37px;padding-left:10px}
+.sectionBadge{position:relative;left:0;top:0;float:left;width:35px;height:35px;background-color:#00476d;border-right:5px #fff solid}
+.sectionBadge:hover{cursor:pointer}
+.sectionBadge img{margin-left:4px;margin-top:4px;height:27px;width:27px}
+.sectionBody{margin-bottom:10px}
+.bodyAligned{margin-left:40px}
+.chartContainer{height:260px;margin-left:40px;margin-bottom:10px}
+.sectionContainer{border-top:2px solid #9ac5cc}
+.sectionBody p{margin:0}
+.sectionButtonBar{min-width:600px;background-color:#fff}
+.sectionButton{font-weight:400;min-width:100px;min-height:20px;height:20px;font-size:12px;background-color:#6eaab2;border:3px solid transparent;color:#fff;margin-right:10px;display:inline-block;text-align:center;vertical-align:middle;cursor:pointer;position:relative;line-height:23px;padding:4px 0;margin-bottom:10px}
+.sectionButton:hover{color:#efefef}
+.active{background-color:#699096;border:3px solid #296068}
+
+.detailAction {cursor: pointer;}
+
+.zen-trigger {
+	background: #f5f5f5;
+	background: -moz-linear-gradient(#f5f5f5,#fafafa);
+	background: -webkit-linear-gradient(#f5f5f5,#fafafa);
+	background: -ms-linear-gradient(#f5f5f5,#fafafa);
+	border: 1px solid #e2e2e2;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #333;
+	height: 5px;
+	overflow: hidden;
+	padding: 10px 0px 10px 10px; 
+	text-align: left;
+	display: block;
+	width: 18px;
+}
+
+.zen-selectArrow {
+	border-width: 4px 4px 0;
+	border-color: #666 transparent transparent;
+	border-style: solid;
+	float: none;
+	margin: 0;
+	width:0;
+	height:0;
+	text-align: left;
+	display: block;
+}
+
+.zen-select {
+	position:relative;
+	padding-left: 26px;
+	z-index:auto !important;
+}
+
+.zen-options {
+	border: 1px solid #e2e2e2;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	box-shadow: 0 2px 4px rgba(0,0,0,.2);
+	margin-top: 3px;
+	overflow: visible;
+	padding: 10px 0px;
+	left: auto;
+	right: 0;
+	display:block;
+	list-style: none;
+	position: absolute;
+	width: 120px;
+	background-color: #fcfcfc;
+	display: none;
+	z-index: 9998;
+}
+
+.zen-options li{
+	padding: 5px 15px;
+}
+
+.zen-options li:hover{
+	background-color: #dfdfdf;
+}
+
+.confirmDialog {
+	z-index: 99999 !important;
+	background-color: rgb(255, 255, 255);
+	width: 524px !important;
+	border-color: rgb(183, 183, 183);
+	border-width: 1px;
+	border-radius: 8px;
+	border-style: solid;
+	box-shadow: 0px 1px 9px 1px rgba(0, 0, 0, 0.25);
+	transition: none 0s ease 0s !important;
+	padding: 0px 0px 0px 0px !important;
+}
+
+*:focus {
+    outline: 0;
+}
+
+.confirmDialog p {
+	height: auto !important;
+}
+
+.confirmDialog .ui-dialog-titlebar {
+	background-color: rgb(245, 247, 247) !important;
+	background-image: linear-gradient(rgb(253, 253, 253) 0px, rgb(235, 239, 240) 100%) !important;
+	border-radius: 8px 8px 0px 0px !important;
+	height: 33px !important;
+	margin: 0px !important;
+	padding: 0px 0px 0px 12px !important;
+}
+
+.confirmDialog .ui-dialog-titlebar .ui-dialog-title {
+	line-height: 33px !important;
+	text-shadow: none !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+	font-size: 15px !important;
+	font-weight: bold !important;
+	color: rgb(34, 34, 34) !important;
+}
+
+.confirmDialog .ui-button-text {
+	font-size: 13px !important;
+	font-weight: bold !important;
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+	padding-top: 15px !important;
+	padding-bottom: 15px !important;
+}
+
+.confirmDialog .ui-dialog-content {
+	background: #ffffff !important;
+	font-size: 13px !important;
+	border: 0px !important;
+}
+
+.ui-widget-content {
+	background: #ffffff !important;
+	border: 1px solid #ddd !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	padding: 0px !important;
+	border-top: 1px solid rgb(234, 235, 237) !important;
+	border-left: 0px !important;
+	border-right: 0px !important;
+	border-bottom: 0px !important;
+	border-radius: 0px 0px 8px 8px !important;
+	background: none repeat scroll 0% 0% rgb(251, 251, 251) !important;
+}
+
+.confirm-button {
+	color: rgb(255, 255, 255) !important;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25) !important;
+	background: none !important;
+	background-color: rgb(135, 179, 71) !important;
+	background-image: linear-gradient(to bottom, rgb(140, 184, 76), rgb(128, 172, 64)) !important;
+	background-repeat: repeat-x !important;
+	border: none !important;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
+	border-width: 1px !important;
+	border-style: solid !important;
+	-webkit-border-radius: 3px !important;
+	-moz-border-radius: 3px !important;
+	border-radius: 3px !important;
+	line-height: 19px !important;
+}
+
+.ui-dialog-buttonset .ui-button {
+	background: rgb(251, 251, 251) !important;
+	border: 0px solid rgb(251, 251, 251) !important;
+	color: #777 !important;
+	*margin-top: 0px !important;
+}
+
+.confirmDialog .ui-dialog-titlebar-close {
+	display: none;
+}
+
+.ui-icon {text-indent: 0px;font-size: 13px;}
+.ui-state-default .ui-icon {background-image: none;}
+.ui-icon-triangle-1-n{background-image: none;}
+.ui-icon-triangle-1-s{background-image: none;}
+.DataTables_sort_icon {display: inline-block;padding-left: 5px;line-height: 17px;float: none;}
+
+.noRecordsContainer { display: none;}
+.noRecordsIcon {display:block;margin-left:auto;margin-right:auto;width:100px;padding-top:130px;}
+.noRecordsMsg {text-align: center;padding-top: 15px;font-family: "Arial",Arial,Helvetica,Regular;color: rgb(34, 34, 34);font-size: 18px;width: 500px;margin: 0 auto;}
+</style>
+
+<script type="text/javascript">
+	var $sj = successJQ.noConflict();
+	
+	if('{!profileUser.sumo_user__c}' == 'false' || '{!profileUser.hidden__c}' == 'true' ){
+		$sj("body").hide();
+		window.location.replace('/apex/NoData');
+	}
+
+	/* INDICATORS MODULE - START */
+	var indicators = (function() {
+
+		var records = [];
+
+		function render() {
+			if(isInitialised()) {
+				$sj('#indicatorsOuterContainer').show();
+
+				injectIndicators();
+				renderIndicators();
+				renderIndicatorPagination();
+			}
+		}
+
+		function setIndicatorsData(inProgressAchievements) {
+			var colors = ["#54698D", "#C23934", "#FFB75D", "#04844B"];
+
+			inProgressAchievements = _.sortBy(inProgressAchievements, function(o) { 
+				if(o.progressTimeLimit) return moment(o.progressTimeLimit);
+				return 0; 
+			});
+
+			_.forEach(inProgressAchievements, function(item, index) {
+				item.color = colors[index % (colors.length)];
+				item.progress = Math.round(item.progress * 100);
+				item.progressText = $sj.trim(_.escape(item.progressText));
+				records.push(item);
+			});
+		}
+
+		function injectIndicators() {
+
+			var indicatorTpl = _.template('<div class="indicator" title="<%= progressText %>">' +
+				'<div class="circular-bar">' +
+					'<input type="text" class="dial" data-fgColor="<%= color %>" data-bgColor="#F4F4F4" data-width="150" data-height="150" value="<%= progress %>" />' +
+					'<div class="circular-bar-content">' +
+						'<label></label>' +
+					'</div>' +
+				'</div>' +
+				'<p class="label"><%= title %></p>' +
+			'</div>');
+
+			$sj('#indicatorsContainer').css({"width" : ( records.length * 200) + 'px'});
+
+
+			_.forEach(records, function(item, index) {
+				$sj('#indicatorsContainer').append(indicatorTpl(item));
+			});
+		}
+
+		function animateIndicatorElement(elm) {
+			var perc = elm.attr("value");  
+
+			$sj({value: 0}).animate({ 
+      			value: perc
+      		}, {
+          		duration: 1000,
+          		easing: 'swing',
+          		progress: function () {
+          			elm.val(Math.ceil(this.value)).trigger('change');
+          		}
+      		});
+		}
+
+		function renderIndicators() {
+			$sj('.dial').each(function() { 
+          		var elm = $sj(this);
+          		var color = elm.attr("data-fgColor");  
+          		var perc = elm.attr("value");  
+ 
+          		elm.knob({ 
+               		"value": 0, 
+                	"min": 0,
+                	"max": 100,
+                	"skin": "tron",
+                	"readOnly": true,
+                	"thickness": 0.35,
+                	"dynamicDraw": true,
+                	"displayInput": false
+          		});
+
+          		animateIndicatorElement(elm);
+
+          		//circular progress bar color
+          		$sj(this).append(function() {
+              		elm.parent().parent().find('.circular-bar-content').css('color',color);
+              		elm.parent().parent().find('.circular-bar-content label').text(perc+'%');
+          		});
+          	});
+		}
+
+		function renderIndicatorPagination() {
+			var recordsPerPage = 4;
+			var noOfPages = Math.floor(records.length / recordsPerPage);
+			if((records.length / recordsPerPage) % 1 > 0) noOfPages++;
+
+			if(noOfPages > 1) {
+				$sj('.fg-toolbar:first').css({"text-align" : "center"});
+				for(var i=0;i<noOfPages;i++){
+					var elm = $sj('<span />').addClass('indicators-page').attr('data-page', i).html(i + 1);
+					if(i==0) elm.addClass('selected');
+					$sj('.fg-toolbar:first').append(elm);
+				}
+
+				$sj('.indicators-page').click(function() {
+					$sj('.indicators-page').removeClass('selected');
+					var clickedElm = $sj(this);
+					clickedElm.addClass('selected');
+					var index = clickedElm.attr('data-page');
+					$sj('#indicatorsContainer').css({ "left" : -(index * 800) + "px" });
+
+					$sj('.dial').each(function() { 
+		          		var elm = $sj(this);
+		          		animateIndicatorElement(elm);
+		          	});
+				});
+			}
+
+		}
+
+
+		function init(inProgressAchievements) {
+			if(inProgressAchievements.length) {
+				setIndicatorsData(inProgressAchievements);
+			}
+		}
+
+		function isInitialised() {
+			return records.length > 0;
+		}
+
+		return {
+			init: init,
+			isInitialised: isInitialised,
+			render: render
+		};
+
+	})();
+	/* INDICATORS MODULE - END */
+
+
+	var fontColorValidate = function(defaultColor, bgColor) {
+		if(bgColor == 'transparent') {
+			return '#00476d';
+		}
+			return defaultColor;
+	};
+	
+	var adjustLayout = function () {
+		var body = $sj(document.body);
+		var windowWidth = $sj(window).innerWidth();
+		body.scrollLeft(1);
+		if(body.scrollLeft() != 0 || windowWidth < body.width()){
+			body.css({overflowX:'hidden',marginRight: 0, marginLeft: 0});
+			if ($sj.support.leadingWhitespace) {
+				body.css({paddingRight: body.width() - windowWidth});
+			}
+		}
+		body.scrollLeft(0);
+		var wwidth = $sj(window).innerWidth();
+		if (!isNaN(wwidth) && wwidth > 40) {
+			body.css({width: $sj(window).innerWidth()});
+		}
+	}
+
+	var repositionSearch = function() {
+		$sj('#dataTable_filter').appendTo('.ui-toolbar:last').show();
+	}
+
+	$sj(document).ready( function () {
+		window.setTimeout( function () {
+			$sj('.dataTable').each(function (i, el) {
+				$sj(el).on('draw.dt', function () {
+					adjustLayout();
+				})
+			});
+		}, 50);		
+		//window.setTimeout(adjustLayout, 500);
+		adjustLayout();
+	});
+
+	//hidden title datatables sorting plugin
+	$sj.extend( $sj.fn.dataTableExt.oSort, {
+	    "data-string-pre": function ( a ) {
+	        return a.match(/data-sort="(.*?)"/)[1].toLowerCase();
+	    },
+	 
+	    "data-string-asc": function ( a, b ) {
+	        return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+	    },
+	 
+	    "data-string-desc": function ( a, b ) {
+	        return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+	    }
+	} );
+
+	$sj.extend( $sj.fn.dataTableExt.oSort, {
+	    "title-numeric-pre": function ( a ) {
+	        var x = a.match(/data-title="(.*?)"/)[1];
+
+	        if(_.isNull(x) || _.isUndefined(x) || _.isEmpty(x)) {
+        		return [-2, '']; //empty values
+        	} else if(_.isString(x)) {
+        		var extractedSubstrings = x.split(' ');
+        		var firstSustring = +extractedSubstrings[0]; // converted to numerical value
+        		if(isNaN(firstSustring)) {
+	        		return [-1, '']; //value does not start with a number
+	        	} else {
+	        		if(extractedSubstrings.length > 1) { // value starts with a number and has substring
+	        			return [parseFloat(firstSustring), extractedSubstrings[1]+''];
+	        		} else {
+	        			return [parseFloat(firstSustring), '']; // value is only a numerical string 
+	        		}
+	        	}
+        	} else {
+        		return [parseFloat(x), '']; // value is numerical only
+        	}
+	    },
+	 
+	    "title-numeric-asc": function ( a, b ) {
+	    	if(a[0] === b[0]) {
+	    		var x = a[1].toLowerCase(), y = b[1].toLowerCase();
+        
+        		return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+	    	} 
+	        return ((a[0] < b[0]) ? -1 : ((a[0] > b[0]) ? 1 : 0));
+	    },
+	 
+	    "title-numeric-desc": function ( a, b ) {
+	    	if(a[0] === b[0]) {
+	    		var x = a[1].toLowerCase(), y = b[1].toLowerCase();
+        
+        		return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+	    	} 
+	        return ((a[0] < b[0]) ? 1 : ((a[0] > b[0]) ? -1 : 0));
+	    }
+	} );
+
+	//four-button pagination plug-in
+	$sj.fn.dataTableExt.oPagination.four_button = {
+	    "fnInit": function ( oSettings, nPaging, fnCallbackDraw )
+	    {
+	        var nFirst = document.createElement( 'span' );
+	        var nPrevious = document.createElement( 'span' );
+	        var nNext = document.createElement( 'span' );
+	        var nLast = document.createElement( 'span' );
+	 
+	        $sj(nFirst).html( '&#171;' );
+	        $sj(nPrevious).html( '&#139; {!JSENCODE($Label.previous)}'  );
+	        $sj(nNext).html( '{!JSENCODE($Label.next)} &#155;' );
+	        $sj(nLast).html( '&#187;' );
+	       	
+	        nFirst.className = "paginate_button first";
+	        nPrevious.className = "paginate_button previous";
+	        nNext.className="paginate_button next";
+	        nLast.className = "paginate_button last";
+	 
+	        nPaging.appendChild( nFirst );
+	        nPaging.appendChild( nPrevious );
+	        nPaging.appendChild( nNext );
+	        nPaging.appendChild( nLast );
+	 
+	        $sj(nFirst).click( function () {
+	            oSettings.oApi._fnPageChange( oSettings, "first" );
+	            fnCallbackDraw( oSettings );
+	        } );
+	 
+	        $sj(nPrevious).click( function() {
+	            oSettings.oApi._fnPageChange( oSettings, "previous" );
+	            fnCallbackDraw( oSettings );
+	        } );
+	 
+	        $sj(nNext).click( function() {
+	            oSettings.oApi._fnPageChange( oSettings, "next" );
+	            fnCallbackDraw( oSettings );
+	        } );
+	 
+	        $sj(nLast).click( function() {
+	            oSettings.oApi._fnPageChange( oSettings, "last" );
+	            fnCallbackDraw( oSettings );
+	        } );
+	 
+	        /* Disallow text selection */
+	        $sj(nFirst).bind( 'selectstart', function () { return false; } );
+	        $sj(nPrevious).bind( 'selectstart', function () { return false; } );
+	        $sj(nNext).bind( 'selectstart', function () { return false; } );
+	        $sj(nLast).bind( 'selectstart', function () { return false; } );
+	    },
+	 
+	 
+	    "fnUpdate": function ( oSettings, fnCallbackDraw )
+	    {
+	        if ( !oSettings.aanFeatures.p )
+	        {
+	            return;
+	        }
+	 
+	        /* Loop over each instance of the pager */
+	        var an = oSettings.aanFeatures.p;
+	        for ( var i=0, iLen=an.length ; i<iLen ; i++ )
+	        {
+	            var buttons = an[i].getElementsByTagName('span');
+	            if ( oSettings._iDisplayStart === 0 )
+	            {
+	                buttons[0].className = "paginate_disabled_previous";
+	                buttons[1].className = "paginate_disabled_previous";
+	            }
+	            else
+	            {
+	                buttons[0].className = "paginate_enabled_previous";
+	                buttons[1].className = "paginate_enabled_previous";
+	            }
+	 
+	            if ( oSettings.fnDisplayEnd() == oSettings.fnRecordsDisplay() )
+	            {
+	                buttons[2].className = "paginate_disabled_next";
+	                buttons[3].className = "paginate_disabled_next";
+	            }
+	            else
+	            {
+	                buttons[2].className = "paginate_enabled_next";
+	                buttons[3].className = "paginate_enabled_next";
+	            }
+	        }
+	    }
+	};
+
+	var STYLE = $sj.parseJSON('{!JSENCODE(styles)}');
+	var ACHIEVEMENTS = [];
+	ACHIEVEMENTS =  $sj.parseJSON('{!JSENCODE(achievements)}');
+
+	var DATA = [];
+	_.each(ACHIEVEMENTS, function(obj, iterator) {
+		var recordArray = [];
+		if(obj.status === 'available' || 
+			obj.status === 'inprogress' ||
+			obj.status === 'completed') {
+
+			if(obj.status === 'available') obj.status = '{!JSENCODE($Label.available)}';
+			if(obj.status === 'inprogress') obj.status = '{!JSENCODE($Label.in_progress)}';
+			if(obj.status === 'completed') obj.status = '{!JSENCODE($Label.Completed)}';
+
+			var imageURL = obj.imageURL,
+	            achievementBadgeBackground = obj.backgroundColour,
+	            achievementName = obj.title,
+	            achievementBadgeName = obj.badgeName,
+	            achievementBadgeNameEscaped = !achievementBadgeName || achievementBadgeName.replace(/&/g, "&amp;")
+													.replace(/"/g, "&quot;")
+													.replace(/'/g, "&apos;")
+													.replace(/</g, "&lt;")
+													.replace(/>/g, "&gt;"),
+	            achievementDescription = (obj.description == null) ? '' : obj.description,
+	            achievementFeatured = obj.promoted,
+	            achievementObjectType = obj.objectType,
+	            achievementStatus = obj.status,
+	            achievementMessage =  obj.rewardText,
+	            achievementPublishDate = (obj.publishDate == null) ? "{!$Label.notfound_text}" : moment(obj.publishDate, "YYYY-MM-DD").format("MMMM YYYY");                                                
+	            achievementClaimType = obj.claimType;
+
+
+	        //BADGE
+	        var badgeSortKey = (achievementFeatured == true) ? achievementBadgeName + 'a' +  achievementName : achievementBadgeName + 'z' + achievementName;
+			var badgeTpl = '<div data-sort="' + badgeSortKey + '" class="badge" style="background-color:' + achievementBadgeBackground +'">' +
+						'<img title="' + achievementBadgeNameEscaped + '" alt="' + achievementObjectType + '" src="' + imageURL + '" />';
+			if(achievementFeatured == true) {
+				badgeTpl += '<div class="promotion" style="color:' + fontColorValidate('#ffffff', achievementBadgeBackground) + ';">p</div>';
+			}
+			badgeTpl += '</div>';
+			recordArray.push(badgeTpl);
+			//DESCRIPTION
+			var descriptionTpl = '<div class="description">' +
+						'<p class="title">' + achievementName + '</p>' +
+	                    '<p class="rewardDescription">' + achievementDescription + '<p>' +
+						'</div>';
+			recordArray.push(descriptionTpl);
+			//STATUS
+			var statusKey = achievementStatus;
+			if(achievementStatus == 'In Progress') {
+				statusKey = 'a';
+			} else if(achievementStatus == 'Available') {
+				statusKey = 'x';
+			} else {
+				statusKey = 'z';
+			}
+			var statusSortKey = (achievementFeatured == true) ? statusKey + 'a' : statusKey + 'z';
+			var achievementStatusTpl = '<p data-sort="' + statusSortKey + achievementName + '" class="rewardDescription">' + achievementStatus + '<p>';
+			recordArray.push(achievementStatusTpl);
+			
+			//REWARD
+			var achievementMessageTpl = '<p data-title="' + achievementMessage + '" class="achievementMessage">' + achievementMessage + '<p>';
+			recordArray.push(achievementMessageTpl);
+
+			//ACTIONS
+			var actionsTpl = '<div class="zen-select">' + 
+				'<a href="javascript:void(0)" class="zen-trigger">' +
+				'<b class="zen-selectArrow"></b></a>' +
+				'<ul class="zen-options">';
+
+			actionsTpl += '<li id="'+ obj.Id +'" class="detailAction">{!JSENCODE($Label.view_details)}</li></ul></div>';
+
+			recordArray.push(actionsTpl);
+
+			DATA.push(recordArray);
+		}
+	});
+	
+	$sj(document).ready(function() {
+		
+		if(DATA.length == 0) {
+			$sj('#contentContainer').hide();
+			$sj('#noRecordsContainer').show();
+		} else {
+			$sj('#noRecordsContainer').hide();
+
+			var inProgressAchievements = _.filter(ACHIEVEMENTS, function(a) { return a.status == '{!JSENCODE($Label.in_progress)}'; });
+			indicators.init(inProgressAchievements); 
+
+			$sj('#dataTable').dataTable(
+			{
+				"bJQueryUI": true,
+				"iDisplayLength": indicators.isInitialised() ? 6 : 8,
+				"iTotalRecords": DATA.length,
+				"iTotalDisplayRecords": 25,
+				"bLengthChange": false,
+	        	"aaData": DATA,
+	        	"aoColumns": [	{"sTitle": '<span>{!JSENCODE($Label.badge)}</span>', "sType": "data-string"}, 
+	        					{"sTitle": '<span>{!JSENCODE($Label.description)}</span>', "sType": "html"}, 
+	        					{"sTitle": '<span>{!JSENCODE($Label.status)}</span>', "sType": "data-string"}, 
+	        					{"sTitle": '<span>{!$ObjectType.Reward__c.Label}</span>', "sType": "title-numeric"},
+	        					{"sTitle": '<span>{!JSENCODE($Label.actions)}</span>', "bSortable": false}
+	        				],
+	        	"sPaginationType": "four_button",
+	        	"oLanguage": {
+      				"sSearch": '{!JSENCODE($Label.search)}:'
+      			},
+	        	"fnInfoCallback": function( oSettings, iStart, iEnd, iMax, iTotal, sPre ) {
+	    			return iStart + " - " + iEnd + " {!$Label.of} " + iTotal;
+	  			}
+	    	});
+	    	
+	    	$sj("#dataTable").find('th:nth-child(1)').css('width', '70px');
+	    	$sj("#dataTable").find('th:nth-child(2)').css('width', '280px');
+	    	$sj("#dataTable").find('th:nth-child(3)').css('width', '70px');
+	    	$sj("#dataTable").find('th:nth-child(4)').css('width', '100px');
+	    	$sj("#dataTable").find('th:nth-child(5)').css('width', '70px');
+	    	
+	    	$sj(document).click(function() {
+			    $sj('.zen-options').hide();
+			});
+
+	    	//style prev next buttons
+	    	$sj(".fg-button").css('height', '20px');
+	    	$sj(".fg-button").css('width', '65px');
+	    	$sj(".fg-button").css('margin-right', '5px');
+	    	$sj(".fg-button").css('position', 'relative');
+
+			var restyleBarArrows = function() {
+				$sj('thead tr .ui-icon').html('');
+				$sj('.ui-icon-triangle-1-n').html('&uarr;');
+				$sj('.ui-icon-triangle-1-s').html('&darr;');
+				$sj('tr th').css({'background-color': '#FAFAFA'});
+				$sj(this).closest('tr th').css({'background-color': '#F4F4F4'});
+			};
+			restyleBarArrows();
+			$sj('tr th:first').css({'background-color': '#F4F4F4'});
+
+			$sj('.ui-state-default').click(restyleBarArrows);
+			
+			
+			$sj('#dataTable').click(function(e) {
+				var target = $sj(e.target);
+
+				if(target.hasClass('zen-trigger')) {
+					e.stopPropagation();
+
+					$sj('.zen-options').not(target.next('.zen-options')).hide();
+					target.next('.zen-options').toggle();
+				}
+				if(target.hasClass('zen-selectArrow')) {
+					e.stopPropagation();
+
+					$sj('.zen-options').not(target.parent().next('.zen-options')).hide();
+					target.parent().next('.zen-options').toggle();
+				}
+
+				//VIEW DETAILS
+				if(target.hasClass('detailAction')) {
+					target.parent().hide();
+					var achievementId = target.attr('id');
+					var achievement = _.where(ACHIEVEMENTS, {Id: achievementId});
+					var detailedText = (_.isEmpty(achievement) === false) ? achievement[0].detailedText : '';
+
+					e.stopPropagation();
+					
+					$sj(".ui-dialog-content").dialog("close");
+					
+					var detailDialog = $sj( "<p />", {id: achievementId} ).html('<p>' + detailedText + '</p>');
+					detailDialog.dialog({
+						dialogClass: 'confirmDialog',
+				 		position:[85,target.closest('td').position().top - 2],
+				 		title: '{!$ObjectType.Achievement__c.Label}',
+						resizable: false,
+					    height:300,
+					    modal: false,
+						buttons: {
+					    	"OK": function() {
+						    	$sj(this).dialog( "close" );
+						    }
+						}
+					});
+					$sj(".confirmDialog button").removeClass("ui-button").addClass("confirm-button");
+				}
+			});
+			
+			repositionSearch();
+
+			indicators.render();
+		}
+	});
+	
+</script>
+
+	<apex:outputPanel layout="block">
+		<!-- IN PROGRESS ACHIEVEMENT INDICATORS -->
+		<div id="indicatorsOuterContainer">
+			<div id="indicatorsContainer">
+			</div>
+		</div>
+		<!-- ACHIEVEMENTS -->			
+		<div id="contentContainer" class="sectionBody">
+	    	<div class="sectionBody achievementsBackground">
+	    		<div class="performanceAchievementsContainer">
+	    			<table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable"></table>
+	    		</div>
+	    		<div class="clear"></div>
+	    	</div>
+		</div>
+		<div id="noRecordsContainer" class="sectionBody">
+			<img class="noRecordsIcon" src="{!URLFOR($Resource.SuMoSalesAssets, 'profile-bg/key@2x_grey.png')}" />
+			<div class="noRecordsMsg"><p>
+				<apex:outputText value="{!$Label.no_achievements_message}" />
+			</p></div>
+		</div>
+	</apex:outputPanel>
+
+</apex:page>

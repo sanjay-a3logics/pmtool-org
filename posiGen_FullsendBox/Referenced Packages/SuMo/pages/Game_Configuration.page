@@ -1,0 +1,1307 @@
+<apex:page controller="success.GameController" extensions="success.NewsBroadcastsController,success.SenseiRemoteController" sidebar="false" standardStylesheets="true" >
+
+    <!--[if lt IE 10]>
+    <script type="text/javascript">
+        window.IS_OLD_IE_VERSION = true;
+    </script>
+    <![endif]-->
+
+    <!-- styles -->
+    <apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap/css/bootstrap.min.css')}"/>
+    <!-- vendor js -->
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/jquery/jquery-2.1.3.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap/js/bootstrap.min.js')}" />
+
+    <script type="text/javascript">
+        //override VF default behavior
+        setFocusOnLoad = function () {};
+    </script>
+
+    <style>
+        @media (min-width: 768px) {
+            .success-bs .modal-dialog {
+                width: auto;
+                margin: 30px 30px;
+            }
+        }
+        @media (min-width: 992px) {
+            .success-bs .modal-dialog {
+                width: 900px;
+                margin: 30px auto;
+            }
+        }
+        .success-bs{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+        .success-bs .btn {margin: 0 1px;}
+        .success-bs .form-control {height: 34px!important;}
+        .noSidebarCell{padding:0!important}
+        .sidebar{position:absolute;z-index:1000;display:block;padding:5px;overflow-x:hidden;overflow-y:auto;width:160px;height:100%;}
+        .sidebar .btn:hover { background-color: #1485a9!important;}
+        .sidebar .sidebar-wrapper {width: 160px;}
+        .sidebar .btn {width: 150px;padding:10px 10px 10px 0;margin: 0 auto;}
+        .sidebar .btn img {width: 30px;height:30px;float:left;margin:5px 10px 5px 8px;}
+        .sidebar .btn div {text-align: left;word-break: break-word;white-space: normal;}
+        .sidebar .btn-primary { border-color: transparent; }
+        .main{margin-left:160px}
+        .header{padding-top:10px;}
+        .header img{float:left;width:32px;height:32px}
+        .header h2{position:relative;top:4px;left:10px}
+        .sub-header {padding:0px;padding-top:10px;}
+        .custom-form label {font-weight:normal;padding-left:5px;}
+        .padding-top { padding-top: 10px;}
+        .badgeIcon {float: left;padding: 3px;margin-right: 5px;margin-top: 2px;height: 40px;width: 40px;}
+        .badgeLabel {float: left; top: 0px; left: 45px; line-height: 35px; margin: 0; padding: 0;}
+        .help-button {cursor:pointer;vertical-align: top;border-radius:50%;font-size:14px;color:#f0ad4e;background:white;}
+
+        /* peter's fixes */
+
+        .modal-content label {
+            padding-top: 20px;
+        }
+
+        .control-label {
+            padding-top: 14px;
+            font-size: 14px;
+        }
+
+        .left-round-corner {
+            border-top-left-radius: 4px !important;
+            border-bottom-left-radius: 4px !important;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        /* sidebar affix rules */
+        .sidebar .sidebar-wrapper.affix { top: 0; }
+        .sidebar .sidebar-wrapper.affix-bottom { position: relative; }
+
+        .sub-header, .modal-header { background-color: #d9edf7; }
+        .sub-header { padding: 15px 0 0 30px; margin: 20px 0; }
+        .sub-header hr { margin: 15px 0 0 0; }
+
+        .section-content { padding-left: 30px;}
+
+        .modal-header { background-color: #d9edf7; }
+        #helpModal .modal-header { background-color: #fcf8e3; }
+        .modal-content { overflow: hidden; }
+        .close { filter: alpha(opacity=40); opacity: .4; }
+
+        .chatterGroupModal .modal-body {
+            max-height: 420px;
+            overflow-y: auto;
+        }
+
+        .chatterGroupName {
+            color: #015BA7;
+        }
+
+        .no-padding {
+            padding: 0px !important;
+        }
+
+        .photoAndName {
+            position: relative;
+            width: 200px;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        .chatterGroupPhoto {
+            width: 45px;
+            height: 45px;
+        }
+
+        .chatterGroupNameContainer {
+            position: absolute;
+            left: 52px;
+            top: 0;
+            width: 150px;
+            height: 43px;
+            display: table;
+        }
+
+        .chatterGroupNameContainer span {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+        var helpMap = {};
+        helpMap.levelDefinition = "{!JSENCODE(SUBSTITUTE($Label.game_conf_levelinfo, '{0}', $ObjectType.User.fields.Experience__c.Label))}";
+        helpMap.socialSettings = "{!JSENCODE(SUBSTITUTE($Label.game_conf_socialinfo1, '{0}', $ObjectType.User.fields.Experience__c.Label))}";
+        helpMap.themeSettings = "{!JSENCODE($Label.game_conf_themeinfo)}";
+        helpMap.assessmentEngine = "{!JSENCODE($Label.game_conf_assessinfo)}";
+        helpMap.channelConfiguration = "{!JSENCODE($Label.game_conf_channelConfigHelptext)}";
+        helpMap.newsBroadcast = "{!JSENCODE($Label.game_conf_newsBroadcastsHelptext)}";
+        helpMap.hashtagConfiguration = "{!JSENCODE($Label.game_conf_socialActionHashtagHelptext)}";
+
+        //helper - escape Ids of apex component elements
+        function escapedComponentId(cid) {
+            return "#" + cid.replace( /(:|\.|\[|\])/g, "\\\\$1" );
+        }
+
+        /* CHANNEL ACTION HANDLING */
+        function alertChannelNotFound() {
+            $('#channelErrorBody').html($('<p/>').html('{!JSENCODE($Label.channel_not_found)}'));
+            $('#channelErrorModal').modal('show');
+            refreshChannels();
+        }
+
+        function doesChannelExist(id, callBack) {
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.GameController.doesChannelExist}',
+                id,
+                function (result, event) {
+                    if (event.status) {
+                        if(!result) {
+                            alertChannelNotFound();
+                        } else {
+                            console.log('Channel still exists. proceeding...');
+                            callBack();
+                        }
+                    } else {
+                       $('#channelErrorBody').html($('<p/>').html(event.message));
+                        $('#channelErrorModal').modal('show');
+                    }
+                });
+        }
+
+        function appendParam(url, paramKey, paramVal) {
+            if (url.indexOf('?') > -1) {
+                url += '&' + paramKey + '=' + paramVal;
+            } else {
+                url += '?' + paramKey + '=' + paramVal;
+            }
+            return url;
+        }
+
+        function navigateTo(url) {
+            if( (typeof sforce != 'undefined') && sforce.one ) {
+                sforce.one.navigateToURL(url);
+            } else {
+                window.location.replace(url);
+            }
+        }
+
+        function handleChannelEdit(id) {
+            if(window.IS_OLD_IE_VERSION) {
+                alert('{!JSINHTMLENCODE($Label.channelbuilder_old_ie_alert)}');
+            } else {
+                doesChannelExist(id, function() {
+                    var channelConfigurationURL = "{!URLFOR($Page.Channel_Configuration)}";
+
+                    channelConfigurationURL = appendParam(channelConfigurationURL, 'id', id);
+                    navigateTo(channelConfigurationURL);
+                });
+            }
+        }
+
+        function handleSetView(id) {
+            var setViewURL = "{!URLFOR($Page.Set_View)}";
+
+            setViewURL = appendParam(setViewURL, 'setId', id);
+            navigateTo(setViewURL);
+        }
+
+        function deleteChannel(id, callBack) {
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.GameController.deleteChannel}',
+                id,
+                function (result, event) {
+                    if (event.status) {
+                        callBack();
+                    } else {
+                        $('#channelErrorBody').html($('<p/>').html(event.message));
+                        $('#channelErrorModal').modal('show');
+                    }
+                });
+        }
+
+        function handleChannelDelete(id) {
+            doesChannelExist(id, function() {
+                var confirmResponse = confirm('{!JSINHTMLENCODE($Label.delete_confirm)}');
+                if(confirmResponse) {
+                    doesChannelExist(id, function() {
+                        deleteChannel(id, function() {
+                            refreshChannels();
+                        });
+                    });
+                }
+            });
+        }
+
+        function handleChannelClone(id, name) {
+            doesChannelExist(id, function() {
+                window.successCloningChannel = id;
+                $('#cloneChannelName').val(name + ' ' + '{!JSENCODE($Label.clone)}');
+                $('#cloneChannelModal').modal('show');
+            });
+        }
+        /* CHANNEL ACTION HANDLING - END */
+
+        $(document).ready(function(){
+
+            $('.help-button').click(function() {
+                var sectionId = $(this).parent().attr('id');
+                $('#helpBody').html($('<p/>').html(helpMap[sectionId]));
+            });
+
+
+            var topOffset = $('.bodyDiv').offset();
+            topOffset = (topOffset) ? topOffset.top : 0;
+
+            $('#game-configuration-sidebar').affix({
+              offset: {
+                top: topOffset,
+                bottom: 60
+              }
+            });
+
+            $('.sidebar').height($(document).height());
+
+        });
+
+    </script>
+
+    <apex:form id="form">
+        <div class="success-bs">
+            <div class="container-fluid">
+                <div class="row">
+
+                <div class="sidebar bg-primary">
+                    <div id="game-configuration-sidebar" class="sidebar-wrapper">
+                        <c:Visibility edition="Achieve" showMessage="false">
+                            <a href="#levelDefinition" class="btn btn-primary" title="{!$Label.game_conf_tab1}">
+                                <img src="{!URLFOR($Resource.AdminHomePageFiles, 'Admin_home_page_files/ICON_star.png')}" />
+                                <div><apex:outputText escape="false" value="{!SUBSTITUTE($Label.game_conf_tab1, ' ', '<br />')}" /></div>
+                            </a>
+                        </c:Visibility>
+                        <c:Visibility edition="Energise" showMessage="false">
+                            <a href="#socialSettings" class="btn btn-primary" title="{!$Label.game_conf_tab2}">
+                                <img src="{!URLFOR($Resource.AdminHomePageFiles, 'Admin_home_page_files/ICON_dna.png')}" />
+                                <div>{!$Label.game_conf_tab2}</div>
+                            </a>
+                            <a href="#themeSettings" class="btn btn-primary" title="{!$Label.game_conf_tab3}">
+                                <img src="{!URLFOR($Resource.AdminHomePageFiles, 'Admin_home_page_files/ICON_theme.png')}" />
+                                <div>{!$Label.game_conf_tab3}</div>
+                            </a>
+                            <a href="#assessmentEngine" class="btn btn-primary" title="{!$Label.game_conf_tab4}">
+                                <img src="{!URLFOR($Resource.AdminHomePageFiles, 'Admin_home_page_files/ICON_time_period.png')}" />
+                                <div>{!$Label.game_conf_tab4}</div>
+                            </a>
+                        </c:Visibility>
+                        <c:Visibility edition="Inspire" showMessage="false">
+                            <a href="#channelConfiguration" class="btn btn-primary" title="{!$Label.game_conf_tab_channels}">
+                                <img src="{!URLFOR($Resource.AdminHomePageFiles, 'Admin_home_page_files/ICON_color-tv.png')}" />
+                                <div>{!$Label.game_conf_tab_channels}</div>
+                            </a>
+                            <a href="#hashtagConfiguration" class="btn btn-primary" title="{!$Label.game_conf_tab_social_action_hashtag}">
+                                <img src="{!URLFOR($Resource.AdminHomePageFiles, 'Admin_home_page_files/ICON_hashtag.png')}" />
+                                <div>{!$Label.game_conf_tab_social_action_hashtag}</div>
+                            </a>
+                            <a href="#newsBroadcast" class="btn btn-primary" title="{!$Label.game_conf_tab5}">
+                                <img src="{!URLFOR($Resource.AdminHomePageFiles, 'Admin_home_page_files/ICON_news.png')}" />
+                                <div>{!$Label.game_conf_tab5}</div>
+                            </a>
+                        </c:Visibility>
+                    </div>
+                </div>
+
+                <div class="main">
+
+                    <div class="header col-md-12">
+                        <apex:pagemessages />
+                        <img src="{!URLFOR($Resource.Administration_Icon)}" alt="{!$Label.sumo_administration}" title="{!$Label.sumo_administration}" />
+                        <h2>Administration</h2>
+                    </div>
+
+
+                    <!-- LEVEL DEFINITION -->
+                    <c:Visibility edition="Achieve" showMessage="false">
+                        <div style="clear:both">&nbsp;</div>
+                        <div id="levelDefinition" class="sub-header">
+                            <h3>{!$Label.game_conf_tab1}</h3>
+                            <span class="help-button glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#helpModal"></span>
+                            <hr />
+                        </div>
+
+                        <div class="section-content col-md-10">
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><apex:outputText value="{!$Label.action}" /></th>
+                                        <th scope="col"><apex:outputText value="{!$Label.name}" /></th>
+                                        <th scope="col"><apex:outputText value="{!$Label.default}" /></th>
+                                        <th scope="col"><apex:outputText value="{!$Label.Enabled}" /></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!sumosets}" var="sumoSet" id="levelsRepeater">
+                                        <apex:variable value="{!$Component.levelsRepeater}" var="i" />
+                                        <tr>
+                                            <td>
+                                                <apex:commandLink action="{!URLFOR($Action.Set__c.Edit, sumoSet.id)}" value="{!$Label.edit}">
+                                                    <apex:param name="lname" value="{!sumoSet.id}" />
+                                                </apex:commandLink>
+                                                   <apex:outputText value=" | " rendered="{!NOT(sumoSet.setDetail.isDefault)}" />
+                                                <apex:commandLink action="{!URLFOR($Action.Set__c.Delete, sumoSet.id, [retURL=$Page.Game_Configuration])}" value="{!$Label.delete_short}" rendered="{!NOT(sumoSet.setDetail.isDefault)}" onclick="return confirm('{!JSINHTMLENCODE($Label.delete_confirm)}');">
+                                                    <apex:param name="lname" value="{!sumoSet.id}" />
+                                                </apex:commandLink>
+
+                                            </td>
+                                            <td>
+                                                <a href="#" onclick="event.preventDefault();handleSetView('{!sumoSet.id}');">
+                                                    <apex:outputText value="{!sumoSet.setDetail.name}" />
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <apex:inputCheckbox value="{!sumoSet.setDetail.isDefault}" disabled="true"/>
+                                            </td>
+                                            <td>
+                                                <input id="enabled{!i}" type="checkbox" disabled="disabled"/>
+                                                <script type="text/javascript">
+                                                if ('{!HTMLENCODE(sumoSet.status)}' === 'yes') {
+                                                    $( escapedComponentId('enabled{!i}') ).prop("checked", true);
+                                                } else if ('{!HTMLENCODE(sumoSet.status)}' === 'no') {
+                                                    $( escapedComponentId('enabled{!i}') ).prop("checked", false);
+                                                } else if ('{!HTMLENCODE(sumoSet.status)}' === 'partial') {
+                                                    $( escapedComponentId('enabled{!i}') ).prop("checked", false);
+                                                    $( escapedComponentId('enabled{!i}') ).prop("indeterminate", true);
+                                                }
+                                                </script>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+
+                            <div class="form-group">
+                                <apex:commandLink action="{!URLFOR($Action.Set__c.New)}" value="{!$Label.new}" styleClass="btn btn-sm btn-primary"></apex:commandLink>
+                            </div>
+                        </div>
+                    </c:Visibility>
+
+                    <!-- SOCIAL SETTINGS -->
+
+                    <c:Visibility edition="Energise" showMessage="false">
+                        <div style="clear:both">&nbsp;</div>
+                        <div id="socialSettings" class="sub-header">
+                            <h3>{!$Label.game_conf_tab2}</h3>
+                            <span class="help-button glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#helpModal"></span>
+                            <hr />
+                        </div>
+
+                        <div class="section-content col-md-10">
+
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="col-md-4" scope="col">
+                                            <apex:outputText value="{!$Label.game_conf_chatterNotif}" />&nbsp;
+                                            <apex:outputText value="" id="chatterGroupNameLabel"/>&nbsp;
+                                            <button type="button" class="btn btn-xs btn-link no-padding" data-toggle="modal" data-target="#chatterGroupModal">{!$Label.edit}</button>
+                                        </th>
+                                        <th class="col-md-4" scope="col"><apex:outputText value="{!$Label.game_conf_digestMsgs}" /></th>
+                                        <th class="col-md-4" scope="col"><apex:outputText value="{!$Label.game_conf_leaderboardTrends}" /></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <apex:selectCheckboxes value="{!rewardEnabledFields}" layout="pageDirection" styleclass="custom-form">
+                                                <apex:selectOptions value="{!rewardEnabledFieldOptions}"></apex:selectOptions>
+                                            </apex:selectCheckboxes>
+                                            <apex:selectCheckboxes value="{!userChallengeEnabledFields}" styleclass="custom-form">
+                                                <apex:selectOptions value="{!userChallengeEnabledFieldOptions}"></apex:selectOptions>
+                                            </apex:selectCheckboxes>
+                                        </td>
+                                        <td>
+                                            <apex:selectRadio value="{!digestFrequency}" layout="pageDirection" styleclass="custom-form">
+                                                <apex:selectOptions value="{!digestFrequencyOptions}" />
+                                            </apex:selectRadio>
+                                        </td>
+                                        <td>
+                                            <apex:selectRadio value="{!snapshotFrequency}" layout="pageDirection" styleclass="custom-form">
+                                                <apex:selectOptions value="{!snapshotFrequencyOptions}" />
+                                            </apex:selectRadio>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="row"><div class="col-md-4">
+
+                                <c:Visibility edition="Achieve" showMessage="false">
+
+                                    <label>{!$Label.game_conf_rewardsExpiry}</label>
+
+                                    <div class="input-group">
+                                        <apex:inputText value="{!daysPointsExpire}" styleClass="form-control input-sm" />
+                                        <apex:outputText value="{!$Label.days}" styleClass="input-group-addon" />
+                                    </div>
+
+                                    <br />
+
+                                </c:Visibility>
+
+                                 <div class="form-group">
+                                    <apex:commandButton action="{!Save}" value="{!$Label.save}" styleClass="btn btn-sm btn-primary" />
+                                    <apex:commandButton action="{!Cancel}" value="{!$Label.cancel}" styleClass="btn btn-sm" />
+                                </div>
+
+                            </div></div>
+
+                            <apex:inputHidden value="{!chatterEnabledChatterGroupId}" id="chatterGroupId" />
+                            <apex:inputHidden value="{!chatterEnabledChatterGroupName}" id="chatterGroupName" />
+
+                            <script type="text/javascript">
+
+                                function chatterGroup_select(id, name) {
+                                    $( escapedComponentId('{!$Component.chatterGroupId}') ).val(id);
+                                    $( escapedComponentId('{!$Component.chatterGroupName}') ).val(name);
+                                    $( escapedComponentId('{!$Component.chatterGroupName}') ).trigger("change");
+                                }
+
+                                function chatterGroup_clear() {
+                                    $( escapedComponentId('{!$Component.chatterGroupId}') ).val('');
+                                    $( escapedComponentId('{!$Component.chatterGroupName}') ).val('');
+                                    $( escapedComponentId('{!$Component.chatterGroupName}') ).trigger("change");
+                                }
+
+                                function setChatterGroupNameLabel() {
+                                    var chatterGroupNameValue = $( escapedComponentId('{!$Component.chatterGroupName}') ).val();
+                                    
+                                    if(chatterGroupNameValue != '') {
+                                        var labelSpan = $('<span />').addClass('chatterGroupName').html('(' + chatterGroupNameValue + ')');
+                                        $( escapedComponentId('{!$Component.chatterGroupNameLabel}') ).html(labelSpan);
+                                    } else {
+                                        $( escapedComponentId('{!$Component.chatterGroupNameLabel}') ).text('');
+                                    }
+                                }
+
+                                $( escapedComponentId('{!$Component.chatterGroupName}') ).change(function() {
+                                    setChatterGroupNameLabel();
+                                });
+
+                                $(document).ready(function(){
+                                    setChatterGroupNameLabel();
+                                });
+
+                            </script>
+
+                            <!-- CHATER GROUP MODAL -->
+                            <div class="chatterGroupModal modal fade" id="chatterGroupModal">
+                                  <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h3 class="modal-title">{!$Label.game_conf_chatterNotif} {!$ObjectType.CollaborationGroup.Label}</h3>
+                                      </div>
+
+                                      <div class="modal-body">
+
+                                          <div class="form-group">
+                                            <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col"><apex:outputText value="{!$Label.action}" />
+                                                    </th>
+                                                    <th scope="col"><apex:outputText value="{!$Label.name}" />
+                                                    </th>
+                                                    <th scope="col"><apex:outputText value="{!$Label.description}" />
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <apex:repeat value="{!chatterGroupPage.groups}" var="g" id="chatterGroupRepeater">
+                                                <tr>
+                                                    <td style="vertical-align:middle;width:100px;">
+                                                        <button type="button" class="btn btn-sm btn-link" data-dismiss="modal" onclick="chatterGroup_select('{!g.Id}','{!HTMLENCODE(g.Name)}')">{!$Label.select}</button>
+                                                    </td>
+                                                    <td style="vertical-align:middle;width:200px;">
+                                                        <div class="photoAndName">
+                                                            <img class="chatterGroupPhoto" src="{!g.photo.smallPhotoUrl}" />
+                                                            <div class="chatterGroupNameContainer">
+                                                                <apex:outputText value="{!g.Name}" style="font-weight:bold;" />
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <apex:outputText value="{!g.Description}" />
+                                                    </td>
+
+                                                </tr>
+                                                </apex:repeat>
+                                            </tbody>
+                                            </table>
+                                          </div>
+
+                                          <div class="clearfix"></div>
+                                      </div>
+
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn" data-dismiss="modal" onclick="chatterGroup_clear()">Clear</button>
+                                        <button type="button" class="btn" data-dismiss="modal">{!$Label.cancel}</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        </div>
+
+                        <!-- THEME SETTINGS -->
+
+                        <div style="clear:both">&nbsp;</div>
+                        <div id="themeSettings" class="sub-header">
+                            <h3>{!$Label.game_conf_tab3}</h3>
+                            <span class="help-button glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#helpModal"></span>
+                            <hr />
+                        </div>
+
+                        <div class="section-content col-md-10">
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><apex:outputText value="{!$Label.action}" />
+                                        </th>
+                                        <th scope="col"><apex:outputText value="{!$Label.game_conf_tab3}" />
+                                        </th>
+                                        <th scope="col"><apex:outputText value="{!$Label.game_conf_mappedGraphic}" />
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!iconSettings}" var="is" id="themeRepeater">
+                                        <apex:variable value="{!$Component.themeRepeater}" var="i" />
+                                        <tr>
+                                            <td><apex:commandLink action="{!editThemeIcon}"
+                                                    value="{!$Label.edit}">
+                                                    <apex:param name="iconlabel" value="{!is}" />
+                                                    <apex:param name="graphiclabel" value="{!iconSettings[is].Name}" />
+                                                </apex:commandLink></td>
+                                            <td><apex:outputText value="{!is}" />
+                                            </td>
+                                            <td style="position: relative;">
+                                                <apex:image value="{!iconSettings[is].Image_URL__c}" styleClass="badgeIcon"
+                                                    style="background-color: {!IF(CONTAINS(iconSettings[is].Background_Colour__c,'#'), iconSettings[is].Background_Colour__c, '#' + iconSettings[is].Background_Colour__c)};"
+                                                    rendered="{!NOT(ISNULL(iconSettings[is].Image_URL__c))}" />
+                                                <p class="badgeLabel">
+                                                    <apex:outputText value="{!iconSettings[is].Name}" />
+                                                </p></td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- ASSESSMENT ENGINE -->
+
+                        <div style="clear:both">&nbsp;</div>
+                        <div id="assessmentEngine" class="sub-header">
+                            <h3>{!$Label.game_conf_tab4}</h3>
+                            <span class="help-button glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#helpModal"></span>
+                            <hr />
+                        </div>
+
+                        <div class="section-content col-md-10">
+
+                            <div class="row"><div class="col-md-12 padding-top">
+
+                                <div class="row clearfix">
+                                    <div class="col-md-4">
+                                        <apex:selectList value="{!objectName}" size="1" styleClass="form-control">
+                                            <apex:selectOptions value="{!objects}"></apex:selectOptions>
+                                            <apex:actionSupport action="{!resetConditions}" event="onchange" rerender="output"
+                                                status="objectChangeStatus" />
+                                        </apex:SelectList>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <apex:actionStatus id="objectChangeStatus">
+                                            <apex:facet name="start">
+                                                <apex:image value="/img/loading.gif"/>
+                                            </apex:facet>
+                                            <apex:facet name="stop">
+                                            </apex:facet>
+                                        </apex:actionStatus>
+                                    </div>
+                                </div>
+                                <div class="row clearfix"><div class="col-md-12">
+                                    <apex:outputPanel id="output">
+
+                                        <apex:repeat value="{!conditionControllers}" var="cc" id="conditionControllers">
+                                            <apex:outputPanel id="conditions" layout="block" styleClass="form-inline padding-top">
+                                                <apex:repeat value="{!cc.objectDescribes}" var="o">
+                                                    <apex:selectList value="{!o.selectedFieldName}" size="1" styleClass="form-control input-sm">
+                                                        <apex:selectOptions value="{!o.fields}" />
+                                                        <apex:actionSupport event="onchange" action="{!o.handleSelection}" rerender="output" onsubmit="$(this).closest('.form-inline').find('input, select, a').addClass('disabled')" oncomplete="$(this).closest('.form-inline').find('input, select, a').removeClass('disabled')" />
+                                                    </apex:selectList>
+                                                </apex:repeat>
+
+                                                <apex:selectList value="{!cc.condition.operator}" size="1" styleClass="form-control input-sm">
+                                                    <apex:selectOptions value="{!cc.operators}" />
+                                                </apex:selectList>
+
+                                                <apex:inputText value="{!cc.value}" styleClass="form-control input-sm" />
+
+                                                <div class="form-group">
+                                                    <apex:commandLink action="{!cc.reset}" title="{!$Label.reset}" onclick="$(this).addClass('disabled')"  oncomplete="$(this).removeClass('disabled')" value="{!$Label.reset}" rerender="output" styleClass="btn btn-sm btn-primary"/>
+                                                </div>
+
+                                                <apex:actionStatus id="rowactionstatus">
+                                                    <apex:facet name="start">
+                                                        <apex:image value="/img/loading.gif"/>
+                                                    </apex:facet>
+                                                    <apex:facet name="stop">
+                                                    </apex:facet>
+                                                </apex:actionStatus>
+
+                                            </apex:outputPanel>
+                                        </apex:repeat>
+
+                                        <div class="form-group padding-top">
+                                            <apex:commandButton action="{!addCondition}" title="{!$Label.game_conf_addNewConditionhelptext}" value="{!$Label.game_conf_addNewCondition}" rendered="{!NOT(ISNULL(objectName)) && objectName != 'Standard' && objectName != 'Custom'}" rerender="output" onclick="$(this).addClass('disabled')" oncomplete="$(this).removeClass('disabled')" styleClass="btn btn-sm btn-primary"/>
+                                        </div>
+
+                                    </apex:outputPanel>
+                                </div></div>
+                                <div class="row clearfix"><div class="col-md-12">
+                                    <apex:commandButton action="{!assess}" title="{!$Label.game_conf_submitAssessmenthelptext}" value="{!$Label.submit}" styleClass="btn btn-sm btn-primary" onclick="$(this).addClass('disabled')" />
+                                    <apex:commandButton action="{!schedulerSettings}" title="{!$Label.scheduler} {!$Label.settings}" value="{!$Label.scheduler}" styleClass="btn btn-sm btn-primary"/>
+                                </div></div>
+                            </div></div>
+                        </div>
+
+                        <div id="engineStatus" class="col-md-12 padding-top">
+                            <apex:pageBlock rendered="{!(batchjoblist.size > 0)}">
+                                <apex:pageBlockSection columns="1">
+                                    <apex:pageBlockTable value="{!BatchJobList}" var="job"
+                                        id="joblist" rendered="{!NOT(batchjoblist.size == 0)}">
+                                        <apex:column value="{!job.status}" />
+                                        <apex:column value="{!job.totaljobitems}" />
+                                        <apex:column value="{!job.jobitemsprocessed}" />
+                                        <apex:column value="{!job.numberoferrors}" />
+                                        <apex:column value="{!job.completedDate}" />
+                                    </apex:pageBlockTable>
+                                    <apex:actionPoller rerender="joblist" interval="5" />
+                                </apex:pageBlockSection>
+                            </apex:pageBlock>
+                        </div>
+
+                    </c:Visibility>
+
+
+                    <!-- CHANNEL CONFIGURATION -->
+                    <c:Visibility edition="Inspire" showMessage="false">
+
+                        <div style="clear:both">&nbsp;</div>
+                        <div id="channelConfiguration" class="sub-header">
+                            <h3>{!$Label.game_conf_tab_channels}</h3>
+                            <span class="help-button glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#helpModal"></span>
+                            <hr />
+                        </div>
+
+                        <div class="section-content col-md-10">
+
+                            <apex:actionFunction name="refreshChannels" action="{!noop}" reRender="channelsList" />
+
+                            <apex:outputPanel id="channelsList">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"><apex:outputText value="{!$Label.action}" /></th>
+                                            <th scope="col"><apex:outputText value="{!$Label.name}" /></th>
+                                            <th scope="col"><apex:outputText value="{!$Label.active}" /></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:repeat value="{!inspireChannels}" var="channel" id="channelsRepeater">
+                                            <tr>
+                                                <td>
+                                                    <a href="#" onclick="event.preventDefault();handleChannelEdit('{!channel.Id}');">
+                                                        <apex:outputText value="{!$Label.edit}" />
+                                                    </a>
+                                                    <apex:outputText >&nbsp;|&nbsp;</apex:outputText>
+
+                                                    <a href="#" onclick="event.preventDefault();handleChannelDelete('{!channel.Id}');">
+                                                        <apex:outputText value="{!$Label.delete_short}" />
+                                                    </a>
+                                                    <apex:outputText >&nbsp;|&nbsp;</apex:outputText>
+
+                                                    <a href="#" onclick="event.preventDefault();handleChannelClone('{!channel.Id}', '{!JSENCODE(channel.Name)}');">
+                                                        <apex:outputText value="{!$Label.clone}" />
+                                                    </a>
+                                                    <apex:outputText rendered="{!channel.success__Active__c}">
+                                                        &nbsp;|&nbsp;
+                                                        <a href="{!URLFOR($Page.Inspire, null, [id=channel.id])}" target="_blank" onclick="return !window.IS_OLD_IE_VERSION || !!alert('{!JSINHTMLENCODE($Label.channelbuilder_old_ie_alert)}')">{!$Label.launch}</a>
+                                                    </apex:outputText>
+                                                </td>
+                                                <td>
+                                                    {!channel.name}
+                                                </td>
+                                                <td>
+                                                    <apex:inputCheckbox value="{!channel.success__Active__c}" disabled="true"/>
+                                                </td>
+                                            </tr>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                            </apex:outputPanel>
+                            <div class="form-group">
+                                <apex:commandLink action="{!URLFOR($Page.channel_configuration)}" value="{!$Label.new}" styleClass="btn btn-sm btn-primary" onclick="return !window.IS_OLD_IE_VERSION || !!alert('{!JSINHTMLENCODE($Label.channelbuilder_old_ie_alert)}')"></apex:commandLink>
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- SOCIAL ACTION HASHTAGS -->
+                        <div style="clear:both">&nbsp;</div>
+                        <div id="hashtagConfiguration" class="sub-header">
+                            <h3>{!$Label.game_conf_tab_social_action_hashtag}</h3>
+                            <span class="help-button glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#helpModal"></span>
+                            <hr />
+                        </div>
+
+                        <div class="section-content col-md-10">
+
+                            <div style="clear: both"></div>
+
+                            <div id="sah-error" class="alert alert-warning" role="alert" style="display: none;">
+                              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                              <span class="error-message"></span>
+                            </div>
+
+                            <table id="hashtagsTable" class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"><apex:outputText value="{!$Label.action}" />
+                                        </th>
+                                        <th scope="col"><apex:outputText value="{!$Label.social_action}" />
+                                        </th>
+                                        <th scope="col"><apex:outputText value="{!$Label.hashtag}" />
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+
+                            <div class="form-group hastags-button-container">
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#hashtagModal">{!$Label.new}</button>
+                            </div>
+
+                            <script type="text/javascript">
+
+                            /* social actions labels */
+                            SOCIAL_ACTION_HASHTAG_LABELS = {
+                                'cheer': '{!JSENCODE($Label.social_action_cheer)}',
+                                'taunt': '{!JSENCODE($Label.social_action_taunt)}',
+                                'comparison': '{!JSENCODE($Label.social_action_comparison)}',
+                                'vote': '{!JSENCODE($Label.social_action_vote)}'
+                            };
+
+                            SOCIAL_ACTION_HASHTAG_PREVENTACTION = false;
+
+                            function sah_wrapList (origList) {
+                                var returnList = [];
+                                $.each(origList, function (i, el) {
+                                    returnList.push({
+                                        Id: el.Id,
+                                        Social_Action__c: el.Social_Action__c || el.success__Social_Action__c,
+                                        Hashtag__c: el.Hashtag__c || el.success__Hashtag__c
+                                    });
+                                });
+                                return returnList;
+                            }
+
+                            /* load hashtag list */
+                            function sah_loadList () {
+                                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.SenseiRemoteController.getSocialActionHashtags}',
+                                    function (result, event) {
+                                        if (event.status) {
+                                            sah_refreshList(result);
+                                        }
+                                        else {
+                                            alert(event.message);
+                                        }
+                                    },
+                                    {escape: false}
+                                );
+                            }
+
+                            /* get hashtags list and populate table */
+                            function sah_refreshList (els) {
+                                var wrappedList = sah_wrapList(els);
+                                SOCIAL_ACTION_HASHTAG_DEFINITIONS = {};
+                                var sahtable = $('#hashtagsTable tbody');
+                                sahtable.html('');
+                                $.each(wrappedList, function (i, el) {
+                                    SOCIAL_ACTION_HASHTAG_DEFINITIONS[el.Id] = el;
+                                    sahtable.append(
+                                        '<tr>'
+                                        + '<td><a href="#" data-toggle="modal" data-target="#hashtagModal" data-sahid="' + el.Id + '">{!$Label.edit}</a> | <a href="#" onclick="return sah_delete(\'' + el.Id + '\')">{!$Label.delete_short}</a></td>'
+                                        + '<td>' + SOCIAL_ACTION_HASHTAG_LABELS[el.Social_Action__c] + '</td>'
+                                        + '<td>#' + el.Hashtag__c + '</td>'
+                                        + '</tr>'
+                                    );
+                                });
+                            }
+
+                            function sah_delete (paramId) {
+
+                                if (SOCIAL_ACTION_HASHTAG_PREVENTACTION) return;
+                                SOCIAL_ACTION_HASHTAG_PREVENTACTION = true;
+
+                                $('.hastags-button-container .btn').addClass('disabled');
+
+                                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.GameController.deleteSocialActionHashtag}',
+                                    paramId,
+                                    function (result, event) {
+                                        if (event.status) {
+                                            $('#sah-error').hide();
+                                            sah_refreshList(result);
+                                        }
+                                        else {
+                                            $('#sah-error .error-message').text(event.message);
+                                            $('#sah-error').show();
+                                        }
+                                        $('.hastags-button-container .btn').removeClass('disabled');
+                                        SOCIAL_ACTION_HASHTAG_PREVENTACTION = false;
+                                    },
+                                    {escape: false}
+                                );
+                                return false;
+                            }
+
+                            function sah_saveForm (button) {
+
+                                if (SOCIAL_ACTION_HASHTAG_PREVENTACTION) return;
+                                SOCIAL_ACTION_HASHTAG_PREVENTACTION = true;
+
+                                var editingId = $('#sah_editing').val(),
+                                    socialAction = $('#sah_socialAction').val(),
+                                    hashtag = $('#sah_hashtag').val().trim(),
+                                    upsertObject;
+
+                                if (!hashtag || hashtag.length < 3 || hashtag.indexOf(',') > -1 || hashtag.indexOf(']') > -1) {
+                                    $('#hashtagModal #sah-formerror .error-message').text('{!JSENCODE($Label.game_conf_socialAction_invalidHashtag)}');
+                                    $('#hashtagModal #sah-formerror').show();
+                                    SOCIAL_ACTION_HASHTAG_PREVENTACTION = false;
+                                    return;
+                                }
+
+                                $(button).addClass('disabled');
+
+                                if (editingId && editingId.length) {
+                                    upsertObject = {
+                                        id: editingId,
+                                        socialAction: socialAction,
+                                        hashtag: hashtag
+                                    };
+                                }
+                                else {
+                                    upsertObject = {
+                                        socialAction: socialAction,
+                                        hashtag: hashtag
+                                    };
+                                }
+
+                                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.GameController.upsertSocialActionHashtag}',
+                                    upsertObject,
+                                    function (result, event) {
+                                        if (event.status) {
+                                            sah_refreshList(result);
+                                            $('#hashtagModal #sah-formerror').hide();
+                                            $('#hashtagModal').modal('hide');
+                                        }
+                                        else {
+                                            $('#hashtagModal #sah-formerror .error-message').text(event.message);
+                                            $('#hashtagModal #sah-formerror').show();
+                                        }
+
+                                        $(button).removeClass('disabled');
+                                        SOCIAL_ACTION_HASHTAG_PREVENTACTION = false;
+                                    },
+                                    {escape: false}
+                                );
+
+                            }
+
+                            $(document).ready(function() {
+
+                                /* populate table on page load */
+                                sah_loadList();
+
+                                /* populate modal on edit button click */
+                                $('#hashtagModal').on('show.bs.modal', function (event) {
+
+                                    $('#hashtagModal #sah-formerror').hide();
+
+                                    var triggeringElement = $(event.relatedTarget);
+                                    if (triggeringElement.is('button')) {
+                                        //new definition - empty the form
+                                        $('#sah_editing').val('');
+                                        $('#sah_socialAction')[0].selectedIndex = 0;
+                                        $('#sah_hashtag').val('');
+                                    }
+                                    else {
+                                        //edit definition - fill the form
+                                        var sahid = triggeringElement.data('sahid');
+                                        $('#sah_editing').val(sahid);
+                                        $('#sah_socialAction').val(SOCIAL_ACTION_HASHTAG_DEFINITIONS[sahid].Social_Action__c);
+                                        $('#sah_hashtag').val(SOCIAL_ACTION_HASHTAG_DEFINITIONS[sahid].Hashtag__c);
+                                    }
+                                });
+
+                            });
+
+                            </script>
+
+                                <!-- Modal -->
+
+
+                                <div class="modal fade" id="hashtagModal">
+                                  <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h3 class="modal-title">{!$Label.game_conf_tab_social_action_hashtag}</h3>
+                                      </div>
+                                      <div class="modal-body">
+
+                                            <input type="hidden" id="sah_editing" />
+
+                                            <div id="sah-formerror" class="alert alert-warning" role="alert" style="display: none;">
+                                              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                              <span class="error-message"></span>
+                                            </div>
+
+                                          <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="sah_socialAction">{!$Label.social_action}</label>
+                                            <div class="col-sm-5 padding-top">
+                                                <select class="form-control" id="sah_socialAction">
+                                                  <option value="cheer">{!$Label.social_action_cheer}</option>
+                                                  <option value="taunt">{!$Label.social_action_taunt}</option>
+                                                  <option value="comparison">{!$Label.social_action_comparison}</option>
+                                                  <option value="vote">{!$Label.social_action_vote}</option>
+                                                </select>
+                                            </div>
+                                          </div>
+
+                                          <div style="clear:both;"></div>
+
+                                          <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="sah_hashtag">{!$Label.hashtag}</label>
+                                            <div class="input-group col-sm-10 padding-top" style="padding-left: 15px; padding-right: 15px;">
+                                                <div class="input-group-addon">#</div>
+                                                <input class="form-control" type="text" id="sah_hashtag" />
+                                            </div>
+                                          </div>
+                                          <div class="clearfix"></div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn" data-dismiss="modal">{!$Label.cancel}</button>
+                                        <button type="button" class="btn btn-primary" onclick="sah_saveForm(this)">{!$Label.save}</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                        </div>
+
+
+                        <!-- NEWS BROADCAST -->
+
+                        <div style="clear:both">&nbsp;</div>
+                        <div id="newsBroadcast" class="sub-header">
+                            <h3>{!$Label.game_conf_tab5}</h3>
+                            <span class="help-button glyphicon glyphicon-question-sign" data-toggle="modal" data-target="#helpModal"></span>
+                            <hr />
+                        </div>
+
+                        <div class="section-content col-md-10">
+
+                            <apex:outputPanel id="newsNotificationsPanel">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"><apex:outputText value="{!$Label.action}" />
+                                            </th>
+                                            <th scope="col"><apex:outputText value="{!$Label.title}" />
+                                            </th>
+                                            <th scope="col"><apex:outputText value="{!$Label.broadcast_date_time}" />
+                                            </th>
+                                            <th scope="col"><apex:outputText value="{!$Label.channel}" />
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <apex:repeat value="{!NewsNotificationList}" var="nn">
+                                            <tr>
+                                                <td>
+                                                    <apex:commandLink action="{!selectNotification}" reRender="newsNotificationsPanel" oncomplete="bootstrapFixes(); $('#notificationModal').modal('show')" status="notificationStatus">
+                                                        <apex:param name="nid" value="{!nn.Id}" />
+                                                        {!$Label.edit}
+                                                    </apex:commandLink>
+                                                    |
+                                                    <apex:commandLink action="{!deleteNotification}" reRender="newsNotificationsPanel" status="notificationStatus">
+                                                        <apex:param name="nid" value="{!nn.Id}" />
+                                                        {!$Label.delete_short}
+                                                    </apex:commandLink>
+                                                </td>
+
+                                                <td>
+                                                    <apex:outputField value="{!nn.success__Header__c}" />
+                                                </td>
+
+                                                <td>
+                                                    <apex:outputField value="{!nn.success__Scheduled_Date_Time__c}" />
+                                                </td>
+
+                                                <td>
+                                                    <apex:outputField value="{!nn.Channel__r.Name}" />
+                                                </td>
+                                            </tr>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+
+
+
+
+
+                                <div class="form-group news-notification-button-container">
+
+                                    <apex:commandButton id="newsNotificationButton" value="{!$Label.new}" styleClass="btn btn-sm btn-primary" action="{!newNotification}" oncomplete="bootstrapFixes(); $('#notificationModal').modal('show')" status="notificationStatus" reRender="newsNotificationsPanel" />
+
+                                    <apex:actionStatus id="notificationStatus" onstart="$('.news-notification-button-container .btn').addClass('disabled');" onstop="$('.news-notification-button-container .btn').removeClass('disabled');" />
+
+                                </div>
+
+                                <!-- visualforce fixing bits -->
+                                <apex:actionFunction name="cancelNotification" action="{!cancelNotification}" reRender="newsNotificationsPanel"/>
+                                <script>
+                                    // this opens again the model if there is an error
+                                    if ({!showNotificationModal}) {
+                                        bootstrapFixes();
+                                        $('#notificationModal').modal('show');
+                                        // this fixes the position of the error messages
+                                        $('.input-group .errorMsg').each(function(i, element) {
+                                            var parent = $(element).parent().parent();
+                                            //parent.append('<br/>');
+                                            $(element).detach().appendTo(parent);
+                                        });
+
+                                        $('.errorMsg').each(function(i, element) {
+                                            $(element).css({'margin-top' : '5px'});
+                                        });
+                                    };
+
+                                </script>
+
+
+
+
+                                <!-- News Notification Modal -->
+                                <div class="modal fade" id="notificationModal">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">{!$Label.news_broadcast}</h3>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                  <div class="form-group">
+                                                    <label class="col-sm-2 control-label">{!$Label.title}</label>
+                                                    <div class="col-sm-10 padding-top">
+                                                      <apex:inputField value="{!selectedNewsNotification.success__Header__c}" styleClass="form-control"/>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-2 control-label">{!$Label.Details}</label>
+                                                    <div class="col-sm-10 padding-top">
+                                                      <apex:inputField value="{!selectedNewsNotification.success__Detail__c}" styleClass="form-control" style="height: 10em !important;"/>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-2 control-label">{!$Label.footnote}</label>
+                                                    <div class="col-sm-10 padding-top">
+                                                      <apex:inputField value="{!selectedNewsNotification.success__Summary__c}" styleClass="form-control" style="height: 4em !important;"/>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-2 col-md-2 control-label">{!$Label.broadcast_date_time}</label>
+                                                    <div class="col-sm-10 col-md-5 padding-top">
+                                                        <div class="input-group">
+                                                            <apex:inputField value="{!selectedNewsNotification.success__Scheduled_Date_Time__c}" styleClass="bootstrapped-datetime form-control newsnotification-datetime left-round-corner"/>
+                                                            <span class="input-group-addon" id="datetimeGroupon"></span>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="col-sm-2 col-md-1 control-label">{!$Label.channel}</label>
+                                                    <div class="col-sm-10 col-md-4 padding-top">
+                                                        <div class="input-group">
+                                                            <apex:inputField value="{!selectedNewsNotification.success__Channel__c}" styleClass="form-control bootstrapped-lookup newsnotification-channel" />
+                                                            <span class="input-group-addon" id="lookupGroupon"></span>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+
+                                                <div class="clearfix"></div>
+                                            </div>
+
+
+                                            <div class="modal-footer news-notification-modal-button-container">
+                                                 <button id="cancelNewsNotificationButton" class="btn" style="margin-top:10px">{!$Label.cancel}</button>
+
+                                                 <apex:commandButton action="{!upsertNotification}" value="{!$Label.save}" styleClass="btn btn-primary" style="margin-top:10px" reRender="newsNotificationsPanel" status="notificationModalStatus" />
+
+
+                                                <apex:actionStatus id="notificationModalStatus" onstart="$('.news-notification-modal-button-container .btn').addClass('disabled');" onstop="$('.news-notification-modal-button-container .btn').removeClass('disabled');" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- News Notification Modal End -->
+
+                            </apex:outputPanel>
+
+
+                            <!-- Channel Clone Modal -->
+                            <div class="modal fade" id="cloneChannelModal">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">{!$ObjectType.Channel__c.label} - {!$Label.clone}</h3>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div id="cloneChannelError" class="alert alert-warning" role="alert" style="display: none;">
+                                              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                              <span class="error-message"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">{!$Label.name}</label>
+                                                <div class="col-sm-10 padding-top">
+                                                    <input class="form-control" id="cloneChannelName" />
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+
+
+                                        <div class="modal-footer news-notification-modal-button-container">
+                                            <button id="cancelCloneChannel" class="btn" style="margin-top:10px">{!$Label.cancel}</button>
+                                            <button id="saveCloneChannel" class="btn btn-primary" style="margin-top:10px">{!$Label.save}</button>
+                                            <apex:actionStatus id="cloneChannelModalStatus" onstart="$('#saveCloneChannel').addClass('disabled');" onstop="$('#saveCloneChannel').removeClass('disabled');" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                            $('#cancelCloneChannel').click(function (e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                $('#cloneChannelModal').modal('hide');
+                            });
+                            $('#saveCloneChannel').click(function (e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                Visualforce.remoting.Manager.invokeAction(
+                                    '{!$RemoteAction.SenseiRemoteController.cloneChannel}',
+                                    successCloningChannel, $('#cloneChannelName').val(),
+                                    function (result, event) {
+                                        if (event.status) {
+                                            refreshChannels();
+                                            $('#cloneChannelError').hide();
+                                            $('#cloneChannelModal').modal('hide');
+                                        }
+                                        else {
+                                            $('#cloneChannelError .error-message').text(event.message);
+                                            $('#cloneChannelError').show();
+                                        }
+                                    },
+                                    {escape: false}
+                                );
+                            });
+                            </script>
+                            <!-- Clone Channel Modal End -->
+
+
+                        </div>
+
+                    </c:Visibility>
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Text Modal -->
+        <div class="modal fade" id="helpModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title">Help</h3>
+              </div>
+              <div id="helpBody" class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Channel Error Modal -->
+        <div class="modal fade" id="channelErrorModal">
+          <div class="modal-dialog" style="width:500px;">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3 class="modal-title"><apex:outputText value="{!$Label.error}" /></h3>
+              </div>
+              <div id="channelErrorBody" class="modal-body" style="font-size:14px;"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal"><apex:outputText value="{!$Label.close}" /></button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </apex:form>
+
+    <script>
+    $(document).ready(function() {
+        bootstrapFixes();
+    });
+    function bootstrapFixes() {
+        //$("a.bootstrapped-lookup").removeClass("form-control");
+        $("a.bootstrapped-lookup").removeClass("form-control");
+        $("a.bootstrapped-lookup").detach().appendTo("#lookupGroupon")  ;
+
+        $(".bootstrapped-datetime")
+            .focus(function() {
+                $(".datePicker").css({'position': 'fixed', 'z-index': 99999});
+            });
+        $(".bootstrapped-datetime").next().detach().appendTo("#datetimeGroupon");
+
+        $("#cancelNewsNotificationButton").click(cancelNewsNotification);
+    }
+
+    var cancelNewsNotification = function (e) {
+        e.preventDefault();
+        $(".newsnotification-channel").val('');
+        $(".newsnotification-datetime").val('');
+        $('#notificationModal').modal('hide');
+        cancelNotification();
+    }
+    </script>
+</apex:page>

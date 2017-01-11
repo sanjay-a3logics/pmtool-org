@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultLandingTab>Map</defaultLandingTab>
+    <label>Geopointe</label>
+    <tab>standard-Lead</tab>
+    <tab>standard-Account</tab>
+    <tab>standard-Contact</tab>
+    <tab>standard-Opportunity</tab>
+    <tab>standard-Case</tab>
+    <tab>Map</tab>
+    <tab>Visualize</tab>
+    <tab>Geo_Location__c</tab>
+    <tab>Geocode__c</tab>
+    <tab>My_Settings</tab>
+    <tab>Geopointe_Setup</tab>
+    <tab>Change_Request__c</tab>
+    <tab>Ops_Comment__c</tab>
+    <tab>Business_Installation_Step__c</tab>
+    <tab>Business_Stage__c</tab>
+    <tab>PM_Tool_V2__c</tab>
+    <tab>Formula_Builder_Stage</tab>
+    <tab>Formula_Builder_Step</tab>
+    <tab>PM_Tracker_v2</tab>
+    <tab>QC_Inspection__c</tab>
+    <tab>Login_access__c</tab>
+    <tab>PM_Stage_Mapping__c</tab>
+    <tab>Account_Console</tab>
+    <tab>Sub_Folder__c</tab>
+</CustomApplication>

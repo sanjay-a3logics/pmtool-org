@@ -1,0 +1,804 @@
+<apex:page StandardController="Deal__c" extensions="CustomerApplicationFormControllerDeal" showHeader="true" sidebar="false" standardStylesheets="true" docType="html-5.0">
+
+    <style type="text/css">
+        #wrapper {
+            width: 960px;
+            margin: 0 auto;
+        }
+
+        header {
+            width: 100%;
+        }
+
+        header #logo-posigen {
+            float: left;
+        }
+
+        header #logo-posigen img {
+            max-width: 75%;
+        }
+
+        header #form-title {
+            float: right;
+            padding-top: 1.3em;
+            font-size: 27px;
+        }
+
+        section {
+            clear: both;
+            width: 100%;
+            padding: 5px 0px;
+        }
+
+        #buttons {
+            text-align: center;
+        }
+
+        .tables-container {
+            border: 3px #000 solid;
+        }
+
+        .tables-container h1 {
+            padding-left: 5px;
+            font-size: 15px;
+            display: block;
+            position: absolute;
+            padding-top: 3px;
+            text-decoration: underline;
+        }
+
+        .table {
+            display: table;
+        }
+
+
+        .row {
+            width: 100%;
+            display: table-row;
+            padding: 5px;
+        }
+
+        .form-input {
+            border: none;
+            width: 90%;
+            background-color: rgba(236, 236, 236, 0.5);
+            /*background-color: #fff;*/
+        }
+
+        .form-input.middle {
+            width: 45% !important;
+        }
+
+        .form-input.fillall {
+            width: auto !important;
+        }
+
+        .form-input:focus {
+            background-color: rgba(177, 181, 200, 0.7);
+        }
+
+        .light-blue-background {
+            background-color: #ECDEFB;
+        }
+
+        .data-field, .label-field {
+            display: table-cell;
+            font-size: 14px;
+        }
+
+        .data-field {
+            border-bottom: 1px solid #000;
+            height: 50px;
+            vertical-align: bottom;
+            padding-left: 10px;
+        }
+
+        .label-field {
+            padding-left: 10px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .no-border-at-top {
+            border-top: 0px;
+        }
+
+        .btn-form {
+            font-family: Arial !important;
+            color: #FFF !important;
+            font-size: 15px !important;
+            background: #3498DB !important;
+            padding: 5px 20px !important;
+            text-decoration: none !important;
+            border: medium none !important;
+            border-radius: 0px !important;
+            font-weight: 100 !important;
+        }
+
+        .btn-form:hover {
+          background: #3cb0fd !important;
+          text-decoration: none !important;
+        }
+
+        .one-question {
+            width: 60% !important;
+        }
+
+        .lead-source-question {
+            border-bottom: 1px solid #000; 
+            opacity: 1;
+        }
+
+        .lead-source-question-padding-fix {
+            padding: 10.95px 0px; 
+        }
+
+        .set-right {
+            text-align: right;
+        }
+
+        .near-to-number {
+            padding-left: 0px !important;
+        }
+
+    </style>
+
+    <div id="wrapper">
+
+        <section>
+            <apex:messages id="errorList" />
+        </section>
+       
+        <apex:form rendered="{!validEnter}">
+        <apex:actionFunction name="changeYes" rerender="refrealpanel"/>
+            <header>
+                <div id="logo-posigen">
+                    <img src="https://c.cs10.content.force.com/servlet/servlet.FileDownload?file=015J0000000gMnZ" />
+                </div>          
+                <div id="form-title">
+                    <span>Customer Application</span>
+                </div>
+            </header>
+            
+
+
+<!-- ###############################################################################################  -->
+<!-- BUTTONS #######################################################################################  -->
+<!-- ###############################################################################################  -->
+
+            <section id="buttons">
+                <apex:commandButton value="Save" action="{!save}"  styleClass="btn-form" />
+                <apex:commandButton value="Cancel" action="{!cancel}" styleClass="btn-form" />
+            </section>
+
+<!-- ###############################################################################################  -->
+<!-- PRIMARY APPLICANT #############################################################################  -->
+<!-- ###############################################################################################  -->
+
+            <div id="primary-applicant" class="tables-container">
+                <h1>PRIMARY APPLICANT</h1>
+                <section class="table">
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.LastName}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.FirstName}"/>
+                        </div>
+                        
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.Middle_Name__pc}"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Last Name" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="First Name" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="MI" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonHomePhone}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonMobilePhone}" />
+                        </div>
+                        
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonOtherPhone}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Home Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Mobile Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Work Number" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonBirthdate}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.SSN__pc}"/>
+                        </div>
+                        
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonEmail}"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="DOB MM/DD/YY" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="SSN" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Email" />
+                        </div>
+                    </div>
+                </section>
+                <section class="table">
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.BillingStreet}"/>
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.BillingCity}"/>
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.BillingState}"/>
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.BillingPostalCode}"/>
+                        </div>
+                       <!-- <div class="data-field">
+                            <apex:inputField styleClass="form-input" style="width: 85% !important;" value="{!primaryApplicant.Billing_Parish_County__c}" />
+                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Street Address (Install Location)" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="City" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="State" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Zip" />
+                        </div>
+                       <!-- <div class="label-field">
+                            <apex:outputLabel value="Parish / County" />
+                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonMailingStreet}"/>
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonMailingCity}"/>
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonMailingState}"/>
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.PersonMailingPostalCode}"/>
+                        </div>
+                        <!--<div class="data-field">
+                            <apex:inputField styleClass="form-input" style="width: 85% !important;" value="{!primaryApplicant.Mailing_County_Parish__c}" />
+                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Mailing Address (if different from above) " />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="City" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="State" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Zip" />
+                        </div>
+                        <!--<div class="label-field">
+                            <apex:outputLabel value="Parish / County" />
+                        </div>-->
+                    </div>
+                </section>
+                <section class="table">
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.Employer__pc }" />
+                        </div>
+                        <div class="data-field set-right">
+                            <apex:inputField styleClass="form-input set-right" value="{!primaryApplicant.Employer_Contact_Name__c}" />
+                        </div>
+                        <div class="data-field near-to-number">
+                            / <apex:inputField styleClass="form-input" value="{!primaryApplicant.Employer_Phone__c}"/>
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!primaryApplicant.Monthly_Income__pc }" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Name of Employer" />
+                        </div>
+                        <div class="label-field set-right">
+                            <apex:outputLabel value="Contact Name" />
+                        </div>
+                        <div class="label-field near-to-number">
+                            <apex:outputLabel value="/Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Monthly Income" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+<!-- ###############################################################################################  -->
+<!-- SECONDARY APPLICANT ###########################################################################  -->
+<!-- ###############################################################################################  -->
+
+            <div id="secondary-applicant" class="tables-container no-border-at-top">
+                <h1>SECONDARY APPLICANT</h1>
+                <section class="table">
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.LastName}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.FirstName}" />
+                        </div>
+                        
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.Middle_Name__c}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Last Name" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="First Name" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="MI" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.HomePhone}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.MobilePhone}" />
+                        </div>
+                        
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.OtherPhone}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Home Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Mobile Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Work Number" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.Birthdate}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.SSN__c}" />
+                        </div>
+                        
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.Email}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="DOB MM/DD/YY" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="SSN" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Email" />
+                        </div>
+                    </div>
+                </section>
+                <section class="table">
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.Employer__c}" />
+                        </div>
+                        <div class="data-field set-right">
+                            <apex:inputField styleClass="form-input set-right" value="{!secondaryApplicant.Employer_Contact_Name__c}" />
+                        </div>
+                        <div class="data-field near-to-number">
+                            / <apex:inputField styleClass="form-input" value="{!secondaryApplicant.Employer_Phone__c}"/>
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!secondaryApplicant.Monthly_Income__c}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Name of Employer" />
+                        </div>
+                        <div class="label-field set-right">
+                            <apex:outputLabel value="Contact Name" />
+                        </div>
+                        <div class="label-field near-to-number">
+                            <apex:outputLabel value="/Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Monthly Income" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+<!-- ###############################################################################################  -->
+<!-- REFERENCES ####################################################################################  -->
+<!-- ###############################################################################################  -->
+
+            <div id="references" class="tables-container no-border-at-top">
+                <h1>REFERENCES</h1>
+                <section class="table">
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input middle" style="float:left;" value="{!referenceOne.FirstName}" />
+                             <apex:inputField styleClass="form-input middle" style="margin-left:2%" value="{!referenceOne.LastName}" />
+                        </div>
+                       
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!referenceOne.Phone}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!referenceOne.OtherPhone}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" style="width: 85% !important;" value="{!Deal__c.Family_Friend_Contact_1__c}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="1. Family/Friend Contact: First Name & Last Name" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Primary Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Secondary Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Relationship" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input middle" style="float:left;" value="{!referenceTwo.FirstName}" />
+                            <apex:inputField styleClass="form-input middle" style="margin-left:2%" value="{!referenceTwo.LastName}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!referenceTwo.Phone}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!referenceTwo.OtherPhone}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" style="width: 85% !important;" value="{!Deal__c.Family_Friend_Contact_2__c}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="2. Family/Friend Contact: First Name & Last Name" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Primary Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Secondary Number" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Relationship" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+<!-- ###############################################################################################  -->
+<!-- ECI ###########################################################################################  -->
+<!-- ###############################################################################################  -->
+
+            <div id="electric-company-information" class="tables-container no-border-at-top">
+                <h1>ELECTRIC COMPANY INFORMATION</h1>
+                <section class="table">
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input " value="{!Deal__c.Elec_Acct_First_Name__c}" />
+                       </div>
+                       <div class="data-field">     
+                            <apex:inputField styleClass="form-input " value="{!Deal__c.Elec_Account_Middle_Name__c}" />
+                       </div>
+                       <div class="data-field">
+                            <apex:inputField styleClass="form-input " value="{!Deal__c.Elec_Acct_Last_Name__c}" />
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Account Holder First Name" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Middle Name" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Last Name" />
+                        </div>
+                      </div>  
+                     
+                     <div class="row">   
+                       <div class="data-field" >
+                            <apex:inputField styleClass="form-input" value="{!Deal__c.Elec_Acct_Street_1__c}" />
+                        </div>
+                    
+                    
+                        <div class="data-field">
+                            <apex:selectRadio value="{!Deal__c.Levelized_Billing__c}">
+                                <apex:selectOption itemLabel="Yes" itemValue="true"/>
+                                <apex:selectOption itemLabel="No" itemValue="false"/>         
+                            </apex:selectRadio>
+                        </div>
+                     </div>
+                   
+                    <div class="row">    
+                        <div class="label-field">
+                            <apex:outputLabel value="Address" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Levelized (Yes/No)" />
+                        </div>
+                    </div>
+                </section>
+                <section class="table">
+                    <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!Deal__c.Electricity_Provider__c}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputText styleClass="form-input" value="{!Deal__c.Elec_Acct_Number__c}" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Company" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Account Number" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+<!-- ###############################################################################################  -->
+<!-- QUESTIONNAIRE #################################################################################  -->
+<!-- ###############################################################################################  -->
+
+            <div id="questionnaire" class="tables-container no-border-at-top light-blue-background">
+                <h1>QUESTIONNAIRE</h1>
+                <section class="table">
+                    <div class="row">
+                        <br /><br />
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            Are you Interested in a Solar Hot Water Heater?  ( Y  /  N )
+                        </div>
+                        <div class="label-field one-question">
+                            <!-- <apex:inputText styleClass="form-input" value="{!Deal__c.Interested_In_Solar_Hot_Water__c}" /> -->
+
+                            <apex:selectRadio value="{!Deal__c.Are_You_Interested_In_Solar_Hot_Water__c}">
+                                <apex:selectOption itemLabel="Yes" itemValue="true"/>
+                                <apex:selectOption itemLabel="No" itemValue="false"/>         
+                            </apex:selectRadio>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            How is your Hot Water Heater Powered? ( Gas  /  Electric )
+                        </div>
+                        <div class="label-field one-question">
+                            <!-- <apex:inputText styleClass="form-input" value="{!Deal__c.Hot_Water_Heating_Method__c}" /> -->
+
+                            <apex:selectRadio value="{!Deal__c.Hot_Water_Heating_Method__c}">
+                                <apex:selectOption itemLabel="Electric" itemValue="Electric"/>
+                                <apex:selectOption itemLabel="Natural Gas" itemValue="Natural Gas"/>
+                                <apex:selectOption itemLabel="Propane" itemValue="Propane"/>
+                                <apex:selectOption itemLabel="Tankless" itemValue="Tankless"/>
+                                <apex:selectOption itemLabel="Oil" itemValue="Oil"/>      
+                            </apex:selectRadio>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-field">
+                            How did you hear about us?
+                        </div>
+                        <div class="label-field one-question lead-source-question-padding-fix">
+                            <apex:inputText styleClass="form-input lead-source-question light-blue-background" value="{!Deal__c.LeadSource__c}" />
+                        </div>
+                    </div>
+                     <div class="row">
+                        <div class="label-field">
+                            Were you referred by anyone?(Y/N)
+                        </div>
+                        <div class="label-field one-question lead-source-question-padding-fix">
+                             <apex:selectRadio onchange="showHideDiv(this.value);" value="{!Deal__c.Referrer_confirmed__c}">
+                                <apex:selectOption itemLabel="Yes" itemValue="true"/>
+                                <apex:selectOption itemLabel="No" itemValue="false"/>         
+                            </apex:selectRadio>
+                        </div>
+                    </div>
+                    <div id="myPanel">
+                 <apex:outputPanel id="refrealpanel">    
+                   <apex:outputPanel rendered="{!Deal__c.Referrer_confirmed__c='true'}"> 
+                    <div class="row">
+                        <div class="label-field">
+                            Who?
+                        </div>
+                        <div class="label-field one-question">
+                            <apex:inputField styleClass="form-input lead-source-question light-blue-background" value="{!Deal__c.Referrer_First_Name__c }" />
+                            
+                        </div>
+                        <div class="label-field one-question">
+                             <apex:inputText styleClass="form-input lead-source-question light-blue-background" value="{!Deal__c.Referrer_Last_Name__c}" />
+                        </div>
+                    </div> 
+                    <div class="row">
+                         <div class="label-field ">
+                         </div>
+                        <div class="label-field ">
+                            <apex:outputLabel value="First Name" />
+                        </div>
+                        <div class="label-field ">
+                            <apex:outputLabel value="Last Name" />
+                        </div>
+                    </div>  
+                   </apex:outputPanel>
+                   </apex:outputpanel>
+                   </div> 
+                     <div class="row">
+                        <div class="data-field">
+                            <apex:inputField styleClass="form-input" value="{!Deal__c.Annual_Household_Income__c}" />
+                        </div>
+                        <div class="data-field">
+                            <apex:inputText styleClass="form-input" value="{!Deal__c.People_In_Household__c}" />
+                        </div>
+                    </div>
+                  
+                    <div class="row">
+                        <div class="label-field">
+                            <apex:outputLabel value="Household Income" />
+                        </div>
+                        <div class="label-field">
+                            <apex:outputLabel value="Number of individuals in Household" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <br />
+
+            <section class="table">
+                <div class="row">
+                    <h1 style="font-size: 15px;">By signing below, I/We authorize PosiGen to verify the above information.</h1>
+                </div>
+            </section>
+            <section class="table">
+                <div class="row">
+                    <div class="label-field" style="width: 5% !important">
+                        &nbsp;
+                    </div>
+                    <div class="data-field" style="width: 26% !important">
+                        <apex:inputText styleClass="form-input" />
+                    </div>
+                    <div class="label-field" style="width: 5% !important">
+                        &nbsp;
+                    </div>
+                    <div class="data-field" style="width: 26% !important">
+                        <apex:inputText styleClass="form-input" />
+                    </div>
+                    <div class="label-field" style="width: 5% !important">
+                        &nbsp;
+                    </div>
+                    <div class="data-field" style="width: 26% !important">
+                        <apex:inputText styleClass="form-input" />
+                    </div>
+                    <div class="label-field" style="width: 5% !important">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label-field" style="width: 5% !important">
+                        &nbsp;
+                    </div>
+                    <div class="label-field" style="width: 26% !important">
+                        <apex:outputLabel value="Customer Signature" />
+                    </div>
+                    <div class="label-field" style="width: 5% !important">
+                        &nbsp;
+                    </div>
+                    <div class="label-field" style="width: 26% !important">
+                        <apex:outputLabel value="Customer Signature" />
+                    </div>
+                    <div class="label-field" style="width: 5% !important">
+                        &nbsp;
+                    </div>
+                    <div class="label-field" style="width: 26% !important">
+                        <apex:outputLabel value="PG Sales Rep (Print Name)" />
+                    </div>
+                    <div class="label-field" style="width: 5% !important">
+                        &nbsp;
+                    </div>
+                </div>
+            </section>
+         
+            <br />
+<!-- ###############################################################################################  -->
+<!-- BUTTONS #######################################################################################  -->
+<!-- ###############################################################################################  -->
+
+            <section id="buttons">
+                <apex:commandButton value="Save" action="{!save}" styleClass="btn-form" />
+                <apex:commandButton value="Cancel" action="{!cancel}" styleClass="btn-form" />
+            </section>
+
+        </apex:form>
+
+    </div>
+    
+    <script>
+        function showHideDiv(value){
+        
+        
+        
+            if(value=='true'){
+            
+                document.getElementById("myPanel").style.display = 'block';
+            }
+            else{
+                document.getElementById("myPanel").style.display = 'none';
+            }
+            
+            
+        }
+    </script>
+
+</apex:page>

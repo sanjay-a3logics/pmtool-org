@@ -1,0 +1,30 @@
+<aura:component >
+    <aura:attribute name="customizeApplication" type="Boolean" default="true" required="true"/>
+    <aura:registerEvent name="redirectPage" type="Loop:redirectPage"/>
+    <div class="slds">
+        <div class="slds-m-left--xxx-small slds-grid slds-grid--pull-padded">
+            <div class="slds-col cell">
+                <div class="border slds-float--left block">
+                    <Loop:Svg id="buttonToggle" xlinkHref="{!'/resource/Loop__SalesforceLightning/assets/icons/standard-sprite/svg/symbols.svg#apps_admin'}" class="slds-icon__container slds-icon__container--square iconBackground slds-icon slds-icon--medium"/>
+                    <h1 class="slds-text-heading--medium slds-m-bottom--medium slds-m-left--small iconFloat" style="vertical-align: top;">Classic Experience Buttons</h1>
+                    <h2 class="slds-text-heading--small slds-m-bottom--small">Basic Buttons</h2>
+                    <div>Add single-record buttons to page layouts on standard or custom objects. Users can use these buttons in the Salesforce classic experience and will see the classic DDP experience. For adding Salesforce Lightning buttons, see <a href="http://help.nintex.com/en-us/docgen/docservices/Default.htm#cshid=9028" target="_blank">Run DDPs in Salesforce Lightning</a>.</div><br/>
+                    <Loop:Button label="Add Basic Buttons" class="slds-button slds-button--brand" onclick="{!c.redirectPage}" data="classicExperienceButtons"/>
+                    <hr/>
+                    <h2 class="slds-text-heading--small slds-m-bottom--small">Button Wizard</h2>
+                    <div class="slds-word-wrap">Create single-record or Mass DDP elements (buttons, links, or tabs) for running DDPs in the Salesforce classic experience.</div><br/>
+                    <Loop:Button label="Create Advanced Buttons" class="slds-button slds-button--brand" onclick="{!c.redirectPage}" data="buttonWizard"/>
+                </div>
+                <div class="block slds-float--left border borderbelow slds-m-top--small">
+                    <h1 class="slds-text-heading--medium" style="vertical-align: top;">Authorize Drawloop Document Generation</h1>
+                    <Loop:AuthorizeLoopServices customizeApplication="{!v.customizeApplication}"/>
+                </div>
+            </div>
+            <div class="slds-col border slds-m-left--small slds-m-right--small supportcell">
+                <div class="slds-container--small">
+                    <Loop:SupportSidebar />
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>

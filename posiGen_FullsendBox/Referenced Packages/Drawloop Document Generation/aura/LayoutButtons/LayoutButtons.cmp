@@ -1,0 +1,16 @@
+<aura:component >
+    <aura:attribute name="sessionId" type="String"/>
+    <aura:attribute name="customizeApplication" type="Boolean" default="true" required="true"/>
+    <aura:attribute name="searchText" type="String"/>
+    <aura:handler name="filterObjects" event="Loop:filterObjects" action="{!c.filterObjects}"/>
+    <aura:method name="save" action="{!c.save}" access="Public"/>
+    <aura:if isTrue="{!v.customizeApplication}">
+        <Loop:LayoutButtonSearch />
+        <Loop:LayoutButtonTable aura:id="layoutButtonTable" sessionId="{!v.sessionId}" searchText="{!v.searchText}"/>
+        <aura:set attribute="else">
+            <Loop:Toast toastClass="slds-notify slds-notify--toast slds-theme--warning" 
+                     toastMessage="You must have the Customize Application permission to add buttons to page layouts."
+                     toastStyle="margin: 0;"/>
+        </aura:set>
+    </aura:if>
+</aura:component>

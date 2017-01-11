@@ -1,0 +1,119 @@
+<apex:page showHeader="false" 
+	sidebar="false" 
+	standardStylesheets="false" 
+	applyBodyTag="false"
+	applyHtmlTag="false"
+	docType="html-5.0"
+	cache="false">
+
+	<html lang="en" class="success-bs full-height">
+		<head>
+			<meta charset="utf-8"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>Inspire</title>
+
+			<!-- styles -->
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap/css/bootstrap.min.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'css/animate.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'css/styles.css')}"/>
+			
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'css/icon-font.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__FontsBundle, 'css/fonts.css')}"/>
+
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'header/header.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'display/display.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'broadcast/broadcast.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'feed/feed.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'poll/poll.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/css/simpleLeaderboard.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/css/extendedLeaderboard.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/css/gridLeaderboard.css')}"/>
+		</head>
+
+		<body class="full-height">
+			
+			<div class="full-height" ng-app="sensei.channel" ng-cloak="true">
+				<div class="container-fluid full-height">
+					<div class="full-height" ng-include="' {!URLFOR($Resource.ChannelBundle, 'display/display.html')} '"></div>
+		   		</div>
+			</div>
+
+		</body>
+
+		<c:VF_Constants />
+
+		<script type="text/javascript">
+		window.CHANNEL_CHECK_CONNECTION = true;
+		</script>
+		
+		<!-- vendor js -->
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/jquery/jquery-2.1.3.min.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/angular/angular.min.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/angular/angular-animate.min.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap/js/bootstrap.min.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap/js/bootstrap-notify.min.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/angular/angular-modal-service.min.js')}" />
+
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/lodash.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/postal.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/cometd/cometd.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/cometd/jquery.cometd.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/moment/moment.min.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/machina.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/machina.postal.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/tinycolor.min.js')}"/>
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/numeral.min.js')}"/>
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/offline.min.js')}"/>
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/spin.min.js')}"/>
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/howler.js')}"/>
+	
+		<!-- app js -->
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'common/TickTock.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'common/common.module.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'common/audio.service.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'common/sfdc.service.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'common/channel.service.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'common/style.service.js')}" />
+
+		<apex:includeScript value="{!URLFOR($Resource.success__MessageBundle, 'app.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__MessageBundle, 'messaging.service.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__MessageBundle, 'messaging.controller.js')}" />
+
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'app.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'trafficlights.service.js')}" />
+
+
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'display/display.module.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'display/display.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'display/display.service.js')}" />
+		
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'header/header.module.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'header/header.js')}" />
+
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/leaderboard.module.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/controllers/leaderboard.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/controllers/leaderboardExtension.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/controllers/leaderboardDetail.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/controllers/leaderboardComparison.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/directives/leaderboardView/leaderboard.directive.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/directives/abbreviatedScore.directive.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/directives/leaderboardLoadingSpinner.directive.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/services/leaderboard.service.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/services/comparison.service.js')}" />
+
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'poll/poll.module.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'poll/poll.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'poll/poll.service.js')}" />
+
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'feed/feed.module.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'feed/notify.factory.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'feed/feed.service.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'feed/userdetails.service.js')}" />
+
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'broadcast/broadcast.module.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'broadcast/broadcast.js')}" />
+		<apex:includeScript value="{!URLFOR($Resource.success__ChannelBundle, 'broadcast/broadcast.service.js')}" />		
+	
+	</html>
+</apex:page>

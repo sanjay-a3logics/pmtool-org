@@ -1,0 +1,719 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" controller="CustomerActualSavingsController" extensions="ChartController" action="{!forwardToCustomAuthPage}">
+    <head>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets1, 'fontawesome/css/font-awesome.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets2, 'metisMenu/dist/metisMenu.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets1, 'animate.css/animate.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerNamespacedBootstrap, 'dist/css/bootstrap.css')}"/>
+    
+    <!-- App styles -->
+    <apex:stylesheet value="{!URLFOR($Resource.homerFonts, 'fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerFonts, 'fonts/pe-icon-7-stroke/css/helper.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerStyles, 'styles/style.css')}"/>
+    </head>
+
+<body class="fixed-navbar fixed-sidebar">
+<div class="bootstrap">
+
+
+<div id="header">
+    <div id="logo" class="light-version">
+        <span>
+            <i class="ico ico-posigen-logo"></i>
+        </span>
+    </div>
+    <nav role="navigation">
+        <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+        <div class="small-logo">
+            <span class="text-primary"><i class="ico ico-posigen-logo"></i></span>
+        </div>
+        <h2 class="page-title">Energy Efficiency Summary</h2>
+        <div class="mobile-menu">
+            <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
+                <i class="fa fa-chevron-down"></i>
+            </button>
+            <div class="collapse mobile-navbar" id="mobile-collapse">
+                <!--  <ul class="nav navbar-nav">
+                    <li>
+                        <a class="" href="login.html">Login</a>
+                    </li>
+                    <li>
+                        <a class="" href="login.html">Logout</a>
+                    </li>
+                    <li>
+                        <a class="" href="profile.html">Profile</a>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav no-borders">
+                <!-- <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                        <i class="pe-7s-speaker"></i>
+                    </a>
+                    <ul class="dropdown-menu hdropdown notification animated flipInX">
+                        <li>
+                            <a>
+                                <span class="label label-success">NEW</span> It is a long established.
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="label label-warning">WAR</span> There are many variations.
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                <span class="label label-danger">ERR</span> Contrary to popular belief.
+                            </a>
+                        </li>
+                        <li class="summary"><a href="#">See all notifications</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                        <i class="pe-7s-keypad"></i>
+                    </a>
+
+                    <div class="dropdown-menu hdropdown bigmenu animated flipInX">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a href="projects.html">
+                                        <i class="pe pe-7s-portfolio text-info"></i>
+                                        <h5>Projects</h5>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="mailbox.html">
+                                        <i class="pe pe-7s-mail text-warning"></i>
+                                        <h5>Email</h5>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="contacts.html">
+                                        <i class="pe pe-7s-users text-success"></i>
+                                        <h5>Contacts</h5>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="forum.html">
+                                        <i class="pe pe-7s-comment text-info"></i>
+                                        <h5>Forum</h5>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="analytics.html">
+                                        <i class="pe pe-7s-graph1 text-danger"></i>
+                                        <h5>Analytics</h5>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="file_manager.html">
+                                        <i class="pe pe-7s-box1 text-success"></i>
+                                        <h5>Files</h5>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
+                        <i class="pe-7s-mail"></i>
+                        <span class="label label-success">4</span>
+                    </a>
+                    <ul class="dropdown-menu hdropdown animated flipInX">
+                        <div class="title">
+                            You have 4 new messages
+                        </div>
+                        <li>
+                            <a>
+                                It is a long established.
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                There are many variations.
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                Lorem Ipsum is simply dummy.
+                            </a>
+                        </li>
+                        <li>
+                            <a>
+                                Contrary to popular belief.
+                            </a>
+                        </li>
+                        <li class="summary"><a href="#">See All Messages</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" id="sidebar" class="right-sidebar-toggle">
+                        <i class="pe-7s-upload pe-7s-news-paper"></i>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="login.html">
+                        <i class="pe-7s-upload pe-rotate-90"></i>
+                    </a>
+                </li> -->
+            </ul> 
+        </div>
+    </nav>
+</div>
+
+<!-- Navigation -->
+<aside id="menu">
+    <div id="navigation">
+        <div class="profile-picture">
+            <a href="index.html">
+                <i class="ico ico-sun img-circle" alt="logo"></i>
+            </a>
+
+            <div class="stats-label text-color">
+                <span class="font-extra-bold font-uppercase">John Doe</span>
+
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                        <small class="text-muted">User<b class="caret"></b></small>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav" id="side-menu">
+            <li class="active">
+                <apex:form html-class="nav-link" id="button_MySavings">
+                    <a onclick="redirectToMySavingsJS();" >Home</a>
+                    <br></br>
+                    <apex:actionFunction action="{!redirectToMySavings}" name="redirectToMySavings" >
+                        <apex:param value="" name="portalName" />
+                    </apex:actionFunction>
+                </apex:form>
+            </li>
+                        <li>
+            <apex:form html-class="nav-link" id="FooterButton_EE" rendered="{!OR(AND(hasEE, NOT(callCSR)),standardUser)}">
+                    <a onclick="redirectToEESavingsJS();" ><span class="nav-label">EE Savings</span> </a>
+                    <apex:actionFunction action="{!redirectToEESavings}" name="redirectToEESavings" >
+                        <apex:param value="" name="portalName" />
+                    </apex:actionFunction>
+                </apex:form>
+            </li>
+            <li>
+                <apex:form html-class="nav-link" id="FooterButton_SaveMore" >
+                    <a onclick="redirectToHowToSaveMoreJS();"><span class="nav-label">How To Save More</span></a>
+                    <apex:actionFunction action="{!redirectToHowToSaveMore}" name="redirectToHowToSaveMore" >
+                        <apex:param value="" name="portalName" />
+                    </apex:actionFunction>
+                </apex:form>
+            </li>
+            <li>
+                <apex:form html-class="nav-link" id="FooterButton_SEProduction" >
+                    <a onclick="redirectToSEProductionJS();"><span class="nav-label">My Solar Output</span></a>
+                    <apex:actionFunction action="{!redirectToSEProduction}" name="redirectToSEProduction" >
+                        <apex:param value="" name="portalName" />
+                    </apex:actionFunction>
+                </apex:form>
+            </li>
+
+            <li>
+            <apex:outputLink onclick="window.open('https://posigen.getambassador.com')" >My Ambassador</apex:outputLink>  
+            </li>
+                        <li>
+            <apex:outputLink value="mailto:?bcc={!bccEmail}&subject={!subjectEmail}&body={!bodyEmail}%20{!ambassadorReferralURL}">Refer a Friend</apex:outputLink>
+            </li>
+            <li>
+                <apex:outputLink value="https://www.billerpayments.com/app/cust/login.do?bsn=ldpos">Pay My Bill</apex:outputLink>
+            </li>
+            <div class="csr-fields">
+                <li><a href="#" aria-expanded="true"><span class="">Your Customer Rep</span> </a></li>
+                <li><apex:image html-class="csr-info" value="{!csrPhotoURL}"/></li>
+                <li><apex:outputText html-class="csr-info" value="{!csrName}"></apex:outputText></li>
+                <li><apex:outputText html-class="csr-info" value="{!csrPhone}"></apex:outputText></li>
+                <li><span class="csr-info csr-email"><apex:outputLink value="mailto:{!csrEmail}">Email Us</apex:outputLink></span></li>
+            </div>
+        </ul>
+    </div>
+</aside>
+
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+<!-- <div class="normalheader transition animated fadeIn">
+        <div class="hpanel">
+            <div class="summarpanel-body">
+                <a class="small-header-action" href="">
+                    <div class="clip-header">
+                        <i class="fa fa-arrow-up"></i>
+                    </div>
+                </a>
+
+                <div id="hbreadcrumb" class="pull-right m-t-lg">
+                    <ol class="hbreadcrumb breadcrumb">
+                        <li><a href="index.html">Dashboard</a></li>
+                        <li>
+                            <span>Charts</span>
+                        </li>
+                        <li class="active">
+                            <span>ChartJS </span>
+                        </li>
+                    </ol>
+                </div>
+                <h2 class="font-light m-b-xs">
+                    ChartJS
+                </h2>
+                <small>Simple HTML5 Charts using the canvas element</small>
+            </div>
+        </div>
+    </div> -->
+<div class="content animate-panel">
+        <div class="row">
+              <div class="summary-column col-xs-12 col-md-12 col-lg-12">
+                <div class="hpanel">
+                    <div class="summary-body panel-body">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-12 my-summary">
+                                <div class="my-summary-header-row row">
+                                    <h3 class="my-summary-header">My Summary</h3>
+                                    <br></br>
+                                    <h5>Saved Over Past 12 Months From Solar and Energy Efficiency</h5>
+                                </div>
+                                <div class="no-data row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                                    <div class="text-left">
+                                      We don't have your savings data yet. Check here next month to see your results!
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="summary-panels row">
+                                    <div class="savings-impact page-header-panel text-center">
+                                        <div class="ico ico-bolt"></div>
+                                        <div>
+                                            <h1 class="font-extra-bold page-header-panel-title">
+                                                <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                                    <apex:param value="{!myNetDollars}"/>
+                                                </apex:outputText>
+                                                saved
+                                            </h1>
+                                            <small>with solar </small>
+                                        </div>
+                                    </div> <!-- Close power saved panel -->
+                                    <div class="savings-impact page-header-panel text-center">
+                                        <div class="ico ico-people">
+                                            <i></i>
+                                        </div>
+                                        <div>
+                                            <h1 class="font-extra-bold">
+                                              <apex:outputText value="${0, number, ###,###,###,##0.00} SAVED">
+                                                    <apex:param value="{!myYrEEDollars}"/>
+                                              </apex:outputText>
+                                            </h1>
+                                            <small>With energy efficiency</small>
+                                        </div>
+                                    </div> <!-- Close Energy efficiency panel -->
+                                    <div class="savings-impact page-header-panel text-center">
+                                        <div class="ico ico-tree"></div>
+                                        <div >
+                                            <h1 class="font-extra-bold ">
+                                            <apex:outputText value="{0, number, ###,###,###,##0}">
+                                                <apex:param value="{!myNetEnvImpactNumber}"/>
+                                            </apex:outputText> Trees Planted
+                                            </h1>
+                                        </div>
+                                    </div> <!-- Close tree offset -->
+                                    <div class="savings-impact page-header-panel text-center">
+                                        <div class="ico ico-money">
+                                            <i ></i>
+                                        </div>
+                                        <div class="saved-parties">
+                                            <h1 class="font-extra-bold ">
+                                                <apex:outputText value="{0, number, ###,###,###,##0} {1}">
+                                                    <apex:param value="{!myNetEconImpactNumber}"/>
+                                                    <apex:param value="{!myNetEconImpactText}"/>
+                                                </apex:outputText>
+                                            </h1>
+                                        </div>
+                                    </div> <!-- Close super bowl parties panel -->    
+                                    </div>
+                            </div>
+                            <div class="col-lg-3 col-lg-offset-0 col-md-6 col-md-offset-3">
+                                <div class="my-account row">
+                                    <div class="text-center col-md-12">
+                                        <h3 class=" my-account-header">My Account</h3>
+                                    </div>
+                                    <div class="text-center col-md-12 col-sm-6 col-xs-8 col-xs-offset-2 col-sm-offset-0">                                        
+                                        <div class="my-account-panel referral-panel">
+                                            <h3 class="account-link-header">Referral Balance</h3>
+                                            <p class="referral-balance"><apex:outputText value="${0, number, ###,###,###,##0.00}">
+                                                    <apex:param value="{!myEarnedAmbassador}"/>
+                                                </apex:outputText></p>
+                                            <p><a class="referral-details-link" href="#">More Details</a></p>
+                                            <p class="account-link"><apex:outputLink html-class="my-account-links" onclick="window.open('https://posigen.getambassador.com')" ><span class="account-link-text">Submit Referrals</span></apex:outputLink></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div  class="col-md-12 col-sm-6 col-xs-8 col-xs-offset-2 col-sm-offset-0">
+                                        <div class="my-account-panel">
+                                            <h3 class="account-link-header">Online Bill Pay</h3>
+                                            <p class="account-link"><apex:outputLink html-class="my-account-links" value="https://www.billerpayments.com/app/cust/login.do?bsn=ldpos"><span class="account-link-text">Make a Payment</span></apex:outputLink></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                
+                                </div>
+                                
+                            </div>
+                        
+
+                        </div> <!-- Close panel body row -->
+                    </div> <!-- Close summary-body -->
+                </div> <!-- Close hpanel-->
+    </div> <!-- Close summary-column -->
+        </div> <!-- summary-row -->    
+        <div class="row">
+            <div class="col-md-12">
+                <div style="font-size:18px; width:100%">
+                        <apex:pageBlock id="CallCSR" rendered="{!AND(callCSR, NOT(standardUser))}">
+                            <apex:outputText value="Please call your Customer Service Representative to learn more.">
+                            <br></br>
+                            <apex:image value="{!csrPhotoURL}"/>
+                            <br></br>
+                            </apex:outputText>
+                            <br></br>
+                            <apex:outputText value="{!csrName}"></apex:outputText>
+                            <br></br>
+                            <apex:outputText value="{!csrPhone}"></apex:outputText>
+                            <br></br>
+                            <apex:outputLink value="mailto:{!csrEmail}">Email My Customer Service Representative</apex:outputLink>
+                            <br></br>
+                        </apex:pageBlock>
+                    </div>
+            </div>
+        </div>      
+        <div class="savings-detail row">
+          <div class="ee-projected-savings col-xs-12 col-md12 col-lg-12">
+              <div class="ee-savings hpanel ">
+                  <div class="text-center panel-heading">
+                      <h1 class="m-xs">Energy Efficiency Savings</h1>
+                      <small>(Annual Projected)</small>
+                  </div>
+                  <div class="panel-body">
+                    <div class="col-xs-offset-4 col-md-offset-4 col-xs-4 col-md-4 col-lg-4">
+                      <!-- <h3>Energy Savings</h3> -->
+                      <div class="projected-savings table-responsive">
+                        <table cellpadding="1" cellspacing="1" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th >Your Savings Type</th>
+                                    <th >Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Energy Savings</td>
+                                    <td>
+                                        <apex:outputText html-class="text-left" value="{0, number, ###,###0} kWh">
+                                            <apex:param value="{!myYrEEkWh}"/>
+                                        </apex:outputText>
+                                    </td>                            
+                                </tr>
+                                <tr>
+                                    <td>Savings</td>
+                                    <td>
+                                        <apex:outputText html-class="text-left" value="${0, number, ###,###0.00}">
+                                            <apex:param value="{!myYrEEDollars}"/>
+                                        </apex:outputText>
+                                    </td>                                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                      </div>
+                  </div>
+                 </div>
+                  </div></div>    
+                      
+                 
+
+        </div>
+        <div class="savings-detail row">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="ee-estimated-savings hpanel">
+              <div class="panel-heading text-center">
+                <h1>Estimated Savings Details</h1>
+              </div>
+              <div class="panel-body">
+                <div class="projected-savings table-responsive">
+                <table cellpadding="1" cellspacing="1" class="efficiency-savings-table table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Unit</th>
+                        <th>Annual kWh Reduced</th>
+                        <th>Annual Savings</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr class="total-savings">
+                    </tr>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+    <div class="footer-nav row">
+        <div class="nav-column text-center col-md-3">
+            <apex:outputLink html-class="nav-link" value="https://www.billerpayments.com/app/cust/login.do?bsn=ldpos">Pay My Bill</apex:outputLink>
+        </div>
+        <div class="nav-column text-center col-md-3">
+            <apex:outputLink html-class="nav-link" onclick="window.open('https://posigen.getambassador.com')" ><span class="account-link-text">Submit Referrals</span></apex:outputLink>
+        </div>
+        <div class="nav-column text-center col-md-3">
+            <apex:outputText html-class="nav-link" value="{!csrPhone}"></apex:outputText>
+        </div>
+        <div class="nav-column text-center col-md-3">
+            <a class="nav-link" href="posigen.com">Posigen.com</a>
+        </div>
+    </div>
+  </div><!-- close content -->
+
+    <!-- Right sidebar -->
+    <div id="right-sidebar" class="animated fadeInRight">
+
+        <div class="p-m">
+            <button id="sidebar-close" class="right-sidebar-toggle sidebar-button btn btn-default m-b-md"><i class="pe pe-7s-close"></i>
+            </button>
+            <div>
+                <span class="font-bold no-margins"> Analytics </span>
+                <br></br>
+                <small> Lorem Ipsum is simply dummy text of the printing simply all dummy text.</small>
+            </div>
+            <div class="row m-t-sm m-b-sm">
+                <div class="col-lg-6">
+                    <h3 class="no-margins font-extra-bold text-success">300,102</h3>
+
+                    <div class="font-bold">98% <i class="fa fa-level-up text-success"></i></div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="no-margins font-extra-bold text-success">280,200</h3>
+
+                    <div class="font-bold">98% <i class="fa fa-level-up text-success"></i></div>
+                </div>
+            </div>
+            <div class="progress m-t-xs full progress-small">
+                <div style="width: 25%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="25" role="progressbar"
+                     class=" progress-bar progress-bar-success">
+                    <span class="sr-only">35% Complete (success)</span>
+                </div>
+            </div>
+        </div>
+        <div class="p-m bg-light border-bottom border-top">
+            <span class="font-bold no-margins"> Social talks </span>
+            <br></br>
+            <small> Lorem Ipsum is simply dummy text of the printing simply all dummy text.</small>
+            <div class="m-t-md">
+                <div class="social-talk">
+                    <div class="media social-profile clearfix">
+                        <a class="pull-left">
+                            <img src="images/a1.jpg" alt="profile-picture"></img>
+                        </a>
+
+                        <div class="media-body">
+                            <span class="font-bold">John Novak</span>
+                            <small class="text-muted">21.03.2015</small>
+                            <div class="social-content small">
+                                Injected humour, or randomised words which dont look even slightly believable.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-talk">
+                    <div class="media social-profile clearfix">
+                        <a class="pull-left">
+                            <img src="images/a3.jpg" alt="profile-picture"></img>
+                        </a>
+
+                        <div class="media-body">
+                            <span class="font-bold">Mark Smith</span>
+                            <small class="text-muted">14.04.2015</small>
+                            <div class="social-content">
+                                Many desktop publishing packages and web page editors.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-talk">
+                    <div class="media social-profile clearfix">
+                        <a class="pull-left">
+                            <img src="images/a4.jpg" alt="profile-picture"></img>
+                        </a>
+
+                        <div class="media-body">
+                            <span class="font-bold">Marica Morgan</span>
+                            <small class="text-muted">21.03.2015</small>
+
+                            <div class="social-content">
+                                There are many variations of passages of Lorem Ipsum available, but the majority have
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-m">
+            <span class="font-bold no-margins"> Sales in last week </span>
+            <div class="m-t-xs">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <small>Today</small>
+                        <h4 class="m-t-xs">$170,20 <i class="fa fa-level-up text-success"></i></h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <small>Last week</small>
+                        <h4 class="m-t-xs">$580,90 <i class="fa fa-level-up text-success"></i></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <small>Today</small>
+                        <h4 class="m-t-xs">$620,20 <i class="fa fa-level-up text-success"></i></h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <small>Last week</small>
+                        <h4 class="m-t-xs">$140,70 <i class="fa fa-level-up text-success"></i></h4>
+                    </div>
+                </div>
+            </div>
+            <small> Lorem Ipsum is simply dummy text of the printing simply all dummy text.
+                Many desktop publishing packages and web page editors.
+            </small>
+        </div>
+
+    </div>
+</div>
+
+
+</div>
+
+
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery/dist/jquery.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-ui/jquery-ui.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.resize.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.pie.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery.flot.spline/index.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets1, 'flot.curvedlines/curvedLines.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerNamespacedBootstrap, 'dist/js/bootstrap.min.js')}"></apex:includescript> 
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'slimScroll/jquery.slimscroll.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'metisMenu/dist/metisMenu.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'moment/min/moment.min.js')}"></apex:includescript>>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'peity/jquery.peity.min.js')}"></apex:includescript>>
+
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'sparkline/index.js')}"></apex:includescript>ipt>
+
+<!-- App scripts -->
+<apex:includeScript value="{!URLFOR($Resource.homerScripts, 'scripts/charts.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerScripts, 'scripts/homer.js')}"></apex:includescript>
+
+<script>
+
+        
+        function fillEstimatedSavingsTable(){
+                var items =[];
+                var units = [];
+                var kwh = [];
+                var savings = [];
+                
+                var idx=0;
+                <apex:repeat value="{!myEEUSavings}" var="ele">
+                    items[idx]='{!ele.Item}';
+                    units[idx]='{!ele.Unit}';
+                    kwh[idx]='{!ele.kwh}';
+                    savings[idx]='{!ele.YearTotal}';
+                    idx++;
+                </apex:repeat>      
+        
+                items.forEach(function(e, i, arr){
+                    var effRow = $(".efficiency-savings-table tbody tr:nth-child(" + (i+1) + ")");
+                    var effTag = "<td>" + e + "</td>"
+                    effRow.append(effTag);
+                });
+                
+                units.forEach(function(e, i, arr){
+                    var effRow = $(".efficiency-savings-table tbody tr:nth-child(" + (i+1) + ")");
+                    var effTag = "<td>" + e + "</td>"
+                    effRow.append(effTag);
+                });
+                
+                kwh.forEach(function(e, i, arr){
+                    var effRow = $(".efficiency-savings-table tbody tr:nth-child(" + (i+1) + ")");
+                    var effTag = "<td>" + e + "</td>"
+                    effRow.append(effTag);
+                });
+                
+                savings.forEach(function(e, i, arr){
+                    var effRow = $(".efficiency-savings-table tbody tr:nth-child(" + (i+1) + ")");
+                    var effTag = "<td>$" + Math.round(e*100)/100 + "</td>"
+                    effRow.append(effTag);   
+                });
+        }
+        
+        
+        var hasData = {!hasData};
+        if(hasData){
+            $(".no-data").hide();
+            fillEstimatedSavingsTable();
+        } else {
+            $(".savings-detail").hide();
+            $(".summary-panels").hide();
+            $(".no-data").show();
+        }
+        
+        
+        
+        
+        
+        function redirectToMySavingsJS()
+        {
+            // Its always the 3rd element in the list which is the community name when accessed from the communities site
+            redirectToMySavings(window.location.href.split('/')[3]);
+        }
+        
+        function redirectToHowToSaveMoreJS()
+        {
+            // Its always the 3rd element in the list which is the community name when accessed from the communities site
+            redirectToHowToSaveMore(window.location.href.split('/')[3]);
+        }
+        
+            function redirectToEESavingsJS()
+        {
+            // Its always the 3rd element in the list which is the community name when accessed from the communities site
+            redirectToEESavings(window.location.href.split('/')[3]);
+        }
+        function redirectToSEProductionJS()
+        {
+            // Its always the 3rd element in the list which is the community name when accessed from the communities site
+            redirectToSEProduction(window.location.href.split('/')[3]);
+        }
+
+</script>
+</body>
+</apex:page>

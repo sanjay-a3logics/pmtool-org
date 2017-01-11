@@ -1,0 +1,54 @@
+<apex:page standardController="NVMConnect__DialList__c" extensions="NVMConnect.ListUserController">
+	<apex:pageMessages />
+    <apex:form >
+        <apex:pageBlock id="agentSel">
+            <apex:pageBlockSection showHeader="true" title="Pick Agents" columns="3">
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel style="padding-left:1px;padding-right:1px;width:200px">
+                        <b>All Agents</b><br/>
+                        <apex:selectList size="10" multiselect="true" value="{!optOutSelected}" style="padding-left:1px;padding-right:1px;width:200px">
+                            <apex:selectOptions value="{!OptOut}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel style="padding-left:1px;padding-right:1px;width:200px">
+                        <br/>
+                        <div>
+                        <br/>
+                        <apex:commandButton action="{!addUsers}" reRender="agentSel" value=">>>" style="padding-left:1px;padding-right:1px;width:200px" />
+                        </div>
+						<div>
+						<br/>
+						<apex:commandButton action="{!removeUsers}" reRender="agentSel" value="<<<" style="padding-left:1px;padding-right:1px;width:200px"/>
+						</div>
+                        <div>
+                        <br/>
+                        <apex:commandButton action="{!saveAllocation}" value="Save" style="padding-left:1px;padding-right:1px;width:200px"/>
+                        </div>
+                        <div>
+                        <br/>
+                        <apex:commandButton action="{!cancel}" value="Cancel" style="padding-left:1px;padding-right:1px;width:200px"/>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel style="padding-left:1px;padding-right:1px;width:200px">
+                        <b>Assigned</b><br/>
+                        <apex:selectList size="10" multiselect="true" value="{!optInSelected}" style="padding-left:1px;padding-right:1px;width:200px">
+                            <apex:selectOptions value="{!OptIn}"/>
+                        </apex:selectList>
+                    </apex:outputPanel>
+                
+                </apex:pageBlockSectionItem>
+            
+            </apex:pageBlockSection>
+
+        
+        
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

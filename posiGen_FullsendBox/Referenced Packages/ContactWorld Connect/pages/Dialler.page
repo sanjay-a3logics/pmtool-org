@@ -1,0 +1,123 @@
+<apex:page id="diallerpage" controller="NVMConnect.DiallerController" cache="false" title="Dialler" applyBodyTag="true" applyHtmlTag="true" standardStylesheets="true" showHeader="true" action="{!initFeatureToggles}">
+
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"  />
+    <apex:includeScript value="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"  />
+    <apex:stylesheet value="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+
+    <apex:stylesheet value="{!$Resource.NVMConnect__DiallerStylesheet}"/>
+
+    <apex:pageMessages />
+
+    <script type="text/javascript">
+        function dlog(msg) {
+            if ((typeof(console) != 'undefined') && console) console.log('<<Dialler>>:' + msg);
+        }
+
+        dlog('Dialler Page loaded');
+    </script>
+
+    <apex:form id="diallerform" styleClass="NVMDiallerForm" onsubmit="dlog(this);">
+        <apex:outputPanel id="diallerMainPanel">
+            <apex:actionRegion >
+
+                <script>
+                    var msg='Form loaded; listSize={!listSize}; showListDescription={!showListDescription};';
+                    msg += ' isAutomatic={!isAutomatic}; callStarted={!callStarted}; currentEntryIsSFRecord={!currentEntryIsSFRecord}';
+                    msg += ' currentEntry={!currentEntry}';
+                    dlog(msg);
+                </script>
+
+                <!-- Dialler Toolbar -->
+                <apex:pageBlock id="diallerControls" tabStyle="Dialler__tab" mode="maindetail">
+
+                    <apex:pageBlockButtons location="top" rendered="{!showDiallerControlButtons}">
+
+                       <apex:outputPanel layout="none" rendered="{!showPreviewButtons}">
+                            <apex:commandButton action="{!getWork}" value="Start" reRender="diallerform" rendered="{!!hasClickedStart}" />
+                            <apex:commandButton onclick="dlog('click Dial');" immediate="false" lang="en" id="dialButton" reRender="diallerControls" onComplete="NVMDiallerNotesReloaded();" action="{!dialAndSaveTrace}" value="Dial" disabled="{!!hasClickedStart}" />
+                            <apex:commandButton onclick="dlog('click Skip');" immediate="false" lang="en" id="skipButton" reRender="diallerMainPanel" onComplete="NVMDiallerNotesReloaded();" action="{!skip}" value="Skip" disabled="{!!hasClickedStart}" />
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="none" rendered="{!isBackAllowed}">
+                            <apex:commandButton onclick="dlog('click Back');" immediate="false" lang="en" id="backBtn" reRender="diallerMainPnl" onComplete="NVMDiallerNotesReloaded();" action="{!back}" value="Back" disabled="{!!hasClickedStart}" />
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="none" rendered="{!showPreviewButtons || isBackAllowed}">&nbsp;|&nbsp;</apex:outputPanel>
+
+                        <apex:commandButton onclick="dlog('click Complete and Next');" immediate="false" lang="en" reRender="diallerMainPanel" onComplete="NVMDiallerNotesReloaded();" action="{!getWork}" disabled="{!!callStarted || !hasClickedStart}" value="Next" />
+
+                        <apex:commandButton onclick="dlog('click Complete and Stop');" immediate="false" lang="en" reRender="diallerControls"  onComplete="NVMDiallerNotesReloaded();" disabled="{!!callStarted || !hasClickedStart}" action="{!completeAndStop}" value="Take a Break" />&nbsp;|&nbsp;
+
+                        <apex:outputPanel layout="none" id="diallerShowDescriptionButtons">
+                            <apex:commandButton onclick="dlog('click Info');" immediate="true" lang="en" reRender="diallerShowDescriptionButtons,diallerNotesSection" action="{!toggleDescription}" value="Show Dial List Info" disabled="{!!hasClickedStart}" rendered="{!!showListDescription}"/>
+                            <apex:commandButton onclick="dlog('click Info');" immediate="true" lang="en" reRender="diallerShowDescriptionButtons,diallerNotesSection" action="{!toggleDescription}" value="Hide Dial List Info" disabled="{!!hasClickedStart}" rendered="{!showListDescription}"/>
+                        </apex:outputPanel>
+
+                    </apex:pageBlockButtons>
+
+                    <apex:pageBlockSection showHeader="false" columns="1">
+                        <apex:inputField rendered="{!hasEntriesRemaining}" id="NotesInput" value="{!currentEntry.NVMConnect__Comments__c}" style="width: 80%; min-height: 30px;" styleClass="NVMDiallerNotesInput" />
+                        <apex:inputField rendered="{!hasEntriesRemaining}" id="NextAction" value="{!currentEntry.NVMConnect__Next_Action__c}" label="Action" />
+                        <apex:outputLabel rendered="{!!hasEntriesRemaining && hasClickedStart}">No list entries to dial</apex:outputLabel>
+                    </apex:pageBlockSection>
+                    <apex:pageBlockSection showHeader="false" columns="1" id="diallerNotesSection" rendered="{!hasEntriesRemaining}">
+                        <apex:pageBlockSectionItem rendered="{!showListDescription}">
+                            <apex:outputLabel value="Description" />
+                            <apex:outputField value="{!dialList.NVMConnect__Description__c}" />
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection>
+
+                </apex:pageBlock>
+
+                <!-- Dialler Object -->
+                <apex:outputPanel rendered="{!hasEntriesRemaining}">
+                    <apex:detail inlineEdit="true" id="detail" title="false" rendered="{!currentEntryIsSFRecord}" relatedList="true" relatedListHover="false" subject="{!currentEntry.NVMConnect__Focus_Object_Id__c}"/>
+                    <apex:iframe id="detailFrame" rendered="{!!currentEntryIsSFRecord}" width="100%" height="1500" scrolling="auto" src="{!currentEntry.NVMConnect__URL__c}"/>
+                </apex:outputPanel>
+
+            </apex:actionRegion>
+        </apex:outputPanel>
+    </apex:form>
+    <script type="text/javascript">
+        (function($){
+
+            function createCookie(name,value,days) {
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime()+(days*24*60*60*1000));
+                    var expires = "; expires="+date.toGMTString();
+                }
+                else var expires = "";
+                document.cookie = name+"="+value+expires+"; path=/";
+            }
+
+            function readCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0;i < ca.length;i++) {
+                    var c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            }
+
+            var $textArea;
+            var height = readCookie('NVMDiallerNotesHeight');
+            if (height == null) height = 30;
+
+            var saveHeight = function(){
+                height = $textArea.height();
+                createCookie('NVMDiallerNotesHeight', height, 365);
+            };
+
+            window.NVMDiallerNotesReloaded = function(){
+                $textArea = $('.NVMDiallerNotesInput');
+                $textArea.height(height).resizable({ handles: 's', minHeight: 30, resize: saveHeight });
+            };
+
+            $(document).ready(NVMDiallerNotesReloaded);
+
+        })(jQuery);
+    </script>
+</apex:page>

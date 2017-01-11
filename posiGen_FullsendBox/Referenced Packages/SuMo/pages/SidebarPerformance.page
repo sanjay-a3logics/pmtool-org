@@ -1,0 +1,6 @@
+<apex:page standardstylesheets="false" showheader="false" cache="true" >
+	<c:PerformanceComponent profileUserId="{!$CurrentPage.parameters.profileUserId}"
+		loadingBackground="{!$CurrentPage.parameters.loadingBackground}"
+		loadingBackgroundCommunity="{!$CurrentPage.parameters.loadingBackgroundCommunity}"
+		/>
+</apex:page>

@@ -1,0 +1,5 @@
+<apex:page standardController="NVMConnect__Dial_Entry__c" recordSetVar="listRecs" extensions="NVMConnect.ListFromListViewController">
+
+<c:ListFromListView dataSource="{!me}" />
+
+</apex:page>

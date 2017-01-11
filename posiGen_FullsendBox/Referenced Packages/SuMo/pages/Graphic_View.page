@@ -1,0 +1,36 @@
+<apex:page standardController="success__Graphic__c" extensions="success.GraphicController">
+	<apex:form >
+    	<apex:sectionHeader title="{!$ObjectType.success__Graphic__c.Label} {!$Label.view}" subtitle="{!graphic.Name}"/>
+        <apex:pageBlock title="{!$ObjectType.success__Graphic__c.Label} {!$Label.view}"  mode="maindetail">
+        	<apex:pageMessages />
+                
+                <!--  Buttons -->
+                <apex:pageBlockButtons >
+                    <apex:commandButton title="{!$Label.edit}" value="{!$Label.edit}" action="{!edit}" rendered="{!$ObjectType.success__Graphic__c.updateable}"/>
+                    <apex:commandButton title="{!$Label.delete}" value="{!$Label.delete}" action="{!delete}" rendered="{!$ObjectType.success__Graphic__c.deletable}"/>
+                    <apex:commandButton title="{!$Label.clone}" value="{!$Label.clone}" action="{!URLFOR($Page.Graphic_Edit, graphic.id, [Id=graphic.Id,clone=true])}" rendered="{!$ObjectType.success__Graphic__c.createable && graphic.Id != null}"/>
+                    <apex:commandButton title="{!$Label.upload_att}" value="{!$Label.upload_att}" action="{!uploadAttachmentAsGraphic}" rendered="{!$ObjectType.success__Graphic__c.updateable}"/>
+                </apex:pageBlockButtons> 
+                
+                <!-- Information Section -->
+                <apex:pageBlockSection columns="2" title="{!$Label.information}" collapsible="false">
+                 	<apex:pageBlockSection columns="1">
+	                 	<apex:repeat value="{!$ObjectType.success__Graphic__c.FieldSets.success__StandardInformationFieldSet}" var="infofield"> 
+                        	<apex:outputField value="{!graphic[infofield]}" />
+                    	</apex:repeat> 
+                	</apex:pageBlockSection>
+                	<apex:pageBlockSectionItem >
+                   		<c:IconViewerComponent iconurl="{!graphic.success__Image_URL__c}" iconcolor="{!graphic.success__Background_Colour__c}"/>
+                	</apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+                
+                <!-- System Information Section -->
+                <apex:pageBlockSection columns="2" title="{!$Label.sysinfo}" collapsible="false">
+                    <apex:repeat value="{!$ObjectType.success__Graphic__c.FieldSets.success__SystemInformationFieldSet}" var="field"> 
+                        <apex:outputField value="{!graphic[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

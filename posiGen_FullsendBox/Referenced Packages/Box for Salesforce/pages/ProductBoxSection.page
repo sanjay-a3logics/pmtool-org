@@ -1,0 +1,9 @@
+<apex:page standardController="Product2" extensions="box.DisplayWidget" showHeader="false" sidebar="false" action="{!getLoginToken}" standardStylesheets="false">
+       <apex:pageMessages />
+          <apex:stylesheet value="{!URLFOR($Resource.box__BoxEmbed, 'BoxEmbed/style.css')}"/>
+     <apex:form >
+        <apex:actionPoller reRender="ABS" interval="{!Interval}"/>
+    </apex:form>
+    <apex:iframe src="/apex/BOXSection?id={!Product2.Id}&param=ProductBoxSection"  rendered="{!DisplayBoxSection}"/>
+    <apex:iframe src="{!folderShareLink}" rendered="{!DisplayBoxWidget}" width="100%" height="100%" frameborder="0" scrolling="NO" ></apex:iframe>
+</apex:page>

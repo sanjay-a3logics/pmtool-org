@@ -1,0 +1,177 @@
+<apex:page standardstylesheets="false" showheader="false" Controller="success.SuMoSidebarController" cache="true" >
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQueryCyclePlugin)}" />
+
+<style>
+
+*{border:0;margin:0;padding:0;font-family:Helvetica}
+body{color:#00476d;}
+.badge{width:44px;height:44px;float:left;position: relative; margin: 1px;} 
+.badge img{padding-left:7px;padding-top:7px;width:30px;height:30px; margin:0px !important;}		
+.noRecords{color:#000;font-size:12px;height:58px!important;text-align:center;overflow:hidden;padding-top:10px!important}
+.promotions-container{width:182px;height:90px;padding:0;margin:0}
+.promotions-container .panel{padding:0;margin:0;width:182px;height:90px;display:block}
+.promotionBadge{margin: 1px!important}
+.promotionTitle{position:absolute;top:1px;left:47px;font-size:12px;font-weight:bold;width:136px!important;height:14px!important;overflow:hidden}
+.promotionDetails{position:absolute;top:17px;left:47px;font-size:11px;font-weight:bold;width:136px!important;height:26px!important;overflow:hidden;color:#777777;}
+.promotionDescription{position:absolute;top:51px;left:0;font-size:11px;height:40px;overflow:hidden;line-height:13px;width: 182px;}
+.panel{position:absolute;top:0;left:0;width:180px;height:90px;cursor:default;}
+
+/* firefox specific  */
+@-moz-document url-prefix() {
+	.promotionDetails {
+		height: 23px !important;
+		line-height: 1 !important;
+	}
+
+	.promotionTitle {
+		height: 13px !important;
+	}
+</style>
+
+<!--[if lt IE 9]>
+<style>
+	body {
+		background-color:#cfeef8;
+	}
+</style>
+<![endif]-->
+
+<script type="text/javascript">
+	var $sj = successJQ.noConflict();
+	
+	var PROMOTIONS = [];
+	
+	var hexGenerate = function(hex) {
+		if(hex == null || hex == undefined || hex == '') {
+			return hex = 'transparent';
+		} else {
+			if(hex.indexOf("#") == -1) {
+				return '#' + hex;
+			} else {
+				return hex;
+			}
+		}
+	};
+	
+	var imgValidate = function(url, type, customStandardUrl) {
+		if(type == 'achievement') {
+			if(url == null || url == undefined || url == '') {
+				if(customStandardUrl != undefined) {
+					return customStandardUrl;
+				} else {
+					return '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/achievements_to_do.png')}';
+				}				
+			} else {
+				return url;
+			}
+		}
+		
+		if(type == 'experience') {
+			if(url == null || url == undefined || url == '') {
+				return '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/experience.png')}';
+			} else {
+				return url;
+			}
+		}
+		
+	};
+	
+	function promotionsCallBack() {    
+	 	Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.SuMoSidebarController.getPromotionDetails}',
+			function(result, event){ 	
+	      		if (event.status) {          
+					PROMOTIONS = result;	      
+					render();         
+				}  else {
+					if (this.console) {             
+						console.log(event.message);
+					}           
+				}
+			},         
+			{escape: true}   
+		);
+	}
+	
+	function render() {
+		
+		var STYLE = $sj.parseJSON('{!JSENCODE(styles)}');
+		
+		// obtain the sidebar module
+		var sidebarSumo = $sj('body'); 
+
+		var promotionsHTML = '<div class="promotions-container">';
+
+		for (var i=0; i<PROMOTIONS.length; i++) {
+			var type = PROMOTIONS[i].type;
+
+			var promotionBadgeDescription = ( PROMOTIONS[i].detail.description != undefined ) ? PROMOTIONS[i].detail.description : 'No Description available';
+
+			var imageURL = PROMOTIONS[i].detail.imageURL;
+			var backgroundColour = PROMOTIONS[i].detail.backgroundColour;
+			
+			var rewardMessage = '';
+			var secondaryTitle = '';
+			if(type == 'achievement') {
+				//achievement		        
+		        rewardMessage = PROMOTIONS[i].detail.rewardText;
+		        secondaryTitle = PROMOTIONS[i].detail.timeLimitText;
+			} else {
+				//challenge
+				rewardMessage = PROMOTIONS[i].detail.rewardCompletionText;
+				secondaryTitle = PROMOTIONS[i].detail.complexityText;
+			}
+
+			promotionsHTML += '<div class="panel" title="'+ PROMOTIONS[i].name + '&#013;' + secondaryTitle + '&#013;' + promotionBadgeDescription +'">' +
+					'<div id="badgeOuterContainer">' +
+					'<div id="badgeContainer" class="badge" style="background-color:' + backgroundColour + ';" >' +
+						'<img src="' + imageURL + '" />' +
+					'</div>' +
+					'</div>' +
+					'<span class="promotionTitle">' + PROMOTIONS[i].name + '</span>' +
+					'<span class="promotionDetails">' + rewardMessage + '</span>' +
+					'<p class="promotionDescription">' + promotionBadgeDescription + '</p>' +
+					'</div>';
+		}
+		
+		if(PROMOTIONS.length == 0) {
+			
+			promotionsHTML += '<div class="panel">' +
+								'<div class="noRecords">' +
+								 '{!JSENCODE($Label.no_promotions_message)}' +
+								'</div></div>';
+		}
+		
+		promotionsHTML += '</div>';
+		
+		// append the new content 
+		$sj(sidebarSumo).append(promotionsHTML);
+		
+		$sj(".promotionExperience").each(function() {
+			if($sj(this).text().length > 1) {
+            	$sj(this).css("font-size", "11px");
+        	}
+		});
+		
+		$sj('.promotions-container').cycle({ 
+						    fx:    'scrollUp', 
+						    speed:    600, 
+						    timeout: 7000
+						}); 
+		
+		$sj('.promotions-container').mouseover(function() {
+			$sj('.promotions-container').cycle('pause');
+		});
+		
+		$sj('.promotions-container').mouseout(function() {
+			$sj('.promotions-container').cycle('resume');
+		});
+		
+	}
+	
+	$sj(document).ready(function() { 
+		promotionsCallBack();
+	});
+</script>
+
+</apex:page>

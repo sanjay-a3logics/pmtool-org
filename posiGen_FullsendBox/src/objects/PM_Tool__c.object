@@ -1,0 +1,4102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Activation_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Activation_SD__c ),NULL, 
+IF(!ISNULL( Activation_ED__c ), Activation_ED__c - Activation_SD__c, TODAY() - Activation_SD__c))</formula>
+        <label>Activation Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Activation_DT__c</fullName>
+        <externalId>false</externalId>
+        <label>Activation DT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activation_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.PVI_Activation_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activation Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activation_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Activation EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activation_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Activation_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activation ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activation_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Activation NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Activation_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Activation SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activation_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Activation_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activation SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+Activation_NA_Override__c == TRUE, 
+NULL, 
+IF( 
+NOT( 
+ISNULL( Activation_DT__c ) 
+), 
+2, 
+IF( 
+AND( 
+Record_Type_Parallel_Workflow__c == &apos;NY&apos;, 
+NOT( 
+ISNULL( Utility_Final_Apprvl_Com_Dt_prll__c ) 
+) 
+), 
+1, 
+IF( 
+AND( 
+Record_Type_Parallel_Workflow__c == &apos;CT&apos;, 
+NOT( 
+ISNULL(Inspection_Comp_Wt_Lett_Dt_prll__c ) 
+) 
+), 
+1, 
+IF( 
+AND( 
+Record_Type_Parallel_Workflow__c == &apos;LA&apos;, 
+NOT( 
+ISNULL(Inspection_Complete_With_Letter_Date__c ) 
+), 
+NOT( 
+ISNULL(Informed_Net_Meter_Installed_Dt_parellel__c ) 
+) 
+), 
+1, 
+0 
+) 
+) 
+) 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activation</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Active_Project__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Pipeline_Stage__c == &apos;LOST&apos;, FALSE, TRUE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Active Project</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Actual_System_Size_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual System Size</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Property_Address__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Aging_Since_Contract_Approved__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Contract_Approved_Date__c &gt; TODAY(), NULL, TODAY()- Contract_Approved_Date__c)</formula>
+        <label>Aging Since Contract Approved</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Aging_since_Contract_Signed__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Contract_Signed_Date__c &gt; TODAY(), NULL, TODAY() - Contract_Signed_Date__c)</formula>
+        <label>Aging since Contract Signed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>B_Stream_Reason__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;, TEXT(Project__r.B_Stream_Type__c) , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>B-Stream Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Packet_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Project__r.RecordType.Name == &apos;PV Install&apos;, TEXT(  Project__r.Billing_Packet_Status__c ), NULL )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billing Packet Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BrightPath_True_Up_Completed_Parallel__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>BrightPath True Up Completed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Building_Permit_received__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.Building_Permit_Received_Date__c , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Building Permit received</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Property_City__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>City</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>City_del__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Property_City__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>City</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closing_Call_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Closing_Call_SD__c ),NULL, 
+IF(!ISNULL( Closing_Call_ED__c ), Closing_Call_ED__c - Closing_Call_SD__c, TODAY() - Closing_Call_SD__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closing Call Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closing_Call_Check__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Deal__r.Touch_Milestones__c , &quot;Closing Call&quot;), TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closing Call</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Closing_Call_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Closing Call EDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Closing_Call_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Closing_Call_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closing Call ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Closing_Call_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Closing Call NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Closing_Call_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Closing Call SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Closing_Call_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Closing_Call_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closing Call SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Closing_Call__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+	Closing_Call_NA_Override__c == TRUE, NULL, 
+	IF(
+		Closing_Call_Check__c == TRUE,
+		2,
+		IF(
+			OR(
+				AND(EE_Accepted__c == TRUE, Activation__c == 2, Energy_Upgrade__c == 2),
+				AND(EE_Accepted__c == FALSE, Activation__c == 2)
+			),
+			1,
+			0
+		)
+	)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closing Call</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Completion_Average__c</fullName>
+        <externalId>false</externalId>
+        <label>Completion %</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contract_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Contracts_Approved_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contract Approved Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Contract_Signed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Contracts_Signed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contract Signed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Acceptance_Received_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Acceptance Received Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Property__r.AssessorOwnerName1__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Customer Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deal_Numeric_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK( Project_Manager__c )), Deal__r.Opp_Numeric_ID__c, IF(ISBLANK( Project_Manager__c ), Deal__r.Opp_Numeric_ID__c, NULL) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Deal Numeric ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deal__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Deal</label>
+        <referenceTo>Deal__c</referenceTo>
+        <relationshipLabel>PM Tools</relationshipLabel>
+        <relationshipName>PM_Tools</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EA_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EE_Approved_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA Approved Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Project_Status_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>EA Project Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EA_Rebate_Submitted_Date_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>EA Rebate Submitted Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Application_Submitted_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EA_State_Application_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA State Application Submitted Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( EA_State_Approval_Submission_SD__c ),NULL, 
+IF(!ISNULL( EA_State_Approval_Submission_ED__c  ),EA_State_Approval_Submission_ED__c - EA_State_Approval_Submission_SD__c, TODAY() - EA_State_Approval_Submission_SD__c))</formula>
+        <label>EA State Approval Submission Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>EA State Approval Submission EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>EA_State_Approval_Submission_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA State Approval Submission ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission_NA_Override__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( OR(EE_Accepted__c == FALSE, EA_State_Approval_Submission_Override__c==TRUE), TRUE, NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA State Approval Submission NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>EA State Approval Submission Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>EA State Approval Submission SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>EA State Approval Submission SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>EA_State_Approval_Submission_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA State Approval Submission SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_State_Approval_Submission__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+	EA_State_Approval_Submission_NA_Override__c == TRUE, 
+	NULL, 
+	IF(
+		AND(
+			NOT(ISNULL( Contract_Approved_Date__c )),  
+			NOT(ISNULL(EA_State_Application_Submitted_Date__c ))
+		), 
+		2,  
+		IF(
+			AND(
+				Record_Type_p__c==&apos;NY&apos;,
+				NOT(ISNULL(Contract_Approved_Date__c)), 
+				ISNULL(EA_State_Application_Submitted_Date__c )
+			), 
+			1, 
+			0
+		) 
+	) 
+)</formula>
+        <label>EA State Approval Submission</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EE_Accepted__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Has_EE_as_a_Solar_Product__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Accepted</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EE_Assessment_Schedule_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EE_Scheduled_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Assessment Schedule Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Audit_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(EE_Audit_SD_Parallel__c ),NULL, 
+IF(!ISNULL(EE_Audit_ED_Parallel__c ),EE_Audit_ED_Parallel__c - EE_Audit_SD_Parallel__c, TODAY() - EE_Audit_SD_Parallel__c))</formula>
+        <label>EE Audit Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EE_Audit_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>EE Audit EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Audit_ED_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>EE Audit ED Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Audit_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>EE_Audit_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Audit ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Audit_NA_Override__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+AND( 
+EE_Accepted__c == FALSE, 
+OR(Record_Type_p__c == &apos;NY&apos;,Record_Type_p__c == &apos;LA&apos;) 
+), 
+TRUE, 
+NULL 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Audit NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EE_Audit_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>EE Audit SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Audit_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>EE Audit SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Audit_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>EE_Audit_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Audit SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Audit__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+EE_Audit_NA_Override__c == TRUE, 
+NULL, 
+IF( 
+AND( 
+OR(Record_Type_p__c == &apos;CT&apos;,Record_Type_p__c == &apos;NY&apos;), 
+EA_Project_Status_Parallel__c == &apos;Completed&apos; 
+), 
+2, 
+IF( 
+AND( 
+Record_Type_p__c == &apos;LA&apos;, 
+EA_Project_Status_Parallel__c == &apos;Completed&apos;, 
+NOT( 
+ISNULL(EA_Approved_Date__c) 
+) 
+), 
+2, 
+IF( 
+EA_Project_Status_Parallel__c == &apos;Cancelled&apos;, 
+2, 
+IF( 
+AND( 
+Record_Type_p__c == &apos;CT&apos;, 
+OR( Feasibility_Result_Parallel__c = &apos;Feasible&apos;, Feasibility_Result_Parallel__c = &apos;Feasible (Smaller System)&apos;, Feasibility_Result_Parallel__c = &apos;Feasible (Redeploy)&apos; ), 
+NOT( 
+ISNULL(Engineering_Report_Received_Date__c ) 
+), 
+NOT( 
+ISNULL(Electrical_Permit_Received__c) 
+) 
+), 
+1, 
+IF( 
+AND( 
+Record_Type_p__c == &apos;NY&apos;, 
+NOT( 
+ISNULL(Contract_Approved_Date__c) 
+), 
+NOT( 
+ISNULL(EA_State_Application_Submitted_Date__c) 
+) 
+), 
+1, 
+IF( 
+AND( 
+Record_Type_p__c == &apos;LA&apos;, 
+NOT( 
+ISNULL(R_P_Installed_Date__c) 
+) 
+), 
+1, 
+0 
+) 
+) 
+) 
+) 
+) 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Audit</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EE_Lease_Payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Validation_EE_Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Lease Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>EU_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Approved Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.EU_Completed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EU Completed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Project_Status_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Project Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Electrical_Install_SD_Parallel__c  ),NULL, 
+IF(!ISNULL( Electrical_Install_ED__c ), Electrical_Install_ED__c - Electrical_Install_SD_Parallel__c, TODAY() - Electrical_Install_SD_Parallel__c))</formula>
+        <label>Electrical Install Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Electrical Install EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Electrical_Install_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electrical Install ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Electrical Install NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Electrical Install SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Electrical Install SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Electrical_Install_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electrical Install SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Electrical_Install_NA_Override__c == TRUE, NULL, IF(NOT(ISNULL( Electrical_Installed_Date__c )), 2,  IF(AND(  Record_Type_p__c  == &apos;NY&apos;, NOT( 
+ISNULL(State_Program_Application_Approved_Date__c)) , NOT(ISNULL( NMIA_Received_Date__c )), OR(NOT(ISNULL( Building_Permit_received__c )),NOT(ISNULL( Electrical_Permit_Received__c )))), 1,  IF(AND(Record_Type_p__c == &apos;LA&apos;, NOT(ISNULL( R_P_Installed_Date__c )) ), 1,  IF(AND(Record_Type_p__c == &apos;CT&apos;, NOT(ISNULL( R_P_Installed_Date__c ))), 1,  0) ) ) ) )</formula>
+        <label>Electrical Install</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Electrical_Installed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.PVI_Electrical_Installed_Date__c , NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electrical Installed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Permit_Received__c</fullName>
+        <externalId>false</externalId>
+        <label>Electrical Permit Received</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Account_Email__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Energy_Upgrade_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Energy_Upgrade_SD__c ),NULL, 
+IF(!ISNULL( Energy_Upgrade_ED__c ), Energy_Upgrade_ED__c - Energy_Upgrade_SD__c, TODAY() - Energy_Upgrade_SD__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Energy Upgrade Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Energy_Upgrade_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Energy Upgrade EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Energy_Upgrade_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Energy_Upgrade_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Energy Upgrade ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Energy_Upgrade_NA_Override__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( EE_Accepted__c == FALSE, TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Energy Upgrade NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Energy_Upgrade_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Energy Upgrade SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Energy_Upgrade_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Energy_Upgrade_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Energy Upgrade SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Energy_Upgrade__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+Energy_Upgrade_NA_Override__c == TRUE, 
+NULL, 
+IF( 
+AND( 
+OR(Record_Type_p__c == &apos;CT&apos;,Record_Type_p__c == &apos;NY&apos;), 
+NOT( 
+ISNULL( EU_Completed_Date__c ) 
+) 
+), 
+2, 
+IF( 
+AND( 
+Record_Type_p__c == &apos;LA&apos;, 
+NOT( 
+ISNULL(EU_Completed_Date__c) 
+), 
+NOT( 
+ISNULL(EU_Approved_Date__c) 
+) 
+), 
+2, 
+IF( 
+EU_Project_Status_Parallel__c == &apos;Cancelled&apos;, 
+2, 
+IF( 
+AND( 
+Record_Type_p__c == &apos;NY&apos;, 
+NOT( 
+ISNULL(R_P_Installed_Date__c) 
+), 
+EA_Project_Status_Parallel__c = &apos;Completed&apos;, 
+NOT( 
+ISNULL(EA_State_Application_Submitted_Date__c) 
+), 
+NOT( 
+ISNULL(Work_Scope_Approved__c) 
+) 
+), 
+1, 
+IF( 
+AND( 
+OR(Record_Type_p__c == &apos;LA&apos;,Record_Type_p__c == &apos;CT&apos;), 
+EA_Project_Status_Parallel__c = &apos;Completed&apos; 
+), 
+1, 
+0 
+) 
+) 
+) 
+) 
+) 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Energy Upgrade</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Engineering_Report_Received_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Project_PV_Feasibility__r.RecordType.Name == &apos;PV Feasibility&apos;,  Project__r.Engineering_Report_Received_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Engineering Report Received Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Engineering_Report_Requested_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Project_PV_Feasibility__r.RecordType.Name == &apos;PV Feasibility&apos;,   Project_PV_Feasibility__r.Engineering_Report_Requested_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Engineering Report Requested Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Feasibility_SD_Parallel__c ),NULL, 
+IF(!ISNULL( Feasibility_ED_Parallel__c ), Feasibility_ED_Parallel__c - Feasibility_SD_Parallel__c, TODAY() - Feasibility_SD_Parallel__c))</formula>
+        <label>Feasibility Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feasibility_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Feasibility EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility_ED_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Feasibility ED Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Feasibility_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Feasibility ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Feasibility NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility_Project_Status_Installation__c</fullName>
+        <externalId>false</externalId>
+        <label>Feasibility Project Status Installation</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feasibility_Project_Status_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Feasibility Project Status</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feasibility_Result_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Feasibility Result</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feasibility_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Feasibility SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Feasibility SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Feasibility_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Feasibility SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+	Feasibility_NA_Override__c == TRUE, 
+	NULL, 
+		IF(
+			AND(
+				OR( Feasibility_Result_Parallel__c == &apos;Feasible&apos;,Feasibility_Result_Parallel__c == &apos;Feasible (Smaller System)&apos;,Feasibility_Result_Parallel__c == &apos;Feasible (Redeploy)&apos;),
+				Deal__r.RecordType.Name &lt;&gt; &apos;Sunrun&apos;,
+				PV_Install_Status__c!=null 
+				
+			), 
+		2, 
+		IF(
+			AND( 
+				Feasibility_Result_Parallel__c == &apos;Not Feasible&apos;, 
+				OR(Feasibility_Project_Status_Parallel__c == &apos;Completed&apos; , Feasibility_Project_Status_Parallel__c == &apos;Cancelled&apos;)
+			), 
+			2, 
+			IF(
+				AND( 
+					OR(Feasibility_Result_Parallel__c == &apos;Feasible&apos;,Feasibility_Result_Parallel__c == &apos;Feasible (Smaller System)&apos;, Feasibility_Result_Parallel__c == &apos;Feasible (Redeploy)&apos; ), 
+					Deal__r.RecordType.Name = &apos;Sunrun&apos;, 
+					BrightPath_True_Up_Completed_Parallel__c == TRUE
+				), 
+				2,
+				IF(Intro_Call__c == TRUE, 
+					1,
+					0
+				)
+			)
+			
+		)
+	)
+)</formula>
+        <label>Feasibility</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feasibility_result_call__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Deal__r.Touch_Milestones__c , &quot;Feasibility Result Call&quot;), TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Feasibility result call</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Field_Verification_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project_PV_Feasibility__r.RecordType.Name == &quot;PV Feasibility&quot;,   Project_PV_Feasibility__r.Field_Verification_Completed_Date__c , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Field Verification Completed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>IU_Approval_Net_Metering_ED_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>IU Approval/Net Metering ED Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Informed_Net_Meter_Installed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;, Project__r.Informed_Net_Meter_Installed_Date__c , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Informed Net Meter Installed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Informed_Net_Meter_Installed_Dt_parellel__c</fullName>
+        <externalId>false</externalId>
+        <label>Informed Net Meter Installed Dt parellel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Utility_Approval_Net_MeteringEDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Initial Utility Approval/Net MeteringEDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Utility_Approval_Net_MeteringSDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Initial Utility Approval/Net MeteringSDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Utility_Approval_Net_Metering_Ag__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Initial_Utility_Approval_Net_Metering_Pa__c  ),NULL, 
+IF(!ISNULL( IU_Approval_Net_Metering_ED_Parallel__c ), IU_Approval_Net_Metering_ED_Parallel__c - Initial_Utility_Approval_Net_Metering_Pa__c, TODAY() - Initial_Utility_Approval_Net_Metering_Pa__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>IUApproval/Net Metering Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initial_Utility_Approval_Net_Metering_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Initial_Utility_Approval_Net_MeteringEDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Initial Utility Approval/Net Metering ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Utility_Approval_Net_Metering_NA__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Initial Utility Approval/Net Metering NA</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Utility_Approval_Net_Metering_Pa__c</fullName>
+        <externalId>false</externalId>
+        <label>Initial Utility Approval/Net Metering Pa</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Utility_Approval_Net_Metering_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Initial_Utility_Approval_Net_MeteringSDT__c</formula>
+        <label>Initial Utility Approval/Net Metering SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Utility_Approval_Net_Metering__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+Initial_Utility_Approval_Net_Metering_NA__c==TRUE, 
+NULL, 
+IF( 
+AND( 
+OR(Record_Type_p__c==&apos;NY&apos;,Record_Type_p__c==&apos;CT&apos;), 
+NOT( 
+ISNULL(NMIA_Received_Date__c) 
+) 
+), 
+2, 
+IF( 
+AND( 
+Record_Type_p__c==&apos;LA&apos;, 
+NOT( 
+ISNULL(Net_Meter_Installed_Verified_Date__c) 
+) 
+), 
+2, 
+IF( 
+AND( 
+OR(Record_Type_p__c==&apos;NY&apos;,Record_Type_p__c==&apos;CT&apos;), 
+OR(Feasibility_Result_Parallel__c==&apos;Feasible&apos;,Feasibility_Result_Parallel__c==&apos;Feasible (Smaller System)&apos;,Feasibility_Result_Parallel__c==&apos;Feasible (Redeploy)&apos;), 
+PV_Install_Status__c!=null 
+), 
+1, 
+IF( 
+AND( 
+Record_Type_p__c==&apos;LA&apos;, 
+OR(Utility_Parallel__c&lt;&gt;&apos;Entergy New Orleans&apos;,Utility_Parallel__c&lt;&gt;&apos;Entergy Louisiana&apos;), 
+NOT( 
+ISNULL(Electrical_Installed_Date__c) 
+) 
+), 
+1, 
+IF( 
+AND( 
+Record_Type_p__c==&apos;LA&apos;, 
+OR(Utility_Parallel__c==&apos;Entergy New Orleans&apos;,Utility_Parallel__c==&apos;Entergy Louisiana&apos;),  
+OR(Feasibility_Result_Parallel__c==&apos;Feasible&apos;,Feasibility_Result_Parallel__c==&apos;Feasible (Smaller System)&apos;,Feasibility_Result_Parallel__c==&apos;Feasible (Redeploy)&apos;),
+PV_Install_Status__c!=null 
+), 
+1, 
+0 
+) 
+) 
+) 
+) 
+) 
+)</formula>
+        <label>Initial Utility Approval/Net Metering</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Inspection_Comp_Wt_Lett_Dt_prll__c</fullName>
+        <externalId>false</externalId>
+        <label>Inspection Comp Wt Lett Dt prll</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Inspection_Complete_With_Letter_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.Inspection_Complete_With_Letter_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inspection Complete With Letter Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Inspection_Requested_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.Inspection_Requested_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inspection Requested Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Intro_Call_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Intro_Call_SD__c  ),NULL, 
+IF(!ISNULL( Intro_Call_ED__c  ),Intro_Call_ED__c - Intro_Call_SD__c, TODAY() - Intro_Call_SD__c))</formula>
+        <label>Intro Call Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Intro_Call_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Intro Call EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Intro_Call_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Intro_Call_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Intro Call ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Intro_Call_Installation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Intro_Call_NA_Override__c == TRUE, NULL, 
+IF(AND(NOT(ISBLANK(Project_Manager__c)), Intro_Call__c == TRUE ), 2, 
+IF(AND(NOT(ISBLANK(Project_Manager__c)), Intro_Call__c == FALSE), 1, 
+0) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Intro Call</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Intro_Call_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Intro Call NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Intro_Call_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Intro Call SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Intro_Call_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Intro_Call_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Intro Call SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Intro_Call__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Deal__r.Touch_Milestones__c , &quot;Intro Call&quot;), TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Intro Call</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.RecordType.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Lease Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M1_ITC_Funding_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( M1_ITC_Funding_SD__c ),NULL, 
+IF(!ISNULL( M1_ITC_Funding_ED__c ), M1_ITC_Funding_ED__c - M1_ITC_Funding_SD__c, TODAY() - M1_ITC_Funding_SD__c))</formula>
+        <label>M1/ITC Funding Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M1_ITC_Funding_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>M1/ITC Funding EDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M1_ITC_Funding_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>M1_ITC_Funding_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M1/ITC Funding ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M1_ITC_Funding_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>M1/ITC Funding NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>M1_ITC_Funding_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>M1/ITC Funding SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M1_ITC_Funding_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>M1_ITC_Funding_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M1/ITC Funding SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M1_ITC_Funding__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( M1_ITC_Funding_NA_Override__c == TRUE, NULL, IF(NOT(ISNULL( M1_submission_date__c )), 2, IF(AND( Deal__r.RecordType.Name  == &apos;Sunrun&apos;,NOT(ISNULL( Electrical_Installed_Date__c ))), 1,  0)   ) )</formula>
+        <label>M1/ITC Funding</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M1_submission_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.M1_submission_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M1 submission date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M2_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( M2_SD__c ),NULL, 
+IF(!ISNULL( M2_ED__c ), M2_ED__c - M2_SD__c, TODAY() - M2_SD__c))</formula>
+        <label>M2 Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M2_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>M2 EDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M2_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>M2_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M2 ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M2_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>M2 NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>M2_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>M2 SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M2_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>M2_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M2 SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M2__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( M2_NA_Override__c == TRUE, NULL, IF(NOT(ISNULL( M2_submission_date__c )), 2,   IF(AND( Deal__r.RecordType.Name == &apos;Sunrun&apos;, NOT(ISNULL( Inspection_Complete_With_Letter_Date__c ))), 1,  0) ) )</formula>
+        <label>M2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M2_submission_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.M2_submission_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M2 submission date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M3_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(M3_SD__c ),NULL, 
+IF(!ISNULL( M3_ED__c ),M3_ED__c - M3_SD__c, TODAY() - M3_SD__c))</formula>
+        <label>M3 Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M3_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>M3 EDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M3_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>M3_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M3 ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M3_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>M3 NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>M3_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>M3 SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M3_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>M3_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M3 SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M3__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( M3_NA_Override__c == TRUE, NULL, IF(NOT(ISNULL( M3_submission_date__c )), 2,  IF(AND( Deal__r.RecordType.Name == &apos;Sunrun&apos; , NOT(ISNULL( Utility_Final_Approval_Completed_Date__c ))), 1,  0) ))</formula>
+        <label>M3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M3_submission_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.M3_submission_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M3 submission date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Municipal_Inspection_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Municipal_Inspection_SD__c  ),NULL, 
+IF(!ISNULL( Municipal_Inspection_ED__c ), Municipal_Inspection_ED__c - Municipal_Inspection_SD__c, TODAY() - Municipal_Inspection_SD__c))</formula>
+        <label>Municipal Inspection Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Municipal_Inspection_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Municipal Inspection EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Municipal_Inspection_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Municipal_Inspection_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Municipal Inspection ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Municipal_Inspection_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Municipal Inspection NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Municipal_Inspection_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Municipal Inspection SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Municipal_Inspection_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Municipal_Inspection_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Municipal Inspection SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Municipal_Inspection__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+Municipal_Inspection_NA_Override__c == TRUE, 
+NULL, 
+IF( 
+NOT( 
+ISNULL( Inspection_Complete_With_Letter_Date__c ) 
+), 
+2, 
+IF( 
+AND( 
+Quality_Control_NA_Override__c == FALSE, 
+NOT( 
+ISNULL( Electrical_Installed_Date__c ) 
+), 
+NOT( 
+ISNULL( QC_Date__c ) 
+) 
+), 
+1, 
+IF( 
+AND( 
+Quality_Control_NA_Override__c == TRUE, 
+NOT( 
+ISNULL( Electrical_Installed_Date__c ) 
+) 
+), 
+1, 
+0 
+) 
+) 
+) 
+)</formula>
+        <label>Municipal Inspection</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NMIA_Received_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Project_PV_Feasibility__r.RecordType.Name == &apos;PV Feasibility&apos;,   Project_PV_Feasibility__r.NMIA_Received_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NMIA Received Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>NMIA_Requested_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;, Project__r.NMIA_Request_to_Verify_Date__c , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NMIA Request to Verify Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>NMIA_Submitted_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(  Project_PV_Feasibility__r.RecordType.Name == &apos;PV Feasibility&apos;,  Project_PV_Feasibility__r.NMIA_Submitted_Date__c , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>NMIA Submitted Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Net_Meter_Installed_Verified_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.PV_Net_Meter_Install_Verified_Date__c   , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Net Meter Installed Verified Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Numeric_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(NOT(ISBLANK( Project_Manager__c )), Deal__r.Opp_Numeric_ID__c, IF(ISBLANK( Project_Manager__c ), Deal__r.Opp_Numeric_ID__c, NULL) )</formula>
+        <label>Opportunity Numeric ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>PM Tools</relationshipLabel>
+        <relationshipName>PM_Tools</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PM_Assignment_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(PM_Assignment_SD__c ),NULL, 
+IF(!ISNULL(PM_Assignment_ED__c ),PM_Assignment_ED__c - PM_Assignment_SD__c, TODAY() - PM_Assignment_SD__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PM Assignment Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PM_Assignment_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>PM Assignment EDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PM_Assignment_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>PM_Assignment_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PM Assignment ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PM_Assignment_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>PM Assignment NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PM_Assignment_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>PM Assignment SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PM_Assignment_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>PM_Assignment_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PM Assignment SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PM_Assignment__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( PM_Assignment_NA_Override__c == TRUE, NULL, IF(AND(NOT(ISNULL(Contract_Approved_Date__c)) , NOT(ISBLANK( Project_Manager__c ))) , 2 , IF(AND(NOT(ISNULL(Contract_Approved_Date__c)) , ISBLANK( Project_Manager__c )) , 1 , 0) ))</formula>
+        <label>PM Assignment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PTO_Final_Utility_Approval_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( PTO_Final_Utility_Approval_SD__c ),NULL, 
+IF(!ISNULL( PTO_Final_Utility_Approval_ED__c ),PTO_Final_Utility_Approval_ED__c - PTO_Final_Utility_Approval_SD__c, TODAY() - PTO_Final_Utility_Approval_SD__c))</formula>
+        <label>PTO/Final Utility Approval Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PTO_Final_Utility_Approval_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>PTO/Final Utility Approval EDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PTO_Final_Utility_Approval_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>PTO_Final_Utility_Approval_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PTO/Final Utility Approval ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PTO_Final_Utility_Approval_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>PTO/Final Utility Approval NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PTO_Final_Utility_Approval_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>PTO/Final Utility Approval SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PTO_Final_Utility_Approval_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>PTO_Final_Utility_Approval_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PTO/Final Utility Approval SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PTO_Final_Utility_Approval__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( PTO_Final_Utility_Approval_NA_Override__c == TRUE, NULL, IF(NOT(ISNULL(  Utility_Final_Approval_Completed_Date__c )), 2,  IF(AND(OR(Record_Type_p__c == &apos;NY&apos;, Record_Type_p__c == &apos;CT&apos;), NOT(ISNULL( Inspection_Complete_With_Letter_Date__c ))), 1,  0) ) )</formula>
+        <label>PTO/Final Utility Approval</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PV_Completion_EU_Scheduling_Call__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Deal__r.Touch_Milestones__c , &quot;PV Completion/EU Scheduling Call&quot;), TRUE, False)</formula>
+        <label>PV Completion/EU Scheduling Call</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PV_Install_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Project__r.RecordType.Name == &apos;PV Install&apos;, TEXT( Project__r.Status__c ), NULL )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PV Install Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PV_Lease_Payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Lease_System_Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PV Lease Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Permitting_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(Permitting_SD_Parallel__c),NULL, 
+IF(!ISNULL(Permitting_ED__c), Permitting_ED__c - Permitting_SD__c, TODAY()- Permitting_SD__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Permitting Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Permitting_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Permitting EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Permitting_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Permitting_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Permitting ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Permitting_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Permitting NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Permitting_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Permitting SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Permitting_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Permitting SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Permitting_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Permitting_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Permitting SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Permitting__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+	Permitting_NA_Override__c == TRUE, 
+	NULL, 
+	IF(
+		OR( 
+			NOT(ISNULL(Electrical_Permit_Received__c )), 
+			NOT(ISNULL( Building_Permit_received__c ))
+		), 
+		2,  
+		IF(
+			AND(
+				OR(  Feasibility_Result_Parallel__c == &apos;Feasible&apos;, Feasibility_Result_Parallel__c == &apos;Feasible (Smaller System)&apos;, Feasibility_Result_Parallel__c == &apos;Feasible (Redeploy)&apos;),
+				PV_Install_Status__c!=null
+			)
+			,1
+			,0
+		) 
+	)
+)</formula>
+        <label>Permitting</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Pipeline_Stage__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Pipeline_Stage__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Pipeline Stage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Placed_In_Service_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.PVI_Placed_In_Service_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Placed In Service Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Account_Phone__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Completion_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Project Completion Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Project_EE_Assessment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project EE Assessment</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools (Project EE Assessment)</relationshipLabel>
+        <relationshipName>PM_Tools1</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_EE_Upgrade__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project EE Upgrade</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools (Project EE Upgrade)</relationshipLabel>
+        <relationshipName>PM_Tools2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Manager__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project Manager</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>PM_Tools</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_PV_Feasibility__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project PV Feasibility</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools (PV Feasibility)</relationshipLabel>
+        <relationshipName>PM_Tools3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Project Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Feasible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transfer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terminated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pending Removal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project PV Install</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools</relationshipLabel>
+        <relationshipName>PM_Tools</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Property__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Property</label>
+        <referenceTo>Property__c</referenceTo>
+        <relationshipLabel>PM Tools</relationshipLabel>
+        <relationshipName>PM_Tools</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>QC_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.QC_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>QC Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Qc_Passed__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.QC_Passed__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Qc Passed</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Control_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( Quality_Control_SD__c ),NULL, 
+IF(!ISNULL( Quality_Control_ED__c ), Quality_Control_ED__c - Quality_Control_SD__c, TODAY() - Quality_Control_SD__c))</formula>
+        <label>Quality Control Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quality_Control_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Quality Control EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Control_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Quality_Control_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Quality Control ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Control_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Quality Control NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Control_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Quality Control SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Control_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Quality_Control_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Quality Control SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Quality_Control__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Quality_Control_NA_Override__c == TRUE,
+   NULL, 
+   IF(
+      AND(
+      NOT(
+         ISNULL( QC_Date__c )
+      ),
+      Qc_Passed__c == true,
+      NOT(
+             ISNULL( Electrical_Installed_Date__c )
+      )),
+      2,
+      IF(
+         NOT(
+             ISNULL( Electrical_Installed_Date__c )
+         ),
+         1,
+         0
+      ) 
+   ) 
+)</formula>
+        <label>Quality Control</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>R_P_Install_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( R_P_Install_SD_Parallel__c ),NULL, 
+IF(!ISNULL( R_P_Install_ED__c ), R_P_Install_ED__c - R_P_Install_SD_Parallel__c, TODAY()- R_P_Install_SD_Parallel__c))</formula>
+        <label>R&amp;P Install Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>R_P_Install_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>R&amp;P Install EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>R_P_Install_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>R_P_Install_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>R&amp;P Install ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>R_P_Install_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>R&amp;P Install NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>R_P_Install_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>R&amp;P Install SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>R_P_Install_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>R&amp;P Install SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>R_P_Install_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>R_P_Install_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>R&amp;P Install SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>R_P_Install__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+	R_P_Install_NA_Override__c ,
+	NULL, 
+	IF(
+		NOT(
+			ISNULL( R_P_Installed_Date__c )
+		), 
+		2, 
+		IF(
+			AND(
+			    Record_Type_p__c==&apos;NY&apos;,
+				
+				NOT(
+					ISNULL( NMIA_Received_Date__c )
+				),
+				OR(
+					NOT(
+						ISNULL( Building_Permit_received__c )
+					), 
+					NOT(
+						ISNULL( Electrical_Permit_Received__c )
+					)
+				),
+				NOT(
+					ISNULL(State_Program_Application_Approved_Date__c)
+				)
+		    ),
+			1,
+			IF(
+				AND(
+					Record_Type_p__c==&apos;CT&apos;,
+				
+					NOT(
+						ISNULL( NMIA_Submitted_Date__c )
+					),
+					OR(
+						NOT(
+							ISNULL( Building_Permit_received__c )
+						), 
+						NOT(
+							ISNULL( Electrical_Permit_Received__c )
+						)
+					),
+					NOT(
+						ISNULL(State_Program_Application_Approved_Date__c)
+					)
+				),
+				1,
+				IF(
+					AND(
+						Record_Type_p__c == &apos;LA&apos;, 
+						OR(
+							NOT(
+								ISNULL( Building_Permit_received__c )
+							), 
+							NOT(
+								ISNULL( Electrical_Permit_Received__c )
+							)
+						)
+						
+					), 
+					1, 
+				0
+				)
+	  ) 	)
+    )
+)</formula>
+        <label>R&amp;P Install</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>R_P_Installed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.PVI_Rails_Installed_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>R&amp;P Installed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_Completion_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Rebate_Completion_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rebate Completion Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_Submission_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Rebate_Submission_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rebate Submission Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Record_Type_Parallel_Workflow__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Type Parallel Workflow</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Type_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <formula>State__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Record Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Record_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Record Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>LA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FL</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Record_Type_p__c</fullName>
+        <externalId>false</externalId>
+        <formula>State__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Record Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referring_Customer__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Deal__r.Referring_Customer__c)</formula>
+        <label>Referring Customer</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Removal_Project__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Removal Project</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Project__c.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>PV Removal</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools (Removal Project)</relationshipLabel>
+        <relationshipName>PM_Tools4</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(Sales_Order_SD_Parallel__c ),NULL, 
+IF(!ISNULL( Sales_Order_ED__c ), Sales_Order_ED__c - Sales_Order_SD_Parallel__c , TODAY() - Sales_Order_SD_Parallel__c))</formula>
+        <label>Sales Order Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_Created__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(Sales_Order__c!=NULL,Sales_Order__c!=&apos;&apos;),true,false)</formula>
+        <label>Sales Order Created</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Order EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Order_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sales Order ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_Installation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+	Sales_Order_NA_Override__c == TRUE, 
+	NULL, 
+	IF( 
+		Sales_Order_Created__c == TRUE, 
+		2,  
+		IF(
+			AND( 
+				Record_Type_p__c  == &apos;LA&apos;, 
+				
+				Feasibility__c = 2	
+
+				
+			), 
+			1,
+			IF(
+				AND(
+					Record_Type_p__c == &apos;CT&apos;,
+					NOT(
+						ISNULL( Engineering_Report_Received_Date__c )
+					),
+					NOT(
+						ISNULL(  Electrical_Permit_Received__c )
+					)
+				), 
+				1, 
+				
+				IF(
+					AND(
+						Record_Type_p__c == &apos;NY&apos;,
+						NOT(
+							ISNULL( Engineering_Report_Received_Date__c )
+						),
+						NOT(
+							ISNULL(  Building_Permit_received__c )
+						),
+						NOT(
+							ISNULL(  NMIA_Received_Date__c )
+						)
+						
+					),
+					1,
+					0
+				)
+			) 
+		) 
+	)
+)</formula>
+        <label>Sales Order</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Sales Order NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Order SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Order SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Sales_Order_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sales Order SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Sales Order</label>
+        <referenceTo>Sales_Order__c</referenceTo>
+        <relationshipLabel>PM Tools</relationshipLabel>
+        <relationshipName>PM_Tools</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Person__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Owner:User.FirstName +&apos; &apos;+ Deal__r.Owner:User.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sales Person</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Account_Mobile__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Secondary Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Final_Submission_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL( State_Final_Submission_SD_Parallel__c ),NULL, 
+IF(!ISNULL( State_Final_Submission_ED__c ),State_Final_Submission_ED__c - State_Final_Submission_SD_Parallel__c, TODAY() - State_Final_Submission_SD_Parallel__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Final Submission Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Final_Submission_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>State Final Submission EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Final_Submission_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>State_Final_Submission_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Final Submission ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Final_Submission_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>State Final Submission NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>State_Final_Submission_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>State Final Submission SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Final_Submission_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>State Final Submission SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Final_Submission_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>State_Final_Submission_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Final Submission SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Final_Submission__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( State_Final_Submission_NA_Override__c == TRUE, NULL, IF(AND(Record_Type_Parallel_Workflow__c == &apos;LA&apos;,  Billing_Packet_Status__c  = &apos;Completed&apos;), 2,  IF(AND(OR(Record_Type_Parallel_Workflow__c == &apos;NY&apos;,Record_Type_Parallel_Workflow__c == &apos;CT&apos;), NOT(ISNULL( Rebate_Completion_Date__c ))), 2,  IF(AND( Record_Type_Parallel_Workflow__c == &apos;NY&apos;, NOT(ISNULL( Activation_Date__c ))), 1,  IF(AND(Record_Type_Parallel_Workflow__c == &apos;CT&apos;, NOT(ISNULL( Utility_Final_Approval_Completed_Date__c ))), 1,  IF(AND(Record_Type_Parallel_Workflow__c == &apos;LA&apos;, NOT(ISNULL( Placed_In_Service_Date__c ))), 1,  0) )))))</formula>
+        <label>State Final Submission</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Initial_Submission_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(State_Initial_Submission_SD_Parallel__c ),NULL, 
+IF(!ISNULL( State_Initial_Submission_ED__c ), State_Initial_Submission_ED__c - State_Initial_Submission_SD_Parallel__c, TODAY() - State_Initial_Submission_SD_Parallel__c))</formula>
+        <label>State Initial Submission Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Initial_Submission_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>State Initial Submission EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Initial_Submission_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>State_Initial_Submission_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Initial Submission ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Initial_Submission_Installation__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+	State_Initial_Submission_NA_Override__c == TRUE, 
+	NULL, 
+	IF(
+		AND(
+			OR( Record_Type_p__c == &apos;NY&apos;, Record_Type_p__c == &apos;CT&apos;), 
+			NOT(
+				ISNULL(State_Program_Application_Approved_Date__c)
+			)
+		),
+		2, 
+		IF(
+			AND(
+				OR( Record_Type_p__c == &apos;NY&apos;,Record_Type_p__c == &apos;CT&apos; ), 
+				OR( Feasibility_Result_Parallel__c == &apos;Feasible&apos;, Feasibility_Result_Parallel__c == &apos;Feasible (Smaller System)&apos; , Feasibility_Result_Parallel__c == &apos;Feasible (Redeploy)&apos;), 
+				PV_Install_Status__c!=null 
+			),
+			1, 
+			0
+		)
+	)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Initial Approval</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Initial_Submission_NA_Override__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>State Initial Submission NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>State_Initial_Submission_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>State Initial Submission SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Initial_Submission_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>State Initial Submission SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Initial_Submission_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>State_Initial_Submission_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Initial Submission SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Program_Application_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.State_Program_Application_Received_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Program Application Approved Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Program_Application_Submitted_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.State_Program_Application_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Program Application Submitted Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Property_State__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System_Size__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.System_Size_in_KW__c</formula>
+        <label>System Size</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Telemarketer_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Telemarketer__r.FirstName +&quot; &quot; +  Deal__r.Telemarketer__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Telemarketer</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Telemarketer__c</fullName>
+        <externalId>false</externalId>
+        <formula>Deal__r.Telemarketer__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Telemarketer</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Modeling_Aging__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(Upgrade_Modeling_SD_Parallel__c ),NULL, 
+IF(!ISNULL(Upgrade_Modeling_ED__c ),Upgrade_Modeling_ED__c - Upgrade_Modeling_SD_Parallel__c, TODAY() - Upgrade_Modeling_SD_Parallel__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Upgrade Modeling Aging</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Modeling_EDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Upgrade Modeling EDT</label>
+        <required>false</required>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Modeling_ED__c</fullName>
+        <externalId>false</externalId>
+        <formula>Upgrade_Modeling_EDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Upgrade Modeling ED</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Modeling_NA_Override__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( EE_Accepted__c == FALSE, TRUE, NULL)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Upgrade Modeling NA Override</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Modeling_SDT__c</fullName>
+        <externalId>false</externalId>
+        <label>Upgrade Modeling SDT</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Modeling_SD_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Upgrade Modeling SD Parallel</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Modeling_SD__c</fullName>
+        <externalId>false</externalId>
+        <formula>Upgrade_Modeling_SDT__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Upgrade Modeling SD</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Modeling__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+Upgrade_Modeling_NA_Override__c == TRUE, 
+NULL, 
+IF( 
+AND( 
+NOT( 
+ISNULL( Work_Scope_Approved__c ) 
+), 
+Record_Type_p__c == &apos;NY&apos;, 
+EE_Accepted__c == TRUE, 
+EA_Project_Status_Parallel__c == &apos;Completed&apos;	
+), 
+2, 
+IF( 
+AND( 
+Record_Type_p__c == &apos;NY&apos;, 
+EE_Accepted__c == TRUE,	
+OR( Feasibility_Result_Parallel__c == &apos;Feasible&apos;, Feasibility_Result_Parallel__c == &apos;Feasible (Smaller System)&apos;, Feasibility_Result_Parallel__c == &apos;Feasible (Redeploy)&apos;),
+EA_Project_Status_Parallel__c == &apos;Completed&apos;	
+), 
+1, 
+0 
+) 
+) 
+)</formula>
+        <label>Upgrade Modeling</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Utility_Final_Approval_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.Utility_Final_Approval_Completed_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Utility Final Approval Completed Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Utility_Final_Approval_Requested_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Project__r.RecordType.Name == &apos;PV Install&apos;,  Project__r.Utility_Final_Approval_Requested_Date__c  , null )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Utility Final Approval Requested Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Utility_Final_Apprvl_Com_Dt_prll__c</fullName>
+        <externalId>false</externalId>
+        <label>Utility Final Apprvl Com Dt prll</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Utility_Parallel__c</fullName>
+        <externalId>false</externalId>
+        <label>Utility</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Utility__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Deal__r.Electricity_Provider__r.IsPersonAccount = true, Deal__r.Electricity_Provider__r.FirstName+&apos; &apos;+Deal__r.Electricity_Provider__r.LastName, Deal__r.Electricity_Provider__r.Name)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Utility</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Work_Scope_Approved__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Work Scope Approved</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>PM Tool</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>CT_Active</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>CT</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filters>
+        <label>CT - Active</label>
+        <sharedTo>
+            <group>CT_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_CT</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>CT_Cancelled</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>CT</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Cancelled</value>
+        </filters>
+        <label>CT - Cancelled</label>
+        <sharedTo>
+            <group>CT_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_CT</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>CT_Completed</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Project_Completion_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>CT</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <label>CT - Completed</label>
+        <sharedTo>
+            <group>CT_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_CT</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>CT_Non_Feasible</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>CT</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Non-Feasible</value>
+        </filters>
+        <label>CT - Non-Feasible</label>
+        <sharedTo>
+            <group>CT_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_CT</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>CT_Terminated</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>CT</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Terminated</value>
+        </filters>
+        <label>CT - Terminated</label>
+        <sharedTo>
+            <group>CT_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_CT</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>CT_Transfer</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>CT</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Transfer</value>
+        </filters>
+        <label>CT - Transfer</label>
+        <sharedTo>
+            <group>CT_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_CT</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LA_Active</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>LA</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filters>
+        <label>LA - Active</label>
+        <sharedTo>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_LA</group>
+            <group>Project_Management</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LA_Cancelled</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>LA</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Cancelled</value>
+        </filters>
+        <label>LA - Cancelled</label>
+        <sharedTo>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_LA</group>
+            <group>Project_Management</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LA_Completed</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>LA</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <label>LA - Completed</label>
+        <sharedTo>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_LA</group>
+            <group>Project_Management</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LA_Non_Feasible</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>LA</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Non-Feasible</value>
+        </filters>
+        <label>LA - Non-Feasible</label>
+        <sharedTo>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_LA</group>
+            <group>Project_Management</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LA_Terminated</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>LA</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Terminated</value>
+        </filters>
+        <label>LA - Terminated</label>
+        <sharedTo>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_LA</group>
+            <group>Project_Management</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>LA_Transfer</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>LA</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Transfer</value>
+        </filters>
+        <label>LA - Transfer</label>
+        <sharedTo>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_LA</group>
+            <group>Project_Management</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NY_Active</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>NY</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Active</value>
+        </filters>
+        <label>NY - Active</label>
+        <sharedTo>
+            <group>NY_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_NY</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NY_Active_Projects</fullName>
+        <columns>Opportunity_Numeric_ID__c</columns>
+        <columns>Customer_Name__c</columns>
+        <columns>Address__c</columns>
+        <columns>Feasibility_Aging__c</columns>
+        <columns>NAME</columns>
+        <columns>Feasibility_Project_Status_Parallel__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>State__c</field>
+            <operation>equals</operation>
+            <value>NY</value>
+        </filters>
+        <filters>
+            <field>Feasibility_Project_Status_Parallel__c</field>
+            <operation>equals</operation>
+            <value>active</value>
+        </filters>
+        <filters>
+            <field>Feasibility_Project_Status_Parallel__c</field>
+            <operation>equals</operation>
+            <value>completed</value>
+        </filters>
+        <label>NY - Active Feasibility Projects w/ Age</label>
+        <sharedTo>
+            <group>NY</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NY_Cancelled</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>NY</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Cancelled</value>
+        </filters>
+        <label>NY - Cancelled</label>
+        <sharedTo>
+            <group>NY_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_NY</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NY_Completed</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>EE_Accepted__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Project_Completion_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>NY</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <label>NY - Completed</label>
+        <sharedTo>
+            <group>NY_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_NY</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NY_Non_Feasible</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>NY</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Non-Feasible</value>
+        </filters>
+        <label>NY - Non-Feasible</label>
+        <sharedTo>
+            <group>NY_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_NY</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NY_Terminated</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>NY</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Terminated</value>
+        </filters>
+        <label>NY - Terminated</label>
+        <sharedTo>
+            <group>NY_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_NY</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>NY_Transfer</fullName>
+        <columns>NAME</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>Aging_Since_Contract_Approved__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Record_Type_Parallel__c</field>
+            <operation>equals</operation>
+            <value>NY</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>equals</operation>
+            <value>Transfer</value>
+        </filters>
+        <label>NY - Transfer</label>
+        <sharedTo>
+            <group>NY_Project_Management</group>
+            <group>PM_Executive</group>
+            <group>PM_Lead_Ops_Manager_NY</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>PM_Tool_Records_To_Delete</fullName>
+        <columns>NAME</columns>
+        <columns>Address__c</columns>
+        <columns>State__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Lease_Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Contract_Approved_Date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>PM Tool Records To Delete</label>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <nameField>
+        <label>PM Tool Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>PM Tools</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

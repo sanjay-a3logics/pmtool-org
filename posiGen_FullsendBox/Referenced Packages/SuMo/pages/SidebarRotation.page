@@ -1,0 +1,14 @@
+<apex:page standardstylesheets="false" showheader="false" cache="true">
+<style>
+	*{border:0;margin:0;padding:0;font-family:Helvetica}
+</style>
+
+	<c:RotationComponent Performance="true" 
+	Rewards="true" 
+	Competition="true" 
+	slideWidth="182" 
+	slideHeight="180" 
+	showControll="true" 
+	loadingBackground="CFEEF8"
+	loadingBackgroundCommunity="F1F3F5" />
+</apex:page>

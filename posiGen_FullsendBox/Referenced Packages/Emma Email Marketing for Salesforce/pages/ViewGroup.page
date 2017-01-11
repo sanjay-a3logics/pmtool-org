@@ -1,0 +1,22 @@
+<apex:page standardController="emma__Emma_Group__c" extensions="emma.EmmaViewGroupExt" title="Emma Group: {!emma__Emma_Group__c.Name}" action="{!refreshGroupMembers}">
+
+<apex:pageMessage title="Import Pending" rendered="{!(emma__Emma_Group__c.emma__Batch_Status__c=='Pending')}"
+	summary="The group member import will start shortly." 
+	severity="info" 
+	strength="1" />
+
+<apex:pageMessage title="Import In Progress" rendered="{!(emma__Emma_Group__c.emma__Batch_Status__c=='In Progress')}"
+	summary="The group member import is in progress." 
+	severity="confirm" 
+	strength="1" />
+
+<apex:pageMessage title="Import Error" rendered="{!(emma__Emma_Group__c.emma__Batch_Status__c=='Error')}"
+	summary="There was an error while importing group members." 
+	detail="{!emma__Emma_Group__c.emma__Batch_Error_Message__c} <a href=/{!emma__Emma_Group__c.emma__Report_ID__c}/e?retUrl=%2F{!emma__Emma_Group__c.Id} target=_blank>[Update report]</a>" 
+	escape="false" 
+	severity="error" 
+	strength="1" />
+
+<apex:detail inlineEdit="true" showChatter="true" oncomplete="location.href=location.href" />
+
+</apex:page>

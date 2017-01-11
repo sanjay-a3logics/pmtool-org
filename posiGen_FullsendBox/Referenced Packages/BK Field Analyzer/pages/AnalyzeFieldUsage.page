@@ -1,0 +1,345 @@
+<apex:page controller="bkfa.AnalyzeFieldUsageController" tabStyle="AnalyzeFieldUsage__tab">
+    <apex:includeScript value="{!URLFOR($Resource.bkfa__jsTree, 'js/CollapsibleLists.compressed.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.bkfa__jsTree, 'css/style.css')}"/>
+    <style>
+    table.ct {
+        border-collapse:collapse;
+        border: 1px solid black;
+    }
+    table.ct th {
+        border: 1px solid black;
+        padding: 5px;
+    }
+    table.ct td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+    .ac-link {
+        color: #015BA7;
+        text-decoration: none;
+    }
+    .selected {
+        background-color:#fff3a1;
+    }
+    ul {
+        margin:0;
+        padding:0;
+        list-style:none;
+    }
+    ul span {
+        padding: 2px 3px;
+        margin-left: 3px;
+        cursor:pointer;
+    }
+    ul li {
+        margin: 4px 20px;
+    }
+    ul img {
+        cursor:pointer;
+    }
+    .fl {
+        font-weight:bold;
+    }
+    </style>
+    <script type="text/javascript">
+    var queriedRoles = false;
+    var roleMap = {};
+    var roleNameMap = {};
+    function renderUserRoleTree(result, event) {
+        if (event.status) {
+            var root = null;
+            for (i = 0; i < result.length; i++) {
+                var r = result[i];
+                roleNameMap[r.Id] = r.Name;
+                if (r.ParentRoleId == null) {
+                    root = r;
+                } else {
+                    var l = roleMap[r.ParentRoleId];
+                    if (l == null) {
+                        l = [];
+                        //alert(r.ParentRoleId);
+                        roleMap[r.ParentRoleId] = l;
+                    }
+                    l.push(r);
+                }
+            }
+            
+            var wrapper = document.getElementById(rhtreeId);
+            
+            var rootList = document.createElement('ul');
+            rootList.id = 'rhlist';
+            wrapper.appendChild(rootList);
+            
+            walk(root, rootList);
+            initTree();
+            wrapper.style.display = 'block';
+            document.getElementById(rhlId).style.display = 'inline';
+        } else if (event.type === 'exception') {
+            alert(event.message);
+        } else {
+            alert(event.message);
+        }
+    }
+    
+    function walk(node, parentElem) {
+        var newListItem = document.createElement('li');
+        var newSpanItem = document.createElement('span');
+        newSpanItem.id = node.Id;
+        var newContent = document.createTextNode(node.Name); 
+        newSpanItem.appendChild(newContent);
+        newListItem.appendChild(newSpanItem);
+        parentElem.appendChild(newListItem);
+        
+        var children = roleMap[node.Id];
+        if (children != null) {
+            var newList = document.createElement('ul');
+            newListItem.appendChild(newList);
+            for (var i = 0; i < children.length; i++) {
+                walk(children[i], newList);
+            }
+        }
+    }
+    
+    function initTree() {
+        var list = document.getElementById('rhlist');
+        var lis = list.getElementsByTagName('li');
+        for (var i = 0; i < lis.length; ++i) {
+            var li = lis[i];
+            var hasChildren = false;
+            if (li.hasChildNodes()) {
+                for (var j = 0; j < li.childNodes.length; ++j) {
+                    
+                    if (li.childNodes[j].nodeName == 'UL') {
+                        li.childNodes[j].style.display = 'none';
+                        hasChildren = true;
+                    }
+                }
+            }
+            
+            var toggleImg = document.createElement('img');
+            if (hasChildren) {
+                toggleImg.src = '{!URLFOR($Resource.bkfa__jsTree, 'css/button-closed.png')}';
+                
+                // add the click listener
+                if (toggleImg.addEventListener) {
+                    toggleImg.addEventListener('click', toggleList, false);
+                } else {
+                    toggleImg.attachEvent('onclick', toggleList);
+                }
+            } else {
+                toggleImg.src = '{!URLFOR($Resource.bkfa__jsTree, 'css/button.png')}';
+            }
+            
+            li.insertBefore(toggleImg, li.firstChild);
+        }
+        
+        var spans = list.getElementsByTagName('span');
+        for (i = 0; i < spans.length; i++) {
+            var spanElem = spans[i];
+            if (spanElem.addEventListener) {
+                spanElem.addEventListener('click', selectSpan, false);
+            } else {
+                spanElem.attachEvent('onclick', selectSpan);
+            }
+        }
+    }
+    
+    function toggleList(e) {
+        // ensure the event object is defined
+        if (!e) e = window.event;
+
+        // find the list item containing the target of the event
+        var elem = (e.target ? e.target : e.srcElement);
+        
+        var open = elem.getAttribute('src').match(/closed/);
+        if (open) {
+            elem.src = '{!URLFOR($Resource.bkfa__jsTree, 'css/button-open.png')}';
+        } else {
+            elem.src = '{!URLFOR($Resource.bkfa__jsTree, 'css/button-closed.png')}';
+        }
+        
+        var node = elem.parentNode;
+        var uls = node.getElementsByTagName('ul');
+        for (var index = 0; index < uls.length; index ++) {
+            // find the parent list item of this unordered list
+            var li = uls[index];
+            while (li.nodeName != 'LI') li = li.parentNode;
+
+            // style the unordered list if it is directly within this node
+            if (li == node) {
+                uls[index].style.display = (open ? 'block' : 'none');
+            }
+        }
+    }
+    
+    function selectSpan(e) {
+        // ensure the event object is defined
+        if (!e) e = window.event;
+
+        // find the list item containing the target of the event
+        var elem = (e.target ? e.target : e.srcElement);
+        
+        var list = document.getElementById('rhlist');
+        var allSpanList = list.getElementsByTagName('span');
+        for (i = 0; i < allSpanList.length; i++) {
+            allSpanList[i].className = '';
+        }
+        
+        elem.className = 'selected';
+        var spanList = elem.parentNode.getElementsByTagName('span');
+        for (i = 0; i < spanList.length; i++) {
+            spanList[i].className = 'selected';
+        }
+        
+        document.getElementById(selRoleId).value = elem.id;
+    }
+    
+    function showHideSections(selElem) {
+        var selSummaryType = selElem.options[selElem.selectedIndex].value;
+        
+        if (!selSummaryType) {
+            document.getElementById(gslId).style.display = 'none';
+            document.getElementById(gsiId).style.display = 'none';
+            document.getElementById(rhlId).style.display = 'none';
+            document.getElementById(rhtreeId).style.display = 'none';
+        } else {
+            //document.getElementById('uft').style.display = 'block';
+            document.getElementById(gslId).style.display = 'inline';
+            document.getElementById(gsiId).style.display = 'block';
+            if (selSummaryType == 'Role') {
+                if (!queriedRoles) {
+                    Visualforce.remoting.Manager.invokeAction(
+                        '{!$RemoteAction.AnalyzeFieldUsageController.getUserRoleTree}', 
+                        renderUserRoleTree, 
+                        {escape: false}
+                    );
+                    queriedRoles = true;
+                } else {
+                    document.getElementById(rhlId).style.display = 'inline';
+                    document.getElementById(rhtreeId).style.display = 'block';
+                }
+            } else {
+                document.getElementById(rhlId).style.display = 'none';
+                document.getElementById(rhtreeId).style.display = 'none';
+            }
+        }
+    }
+    function disableControls() {
+        document.getElementById('saveBtn').style.display = 'none';
+        document.getElementById('saveBtnDisabled').style.display = 'inline';
+    }
+    function checkErrors() {
+        if (document.getElementById(errMsgsId).hasChildNodes()) {
+            document.getElementById('saveBtn').style.display = 'inline';
+            document.getElementById('saveBtnDisabled').style.display = 'none';
+        }
+    }
+    function disableBatchControls() {
+        document.getElementById('refreshBatchBtn').style.display = 'none';
+        document.getElementById('refreshBatchBtnDisabled').style.display = 'inline';
+    }
+    function enabledBatchControls() {
+        var refreshBatchBtn = document.getElementById('refreshBatchBtn');
+        if (refreshBatchBtn != null) {
+            document.getElementById('refreshBatchBtn').style.display = 'inline';
+            document.getElementById('refreshBatchBtnDisabled').style.display = 'none';
+        }
+    }
+    </script>
+    <apex:sectionHeader title="Field Usage Snapshot Edit" subtitle="New Field Usage Snapshot"/>
+    <apex:form >
+    <apex:pageMessages id="errMsgs"></apex:pageMessages>
+    <apex:inputHidden id="selRole" value="{!SelectedRoleId}"/>
+    
+    <apex:pageBlock title="Field Usage Snapshot Edit" id="pb">
+        <apex:pageBlockButtons location="top">
+            <span id="saveBtn">
+            <apex:commandButton value="Save + Start Analysis" action="{!saveAndAnalyze}" onclick="disableControls();" rerender="errMsgs,batchPageBlock" oncomplete="checkErrors();"/>
+            </span>
+            <span id="saveBtnDisabled" style="display:none;">
+            <apex:commandButton value="Save + Start Analysis" disabled="true"/>
+            </span>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection collapsible="false" id="pbs">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.bkfa__FieldUsageSnapshot__c.fields.Name.label}"/>
+                <apex:inputField value="{!FieldUsageSnapshot.Name}" required="true"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >&nbsp;</apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Object</apex:outputLabel>
+                <apex:outputPanel layout="block" styleClass="requiredInput">
+                    <div class="requiredBlock"></div>
+                    <apex:selectList size="1" value="{!SelectedObjKey}" required="true">
+                        <apex:selectOptions value="{!ObjectList}"/>
+                    </apex:selectList>
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >&nbsp;</apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.bkfa__FieldUsageSnapshot__c.fields.bkfa__Grouping__c.label}"/>
+                <apex:inputField value="{!FieldUsageSnapshot.bkfa__Grouping__c}" onchange="showHideSections(this)"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="gsf">
+                <apex:outputLabel id="gsl" value="{!$ObjectType.bkfa__FieldUsageSnapshot__c.fields.bkfa__GroupingField__c.label}" style="display:{!IF(ShowGroupingField, 'inline', 'none')}"/>
+                <apex:inputField id="gsi" value="{!FieldUsageSnapshot.bkfa__GroupingField__c}"  style="display:{!IF(ShowGroupingField, 'block', 'none')}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem id="rh">
+                <apex:outputLabel id="rhl" style="display:{!IF(ShowRoleHierarchy, 'inline', 'none')}">Role Hierarchy</apex:outputLabel>
+                <apex:outputPanel layout="block" id="rhtree" style="display:{!IF(ShowRoleHierarchy, 'block', 'none')}">
+                </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >&nbsp;</apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.bkfa__FieldUsageSnapshot__c.fields.bkfa__Filter__c.label}"/>
+                <apex:inputField value="{!FieldUsageSnapshot.bkfa__Filter__c}" style="width:100%"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >&nbsp;</apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.bkfa__FieldUsageSnapshot__c.fields.bkfa__ExcludeFormulaFields__c.label}"/>
+                <apex:inputField value="{!FieldUsageSnapshot.bkfa__ExcludeFormulaFields__c}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel value="{!$ObjectType.bkfa__FieldUsageSnapshot__c.fields.bkfa__ExcludeRequiredFields__c.label}"/>
+                <apex:inputField value="{!FieldUsageSnapshot.bkfa__ExcludeRequiredFields__c}"/>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+    <apex:pageBlock title="Batch Job Status" id="batchPageBlock">
+        <apex:pageBlockButtons location="top">
+            <span id="refreshBatchBtn">
+            <apex:commandButton value="Refresh Job Status" action="{!pageRefreshBatchJobs}" rendered="{!ShowRefreshBatchBtn && NOT(ShowViewResultsBtn)}" rerender="batchPageBlock" onclick="disableBatchControls();" oncomplete="enableBatchControls();"/>
+            </span>
+            <span id="refreshBatchBtnDisabled" style="display:none;">
+            <apex:commandButton value="Refresh Job Status" rendered="{!ShowRefreshBatchBtn && NOT(ShowViewResultsBtn)}" disabled="true"/>
+            </span>
+            <span id="viewResultsBtn">
+            <apex:commandButton value="View Results" action="{!viewResults}" rendered="{!ShowViewResultsBtn}"/>
+            </span>
+        </apex:pageBlockButtons>
+        
+        <apex:pageBlockTable value="{!BatchList}" var="b">
+            <apex:column value="{!b.Status}"/>
+            <apex:column value="{!b.JobItemsProcessed}"/>
+            <apex:column value="{!b.TotalJobItems}"/>
+            <apex:column value="{!b.NumberOfErrors}"/>
+            <apex:column value="{!b.CompletedDate}"/>
+            <apex:column value="{!b.ExtendedStatus}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+
+    <script>
+        var selRoleId = '{!$Component.selRole}';
+        var gslId = '{!$Component.pb.pbs.gsf.gsl}';
+        var gsiId = '{!$Component.pb.pbs.gsf.gsi}';
+        var rhlId = '{!$Component.pb.pbs.rh.rhl}';
+        var rhtreeId = '{!$Component.pb.pbs.rh.rhtree}';
+        var errMsgsId = '{!$Component.errMsgs}';
+    </script>
+    </apex:form>
+</apex:page>

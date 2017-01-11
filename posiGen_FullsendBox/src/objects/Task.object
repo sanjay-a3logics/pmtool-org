@@ -1,0 +1,2923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Close</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>DeleteSeries</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>NewTask</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <enableFeeds>true</enableFeeds>
+    <fields>
+        <fullName>ActivityDate</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>CallDisposition</fullName>
+    </fields>
+    <fields>
+        <fullName>CallDurationInSeconds</fullName>
+    </fields>
+    <fields>
+        <fullName>CallObject</fullName>
+    </fields>
+    <fields>
+        <fullName>CallType</fullName>
+    </fields>
+    <fields>
+        <fullName>Description</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>Email</fullName>
+    </fields>
+    <fields>
+        <fullName>IsVisibleInSelfService</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+    </fields>
+    <fields>
+        <fullName>OwnerId</fullName>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Phone</fullName>
+    </fields>
+    <fields>
+        <fullName>Priority</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+                <highPriority>true</highPriority>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Normal</fullName>
+                <default>true</default>
+                <highPriority>false</highPriority>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+                <highPriority>false</highPriority>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>RecurrenceInterval</fullName>
+    </fields>
+    <fields>
+        <fullName>RecurrenceRegeneratedType</fullName>
+    </fields>
+    <fields>
+        <fullName>Status</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+                <closed>false</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+                <closed>true</closed>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+                <closed>false</closed>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subject</fullName>
+        <picklist>
+            <picklistValues>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Send Letter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Send Quote</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Event</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Work Order</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>true</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TaskSubtype</fullName>
+    </fields>
+    <fields>
+        <fullName>Type</fullName>
+        <inlineHelpText>Disposition</inlineHelpText>
+        <picklist>
+            <picklistValues>
+                <fullName>Need Disposition</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - Scheduled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - Custom Request to Call Back</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - Left Message w/household member</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - Left Voicemail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - No Answer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - Not Interested</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - Phone Disconnected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - Unable to Connect</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call - Wrong Number</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call for Customer Care</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Field Tech Request</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contract Failed Doc Control Review</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Employment Check Failed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Reference Check Failed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fax Machine Picked Up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Page 4 Collection</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Defferment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Schedule Pickup</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Intro</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Layout</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Install</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Permit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boarding</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bill Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Request Docs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Net Meter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Case</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Field Visit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feasibility Result Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV Completion/EU Scheduling Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Closing Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call Center Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Partial Payment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WCB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Bankruptcy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LD Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LMTC- Left Message Home</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>KMWK-Left Message Work</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PTP-Promise to Pay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Follow up on Promise to Pay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CCI-Cust Called in to arrange pay</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>WBN-Will Be in to make payment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PUPAY-Cust want payment picked up</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LDH-Left Door Hanger</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NA- No answer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NLE-No longer Employed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BUSY-Busy Signal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TDC-Temp Disconnected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CMP-Customer Mailed Payment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disco-Number Disconnected</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LMR-Left message recorder</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HGUP-Customer hung up on Rep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CCREM-Customer requested removal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CERT-Sent certified Letter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>DEFER-Account Deferred</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LM w/ Reference</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>AM Boarding Call</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Inspection Request</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>WhatId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>WhoId</fullName>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Lookup</type>
+    </fields>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypes>
+        <fullName>Collection</fullName>
+        <active>true</active>
+        <label>Collection</label>
+        <picklistValues>
+            <picklist>Appointment_Credit__c</picklist>
+            <values>
+                <fullName>Inside Sales Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salesperson</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Appointment_Kept__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Updated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Client_Signed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Time_Zone__c</picklist>
+            <values>
+                <fullName>Central</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eastern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mountain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pacific</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Days_Delinquent__c</picklist>
+            <values>
+                <fullName>0 - 10</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11 - 30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>121 - 150</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>151 - 180</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>181%2B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>91 - 120</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Not_Kept_Reason__c</picklist>
+            <values>
+                <fullName>Customer Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Rescheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Does not Qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork Error</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Payment_Type__c</picklist>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Money Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Normal</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing__c</picklist>
+            <values>
+                <fullName>Cost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Didn%27t like program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home needs repair</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lease length</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not all homeowners present</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork error</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal%2Fspousal disagreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shading</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided at this time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Utility Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wanted to buy and did not qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wants proof of savings</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Type__c</picklist>
+            <values>
+                <fullName>Billing Inquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Liaison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy Efficiency</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resend_to_Contractors__c</picklist>
+            <values>
+                <fullName>Carimi</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KDH</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subject</picklist>
+            <values>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Work Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>AM Boarding Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUSY-Busy Signal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bankruptcy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCI-Cust Called in to arrange pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCREM-Customer requested removal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CERT-Sent certified Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CMP-Customer Mailed Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Wrong Number</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call for Customer Care</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Field Visit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DEFER-Account Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disco-Number Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Tech Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Follow up on Promise to Pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HGUP-Customer hung up on Rep</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inspection Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KMWK-Left Message Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LDH-Left Door Hanger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LM w%2F Reference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LMR-Left message recorder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LMTC- Left Message Home</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA- No answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NLE-No longer Employed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need Disposition</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>PTP-Promise to Pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PUPAY-Cust want payment picked up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page 4 Collection</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partial Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TDC-Temp Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WBN-Will Be in to make payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WCB</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Concierge</fullName>
+        <active>true</active>
+        <label>Concierge</label>
+        <picklistValues>
+            <picklist>Appointment_Credit__c</picklist>
+            <values>
+                <fullName>Inside Sales Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salesperson</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Appointment_Kept__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Updated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Client_Signed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Time_Zone__c</picklist>
+            <values>
+                <fullName>Central</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eastern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mountain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pacific</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Days_Delinquent__c</picklist>
+            <values>
+                <fullName>0 - 10</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>11 - 30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>121 - 150</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>151 - 180</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>181%2B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>91 - 120</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Not_Kept_Reason__c</picklist>
+            <values>
+                <fullName>Customer Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Rescheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Does not Qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork Error</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Payment_Type__c</picklist>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Money Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Normal</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing__c</picklist>
+            <values>
+                <fullName>Cost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Didn%27t like program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home needs repair</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lease length</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not all homeowners present</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork error</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal%2Fspousal disagreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shading</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided at this time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Utility Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wanted to buy and did not qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wants proof of savings</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Type__c</picklist>
+            <values>
+                <fullName>Billing Inquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Liaison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy Efficiency</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resend_to_Contractors__c</picklist>
+            <values>
+                <fullName>Carimi</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KDH</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subject</picklist>
+            <values>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Work Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>AM Boarding Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUSY-Busy Signal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bankruptcy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bill Analysis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Boarding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCI-Cust Called in to arrange pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCREM-Customer requested removal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CERT-Sent certified Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CMP-Customer Mailed Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Wrong Number</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call Center Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Case</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Field Visit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DEFER-Account Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disco-Number Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feasibility Result Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Tech Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Follow up on Promise to Pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HGUP-Customer hung up on Rep</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inspection Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KMWK-Left Message Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LD Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LDH-Left Door Hanger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LM w%2F Reference</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LMR-Left message recorder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LMTC- Left Message Home</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA- No answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NLE-No longer Employed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need Disposition</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Net Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PTP-Promise to Pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PUPAY-Cust want payment picked up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Completion%2FEU Scheduling Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page 4 Collection</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partial Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Docs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TDC-Temp Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WBN-Will Be in to make payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WCB</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Default_Task</fullName>
+        <active>true</active>
+        <label>Default Task</label>
+        <picklistValues>
+            <picklist>Appointment_Credit__c</picklist>
+            <values>
+                <fullName>Inside Sales Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salesperson</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Appointment_Kept__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Updated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Client_Signed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Time_Zone__c</picklist>
+            <values>
+                <fullName>Central</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eastern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mountain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pacific</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Days_Delinquent__c</picklist>
+            <values>
+                <fullName>121 - 150</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>151 - 180</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>181%2B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>91 - 120</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Not_Kept_Reason__c</picklist>
+            <values>
+                <fullName>Customer Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Rescheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Does not Qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork Error</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Payment_Type__c</picklist>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Money Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Normal</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing__c</picklist>
+            <values>
+                <fullName>Cost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Didn%27t like program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home needs repair</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lease length</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not all homeowners present</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork error</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal%2Fspousal disagreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shading</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided at this time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Utility Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wanted to buy and did not qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wants proof of savings</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Type__c</picklist>
+            <values>
+                <fullName>Billing Inquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Liaison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy Efficiency</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resend_to_Contractors__c</picklist>
+            <values>
+                <fullName>Carimi</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KDH</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subject</picklist>
+            <values>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Work Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>BUSY-Busy Signal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bankruptcy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Bill Analysis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Boarding</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCI-Cust Called in to arrange pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CCREM-Customer requested removal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CERT-Sent certified Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CMP-Customer Mailed Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Custom Request to Call Back</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Left Message w%2Fhousehold member</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Left Voicemail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - No Answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Not Interested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Phone Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call Center Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call for Customer Care</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Case</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Closing Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contract Failed Doc Control Review</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Field Visit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>DEFER-Account Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Defferment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disco-Number Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Employment Check Failed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fax Machine Picked Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feasibility Result Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Tech Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Follow up on Promise to Pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HGUP-Customer hung up on Rep</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inspection Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Install</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Intro</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KMWK-Left Message Work</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LD Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LDH-Left Door Hanger</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LMR-Left message recorder</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LMTC- Left Message Home</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NA- No answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NLE-No longer Employed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need Disposition</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Net Meter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PTP-Promise to Pay</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PUPAY-Cust want payment picked up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Completion%2FEU Scheduling Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page 4 Collection</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Partial Payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Reference Check Failed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Request Docs</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Schedule Pickup</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TDC-Temp Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WBN-Will Be in to make payment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>WCB</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>EE_Task_Record</fullName>
+        <active>true</active>
+        <label>EE Task Record</label>
+        <picklistValues>
+            <picklist>Appointment_Credit__c</picklist>
+            <values>
+                <fullName>Inside Sales Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salesperson</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Appointment_Kept__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Updated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Client_Signed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Time_Zone__c</picklist>
+            <values>
+                <fullName>Central</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eastern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mountain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pacific</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Days_Delinquent__c</picklist>
+            <values>
+                <fullName>121 - 150</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>151 - 180</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>181%2B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>91 - 120</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Not_Kept_Reason__c</picklist>
+            <values>
+                <fullName>Customer Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Rescheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Does not Qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork Error</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Payment_Type__c</picklist>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Money Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Normal</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing__c</picklist>
+            <values>
+                <fullName>Cost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Didn%27t like program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home needs repair</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lease length</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not all homeowners present</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork error</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal%2Fspousal disagreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shading</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided at this time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wanted to buy and did not qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wants proof of savings</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Type__c</picklist>
+            <values>
+                <fullName>Billing Inquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Liaison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy Efficiency</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resend_to_Contractors__c</picklist>
+            <values>
+                <fullName>Carimi</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KDH</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subject</picklist>
+            <values>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Work Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Custom Request to Call Back</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Left Message w%2Fhousehold member</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Left Voicemail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - No Answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Not Interested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Phone Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Scheduled</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fax Machine Picked Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feasibility Result Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Tech Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Inspection Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Completion%2FEU Scheduling Call</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>QC_Customer_Service</fullName>
+        <active>true</active>
+        <description>QC customer service</description>
+        <label>QC Customer Service</label>
+        <picklistValues>
+            <picklist>Appointment_Credit__c</picklist>
+            <values>
+                <fullName>Inside Sales Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salesperson</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Appointment_Kept__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Updated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Client_Signed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Time_Zone__c</picklist>
+            <values>
+                <fullName>Central</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eastern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mountain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pacific</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Days_Delinquent__c</picklist>
+            <values>
+                <fullName>121 - 150</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>151 - 180</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>181%2B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>91 - 120</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Not_Kept_Reason__c</picklist>
+            <values>
+                <fullName>Customer Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Rescheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Does not Qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork Error</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Payment_Type__c</picklist>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Money Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Normal</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing__c</picklist>
+            <values>
+                <fullName>Cost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Didn%27t like program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home needs repair</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lease length</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not all homeowners present</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork error</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal%2Fspousal disagreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shading</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided at this time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wanted to buy and did not qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wants proof of savings</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Type__c</picklist>
+            <values>
+                <fullName>Billing Inquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Liaison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy Efficiency</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resend_to_Contractors__c</picklist>
+            <values>
+                <fullName>Carimi</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KDH</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subject</picklist>
+            <values>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Work Order</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Call - Custom Request to Call Back</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Left Voicemail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - No Answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Scheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fax Machine Picked Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feasibility Result Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Field Tech Request</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Inspection Request</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Completion%2FEU Scheduling Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Page 4 Collection</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Telemarketing</fullName>
+        <active>true</active>
+        <description>Tasks for Telemarketing</description>
+        <label>Telemarketing</label>
+        <picklistValues>
+            <picklist>Appointment_Credit__c</picklist>
+            <values>
+                <fullName>Inside Sales Support</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Salesperson</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Appointment_Kept__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Updated</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Client_Signed__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Customer_Time_Zone__c</picklist>
+            <values>
+                <fullName>Central</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eastern</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mountain</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pacific</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Days_Delinquent__c</picklist>
+            <values>
+                <fullName>121 - 150</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>151 - 180</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>181%2B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>31 - 60</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>61 - 90</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>91 - 120</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Not_Kept_Reason__c</picklist>
+            <values>
+                <fullName>Customer Cancelled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Rescheduled</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Does not Qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>No Show</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork Error</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Payment_Type__c</picklist>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Money Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Priority</picklist>
+            <values>
+                <fullName>High</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Normal</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Reason_for_not_signing__c</picklist>
+            <values>
+                <fullName>Cost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Didn%27t like program</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home needs repair</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Lease length</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not all homeowners present</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork error</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Personal%2Fspousal disagreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shading</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Undecided at this time</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Utility Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wanted to buy and did not qualify</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wants proof of savings</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Request_Type__c</picklist>
+            <values>
+                <fullName>Billing Inquiry</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Liaison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Service</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy Efficiency</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Resend_to_Contractors__c</picklist>
+            <values>
+                <fullName>Carimi</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>KDH</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Deferred</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subject</picklist>
+            <values>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Send Quote</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Work Order</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type</picklist>
+            <values>
+                <fullName>Appointment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Custom Request to Call Back</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Left Message w%2Fhousehold member</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Left Voicemail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - No Answer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Not Interested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Phone Disconnected</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Unable to Connect</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call - Wrong Number</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call for Customer Care</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fax Machine Picked Up</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Need Disposition</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>NVMContactWorld__Interac_Quality_Must_Be_Between_1_and_10</fullName>
+        <active>true</active>
+        <errorConditionFormula>NVMContactWorld__InteractionQuality__c &lt; 1  ||  NVMContactWorld__InteractionQuality__c &gt; 10</errorConditionFormula>
+        <errorMessage>Interaction Quality must be a number between 1 and 10</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NVM_cant_change_assigned_to</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND ( $User.ProfileId = &quot;00ed0000000WiaV&quot;,  ISCHANGED(  OwnerId ), NOT(OR( $User.Username = &quot;amashke@posigen.com&quot;, $User.Username = &quot;blukinovich@posigen.com&quot;)) )</errorConditionFormula>
+        <errorDisplayField>OwnerId</errorDisplayField>
+        <errorMessage>You cannot change the Task assignment. Please contact your Manager or Salesforce Administrator.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>NVM_cant_change_subject</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( CreatedBy.Username =&quot;jburse@posigen.com&quot;,  ISCHANGED( Subject ) )</errorConditionFormula>
+        <errorDisplayField>Subject</errorDisplayField>
+        <errorMessage>Do NOT update subject. Please use Type.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Payment_Amount_must_have_Days_Delinquent</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF(ISBLANK( Payment_Amount__c ),FALSE,ISBLANK( TEXT(Days_Delinquent__c )))</errorConditionFormula>
+        <errorDisplayField>Days_Delinquent__c</errorDisplayField>
+        <errorMessage>Payment Amount must have Days Delinquent</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Payment_on_pay_disposition_only</fullName>
+        <active>true</active>
+        <errorConditionFormula>IF(ISBLANK( Payment_Amount__c ),FALSE,NOT(OR(ISPICKVAL( Type ,&quot;Paid&quot;),ISPICKVAL( Type ,&quot;Partial Payment&quot;))))</errorConditionFormula>
+        <errorDisplayField>Type</errorDisplayField>
+        <errorMessage>Must be a payment disposition to have a Payment Amount</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Chronological</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Chronological</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/007?id={!Account.Id}&amp;rlid=RelatedHistoryList</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Default_Task</fullName>
+        <availability>online</availability>
+        <description>Button that creates a new default task record type</description>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Default Task</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>/00T/e?RecordType=012d0000000P7nP&amp;who_id={!Account.Id}&amp;what_id={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}</url>
+    </webLinks>
+</CustomObject>

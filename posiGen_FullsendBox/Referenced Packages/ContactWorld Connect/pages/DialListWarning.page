@@ -1,0 +1,16 @@
+<apex:page controller="NVMConnect.DialListWarningController">
+	<apex:form >
+		<apex:pageBlock title="{!title}" mode="edit">
+			<apex:repeat value="{!body}" var="line">
+				<apex:pageBlockSection columns="1">
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="{!line}" />
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+			</apex:repeat>
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton value="{!buttonText}" action="{!ContinueToDialList}" />
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

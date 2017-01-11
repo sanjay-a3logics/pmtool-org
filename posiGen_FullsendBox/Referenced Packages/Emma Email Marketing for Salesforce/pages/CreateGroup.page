@@ -1,0 +1,118 @@
+<apex:page standardController="emma__Emma_Group__c" extensions="emma.CreateGroupExt" title="{!IF(emmaGroup.Id == null, 'Create', 'Edit')} Emma Group">
+	<apex:includeScript value="{!$Resource.emma__jquery}" />
+	<script type="text/javascript">var j$ = jQuery.noConflict(); </script> 
+	<apex:stylesheet value="{!$Resource.emma__styles}" />
+
+	<apex:sectionHeader title="Emma Email Marketing for Salesforce" subtitle="{!IF(emmaGroup.Id == null, 'Create', 'Edit')} Emma Group" />
+	<apex:pageMessages id="pageMessages" escape="false" />
+
+	<apex:outputPanel id="createGroupBatchStartedMessage">
+		<apex:pageMessage rendered="{!(createGroupBatchStarted)}" severity="CONFIRM" strength="2"
+			title="Group Members Added"
+			detail="The specified people are being added. You will be redirected to the Group page shortly."
+		/>
+		<apex:outputPanel rendered="{!(createGroupBatchStarted)}">
+			<script type="text/javascript">
+				setTimeout("location.href='/{!emmaGroup.Id}'",5000);
+			</script>
+		</apex:outputPanel>
+	</apex:outputPanel>
+	
+	<apex:form >
+		<apex:actionFunction name="toggleAddFromReport" action="{!nullAction}" rerender="block" status="addFromReportStatus" />
+		
+		<!-- 
+		<apex:actionFunction name="selectFolder" action="{!selectFolder}" rerender="reportOptions" status="selectFolderStatus" />
+		 -->
+		 
+		<apex:pageBlock id="block">
+			<apex:pageBlockButtons >
+				<apex:commandButton value="Save" action="{!createGroup}" status="createGroupStatus" rendered="{!(addFromReport)}" rerender="pageMessages, createGroupBatchStartedMessage, block"/>
+				<apex:commandButton value="Save" action="{!createGroup}" rendered="{!NOT(addFromReport)}"/>
+				<apex:commandButton value="Cancel" action="{!cancel}"/>
+			</apex:pageBlockButtons>
+			
+			<apex:pageBlockSection columns="1"> 
+				<apex:inputField value="{!emmaGroup.Name}" />
+				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Also Add Members from Salesforce Report" for="addFromReport" />
+					<apex:outputPanel >
+						<apex:inputCheckbox value="{!addFromReport}" onchange="toggleAddFromReport()" id="addFromReport" disabled="{!NOT(canAddFromReport)}"/>
+						
+						<apex:outputPanel rendered="{!NOT(canAddFromReport)}" layout="inline" style="color:red;">
+							There are no reports available or you do not have permission to export reports.
+							<p style="padding-left:23px;">Please get the required permissions.</p>
+						</apex:outputPanel>
+						
+						<apex:actionStatus id="addFromReportStatus">
+							<apex:facet name="start">
+								<apex:image value="{!$Resource.emma__spinner}" />
+							</apex:facet>
+						</apex:actionStatus>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionitem rendered="{!addFromReport}">
+					<apex:outputLabel value="Choose Report Folder"/>
+				
+					<apex:outputPanel >
+						<apex:selectList value="{!selectedFolderId}" size="1">
+							<apex:selectOptions value="{!ReportFolderOptions}"/>
+							<apex:actionSupport event="onchange" rerender="reportSelect" status="selectFolderStatus"/>
+						</apex:selectList>
+						<apex:actionStatus id="selectFolderStatus">
+							<apex:facet name="start">
+								<apex:image value="{!$Resource.emma__spinner}" />
+							</apex:facet>
+						</apex:actionStatus>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem rendered="{!addFromReport}">
+					<apex:outputLabel value="Select Report" />
+					<apex:outputPanel id="reportSelect">
+						<apex:selectList value="{!selectedReportId}" size="1" rendered="{!NOT(ISNULL(ReportOptions))}">
+							<apex:selectOptions value="{!ReportOptions}"/>
+						</apex:selectList>
+						<apex:outputText value="-No available reports-" rendered="{!ISNULL(ReportOptions)}"/>
+					</apex:outputPanel>
+				</apex:pageBlockSectionitem>
+				
+				
+				<!-- 
+				<apex:pageBlockSectionItem rendered="{!(addFromReport)}">
+					<apex:outputLabel value="Choose Report Folder" />
+					<apex:outputPanel >
+						<apex:selectList value="{!emmaGroup.Report_Folder_Name__c}" size="1" onchange="selectFolder()">
+							<apex:selectOption itemValue="" itemLabel="--None--"/>
+							<apex:selectOptions value="{!ReportFolderOptions}" />
+						</apex:selectList>
+						<apex:actionStatus id="selectFolderStatus">
+							<apex:facet name="start">
+								<apex:image value="{!$Resource.emma__spinner}" />
+							</apex:facet>
+						</apex:actionStatus>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem rendered="{!(addFromReport)}">
+					<apex:outputLabel value="Select Report" />
+					<apex:selectList value="{!emmaGroup.Report_ID__c}" size="1" id="reportOptions">
+						<apex:selectOption itemValue="" itemLabel="--None--"/>
+						<apex:selectOptions value="{!ReportOptions}" />
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				
+			 -->
+			</apex:pageBlockSection>
+			
+		</apex:pageBlock>
+
+		<apex:actionStatus id="createGroupStatus">
+			<apex:facet name="start">
+				<c:overlay text="Reading report....." />
+			</apex:facet>
+		</apex:actionStatus>
+	</apex:form>
+</apex:page>

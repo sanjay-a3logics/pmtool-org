@@ -1,0 +1,351 @@
+<apex:page docType="html"
+	showHeader="false" 
+	sidebar="false"
+	standardStylesheets="false"
+	cache="true"
+	standardController="success__Team__c" 
+	extensions="success.TeamController,success.ChatterController">
+
+<apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/custom/jquery-ui-1.10.1.custom.min.css')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.10.1.custom.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+
+<style>
+body {width: 750px;margin: 20px auto 0 auto;font-family: Arial,"Lucida Grande",sans-serif;font-size:13px;}.back{font-size:12px;color:#015ba7;text-decoration:none;cursor:pointer;}h1{font-size:25px;margin-top:4px;margin-bottom:10px;font-weight:400}h2{color:#000;font-weight:700;padding-bottom:6px;font-size:12px;border-bottom:1px solid #d5dadd;margin-bottom:11px;padding-top: 20px}.container{margin-top:10px;*margin-top:20px;margin-left:0;width:750px}.container .wide{display:inline;float:left;margin-left:0;margin-right:0;width:510px}.container .narrow-left{display:inline;float:left;margin-left:0;margin-right:0;width:235px}.container .narrow-right{display:inline;float:left;margin-left:40px;margin-right:0;width:235px}.container .sidebar{display:inline;float:left;margin-left:20px;margin-right:0;width:220px}.clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}.clearfix:after,.clearfix:before,.container:after,.container:before{content:'.';display:block;overflow:hidden;visibility:hidden;font-size:0;line-height:0;width:0;height:0}.clearfix:after,.container:after{clear:both}.clearfix,.container{zoom:1}.competitionPhoto{width:47px;height:47px;float:left;margin:5px;position:relative}#titleLabel{margin-bottom:0}.dropDownButton{text-decoration:none;background-color:#F4F5F6;width:185px;line-height:20px;margin:10px 0 4px 0;border:1px solid #DBDBDB;border-radius:3px;position:relative;color:#424242;-moz-box-sizing:border-box;padding-left:12px!important;text-align:left;font-size:13px;text-shadow:0 1px 1px rgba(255,255,255,.75);background-image:linear-gradient(to bottom,#FAFAFA,#EAEEF0);background-repeat:repeat-x;padding:7px 20px;transition:background-color .15s ease-in-out 0s;box-shadow:0 1px 0 rgba(255,255,255,.5)inset;cursor:pointer;display:inline-block;font-family:Arial,Helvetica,sans-serif;outline:medium none}.dropDownButton:hover{border-color:#CCC}.dropDownButton:after{width:0;right:20px;content:"";display:block;height:0;border-width:5px;border-style:solid;-moz-border-top-colors:none;-moz-border-right-colors:none;-moz-border-bottom-colors:none;-moz-border-left-colors:none;border-image:none;position:absolute;top:50%;margin-top:-2px;border-color:#777 transparent transparent}.dropDownList .menu .uiMenuList{display:none;border:1px solid #D0D0D0;box-shadow:none;margin-top:6px;padding:5px 0;width:217px;position:absolute;overflow-x:auto;border-radius:3px;background-color:#FFF;-moz-box-sizing:border-box;z-index:1;}.uiMenuList ul{list-style:none outside none;margin:0;padding:0}.uiMenuList li{line-height:40px}.uiMenuList li:hover{background-color:#dfdfdf}.uiMenuList .uiMenuItem{cursor:pointer;border-radius:0;color:#474848;padding:14px 12px;text-decoration:none;line-height:12px;font-size:13px;height:12px}
+
+#noRecordsContainer{clear: both;}.noRecordsIcon{display:block;margin-left:auto;margin-right:auto;width:100px;padding-top:40px}.noRecordsMsg{text-align:center;padding-top:15px;font-family:Arial,Arial,Helvetica,Regular;color:#222;font-size:18px;width:500px;margin:0 auto}
+
+#badgeOuterContainer {overflow: auto;float: left;}
+.recentRewards { width:100% }
+
+.sumoTable { width:100%; border-spacing:0; border-collapse:collapse; }  
+.sumoTable th { padding-left:5px; color:#2a2a2a; font-weight:bold;font-family:Arial, Helvetica, sans-serif; overflow:hidden; height:38px; line-height:38px; border-top:1px solid #e0e0e0; border-bottom:1px solid #e0e0e0; background-color:#fafafa; text-align:left; font-size:12px }  
+.sumoTable td { height:50px; border-top: 1px #e0e0e0 solid;font-size:13px; padding:0px 5px 0px 5px; overflow: hidden; }   
+
+.profilePhoto { width:45px; height:45px; vertical-align:middle; margin-right:10px }
+.badge {width:45px; height:45px; vertical-align:middle; margin-right:10px; float:left;margin-top: 1px;}
+.badge img{width:30px;height:30px;margin:7px;}
+.nameContainer {position: absolute;left: 55px;top: 5px;width: 130px;height: 45px;display: table;}
+.nameLabel {display:table-cell;vertical-align:middle;*position:relative;*top:-50%}
+.title {font-weight: bold;color: #015BA7;}
+</style>
+
+<script>
+$sj = successJQ.noConflict();
+
+
+	var adjustLayout = function () {
+		var body = $sj(document.body);
+		var windowWidth = $sj(window).innerWidth();
+		body.scrollLeft(1);
+		if(body.scrollLeft() != 0 || windowWidth < body.width()){
+			body.css({overflowX:'hidden',marginRight: 0, marginLeft: 0});
+			if ($sj.support.leadingWhitespace) {
+				body.css({paddingRight: body.width() - windowWidth});
+			}
+		}
+		body.scrollLeft(0);
+		var wwidth = $sj(window).innerWidth();
+		if (!isNaN(wwidth) && wwidth > 40) {
+			body.css({width: $sj(window).innerWidth()});
+		}
+	}
+
+	$sj(document).ready( function () {
+		window.setTimeout( function () {
+			$sj('.dataTable').each(function (i, el) {
+				$sj(el).on('draw.dt', function () {
+					adjustLayout();
+				})
+			})
+		}, 50);		
+		//window.setTimeout(adjustLayout, 500);
+		adjustLayout();
+	});
+	
+var STYLE = $sj.parseJSON('{!JSENCODE(styles)}');
+
+var mostPopularRewardsDataObj = [];
+if({!$ObjectType.success__Reward__c.accessible}) {
+    mostPopularRewardsDataObj = $sj.parseJSON('{!JSENCODE(mostPopularRewardLeaderboardJSON)}');
+}
+
+function goBack() {
+	window.location.href = "{!URLFOR($Page.Profile_Competitions)}" {!IF(Team__c.recordType.DeveloperName = 'Targeted', '+ "?showTargeted"', '+ "?showGroup"')};
+}
+
+var hexGenerate = function(hex, exception) {
+	if(hex == null || hex == undefined || hex == '') {
+		if(exception) {
+			return exception;
+		}
+		return 'transparent';
+	} else {
+		if(hex.indexOf("#") == -1) {
+			return '#' + hex;
+		} else {
+			return hex;
+		}
+	}
+};
+
+var imgValidate = function(url, type, customStandardUrl) {
+	if(type == 'team') {
+        if(url == null || url == undefined || url == '') {
+            if(customStandardUrl != undefined && customStandardUrl != null) {
+                return customStandardUrl;
+            } else {
+                return '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/team.png')}';
+            }               
+        } else {
+            return url;
+        }
+    }
+
+    if(type == 'rewardGeneric') {
+        if(url == null || url == undefined || url == '') {
+            if(customStandardUrl != undefined) {
+                return customStandardUrl;
+            } else {
+                return '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/rewards_no_tick.png')}';
+            }               
+        } else {
+            return url;
+        }
+    }
+};
+
+var updateQueryString = function(key, value, url) {
+    if (!url) url = window.location.href;
+    var re = new RegExp("([?|&])" + key + "=.*?(&|#|$)", "gi");
+
+    if (url.match(re)) {
+        if (value)
+            return url.replace(re, '$1' + key + "=" + value + '$2');
+        else
+            return url.replace(re, '$2');
+    }
+    else {
+        if (value) {
+            var separator = url.indexOf('?') !== -1 ? '&' : '?',
+                hash = url.split('#');
+            url = hash[0] + separator + key + '=' + value;
+            if (hash[1]) url += '#' + hash[1];
+            return url;
+        }
+        else
+            return url;
+    }
+};
+
+var renderMostPopularRewards = function() {
+    var mostPopularRewardsHTML = '';
+
+    if(mostPopularRewardsDataObj.length == 0) {
+    	$sj('#mostPopularRewardsHeader').hide();
+    	$sj('#mostPopularRewardsTable').hide();
+    }
+
+    _.each(mostPopularRewardsDataObj, function(item, index){ 
+        var rowClass = (index%2 == 0) ? 'odd' : 'even';
+        item.score = (item.score == null) ? 0 : item.score;
+        item.score = (item.score % 1 === 0) ? item.score : parseFloat(item.score).toFixed(2);
+      
+        mostPopularRewardsHTML += '<tr class="' + rowClass + '">' +
+                                '<td style="width: 30px;font-weight:bold;">' + item.position + '</td>' +
+                                '<td style="position:relative;">' +
+                                '<div class="badge" style="background-color:' + item.attributes.backgroundColour +'">' +
+                                '<img src="' + item.attributes.imageURL + '" />'+ 
+                                '</div>' +
+                                '<div class="nameContainer" style="width: 80px;">'+ 
+                                	'<span class="nameLabel title">' + item.attributes.rewardName  + '</span>' + 
+                                    
+                                '</div></td>' +                                  
+                                '<td style="width: 30px;">' + item.score + '</td>' +
+                                '</tr>';
+    });                 
+    
+    $sj('#mostPopularRewards').append(mostPopularRewardsHTML);
+};
+
+$sj(document).ready(function() {
+
+var showPeriodSelection = '{!showPeriodSelection}';
+if(showPeriodSelection == 'false') {
+	$sj('.sidebar').css({'padding-top': '51px'});
+}
+
+if(!$sj('.competitionPhoto img').first().attr('src')) {
+	$sj('.competitionPhoto').css({'background-color': hexGenerate(STYLE.team.backgroundColour)});
+	$sj('.competitionPhoto img').first().attr({'src' : imgValidate(STYLE.team.imageURL, 'team')});
+	$sj('.competitionPhoto img').first().css({
+		"padding-left" : "9.5px",
+		"padding-top" : "9.5px",
+		"width" : "28px",
+		"height" : "28px",
+		"margin" : "0!important"
+	});
+} else {
+	$sj('.competitionPhoto img').first().css({
+		"width" : "47px",
+		"height" : "47px"
+	});
+}
+renderMostPopularRewards();
+
+$sj('.dropDownButton').click(function(e) {
+	e.stopPropagation();
+	$sj('.uiMenuList').toggle();
+});
+
+$sj('.uiMenuList li').click(function(e) {
+	e.stopPropagation();
+	$sj('.uiMenuList').hide();
+	$sj('.dropDownButton').html($sj(this).html());
+    window.location = updateQueryString('pl', $sj(this).attr('id'));
+});
+
+});
+</script>
+
+<span onClick="goBack();" class="back">&laquo; {!$Label.backto} {!$ObjectType.Team__c.LabelPlural}</span>
+
+<div id="detailPage">
+	<div class="container">
+		<div class="wide">
+			
+			<div id="badgeOuterContainer">
+				<div class="competitionPhoto">
+					<apex:image url="{!chatterGroup.photo.smallPhotoURL}" />
+				</div>
+			</div>
+
+			<div id="titleContainer">
+				<h1 id="titleLabel" style="line-height: 47px;">
+					<apex:outputText value="{!success__Team__c.Name}" />
+				</h1>
+			</div>
+
+			<apex:outputPanel rendered="{!success__Team__c.success__Description__c != NULL}">
+				<h2>{!$Label.description}</h2>
+				<p id="description">
+					<apex:outputText value="{!TeamDescriptionBR}" escape="false" />
+				</p>
+			</apex:outputPanel>
+
+			<apex:outputPanel rendered="{!mostRecentRewards.size > 0}">
+				<h2>
+					<apex:outputText value="{!$Label.recent_rewards}" />
+				</h2>
+				<div id="recentRewardsContainer" class="recentRewards">
+					<table id="recentRewardsTable" class="sumoTable">
+						<thead>
+							<tr>
+								<th scope="col">
+									<apex:outputText value="{!$ObjectType.success__Reward__c.Label}" />
+								</th>
+								<th scope="col">
+								</th>
+								<th scope="col" style="width: 93px;">
+									<apex:outputText value="{!$Label.dateawarded}" />
+								</th>
+							</tr>
+						</thead>
+						<tbody id="recentRewardsTableBody">
+			   				<apex:repeat value="{!mostRecentRewards}" var="reward" id="recentRewardsRepeater" rendered="{!$ObjectType.success__Reward__c.accessible}" >
+	                            <apex:variable value="{!$Component.recentRewardsRepeater}" var="i"/>
+	                            <tr class="{!IF(CONTAINS('13579',RIGHT(i,1)), 'even', 'odd')}">
+	                                <td style="position:relative;width: 180px;">
+	                                    <div class="badge" style="background-color: {!IF(CONTAINS(HTMLENCODE(reward.backgroundColour),'#'), HTMLENCODE(reward.backgroundColour), '#' + HTMLENCODE(reward.backgroundColour))};">
+	                                        <img src="{!HTMLENCODE(reward.ImageURL)}" />
+	                                    </div>
+	                                    <div class="nameContainer">
+	                                        <apex:outputText styleClass="nameLabel title" value="{!reward.title}" />
+	                                    </div>
+	                                </td>
+	                                <td style="position:relative;width: 180px;">
+	                                	<div>
+	                                		<img class="profilePhoto" src="{!HTMLENCODE(reward.userSmallPhotoUrl)}" />
+	                                	</div>
+	                                    <div class="nameContainer">
+	                                         <apex:outputText styleClass="nameLabel" value="{!reward.username}" />
+	                                    </div>
+	                                </td>
+	                                <td>
+	                                    <apex:outputText styleClass="sumoLastModifiedDate" value="{!reward.awardedDateTimeText}">
+	                                    </apex:outputText>
+	                                </td>
+	                            </tr>
+	                        </apex:repeat>
+						</tbody>
+					</table>
+				</div>
+			</apex:outputPanel>
+
+			<apex:outputPanel rendered="{!mostRecentRewards.size == 0}">
+				<div id="noRecordsContainer" class="sectionBody">
+					<img class="noRecordsIcon" src="{!URLFOR($Resource.SuMoSalesAssets, 'profile-bg/rewards@2x_grey.png')}" />
+					<div class="noRecordsMsg"><p>
+						<apex:outputText value="{!$Label.no_competition_rewards_message}" />
+					</p></div>
+				</div>
+			</apex:outputPanel>
+
+		</div>
+
+		<div class="sidebar">
+			<apex:outputPanel styleClass="dropDownList" rendered="{!showPeriodSelection}">
+				<div class="menu">
+					<div>
+						<a href="javascript:void(0);" title="" class="dropDownButton">
+							<apex:outputText value="{!periodLengthLabel}" />
+						</a>
+					</div>
+					<div style="top: auto;" class="uiMenuList">
+						<ul>
+							<li class="uiMenuItem" id="{!$Label.day}">
+								<apex:outputText value="{!$Label.today}" />
+							</li>
+							<li class="uiMenuItem" id="{!$Label.week}">
+								<apex:outputText value="{!$Label.this_week}" />
+							</li>
+							<li class="uiMenuItem" id="{!$Label.month}">
+								<apex:outputText value="{!$Label.this_month}" />
+							</li>
+						</ul>
+					</div>
+				</div>
+			</apex:outputPanel>
+
+			<h2 id="mostPopularRewardsHeader">
+				<apex:outputText value="{!$Label.popular_rewards}" />
+			</h2>
+			<table id="mostPopularRewardsTable" class="sumoTable">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            <apex:outputText value="{!$Label.leaderboard_rank}" />
+                        </th> 
+                        <th scope="col">
+                        </th>
+                        <th scope="col">
+                            <apex:outputText value="{!$Label.qty}" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="mostPopularRewards">
+                
+                </tbody>
+            </table>
+		</div>
+
+	</div>
+</div>
+<apex:outputText value="{!success__Team__c.recordType.Name}" rendered="false" />
+<apex:outputText value="{!success__Team__c.recordType.DeveloperName}" rendered="false" />
+
+
+
+</apex:page>

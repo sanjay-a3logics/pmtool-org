@@ -1,0 +1,2 @@
+<apex:page controller="Ambassador.AuthenticateController" action="{!checkIfAuthenticated}">
+</apex:page>

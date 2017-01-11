@@ -1,0 +1,7 @@
+<apex:page standardcontroller="success__Team__c" 
+    		sidebar="false" 
+    		extensions="success.CompetitionController" 
+    		action="{!IF(Team__c.RecordType.DeveloperName = 'Objective', URLFOR($Page.Objectives, null, [retURL=pageReferer]), URLFOR($Page.Competition_Setup2, Team__c.Id, [teamid=Team__c.Id,retURL=pageReferer]))}">
+
+    <apex:outputText value="{!success__Team__c.RecordType.DeveloperName}" rendered="false" />
+</apex:page>

@@ -1,0 +1,1126 @@
+<apex:page controller="success.LevelSetController" extensions="success.RemoteController" action="{!IF($Currentpage.parameters.Id != NULL, URLFOR($Page.Set_View, $Currentpage.parameters.Id, [setId=$Currentpage.parameters.Id]), null)}">
+
+	<!-- Remote Objects Definitions -->
+  	<apex:remoteObjects jsNamespace="RemoteObjectModel">
+		<apex:remoteObjectModel name="success__Achievement__c" jsShorthand="Achievement" fields="Id,Name">
+	    	<apex:remoteObjectField name="success__Active__c" jsShorthand="Active" />
+	    </apex:remoteObjectModel>
+	</apex:remoteObjects>
+
+	<apex:includeScript value="{!URLFOR($Resource.success__JSON2)}" />
+
+    <apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/neutral/jquery-ui-1.11.1.custom.min.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.11.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.11.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__jQueryPajinate)}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+    <script type="text/javascript">var $sj = successJQ.noConflict();</script>
+
+
+	<apex:stylesheet value="{!URLFOR($Resource.success__AngularJS , 'ng-table.min.css')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.success__AngularJS , 'ngDialog.min.css')}" />
+	<apex:stylesheet value="{!URLFOR($Resource.success__AngularJS , 'ngDialog-theme-plain.min.css')}" />
+
+	<apex:includeScript value="{!URLFOR($Resource.success__AngularJS, 'angular.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__AngularJS, 'ng-table.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__AngularJS, 'ngDialog.min.js')}" />
+
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<![endif]-->
+
+	<!-- STYLE -->
+	<style type="text/css">
+		#levelsTable, #usersTable { border: none !important; padding-bottom:5px;}
+		#levelsTable th, #usersTable th { background-color:#F6F6F6; font-size:11px; text-align: left;}
+		#levelsTable td, #usersTable td { border-left: none !important; border-right: none !important;}
+		#levelsTable tr:hover, #usersTable tr:hover { background-color: #E3F3FF;}
+		#levelsTable td span.inactive, #usersTable td span.inactive { color: #777 !important; font-style:italic;text-decoration:line-through;}
+		.headerContainer {position: relative;display: inline-block;border: 1px solid #ffffff; padding-right:5px;min-width: 200px;}
+		.headerContainer:hover {cursor:pointer;border: 1px solid #efefef;}
+		.badgeContainer {width: 60px;height:60px;float:left;}
+		.badgeContainer img {width:45px; height:45px;margin:7.5px;border:0;}
+		.badgeHeader {display: table-cell;height:60px;vertical-align:middle;padding-left:5px;font-size:15px;font-weight:bold;}
+		.edit-btn { display:none; position: absolute; bottom:0;right: 0;font-weight: normal;font-size: 12px; color:#005BA7;background-color: #efefef;width: 100%;opacity: 0.9;}
+		.headerContainer:hover .edit-btn {display:block;}
+
+		.buttonsContainer {position:relative; padding:10px 0px 10px 5px;}
+		.list {width:100%;}
+		.editDelLink { color: #005BA7 !important; text-decoration: none;}
+		/* Dialog form styles */
+		.ngdialog-overlay { background: rgba(0,0,0,.7) !important; }
+		.ngdialog-content { width:400px !important; border: 1px solid #333;}
+		.ngdialog-message h1 { font-size: 16px;line-height: 20px; }
+		.ngdialog-message .form {width:100%; padding-top:10px;}
+		.ngdialog-message .formLabel {text-align: right; }
+		.ngdialog-message .formInput input { width:250px; }
+		.ngdialog-message .formInput .textarea { width:250px; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; resize: vertical}
+		.ngdialog-message .formInput select {width: 250px;}
+		.ngdialog-buttons { text-align: right; }
+		input.ng-invalid { border: 1px solid #FF5545; }
+		textarea.ng-invalid { border: 1px solid #FF5545; }
+
+		/* fix to avoid FOUC */
+		[ng\:cloak],
+		[ng-cloak],
+		[data-ng-cloak],
+		[x-ng-cloak],
+		.ng-cloak,
+		.x-ng-cloak {
+		  display: none !important;
+		}
+
+		input:focus{outline:none;}
+		textarea:focus{ outline:none; }
+
+		.page_navigation {width:200px;margin:0 auto}
+		.page_navigation {padding-bottom:25px}
+		.page_navigation a{padding:3px 5px;margin:2px;color:#222;text-decoration:none;float:left;font-family:Arial,"Lucida Grande",sans-serif;font-size:12px;background-color:transparent !important; line-height:16px; height: 16px;text-decoration: none !important}
+		.page_navigation a:hover {color:#222 !important;}
+		.page_navigation .active_page {font-weight: bold;}
+		.page_navigation .ellipse {display:none !important;}
+		.page_navigation .page_link {display:none !important;}
+		.page_navigation .no_more {cursor:default;opacity:.35;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=35)";filter: alpha(opacity=35);-moz-opacity: 0.35;}
+
+		.page_navigation .first_link{font-size: 14px!important;padding-top: 2px !important;}
+		.page_navigation .previous_link{font-size: 14px!important;padding-top: 2px !important;}
+		.page_navigation .next_link{font-size: 14px!important;padding-top: 2px !important;}
+		.page_navigation .last_link{font-size: 14px!important;padding-top: 2px !important;}
+
+		.page_navigation .paginationTitle {font-size:12px !important;}
+
+		#overlay {
+			position: fixed;
+			display: none;
+			overflow-y: scroll;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background: rgba(0, 0, 0, 0.2);
+			z-index: 1000;
+		}
+
+		#overlayContent {
+			background: white;
+			max-width: 900px;
+			margin: 0 auto;
+			margin-top: 26px;
+			padding: 10px 20px;
+			border-color: #b7b7b7;
+			border-width: 1px;
+			border-radius: 8px;
+			border-style: solid;
+			box-shadow: 0 1px 9px 1px rgba(0,0,0,.25);
+		}
+
+		th[data-sortby], th[data-sortby] *, th[data-sortby] *:hover {
+			cursor: pointer;
+			text-decoration: none !important;
+			color: black !important;
+		}
+
+		th[data-sortby].sortedBy {
+			background-color: rgb(233, 233, 233) !important;
+		}
+
+	</style>
+
+
+	<!-- JS -->
+
+	<script type="text/javascript">
+		if(!window.console){ window.console = function(){}; }
+
+		var successConfig = {};
+			successConfig.setId = '{!JSENCODE($CurrentPage.parameters.setId)}';
+
+		var ngSet = angular.module('ngSet', ['ngTable', 'ngDialog']);
+
+		ngSet.config(function($sceProvider) {
+	  		// Disable SCE for IE8.
+			$sceProvider.enabled(false);
+		});
+
+		function closeDialogs() {
+			var $all = document.querySelectorAll('.ngdialog');
+
+			angular.forEach($all, function (dialog) {
+				angular.element(dialog).remove();
+			});
+		}
+
+		/*
+		 * ANGULARJS SERVICES
+		 */
+		ngSet.service('LevelSetService', function(){
+    		this.getLevelSet = function(args) {
+    			Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.RemoteController.getLevelSet}',
+					successConfig.setId,
+					function(result, event){ 
+						if (event.status) {
+							if(_.isFunction(args.callBack)) args.callBack(angular.fromJson(result));
+						} else {
+							$scope.btnActionLoading = false;
+							console.log(event.message);
+						}
+					},{escape: false}
+				);
+    		};
+
+    		this.getBadgeTypes = function(args) {
+    			Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.RemoteController.getAllBadgeTypes}',
+					function(result, event){ 
+						if (event.status) { 
+							if(_.isFunction(args.callBack)) args.callBack(angular.fromJson(result));
+						} else {
+							console.log(event.message);
+						}
+					},{escape: false}
+				);
+    		};
+
+    		this.insertLevel = function(args) {
+    			Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.RemoteController.insertLevel}',
+					successConfig.setId, angular.toJson(args.levelModel),
+					function(result, event){ 
+						if (event.status) { 
+							if(_.isFunction(args.callBack)) args.callBack(angular.fromJson(result));
+						} else {
+							alert(event.message);
+							console.log(event.message);
+						}
+					},{escape: false}
+				);
+    		};
+
+    		this.updateLevel = function(args) {
+    			Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.RemoteController.updateLevel}',
+					successConfig.setId, angular.toJson(args.levelModel),
+					function(result, event){ 
+						if (event.status) { 
+							if(_.isFunction(args.callBack)) args.callBack(angular.fromJson(result));
+						} else {
+							alert(event.message);
+							console.log(event.message);
+						}
+					},{escape: false}
+				);
+    		};
+
+    		this.deleteLevel = function(args) {
+    			Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.RemoteController.deleteLevel}',
+					angular.toJson(args.levelModel),
+					function(result, event){ 
+						if (event.status) { 
+							if(_.isFunction(args.callBack)) args.callBack(angular.fromJson(result));
+						} else {
+							alert(event.message);
+							console.log(event.message);
+						}
+					},{escape: false}
+				);
+    		};
+
+    		this.updateSet = function(args) {
+    			Visualforce.remoting.Manager.invokeAction(
+					'{!$RemoteAction.RemoteController.updateSet}',
+					angular.toJson(args.recordModel),
+					function(result, event){ 
+						if (event.status) { 
+							if(_.isFunction(args.callBack)) args.callBack(angular.fromJson(result));
+						} else {
+							alert(event.message);
+							console.log(event.message);
+						}
+					},{escape: false}
+				);
+    		};
+		});
+
+		/*
+		 * ANGULARJS DIRECTIVES
+		 */
+		ngSet.directive('threshold', [function() {
+			return {
+		    	require: 'ngModel',
+		    	link: function(scope, elem, attrs, ctrl) {
+		    		var validation = function(val) {
+		    			var thresholds = _.pluck(scope.levels, 'lowerThreshold');
+		    			var valid = true;
+
+	          			for(var i=0;i<thresholds.length; i++) {
+	          				if(thresholds[i] == val) {
+	          					valid = false;
+	          				}
+	          			}
+
+	             		if(valid) {
+	             			ctrl.$setValidity('threshold', true);
+	             			return val;
+
+	             		} else {
+	             			ctrl.$setValidity('threshold', false);
+	             			return undefined;
+	             		}
+		    		};
+
+	          		ctrl.$parsers.unshift(validation);
+		    	}
+		  	}
+		}]);
+
+		/*
+		 * ANGULARJS CONTROLLERS
+		 */
+		ngSet.controller('SetController', function($scope, $filter, ngTableParams, ngDialog, LevelSetService) {
+			$scope.levels = [];
+			$scope.originalLevels = [];
+
+			$scope.thresholds = [];
+
+			//PRIVATE FUNCTIONS
+			var initialiseTable = function() {
+				$scope.tableParams = new ngTableParams({
+					page: 1,			// show first page
+					count: 200			// count per page
+				}, {
+					counts: [],
+					total: 0, // setting to less than count will hide pagination
+					getData: function($defer, params) {
+						$defer.resolve($scope.levels.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+					}
+				});
+			};
+			initialiseTable();
+
+
+			//SCOPE FUNCTIONS
+			$scope.reload = function() {
+				$scope.init();
+			};
+
+			$scope.mapSelectedBadgeType = function() {
+				$scope.selectedBadgeType = _.find($scope.badgeTypes, function(record){
+					return record.Id == $scope.setRecord.success__Level_Badge_Type__c || $scope.setRecord.Level_Badge_Type__c;
+				});
+			}
+
+			$scope.init = function() {
+				$scope.loading = false;
+
+				var badgeTypesCallBack = function(dataObj) {
+					$scope.badgeTypes = dataObj;
+
+					var levels = angular.copy($scope.levels);
+					$scope.thresholds = _.pluck(levels, "lowerThreshold");
+
+					$scope.tableParams.reload();
+
+					$scope.mapSelectedBadgeType();
+				};
+
+				var initCallBack = function(dataObj) {
+					console.log(dataObj);
+
+					$scope.levels = $filter('orderBy')(dataObj.levels, ['-available', 'lowerThreshold']);
+					$scope.originalLevels = angular.copy($scope.levels);
+
+      				$scope.calculateSetActiveStatus();
+
+					$scope.achievements = _.pluck(dataObj.achievements, 'Id');
+
+					$scope.setRecord = dataObj.levelSet;
+					$scope.originalSetRecord = angular.copy($scope.setRecord);
+
+					$scope.setDetails = dataObj.levelSetDetail;
+					$scope.originalSetDetails = angular.copy($scope.setDetails);
+
+					$scope.btnActionLoading = false;
+
+					LevelSetService.getBadgeTypes({
+						callBack: badgeTypesCallBack
+					});
+
+				};
+
+				LevelSetService.getLevelSet({
+					callBack: initCallBack
+				});
+			};
+
+			$scope.calculateSetActiveStatus = function() {
+				var setActiveStatuses = _.uniq(_.pluck($scope.levels, 'active'));
+			    if(setActiveStatuses.length === 0) {
+			      $scope.areAllLevelsActive = false;
+			      $scope.isActivateBtnDisabled = true;
+			    } else if(setActiveStatuses.length === 1) {
+			      $scope.areAllLevelsActive = setActiveStatuses[0];
+			      $scope.isActivateBtnDisabled = false;
+			    } else {
+			      $scope.areAllLevelsActive = false;
+			      $scope.isActivateBtnDisabled = false;
+			    }
+
+			    if($scope.areAllLevelsActive) {
+			    	$scope.activateBtnLabel = "{!JSENCODE($Label.Deactivate)}";
+			    } else {
+			    	$scope.activateBtnLabel = "{!JSENCODE($Label.Activate)}";
+			    }
+			};
+
+			$scope.openEditSetDialog = function() {
+				ngDialog.open({
+					showClose: false,
+					template: 'editSetTpl',
+					className: 'ngdialog-theme-plain',
+					controller: 'EditSetController',
+					scope: $scope
+				});
+			};
+
+			$scope.openNewLevelDialog = function() {
+
+				$scope.record = { //empty new record
+					active: true,
+					available: true,
+					activeState: true,
+					isUpdated: false,
+					isNew: true,
+					isDeleted: false
+				};
+				$scope.recordIndex = null;
+
+				ngDialog.open({
+					showClose: false,
+					template: 'editLevelTpl',
+					className: 'ngdialog-theme-plain',
+					controller: 'EditLevelController',
+					scope: $scope,
+					data: 'create'
+				});
+			};
+
+			$scope.openConfirmResetArchiveDialog = function() {
+				ngDialog.open({
+					showClose: false,
+					template: 'confirmResetArchiveTpl',
+					className: 'ngdialog-theme-plain',
+					controller: 'ConfirmResetArchiveController',
+					scope: $scope
+				});
+			};
+
+
+			$scope.$on('ngDialog.opened', function (e, $dialog) {
+			    if ($dialog.attr('ng-controller') === 'ConfirmResetArchiveController') {
+			    	$sj(".resetDatetime").datepicker({dateFormat: 'yy-mm-dd 00:00:00'});
+			    };
+			});
+
+			$scope.openEditLevelDialog = function(record, index) { //edit level
+				$scope.record = record;
+				$scope.recordIndex = index;
+
+				ngDialog.open({
+					showClose: false,
+					template: 'editLevelTpl',
+					className: 'ngdialog-theme-plain',
+					controller: 'EditLevelController',
+					scope: $scope,
+					data: 'update'
+				});
+			};
+
+			$scope.openDeleteLevelDialog = function(record, index) { //deletes level
+				$scope.record = record;
+				$scope.recordIndex = index;
+
+				ngDialog.openConfirm({
+				    showClose: false,
+					template: 'deleteLevelTpl',
+					className: 'ngdialog-theme-plain',
+					controller: 'EditLevelController',
+					scope: $scope
+				});
+			};
+
+			$scope.insertLevel = function() {
+				$scope.loading = true;
+
+				var insertLevelCallBack = function(result) {
+					var newAchievementIds = _.difference(result, $scope.achievements);
+
+					$scope.record.achievementId = newAchievementIds[0];
+					$scope.achievements.push(newAchievementIds[0]);
+
+					$scope.levels.push($scope.record);
+					angular.copy($scope.levels, $scope.originalLevels);
+
+					$scope.recordIndex = null;
+					$scope.record = {};
+					$scope.loading = false;
+					$scope.reload();
+
+					closeDialogs();
+				};
+
+				LevelSetService.insertLevel({
+					levelModel: $scope.record,
+					callBack: insertLevelCallBack
+				});
+			};
+
+			$scope.updateLevel = function() {
+				$scope.loading = true;
+
+				var updateLevelCallBack = function() {
+					$scope.recordIndex = null;
+					$scope.record = {};
+					$scope.loading = false;
+
+					$scope.reload();
+					closeDialogs();
+				};
+
+				LevelSetService.updateLevel({
+					levelModel: $scope.record,
+					callBack: updateLevelCallBack
+				});
+			};
+
+			$scope.deleteLevel = function() {
+				$scope.loading = true;
+
+				var deleteLevelCallBack = function() {
+					//remove deleted records
+					try {
+						$scope.levels.splice( $scope.recordIndex, 1 );
+						angular.copy($scope.levels, $scope.originalLevels);
+					} catch(e) {
+						console.log(e);
+					}
+					$scope.achievements = _.without($scope.achievements, $scope.record.achievementId);
+					$scope.recordIndex = null;
+					$scope.record = {};
+					$scope.loading = false;
+
+					$scope.reload();
+					closeDialogs();
+				};
+
+				LevelSetService.deleteLevel({
+					levelModel: $scope.record,
+					callBack: deleteLevelCallBack
+				});
+			};
+
+
+			$scope.updateSet = function(badgeType) {
+				$scope.loading = true;
+				if(_.has($scope.setRecord, 'success__Level_Badge_Type__c')) {
+					$scope.setRecord.success__Level_Badge_Type__c = badgeType.Id;
+					$scope.originalSetRecord.success__Level_Badge_Type__c = badgeType.Id;
+				}
+				if(_.has($scope.setRecord, 'Level_Badge_Type__c')) {
+					$scope.setRecord.Level_Badge_Type__c = badgeType.Id;
+					$scope.originalSetRecord.Level_Badge_Type__c = badgeType.Id;
+				}
+
+				var updateSetCallBack = function(result) {
+					var updatedSetRecord = result;
+						$scope.setDetails.name = updatedSetRecord.name;
+						$scope.setDetails.backgroundColour = updatedSetRecord.backgroundColour;
+						$scope.setDetails.imageURL = updatedSetRecord.imageURL;
+
+						$scope.originalSetRecord.Name = updatedSetRecord.name;
+						angular.copy($scope.setDetails, $scope.originalSetDetails);
+					$scope.$apply();
+					$scope.loading = false;
+
+					$scope.mapSelectedBadgeType();
+					closeDialogs();
+				};
+
+				LevelSetService.updateSet({
+					recordModel: $scope.setRecord,
+					callBack: updateSetCallBack
+				});
+			};
+
+			$scope.toggleAchievementsActiveState = function() {
+				$scope.btnActionLoading = true;
+
+				var stateToToggle = $scope.areAllLevelsActive ? false: true;
+				var achievementIds = $scope.achievements;
+
+		    	var model = new RemoteObjectModel.Achievement();
+
+		    	model.update(achievementIds, {Active: stateToToggle}, function (err, ids) {
+		        	if (err) {
+		        		$scope.btnActionLoading = false;
+		        		alert(err.message);
+						console.log(err.message);
+		        	} else {
+		        		$scope.init();
+		        	}
+		    	});
+			}
+
+		}).
+
+		controller('EditLevelController', function ($scope, ngDialog) {
+			$scope.dialogType = $scope.$parent.ngDialogData;
+
+			$scope.editInsert = function() {
+				$scope.record.lowerThreshold = ($scope.record.lowerThreshold == null) ? 0 : parseInt($scope.record.lowerThreshold);
+
+				$scope.$parent.insertLevel();
+			};
+
+			$scope.editUpdate = function() {
+				$scope.record.lowerThreshold = ($scope.record.lowerThreshold == null) ? 0 : parseInt($scope.record.lowerThreshold);
+
+				$scope.$parent.updateLevel();
+			};
+
+			$scope.editDelete = function() {
+				$scope.$parent.levels[$scope.recordIndex].isDeleted = true;
+
+				$scope.$parent.deleteLevel();
+			};
+
+			$scope.cancelDelete = function() {
+				closeDialogs();
+			}
+
+			$scope.resetDialog = function() {
+				angular.copy($scope.originalLevels, $scope.levels);
+
+    			$scope.$parent.reload();
+    			closeDialogs();
+			};
+		}).
+
+		controller('EditSetController', function ($scope, ngDialog) {
+			$scope.save = function(item) {
+				$scope.$parent.updateSet(item);
+			};
+
+			$scope.resetDialog = function() {
+				angular.copy($scope.originalSetRecord, $scope.setRecord);
+				angular.copy($scope.originalSetDetails, $scope.setDetails);
+
+    			$scope.$parent.reload();
+    			$scope.$parent.mapSelectedBadgeType();
+
+    			closeDialogs();
+			};
+		}).
+
+		controller('ConfirmResetArchiveController', function ($scope, ngDialog) {
+
+			var getDateValue = function () {
+        var dtel = $sj(".resetDatetime"),
+            rsDt;
+
+        if (dtel.val().length > 0) {
+        	try {
+            var dateAndTime = dtel.val().split(' ');
+            var date = dateAndTime[0].split('-');
+            var time = dateAndTime[1].split(':');
+
+						rsDt = new Date(date[0], date[1] - 1, date[2], time[0], time[1], time[2], 0);
+					} catch (e) { }
+        }
+        else {
+            rsDt = null;
+        }
+
+        return rsDt;
+			};
+
+
+			$scope.reset = function() {
+
+				var isErase = false;
+
+				if ($sj('#resetMode').val() == 'Delete')
+					isErase = true;
+
+				var dateVal = getDateValue();
+
+				if (!_.isDate(dateVal) || isNaN(dateVal.getTime())) {
+					alert('Please check the date specified is in the format YYYY-MM-DD HH:MM:SS');
+					return;
+				}
+
+				finishGame(dateVal.getTime(), isErase);
+
+				closeDialogs();
+			};
+
+			$scope.cancelReset = function() {
+				closeDialogs();
+			}
+
+
+		});
+
+        function finishGame (resetDatetime, isDelete) {
+            Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.LevelSetController.finishGameDated}',
+                resetDatetime,
+                isDelete,
+                '{!setId}',
+                function(result, event){ 
+                    if (event.status) {
+                        location.reload();
+                    }  else {
+                        if (this.console) {            
+                            console.log(event.message);
+                        }           
+                    }
+                }
+            );
+        };
+
+        var sumoLevelSetUsers = [];
+        function renderSetUsers (args) {
+
+			var selElements = $sj("[id$='setUsersContainer'] input:checked").map(function(){ return this.value; }).get();
+
+			var usersTable = $sj("[id$='setUsersContainer'] tbody");
+
+        	$sj("[id$='setUsersContainer'] tbody").html('');
+
+			if (typeof args !== 'undefined' && args.sort == true) {
+
+				var sortBy = 'Name';
+
+				if (typeof args.sortby !== 'undefined') {
+					if (args.sortby == 'Role') {
+						sumoLevelSetUsers = _.sortBy(this.sumoLevelSetUsers, function (el) {
+							return (typeof el.UserRole !== 'undefined' ? el.UserRole.Name : 'z');
+						});
+					}
+					else if (args.sortby == 'Manager') {
+						sumoLevelSetUsers = _.sortBy(this.sumoLevelSetUsers, function (el) {
+							return (typeof el.Manager !== 'undefined' ? el.Manager.Name : 'z');
+						});
+					}
+					else {
+						sumoLevelSetUsers = _.sortBy(this.sumoLevelSetUsers, function (el) {
+							return typeof el[args.sortby] !== 'undefined'
+								? el[args.sortby].toLowerCase()
+								: 'z';
+						});
+					}
+				}
+
+				if (typeof args.sortorder !== 'undefined' && args.sortorder == 'true')
+					sumoLevelSetUsers.reverse();
+
+			}
+
+        	$sj.each(sumoLevelSetUsers, function (i, element) {
+
+        		usersTable.append(
+            		'<tr><td><input id="selected_' + element.id + '" type="checkbox" '+
+					'value="' + element.Id + '"'
+					+ (($sj.inArray(element.Id, selElements) !== -1) ? ' checked="checked"' : '')
+					+ ' /></td>' +
+					'<td>' + element.Name + '</td>' +
+					'<td>' + element.Email + '</td>' +
+					'<td>' + (typeof element.UserRole !== 'undefined' ? element.UserRole.Name : '') + '</td>' +
+					'<td>' + (typeof element.Title !== 'undefined' ? element.Title : '') + '</td>' +
+					'<td>' + (typeof element.Manager !== 'undefined' ? element.Manager.Name : '') + '</td></tr>'
+				);
+
+        	});
+
+			$sj("[id$='setUsersContainer']").pajinate({
+				items_per_page : 10,
+				nav_label_first: '&#171;',
+				nav_label_prev: '&#139; <span class="paginationTitle">{!JSENCODE($Label.previous)}</span>',
+				nav_label_next: '<span class="paginationTitle">{!JSENCODE($Label.next)}</span> &#155;',
+				nav_label_last: '&#187;',
+				abort_on_small_lists: true
+			});
+
+        }
+
+
+        function loadSetUsers () {
+            Visualforce.remoting.Manager.invokeAction(
+            	'{!$RemoteAction.LevelSetController.loadSetUsers}',
+                '{!setId}',
+                function(result, event){ 
+                    if (event.status) {
+                    	sumoLevelSetUsers = result;
+                    	renderSetUsers();
+
+                    } else {
+                        if (this.console) {            
+                            console.log(event.message);
+                        }           
+                    }
+                }
+            );
+
+        };
+
+
+
+		function reassignSetUsers (toDefault) {
+
+			var selUsersId = [];
+
+			var toSetId = toDefault == true ? '{!defaultSetId}' : $sj('select.availableSets').val();
+
+			$sj('#setUsersContainer input[type=checkbox]:checked').each(function () {
+				selUsersId.push(this.value);
+			});
+
+            Visualforce.remoting.Manager.invokeAction(
+            	'{!$RemoteAction.LevelSetController.reassignUsers}',
+                selUsersId,
+                toSetId,
+                function(result, event){ 
+                    if (event.status) {
+                    	location.reload();
+                    } else {
+                        if (this.console) {            
+                            console.log(event.message);
+                        }           
+                    }
+                }
+            );
+
+        };
+
+	</script>
+
+	<!-- VIEW -->
+	<div class="container-fluid ng-cloak" id="ng-app" ng-app="ngSet" ng-controller="SetController" ng-init="init()" ng-cloak="true">
+		<apex:form id="levelForm">
+
+			<apex:actionFunction name="jsRefreshAssignedUsers" action="{!refreshAssignedUsers}" reRender="" />
+
+			<apex:outputPanel id="competitorsSelectionPanel">
+				<apex:outputPanel rendered="{!userSelectionProcessor != NULL}">
+					<div id="overlay">
+						<div id="overlayContent">
+							<c:UsersSelectionUI processor="{!userSelectionProcessor}" />
+						</div>
+					</div>
+				</apex:outputPanel>
+			</apex:outputPanel>
+
+			<div style="padding-bottom:10px;">
+				<div class="headerContainer" ng-click="openEditSetDialog()">
+					<div class="badgeContainer" ng-style="{'background-color': setDetails.backgroundColour}">
+						<img ng-src="{{setDetails.imageURL}}" ng-hide="setDetails.imageURL == null" />
+					</div>
+					<div class="badgeHeader">{{setDetails.name}}</div>
+					<div class="edit-btn">{!$Label.edit}</div>
+				</div>
+			</div>
+
+			<apex:pageBlock mode="edit">
+				<div class="buttonsContainer">
+					<input type='button' class="btn" ng-click="openNewLevelDialog()" value="{!$Label.setview_new_level}" title="{!$Label.setview_new_level_helptext}"/>
+					<apex:commandButton action="{!recalculateLevelsAndExperience}" value="{!$Label.setview_recalculate}" title="{!$Label.setview_recalculate_helptext}" />
+					<input type='button' class="btn" ng-click="openConfirmResetArchiveDialog()" value="{!$Label.setview_reset_game}" title="{!$Label.setview_reset_game_helptext}" />
+					<apex:commandButton onclick="$sj('#overlay').show(); sumoSearch.hideResults(); return false;" action="{!URLFOR($Page.UsersSelection, 'assignLink', [processor='SetService.AssignSetProcessor',setId=setId])}" value="{!$Label.setview_assignUsers}" title="{!$Label.setview_assignUsers_helptext}" />
+					<input type='button' class="btn" ng-click="toggleAchievementsActiveState()" value="{{activateBtnLabel}}" title="{{activateBtnLabel}}" ng-disabled="{{isActivateBtnDisabled}}" ng-show="activateBtnLabel"/>
+					<apex:commandButton action="{!URLFOR($Page.Game_Configuration)}" value="{!$Label.setview_return}" title="{!$Label.setview_return_helptext}" />
+					<img ng-show="btnActionLoading" src="/img/loading.gif" alt="{!$Label.loading_dots}" style="position: absolute;bottom: 15px;right: 15px;"/>
+				</div>
+
+				<apex:pageMessages />
+
+				<div>
+					<table id="levelsTable" ng-table="tableParams" border="0" cellpadding="0" cellspacing="0" class="list">
+						<!-- row partial -->
+						<tr style="display: table-row;" ng-repeat="level in levels">
+							<td data-title="'{!$Label.action}'" class="text-center">
+								<a class="editDelLink" href="#" ng-click="openEditLevelDialog(level, $index)">{!$Label.edit}</a>
+								<span ng-if="$index!=0"> | </span>
+								<a class="editDelLink" href="#" ng-if="$index!=0" ng-click="openDeleteLevelDialog(level, $index)">{!$Label.delete_short}</a>
+							</td>
+
+							<td data-title="'{!JSENCODE($Label.number)}'">
+								<span ng-if="level.available == true">{{ $index + 1 }}</span>
+							</td>
+
+							<td data-title="'{!JSENCODE($ObjectType.Achievement__c.Fields.Available__c.Label)}'">
+								<div ng-if="level.available == true">
+									<img src="/img/checkbox_checked.gif" alt="True" width="21" height="16" class="checkImg" title="{!$Label.checked}" />
+								</div>
+								<div ng-if="level.available == false">
+									<img src="/img/checkbox_unchecked.gif" alt="False" width="21" height="16" class="checkImg" title="{!$Label.unchecked}" />
+								</div>
+							</td>
+
+							<td data-title="'{!JSENCODE($Label.label)}'">
+								<span class="{{ level.available && 'active' || 'inactive' }}">{{ level.label }}</span>
+							</td>
+
+							<td data-title="'{!JSENCODE($Label.threshold)}'">
+								<span class="{{ level.available && 'active' || 'inactive' }}">{{ level.lowerThreshold }}</span>
+							</td>
+
+							<td data-title="'{!JSENCODE($Label.message)}'" style="width:50%">
+								<span class="{{ level.available && 'active' || 'inactive' }}">{{ level.rewardMessage }}</span>
+							</td>
+
+						</tr>
+					</table>
+				</div>
+
+			</apex:pageBlock>
+
+
+
+
+			<apex:pageBlock mode="edit" rendered="{!NOT(tooManyUsers)}" title="{!$Label.setview_members}">
+
+				<div class="buttonsContainer">
+					<apex:commandButton id="reassignUsers" onclick="reassignSetUsers(false); return false;" value="{!$Label.setview_reassign_users_to_specified}" title="{!$Label.setview_reassign_users_helptext}" />
+					<apex:selectList styleClass="availableSets" value="{!reassignToSet}" size="1" multiselect="false">
+						<apex:selectOptions value="{!availableLevelSets}" />
+					</apex:selectList>
+				</div>
+
+				<apex:outputPanel >
+					<div id="setUsersContainer">
+						<table id="usersTable" cellspacing="0" cellpadding="0" border="0" class="list">
+							<colgroup span="2"></colgroup>
+							<thead class="rich-table-thead">
+								<tr class="headerRow">
+									<th colspan="1" scope="col" class="headerRow">{!$Label.select}</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="Name">
+										<a href="#">{!$Label.name}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="Email">
+										<a href="#">{!$Label.email}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="Role">
+										<a href="#">{!$Label.role}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="Title">
+										<a href="#">{!$Label.title}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="Manager">
+										<a href="#">{!$Label.manager}</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody id="setUsersTableBody" class="content"></tbody>
+						</table>
+						<div class="page_navigation"></div>
+					</div>
+
+
+				</apex:outputPanel>
+
+				<script type="text/javascript">
+
+				$sj(document).ready(function () {
+
+					loadSetUsers();
+
+
+					$sj("[data-sortby]").click(function (e) {
+
+						e.preventDefault();
+						e.stopPropagation();
+
+						var el = $sj(this);
+
+						var theList = el.closest('[id$="Container"]');
+
+						theList.find('[data-sortby]').removeClass('sortedBy');
+
+						var sortArgs = {
+							sort: true,
+							sortby: this.getAttribute('data-sortby'),
+							sortorder: this.getAttribute('data-sortorder')
+						};
+
+						this.setAttribute('data-sortorder', sortArgs.sortorder == 'true' ? 'false' : 'true');
+
+						$sj(this).addClass('sortedBy');
+
+						var sortImg = $sj('<img src="/s.gif" class="sortImg sort'
+							+ (this.getAttribute('data-sortorder') == 'true' ? 'Asc' : 'Desc')
+							+ '" />');
+
+						theList.find('.sortImg').remove();
+
+						el.append(sortImg);
+
+						renderSetUsers(sortArgs);
+
+						return false;
+
+					});
+
+
+
+				});
+
+				</script>
+
+			</apex:pageBlock>
+		</apex:form>
+
+		<!--
+		 - ANGULARJS TEMPLATES
+		 -->
+		<script type="text/ng-template" id="editSetTpl">
+			<div class="ngdialog-message">
+				<h1>{!$Label.setview_editSet}</h1>
+				<p class="validation">
+					<span ng-show="editSetForm.$error.required">{!$Label.marked_fields_mandatory}</span>
+				</p>
+
+				<form name="editSetForm" novalidate="true">
+					<table class="form">
+						<tr>
+							<td class="formLabel">
+								<span>{!$Label.name}:</span>
+							</td>
+							<td class="formInput">
+								<input type="text" name="name" ng-model="setRecord.Name" required="true" />
+							</td>
+						</tr>
+						<tr>
+							<td class="formLabel">
+								<span>{!$Label.level_badge_type}:</span>
+							</td>
+							<td class="formInput">
+								<select ng-model="selectedBadgeType" ng-options="item.Name for item in badgeTypes" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="ngdialog-buttons">
+				<img ng-show="loading" src="/img/loading.gif" alt="{!$Label.loading_dots}" style="position: absolute;bottom: 15px;left: 15px;"/>
+				<input type="button" value="{!$Label.save}" ng-click="save(selectedBadgeType)"/>
+				<input type="button" value="{!$Label.cancel}" ng-click="resetDialog()"/>
+			</div>
+		</script>
+
+		<script type="text/ng-template" id="editLevelTpl">
+			<div class="ngdialog-message">
+				<h1>{!$Label.setview_editLevel}</h1>
+				<p class="validation">
+					<span ng-show="editLevelForm.$error.required && !editLevelForm.$error.number">{!$Label.marked_fields_mandatory}</span>
+					<span ng-show="editLevelForm.$error.number">{!$Label.setview_err_nan}.</span>
+					<span ng-show="editLevelForm.$error.threshold && !editLevelForm.$error.required && !editLevelForm.$error.number">{!$Label.setview_err_thresholdAlreadySet}.</span>
+					<span ng-show="editLevelForm.$error.maxlength ">{!$Label.setview_err_valueTooLong}.</span>
+				</p>
+
+				<form name="editLevelForm" novalidate="true">
+					<table class="form">
+						<tr>
+							<td class="formLabel">
+								<span>{!$Label.label}:</span>
+							</td>
+							<td class="formInput">
+								<input type="text" name="label" title="{!$Label.setview_recommendedLength}" ng-model="record.label" required="true" />
+							</td>
+						</tr>
+						<tr ng-if="recordIndex != 0 ">
+							<td class="formLabel">
+								<span>{!$Label.threshold}:</span>
+							</td>
+							<td class="formInput">
+								<input type="number" name="threshold" title="{!$Label.setview_recommendedValue}" ng-model="record.lowerThreshold" required="true" threshold />
+							</td>
+						</tr>
+						<tr ng-if="recordIndex != 0 ">
+							<td class="formLabel">
+								<span>{!$Label.message}:</span>
+							</td>
+							<td class="formInput">
+								<textarea class="textarea" rows="8" ng-model="record.rewardMessage" required="true" ng-maxlength="255">{{record.rewardMessage}}</textarea>
+							</td>
+						</tr>
+						<tr ng-if="recordIndex != 0 ">
+							<td class="formLabel">
+								<span>{!$Label.active}:</span>
+							</td>
+							<td class="formInput">
+								<input type="checkbox" name="active" ng-model="record.active" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="ngdialog-buttons">
+				<img ng-show="loading" src="/img/loading.gif" alt="{!$Label.loading_dots}" style="position: absolute;bottom: 15px;left: 15px;"/>
+				<input type="button" value="{!$Label.save}" ng-hide="dialogType=='update'" ng-disabled="editLevelForm.$invalid" ng-click="editInsert()"/>
+				<input type="button" value="{!$Label.save}" ng-hide="dialogType=='create'" ng-disabled="editLevelForm.$invalid" ng-click="editUpdate()"/>
+				<input type="button" value="{!$Label.cancel}" ng-click="resetDialog()"/>
+			</div>
+		</script>
+
+		<script type="text/ng-template" id="deleteLevelTpl">
+			<div class="ngdialog-message">
+				<h1>{!$Label.setview_deleteLevel}</h1>
+				<p class="form">{!$Label.delete_confirm}</p>
+			</div>
+			<div class="ngdialog-buttons">
+				<img ng-show="loading" src="/img/loading.gif" alt="{!$Label.loading_dots}" style="position: absolute;bottom: 15px;left: 15px;"/>
+				<input type="button" value="{!$Label.ok}" ng-click="editDelete()"/>
+				<input type="button" value="{!$Label.cancel}" ng-click="cancelDelete()"/>
+			</div>
+		</script>
+
+		<script type="text/ng-template" id="confirmResetArchiveTpl">
+			<div class="ngdialog-message">
+				<h1>{!$Label.reset}</h1>
+				<form name="editLevelForm" novalidate="true">
+					<table class="form">
+						<tr>
+							<td class="formLabel">
+								<span>{!$Label.reset_mode}:</span>
+							</td>
+							<td class="formInput">
+								<select name="resetMode" id="resetMode">
+									<option>{!$Label.archive}</option>
+									<option>{!$Label.delete}</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td class="formLabel">
+								<span>{!$Label.reset_as_of}:</span>
+							</td>
+							<td class="formInput">
+								<input type="text" name="label" class="resetDatetime" />
+							</td>
+						</tr>
+					</table>
+				</form>
+				<p class="form">
+					<apex:outputText value="{!$Label.reset_game_confirmation_message}" />
+				</p>
+			</div>
+
+			<div class="ngdialog-buttons">
+				<input type="button" value="{!$Label.ok}" ng-click="reset()"/>
+				<input type="button" value="{!$Label.cancel}" ng-click="cancelReset()"/>
+			</div>
+		</script>
+	</div> <!-- AngularJS App end -->
+
+</apex:page>

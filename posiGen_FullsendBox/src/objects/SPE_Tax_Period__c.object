@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Actual_Filed_On_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Filed On Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Refund_Received_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Refund Received Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Bridge_Loan_Ceiling_Amount__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>If Bridge is constant, this is the value, otherwise it&apos;s the maximum value.</inlineHelpText>
+        <label>Bridge Loan Ceiling Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Bridge_Loan_Formula_Detail__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Explains how the Bridge Loan formula is calculated</inlineHelpText>
+        <label>Bridge Loan Formula Detail</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bridge_Loan_Initial_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Bridge Loan Initial Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Bridge_System_Cost_Multiplier__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>This is multiplied times the System Cost to determine the bridge loan amount.</inlineHelpText>
+        <label>Bridge System Cost Multiplier</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Has_Universal_System_Lease_Amount__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>If all Leases in this SPE Tax Period are the same, this is true.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If all Leases in this SPE Tax Period are the same, this is true.</inlineHelpText>
+        <label>Has Universal System Lease Amount</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ITC_Depr_System_Cost_Multiplier__c</fullName>
+        <externalId>false</externalId>
+        <label>ITC/Depr System Cost Multiplier</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>8</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ITC_Depreciation_Formula_Explanation__c</fullName>
+        <externalId>false</externalId>
+        <label>ITC/Depreciation Formula Explanation</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Planned_File_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Planned File Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Refund_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Projected Refund Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SPE_Funding_Traunche__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(SPE__r.Funding_Traunche__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SPE Funding Traunche</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SPE__c</fullName>
+        <externalId>false</externalId>
+        <label>SPE</label>
+        <referenceTo>SPE__c</referenceTo>
+        <relationshipName>Tax_Returns</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>System_Federal_Grant_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>System Federal Grant Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>System_ITC_Depreciation_Initial_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>System ITC/Depreciation Initial Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Tax_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Tax Year</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Universal_Lease_Term__c</fullName>
+        <externalId>false</externalId>
+        <label>Universal Lease Term</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Universal_System_Lease_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>Universal System Lease Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>SPE Tax Period</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>SPE__c</columns>
+        <columns>SPE_Funding_Traunche__c</columns>
+        <columns>Actual_Refund_Received_Date__c</columns>
+        <columns>Has_Universal_System_Lease_Amount__c</columns>
+        <columns>Universal_System_Lease_Amount__c</columns>
+        <columns>Planned_File_Date__c</columns>
+        <columns>Actual_Filed_On_Date__c</columns>
+        <columns>OBJECT_ID</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>SPE Tax Period</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>SPE Tax Periods</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

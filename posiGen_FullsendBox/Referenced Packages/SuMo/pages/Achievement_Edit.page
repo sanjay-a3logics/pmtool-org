@@ -1,0 +1,516 @@
+<apex:page standardController="success__Achievement__c" extensions="success.AchievementController,success.AchievementWrapper" showHeader="true">
+	<apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/neutral/jquery-ui-1.11.1.custom.min.css')}" />
+	
+	<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.11.1.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.11.1.min.js')}" />
+	<script type="text/javascript">var $sj = successJQ.noConflict();</script>
+
+	<apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+	
+	<style>
+		[id$=criteriaBlock] td:last-child {
+			vertical-align: bottom;
+		}
+	</style>
+
+	<script type="text/javascript">
+
+		var GLOBAL_INPUT_ID = null; //do not remove - used by clearConditionFieldValue
+
+		function loading(val) {
+			if (val) {
+				document.getElementById('contentLoading').style.display = 'block';
+				document.getElementById('contentLoaded').style.display = 'none';
+			} else {
+				document.getElementById('contentLoading').style.display = 'none';
+				document.getElementById('contentLoaded').style.display = 'block';
+			}
+		}
+
+		function criteriaInputFocusHandler(inputId) {
+			return componentModule_criteriaSelectorComponent.show({
+				inputId: inputId,
+				replace: 'true',
+				insertCallBack: fieldInputCallback
+			});
+		}
+
+		function fieldInputCallback(field, fieldValue, parentId) {            
+			refresh();
+		}
+
+		function clearConditionFieldValue() {
+			enforceCriteriaFieldsAsReadOnly();
+			return componentModule_criteriaSelectorComponent.clearConditionFieldValue();
+		}
+
+		function experienceFormulaButtonHandler(inputId, callback) {
+			return componentModule_experienceFormulaComponent.show({
+				inputId: inputId,
+				insertCallBack: callback
+			});
+		}
+
+		function enforceCriteriaFieldsAsReadOnly() {
+			$sj("[id$='fieldInput']").attr('readOnly', true); 
+		}
+
+		$sj(document).ready(function() {
+			enforceCriteriaFieldsAsReadOnly();
+		});
+
+	</script>
+
+	<apex:form id="achievementForm">
+
+			<c:FormulaFieldCustomSelector cid="experienceFormulaComponent" selectObjects="{!success__Achievement__c.success__Object__c},{!$ObjectType.User.Name}:Recipient" formulaFormat="$object.$field" restrictChildRelations="true" />
+
+			<apex:sectionHeader title="{!$ObjectType.success__Achievement__c.Label} {!$Label.edit}" subtitle="{!success__Achievement__c.Name}"/>
+		   <apex:pageBlock title="{!$ObjectType.success__Achievement__c.Label} {!$Label.edit}"  mode="edit" id="pageBlock">
+			<apex:pageMessages />
+				
+				<!--  Buttons -->
+				<apex:pageBlockButtons >
+					<apex:commandButton title="{!$Label.save}" value="{!$Label.save}" action="{!save}" rendered="{!$ObjectType.success__Achievement__c.updateable}"/>
+					<apex:commandButton title="{!$Label.cancel}" value="{!$Label.cancel}" action="{!cancel}" />
+				</apex:pageBlockButtons>
+				
+				<!-- Information Section -->
+				<apex:pageBlockSection columns="1" title="{!$Label.information}" collapsible="false">
+				  <apex:inputField value="{!success__Achievement__c.name}" required="true"/>
+				  <apex:inputField value="{!success__Achievement__c.success__Description__c}" style="width: 320px; height: 42px;" />
+				</apex:pageBlockSection>
+				
+				<apex:pageBlockSection columns="2">
+					<apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__StandardInformationFieldSet}" var="infofield"> 
+						<apex:inputField value="{!success__Achievement__c[infofield]}" rendered="{!OR(IsAchieveEdition, NOT(CONTAINS(infofield, 'Competition_Only')))}" />
+					</apex:repeat>
+				</apex:pageBlockSection>
+
+			   
+				
+				<apex:pageBlockSection title="{!$Label.reward_recipient}" columns="1" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Recipient__c.updateable}">
+					 <apex:outputText value="{!success__Achievement__c.success__Recipient__c}" rendered="{!RecordType.DeveloperName == 'Scheduled'}"></apex:outputText>
+					<apex:SelectList value="{!success__Achievement__c.success__Recipient__c}" size="1" required="true" rendered="{!AND($ObjectType.success__Achievement__c.Fields.success__Recipient__c.updateable, NOT(RecordType.DeveloperName == 'Scheduled'))}" >
+						  <apex:selectOptions value="{!UserFieldName}"></apex:selectOptions>
+					</apex:SelectList>
+				</apex:pageBlockSection>
+				
+
+				<!-- Repeat Reward Section --> 
+				<apex:inputHidden value="{!success__Achievement__c.success__Experience_Repeat_Formula__c}" id="repeatExperienceFormulaaa" />
+				<c:FormulaComposer cid="repeatExperienceComposerrr" inputElement="{!$Component.repeatExperienceFormulaaa}" formulaFieldHandler="experienceFormulaButtonHandler" fieldLabel="{!$ObjectType.success__Achievement__c.fields.success__Experience_Repeat_Formula__c.Label}" fieldHelptext="{!$ObjectType.success__Achievement__c.fields.success__Experience_Repeat_Formula__c.InlineHelpText}" sectionTitle="{!$Label.repeated_reward}" rendered="{!success__Achievement__c.RecordType.DeveloperName == 'Recurring'}" />
+				<apex:pageBlockSection columns="1" collapsible="false" rendered="{!success__Achievement__c.RecordType.DeveloperName == 'Recurring'}" >
+					<apex:inputField value="{!success__Achievement__c.success__Repetition_Reward_Message__c}" required="true" style="width: 320px; height: 42px;" />
+				</apex:pageBlockSection>
+				<apex:pageBlockSection columns="2" collapsible="false" rendered="{!success__Achievement__c.RecordType.DeveloperName == 'Recurring'}">
+					<apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__RepetitionRewardFieldSet}" var="field"> 
+						<apex:inputField value="{!success__Achievement__c[field]}" required="{!OR(field.required, field.dbrequired)}" rendered="{!OR(IsAchieveEdition, NOT(OR(CONTAINS(field, 'Automatically'),CONTAINS(field, 'Level'))))}" />
+						<apex:pageBlockSectionItem rendered="{!OR(IsAchieveEdition, NOT(OR(CONTAINS(field, 'Automatically'),CONTAINS(field, 'Level'))))}"><span></span><span></span></apex:pageBlockSectionItem>
+					</apex:repeat>
+				</apex:pageBlockSection>
+
+				<!-- Standard Reward Section -->
+				<apex:inputHidden value="{!success__Achievement__c.success__Experience_Formula__c}" id="experienceFormula" />
+				<c:FormulaComposer cid="experienceComposer" inputElement="{!$Component.experienceFormula}" formulaFieldHandler="experienceFormulaButtonHandler" fieldLabel="{!$ObjectType.success__Achievement__c.fields.success__Experience_Formula__c.Label}" fieldHelptext="{!$ObjectType.success__Achievement__c.fields.success__Experience_Formula__c.inlineHelpText}" sectionTitle="{!$Label.standard_reward}" />
+				<apex:pageBlockSection columns="1" collapsible="false">
+					<apex:inputField value="{!success__Achievement__c.success__Reward_Message__c}" required="true" style="width: 320px; height: 42px;" />
+				</apex:pageBlockSection>
+				<apex:pageBlockSection columns="2" collapsible="false">
+					<apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__StandardRewardFieldSet}" var="field"> 
+						<apex:inputField value="{!success__Achievement__c[field]}" rendered="{!OR(IsAchieveEdition, NOT(OR(CONTAINS(field, 'Automatically'),CONTAINS(field, 'Level'))))}" />
+					</apex:repeat>
+				</apex:pageBlockSection>
+
+				   <!-- Criteria Section -->
+				  <apex:pageBlockSection columns="2" title="{!$Label.Evaluation_Restrictions}" collapsible="false" rendered="{!NOT(RecordType.DeveloperName == 'Scheduled')}">
+					  
+											
+
+					  <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.accessible}"
+					  helpText="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.InlineHelpText}">   
+						  <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.Label}" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.accessible}"/>  
+						  <apex:SelectList value="{!success__Achievement__c.success__Aggregate_Field__c}" size="1">
+							<apex:selectOptions value="{!aggregateFieldOptions}"></apex:selectOptions>
+						  </apex:SelectList>
+					  </apex:pageBlockSectionItem>
+
+						<apex:inputField value="{!success__Achievement__c.success__Maximum_number_of_rewards__c}" />
+						<apex:inputField value="{!success__Achievement__c.success__Number_of_occurrences__c}" />
+					
+
+					  
+
+
+					   <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.accessible}"
+													helpText="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.InlineHelpText}">   
+						  <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.Label}" />  
+						  <apex:outputPanel >
+							  <apex:inputField value="{!success__Achievement__c.success__Minimum_hours_between_actions__c}" style="width: 30px" />
+						  
+							  <apex:SelectList value="{!success__Achievement__c.success__Minimum_time_unit__c}" size="1">
+								<apex:selectOptions value="{!waitTimeOptions}"></apex:selectOptions>
+							  </apex:SelectList>
+						  </apex:outputPanel>
+					  </apex:pageBlockSectionItem>
+
+
+					   <apex:inputField value="{!success__Achievement__c.success__Repetition_Limit__c}" />
+
+						 <apex:pageBlockSectionItem >
+					  </apex:pageBlockSectionItem>
+
+
+					  <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.accessible}"
+													helpText="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.InlineHelpText}">   
+						  <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.Label}" />  
+						  <apex:outputPanel >
+							  <apex:inputField value="{!success__Achievement__c.success__Time_limit_in_days__c}" style="width: 30px" />
+						  
+							  <apex:SelectList value="{!success__Achievement__c.success__Time_Limit_Unit__c}" size="1">
+								<apex:selectOptions value="{!timeLimitOptions}"></apex:selectOptions>
+							  </apex:SelectList>
+						  </apex:outputPanel>
+					  </apex:pageBlockSectionItem>
+
+					
+
+
+					  
+				  </apex:pageBlockSection>
+		  
+			  
+				<!-- Scheduled Section -->
+				<apex:actionRegion >
+				<apex:actionFunction name="VFSchedulednoop" action="{!noop}" reRender="scheduledSection" status="cronInputStatus" />
+				<apex:pageBlockSection id="scheduledSection" columns="1" title="{!$Label.scheduler_criteria}" collapsible="false" rendered="{!RecordType.DeveloperName == 'Scheduled'}">
+					
+					<apex:inputField value="{!success__Achievement__c.success__Query__c}" style="width: 320px; height: 42px;" required="true"/>
+
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="{!$Label.cron_execution}"/>   
+					  <apex:outputPanel >
+						<select id="cronExprType">
+							<option value="1">{!$Label.daily}</option>
+							<option value="2">{!$Label.weekly}</option>
+							<option value="3">{!$Label.monthly}</option>
+							<option value="0">{!$Label.custom}</option>
+						</select>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+
+
+					<!-- -->
+					<apex:pageBlockSectionItem id="cronExprDayOfMonth">
+						<apex:outputLabel value="{!$Label.day_of_month}"/> 
+						<apex:outputPanel >
+							<select></select>
+						</apex:outputPanel> 
+					</apex:pageBlockSectionItem>
+
+
+					<!-- -->
+					<apex:pageBlockSectionItem id="cronExprDaysOfWeek">
+						<apex:outputLabel value="{!$Label.days_of_week}"/> 
+						<apex:outputPanel >
+							<select multiple="multiple" style="width:120px"></select>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+
+
+					<!-- -->
+					<apex:pageBlockSectionItem id="cronExprHourOfDay">
+						<apex:outputLabel value="{!$Label.hour}"/> 
+						<apex:outputPanel >
+							<select></select>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+
+
+					<!-- -->
+					<apex:pageBlockSectionItem id="cronExprCustom">
+						<apex:outputLabel value="{!$Label.cron_expression}"/> 
+						<apex:outputPanel >
+
+							<apex:inputField id="cronExpr" value="{!success__Achievement__c.success__CRON_Expression__c}" style="width: 320px;" />
+
+							<script type="text/javascript">
+
+								$sj(document).ready(function () {
+
+									var _WD = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+										_WDL = ['{!JSENCODE($Label.monday)}', '{!JSENCODE($Label.tuesday)}', '{!JSENCODE($Label.wednesday)}', '{!JSENCODE($Label.thursday)}', '{!JSENCODE($Label.friday)}', '{!JSENCODE($Label.saturday)}', '{!JSENCODE($Label.sunday)}'];
+
+
+									var _cronElements = {
+											cronExprDayOfMonth: $sj('[id*=cronExprDayOfMonth]').closest('tr'),
+											cronExprDaysOfWeek: $sj('[id*=cronExprDaysOfWeek]').closest('tr'),
+											cronExprHourOfDay: $sj('[id*=cronExprHourOfDay]').closest('tr'),
+											cronExprCustom: $sj('[id*=cronExprCustom]').closest('tr')
+										}, 
+										_cronElementsList = $sj(_.values(_cronElements));
+
+									_.forEach(_cronElementsList, function (el) { el.hide(); });
+
+									/* SETUP SELECTLIST VALUES */
+									(function () {
+										var l = [];
+										for (var i = 1; i < 32; i++) {
+											l.push($sj('<option value="' + i + '">' + i + '</option>'));
+										}
+										_cronElements['cronExprDayOfMonth'].find('select').html('').append(l);
+									})();
+
+									(function () {
+										var l = [];
+										_.forEach(_WD, function (wd, i) {
+											l.push($sj('<option value="' + wd + '">' + _WDL[i] + '</option>'));
+										});
+										_cronElements['cronExprDaysOfWeek'].find('select').html('').append(l);
+									})();
+
+									(function () {
+										var l = [];
+										for (var i = 0; i < 24; i++) {
+											l.push($sj('<option value="' + i + '">' + (i > 9 ? '' : '0') + i + ':00</option>'));
+										}
+										_cronElements['cronExprHourOfDay'].find('select').html('').append(l);
+									})();
+
+									/* INIT ON PAGE LOAD OR RE-RENDER */
+									(function (cronExpr) {
+
+										var parts = cronExpr.split(' ');
+
+										if (parts.length != 6 || parts[0] != '0' || parts[1] != '0' || isNaN(parts[0]) || isNaN(parts[1]) || isNaN(parts[2])) {
+											$sj('#cronExprType').val('0');
+											_cronElements['cronExprCustom'].show();
+											_cronElements['cronExprCustom'].find('input').val(cronExpr);
+										}
+										else if (parts[5] == '*') {
+											$sj('#cronExprType').val('1');
+											_cronElements['cronExprHourOfDay'].show();
+											_cronElements['cronExprHourOfDay'].find('select').val(parseInt(parts[2]));
+										}
+										else if (parts[5] == '?' && !isNaN(parts[3])) {
+											$sj('#cronExprType').val('3');
+											_cronElements['cronExprDayOfMonth'].show();
+											_cronElements['cronExprDayOfMonth'].find('select').val(parseInt(parts[3]));
+											_cronElements['cronExprHourOfDay'].show();
+											_cronElements['cronExprHourOfDay'].find('select').val(parseInt(parts[2]));
+										}
+										else {
+											var weekDays = parts[5].split(','), 
+												isWeekly = true;
+											_.forEach(weekDays, function (el) {
+												if (_.indexOf(_WD, el) == -1) {
+													isWeekly = false;
+												}
+											});
+											if (isWeekly && parts[3] == '?') {
+												$sj('#cronExprType').val('2');
+												_cronElements['cronExprDaysOfWeek'].show();
+												_cronElements['cronExprDaysOfWeek'].find('select option').each(function (i, el) {
+													if (_.indexOf(weekDays, el.value) > -1) el.selected = true;
+												});
+												_cronElements['cronExprHourOfDay'].show();
+												_cronElements['cronExprHourOfDay'].find('select').val(parseInt(parts[2]));
+											}
+											else {
+												$sj('#cronExprType').val('0');
+												_cronElements['cronExprCustom'].show();
+												_cronElements['cronExprCustom'].find('input').val(cronExpr);
+											}
+										}
+
+									})('{!JSENCODE(Achievement__c.Cron_expression__c)}');
+
+									/* REGISTER EVENT HANDLERS */
+
+									var _setCron = function (v) {
+										document.getElementById('{!$Component.cronExpr}').value = v;
+									};
+
+									var _getCron = function () {
+										return document.getElementById('{!$Component.cronExpr}').value;
+									};
+
+									var _updateCron = function () {
+										var _state = $sj('#cronExprType').val();
+										if (_state == '0') {
+											_setCron(_cronElements['cronExprCustom'].find('input').val());
+										}
+										else if (_state == '1') {
+											_setCron('0 0 ' + _cronElements['cronExprHourOfDay'].find('select option:selected')[0].value + ' ? * *');
+										}
+										else if (_state == '2') {
+											var dow = '';
+											_cronElements['cronExprDaysOfWeek'].find('select option:selected').each(function (i, el) {
+												dow = (dow.length ? dow + ',' : '') + el.value;
+											});
+											_setCron('0 0 ' + _cronElements['cronExprHourOfDay'].find('select option:selected')[0].value + ' ? * ' + dow);
+										}
+										else {
+											_setCron('0 0 ' + _cronElements['cronExprHourOfDay'].find('select option:selected')[0].value + ' ' + _cronElements['cronExprDayOfMonth'].find('option:selected')[0].value + ' * ?');
+										}
+									};
+
+									$sj('#cronExprType').change(function () {
+										_.forEach(_cronElementsList, function (el) { el.hide(); });
+										if (this.value == '0') {
+											_cronElements['cronExprCustom'].find('input').val(_getCron());
+											_cronElements['cronExprCustom'].show();
+										}
+										else if (this.value == '1') {
+											_cronElements['cronExprHourOfDay'].show();
+										}
+										else if (this.value == '2') {
+											_cronElements['cronExprDaysOfWeek'].show();
+											_cronElements['cronExprHourOfDay'].show();
+										}
+										else {
+											_cronElements['cronExprDayOfMonth'].show();
+											_cronElements['cronExprHourOfDay'].show();
+										}
+										_updateCron();
+									});
+
+									_cronElements['cronExprCustom'].find('input').change(_updateCron);
+									_cronElements['cronExprHourOfDay'].find('select').change(_updateCron);
+									_cronElements['cronExprDaysOfWeek'].find('select').change(_updateCron);
+									_cronElements['cronExprDayOfMonth'].find('select').change(_updateCron);
+
+								});
+
+							</script>
+
+						<apex:actionStatus id="cronInputStatus">
+						  <apex:facet name="start">
+							<apex:image value="/img/loading.gif"/>
+						  </apex:facet>
+						</apex:actionStatus>
+
+					  </apex:outputPanel>
+					</apex:pageBlockSectionItem>
+
+
+				  </apex:pageBlockSection>
+				</apex:actionRegion>
+			 
+			
+		
+				<!--  Radio buttons evaluation critieria -->
+				<apex:pageBlockSection title="{!$Label.Evaluation_Criteria}" columns="1" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Action__c.updateable}">
+					 <apex:selectRadio id="action" value="{!action}" layout="pageDirection" required="true" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Object__c.updateable}">
+					   <apex:selectOption itemValue="Created" itemLabel="{!$Label.created}" /> 
+					   <apex:selectOption itemValue="CreatedOrUpdated" itemLabel="{!$Label.created_or_updated}"/>
+					   <apex:selectOption itemValue="CreatedOrDidNotPreviouslyMeetCriteria" itemLabel="{!$Label.created_or_did_not_previously_meet_criteria}"/>
+					   <apex:selectOption itemValue="BatchAssessment" itemLabel="{!$Label.batch_assessment}" rendered="{!NOT(RecordType.DeveloperName == 'Scheduled')}"/>      
+					</apex:selectRadio>
+				</apex:pageBlockSection>
+		  
+				
+				   <!-- System Information Section -->
+				<apex:pageBlockSection columns="2" title="{!$Label.sysinfo}" collapsible="false">
+					<apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__SystemInformationFieldSet}" var="field"> 
+						<apex:inputField value="{!success__Achievement__c[field]}" required="{!OR(field.required, field.dbrequired)}" />
+					</apex:repeat>
+				</apex:pageBlockSection>
+
+			</apex:pageBlock>
+				 
+				 
+			<!-- Achievement Criteria Rows --> 
+			<apex:pageBlock id="criteriaBlock" title="{!$ObjectType.success__Achievement_Criteria__c.LabelPlural}" mode="edit" rendered="{!$ObjectType.success__Achievement_Criteria__c.updateable}">
+
+						<div id="contentLoading" style="display:none;position:absolute;margin-top:-29px;right:15px">
+								<div style="text-align: center;">
+										<img src="/img/loading.gif" alt="Loading graphic" />
+								</div>
+						</div>
+
+						<c:FormulaFieldCustomSelector cid="criteriaSelectorComponent" selectObjects="{!success__Achievement__c.success__Object__c},{!$ObjectType.User.Name}:Recipient" formulaFormat="$object.$field" showClearButton="true" restrictChildRelations="true" />
+
+						<apex:actionRegion >
+
+								<apex:actionFunction name="refresh" action="{!refresh}" rerender="criteriaBlock" status="loadingStatus" oncomplete="return clearConditionFieldValue();"/>
+
+								<apex:actionStatus id="loadingStatus" onstart="loading(true)" onstop="loading(false)" />
+								<apex:pageBlockSection title="{!$Label.rule_criteria}" columns="4" >
+										<apex:repeat value="{!achievementCriteria.wrappersForEdit}" var="r" >
+											<!-- Field -->
+											<apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field__c.updateable}" >
+												<apex:outputLabel value="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field__c.Label}" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field__c.updateable}"/>
+
+												<apex:inputText id="fieldInput" value="{!r.FieldName}" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field__c.updateable}" onfocus="return criteriaInputFocusHandler('{!$Component.fieldInput}');" />
+											</apex:pageBlockSectionItem>
+			 								
+			 								<!-- Condition -->
+											<apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Condition__c.updateable}">
+												<apex:outputLabel value="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Condition__c.Label}" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Condition__c.updateable}" />
+													
+												<apex:SelectList value="{!r.record.success__Condition__c}" size="1" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Condition__c.updateable}">
+													<apex:actionSupport event="onchange" disabled="{!NOT(r.IsMultiReferenceField)}" onsubmit="refresh();" rerender="none" />
+													<apex:selectOptions value="{!r.conditionPickListValues}"></apex:selectOptions>
+												</apex:SelectList>
+											</apex:pageBlockSectionItem>    
+														
+											<!-- Value -->
+											<apex:outputPanel id="output">  
+												<!-- Generic input -->
+												<apex:outputPanel rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.updateable}" >
+													<apex:inputText value="{!r.record.success__Field_Value__c}" rendered="{!r.fieldType != 'PICKLIST' && r.fieldType != 'DATE' && r.fieldType != 'DATETIME' && r.fieldType != 'REFERENCE'}" />
+												</apex:outputPanel>
+												
+												<!-- Picklist -->
+												<apex:outputPanel rendered="{!AND($ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.updateable,r.fieldType == 'PICKLIST')}">
+													<apex:SelectList value="{!r.record.success__Field_Value__c}" size="1">
+														<apex:selectOptions value="{!r.pickVals}"></apex:selectOptions>
+													</apex:SelectList>
+												</apex:outputPanel>
+												
+												<!-- Date -->
+												<apex:outputPanel rendered="{!AND($ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.updateable,r.fieldType == 'DATE')}" id="datePanel" >
+													<c:DatePickerComponent pageController="{!r.this}" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.updateable}"/>
+												</apex:outputPanel>
+												
+												<!-- Datetime -->
+												<apex:outputPanel rendered="{!AND($ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.updateable,r.fieldType == 'DATETIME')}" id="dateTimePanel">
+													<c:DateTimePickerComponent pageController="{!r.this}" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.updateable}"/>
+												</apex:outputPanel>
+												
+												<!-- Reference --> 
+												<apex:outputPanel rendered="{!AND($ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.updateable, r.fieldType == 'REFERENCE')}">
+
+													<!-- Auto-complete look-up by name -->
+													<c:DynamicLookupComponent form="{!$Component.achievementForm}" 
+															objectNames="{!r.referenceTo}" 
+															pageController="{!r.this}" 
+															parentObjectName="{!r.fieldObject}" 
+															rendered="{!r.record.success__Condition__c != r.MULTIREFERENCE_TYPE_FILTER}" />
+
+													<!-- List of Schema.sObjectType object names -->
+													<apex:SelectList rendered="{!r.IsMultiReferenceField && r.record.success__Condition__c = r.MULTIREFERENCE_TYPE_FILTER}" value="{!r.record.success__Field_Value__c}" size="1">
+														<apex:selectOptions value="{!r.pickVals}"></apex:selectOptions>
+													</apex:SelectList>
+												</apex:outputPanel> 
+
+											</apex:outputPanel>
+											
+											<apex:outputText value="AND" />
+
+										</apex:repeat>     
+								</apex:pageBlockSection>
+						</apex:actionRegion>
+				</apex:pageBlock>
+			
+		</apex:form>
+		
+		<apex:outputPanel rendered="false">
+			<apex:outputText value="{!success__Achievement__c.success__Object__c}" />
+			<apex:outputText value="{!success__Achievement__c.success__Recipient__c}" />
+			<apex:outputText value="{!success__Achievement__c.success__Action__c}" />
+		</apex:outputPanel>
+
+	
+</apex:page>

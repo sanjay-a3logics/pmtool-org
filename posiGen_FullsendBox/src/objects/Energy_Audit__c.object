@@ -1,0 +1,4270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>A1A__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Attic 1 Area in S.F</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>A1RV__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Attic 1 R-Value</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>A2A__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Attic 2 Area in S.F</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>A2RV__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Attic 2 R-Value</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>A3A__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Attic 3 Area in S.F</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>A3RV__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Attic 3 R-Value</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.Opportunity__r.Property_Address__c  &amp; &quot;, &quot; &amp;  Project__r.Opportunity__r.Property_City__c &amp; &quot;, &quot; &amp;  Project__r.Opportunity__r.Property_State__c &amp; &quot; &quot; &amp;  Project__r.Opportunity__r.Property_ZIP__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Address</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AirFilters_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>5.25  *  AirFilters_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Air Filters(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AirFilters_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Filters(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AirSealing_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Air Sealing Notes</label>
+        <length>500</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Air_Attic_Scuttle_Hole_Insulation_EA_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Attic Scuttle Hole Insulation EA(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Close_Chase_and_Fir_Downs_SF_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Close Chase and Fir Downs SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Electrical_Junction_Box_Cover_EA_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Electrical Junction Box Cover EA(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Fire_Rated_Sealing_LF_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Fire Rated Sealing LF (QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Fireplace_Balloon_EA_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Fireplace Balloon EA(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Fireplace_Chase_Sealing_SF_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Fireplace Chase Sealing SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Is_air_sealing_needed__c</fullName>
+        <externalId>false</externalId>
+        <label>Air sealing performed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Air_Recessed_Light_Box_EA_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Recessed Light Box EA (QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Sealing_kWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Case(TEXT(HVAC_S1_Heating_Type__c),
+&quot;Central /gas&quot;,0.23,
+&quot;Central/elect resist&quot;,0.93,
+&quot;Central/heat pump&quot;,0.47,
+&quot;Electric space&quot;,0.93, 
+&quot;Gas space&quot;,0.23,
+&quot;Room AC W/elec heat&quot;,0.93,
+0)
+* Blow_CFM_Reduction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Air Sealing kWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Sheetrock_Patch_SF_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Sheetrock Patch SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Weatherstrip_Doors_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Weatherstrip Doors(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_Whole_House_Fan_Cover_EA_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Whole House Fan Cover EA(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_points__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL( Air_Is_air_sealing_needed__c , &quot;Yes&quot;),550,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Air sealing Performed?(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Air_sealing_Therms_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(HVAC_S1_Heating_Type__c),
+&quot;Central /gas&quot;,0.020, 
+&quot;Central/elect resist&quot;,0, 
+&quot;Central/heat pump&quot;,0, 
+&quot;Electric space&quot;,0,
+&quot;Gas space&quot;,0.020,
+&quot;Room AC W/elec heat&quot;,0,
+0)
+
+* Blow_CFM_Reduction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Air sealing Therms Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Appliances_Cloth_Dr_Esti_Eff__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Clothes Dryer Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Appliances_Cloth_Was_Esti_Eff__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Clothes Washer Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Appliances_Clothes_Dryer_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Clothes Dryer Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Appliances_Clothes_Dryer_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Clothes Dryer Model #</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Appliances_Clothes_Washer_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Clothes Washer Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Appliances_Clothes_Washer_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Clothes Washer Model #</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Appliances_De_Free_Esti_Eff__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Deep Freezer Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Appliances_Deep_Freezer_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Deep Freezer Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Appliances_Deep_Freezer_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Deep Freezer Model #</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Appliances_Ref_Esti_Eff__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Refrigerator Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Appliances_Refrigerator_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Refrigerator  Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Appliances_Refrigerator_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Refrigerator Model #</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attic1_Insulation_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Attic 1 Insulation Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>cellulose</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>fiberglass</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>foam</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Attic2_Insulation_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Attic 2 Insulation Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>cellulose</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>fiberglass</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>foam</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Attic3_Insulation_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Attic 3 Insulation Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>cellulose</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>fiberglass</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>foam</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>AtticStairTent_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>276.75  *  AtticStairTent_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attic Stair Tent(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AtticStairTent_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Attic Stair Tent(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Attic_Total_Area__c</fullName>
+        <externalId>false</externalId>
+        <formula>A1A__c+A2A__c+A3A__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Attic Total Area</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AuditNotes__c</fullName>
+        <externalId>false</externalId>
+        <label>Audit Notes</label>
+        <length>1000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>BathroomVent_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>63.872  *  BathroomVent_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Bathroom Vent(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BathroomVent_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Bathroom Vent(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Blow_CFM_Reduction__c</fullName>
+        <externalId>false</externalId>
+        <formula>( Blow_TestIn_CFM__c  -  Blow_TestOut_CFM__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>BD CFM Reduction</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Blow_MVR__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(ISPICKVAL(Shielding__c , &quot;Well Shielded&quot;),Number_of_Floors__c==1),1.18 *  House_SF__c,IF(AND(ISPICKVAL(Shielding__c , &quot;Well Shielded&quot;),Number_of_Floors__c==2),0.95*House_SF__c,IF(AND(ISPICKVAL(Shielding__c , &quot;Well Shielded&quot;),Number_of_Floors__c&gt;=3),0.83*House_SF__c,IF(AND(ISPICKVAL(Shielding__c , &quot;Normal&quot;),Number_of_Floors__c==1),0.99*House_SF__c,IF(AND(ISPICKVAL(Shielding__c , &quot;Normal&quot;),Number_of_Floors__c==2),0.79*House_SF__c,IF(AND(ISPICKVAL(Shielding__c , &quot;Normal&quot;),Number_of_Floors__c&gt;=3),0.69*House_SF__c,IF(AND(ISPICKVAL(Shielding__c , &quot;Exposed&quot;),Number_of_Floors__c==1),0.89*House_SF__c,IF(AND(ISPICKVAL(Shielding__c , &quot;Exposed&quot;),Number_of_Floors__c==2),0.71*House_SF__c,IF(AND(ISPICKVAL(Shielding__c , &quot;Exposed&quot;),Number_of_Floors__c&gt;=3),0.62*House_SF__c,0)))))))))</formula>
+        <label>MVR</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Blow_Reduced__c</fullName>
+        <externalId>false</externalId>
+        <formula>Blow_CFM_Reduction__c  /  Blow_TestIn_CFM__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>BD % Reduced</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Blow_TestIn_CFM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>BD Test-In CFM</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Blow_TestOut_CFM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>BD Test-Out CFM</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CAZ_Fail_Details__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>CAZ Fail Details</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CAZ_Pass_Fail__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Pass/Fail</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Pass</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CODetector_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>74.201  *  CODetector_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CO Detector(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CODetector_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>CO Detector(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CS1HTypeValue__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(HVAC_S1_Heating_Type__c, &quot;Central/heat pump&quot;,&apos;Central/heat pump&apos;, &quot;Central/elect resist&quot;, &apos;Central/elect resist&apos;,&quot;Central /gas&quot;,&apos;Central /gas&apos;,&quot;Electric space&quot;,&apos;Electric space&apos;,&quot;Gas space&quot;,&apos;Gas space&apos;,&apos;&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CheckS1HeatingTypeValue</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CapGasWallHeater_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>150  *  CapGasWallHeater_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Cap Gas Wall Heater(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CapGasWallHeater_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Cap Gas Wall Heater(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>CelluloseHeatPumpHeatSF_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>0.61  *  Cellulose_HeatPumpHeatSF_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Cellulose - Heat Pump Heat SF(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cellulose_ElectricHeatSF_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>0.5  *  Cellulose_ElectricHeatSF_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Cellulose - Electric Heat SF(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cellulose_ElectricHeatSF_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Cellulose - Electric Heat SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cellulose_GasHeatSF_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>0.73  *  Cellulose_GasHeatSF_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Cellulose - Gas Heat SF(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cellulose_GasHeatSF_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Cellulose - Gas Heat SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cellulose_HeatPumpHeatSF_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Cellulose - Heat Pump Heat SF(QTY)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cellulose_NoRebateSf_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>0.85 *  Cellulose_NoRebateSf_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Cellulose - No Rebate SF(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cellulose_NoRebateSf_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Cellulose - No Rebate SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Check__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(OR(ISPICKVAL(HVAC_S1_Heating_Type__c,&quot;Central /gas&quot;),ISPICKVAL(HVAC_S1_Heating_Type__c,&quot;Gas space&quot;)),true,false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CheckPickvalue</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Combustible_Appliance_Zone_Present__c</fullName>
+        <externalId>false</externalId>
+        <label>Combustible Appliance Zone Present</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Conditioned_SF__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Conditioned SF</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DHW1_Water_Heater1_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Water Heater 1 Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DHW1_Water_Heater1_Efficiency__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Water Heater 1 Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DHW1_Water_Heater1_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Water Heater 1 Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tankless</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DHW2_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Water Heater 2 Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DHW2_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Water Heater 2 Model #</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DHW2_Water_Heater2_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Water Heater 2 Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tankless</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DHW2_Water_Heater_Efficiency__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Water Heater 2 Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DHWPipeInsulation_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>15.511  *  DHWPipeInsulation_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DHW Pipe Insulation(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DHWPipeInsulation_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>DHW Pipe Insulation(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_Is_duct_sealing_needed__c</fullName>
+        <externalId>false</externalId>
+        <label>DSS1 Duct Sealing Performed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DSS1_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>DSS1 Notes</label>
+        <length>500</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DSS1_Seal_Air_Handler_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS1 Seal Air Handler(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_Seal_Ducts_at_Junctions_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS1 Seal Ducts at Junctions(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_Seal_Ducts_at_Plenum_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS1 Seal Ducts at Plenum(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_Seal_Platform_Mech_Closet_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS1 Seal Platform - Mech. Closet(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_Seal_Plenum_Return_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS1 Seal Plenum  (Return)(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_Seal_Plenum_Supply_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS1 Seal Plenum (Supply)(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_Sealing_Return_Chase_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS1 Sealing Return Chase(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_Strapping_Ducts_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS1 Strapping Ducts(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS1_points__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(DSS1_Is_duct_sealing_needed__c , &quot;Yes&quot;),325,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DSS1 Duct Sealing Performed?(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>DSS2 Notes</label>
+        <length>500</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DSS2_Seal_Air_Handler_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS2 Seal Air Handler(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_Seal_Ducts_at_Junctions_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS2 Seal Ducts at Junctions(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_Seal_Ducts_at_Plenum_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS2 Seal Ducts at Plenum(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_Seal_Platform_Mech_Closet_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS2 Seal Platform - Mech. Closet(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_Seal_Plenum_Return_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS2 Seal Plenum  (Return)(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_Seal_Plenum_Supply_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS2 Seal Plenum (Supply)(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_Sealing_Return_Chase_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS2 Sealing Return Chase(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_Strapping_Ducts_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS2 Strapping Ducts(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS2_duct_sealing_performed__c</fullName>
+        <externalId>false</externalId>
+        <label>DSS2 Duct sealing performed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DSS2_points__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(DSS2_duct_sealing_performed__c , &quot;Yes&quot;),325,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DSS2 Duct Sealing Performed?(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_Is_duct_sealing_needed__c</fullName>
+        <externalId>false</externalId>
+        <label>DSS3 Duct sealing Performed?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DSS3_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>DSS3 Notes</label>
+        <length>500</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DSS3_Seal_Air_Handler_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS3 Seal Air Handler(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_Seal_Ducts_at_Junctions_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS3 Seal Ducts at Junctions(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_Seal_Ducts_at_Plenum_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS3 Seal Ducts at Plenum(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_Seal_Platform_Mech_Closet_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS3 Seal Platform - Mech. Closet(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_Seal_Plenum_Return_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS3 Seal Plenum  (Return)(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_Seal_Plenum_Supply_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS3 Seal Plenum (Supply)(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_Sealing_Return_Chase_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS3 Sealing Return Chase(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_Strapping_Ducts_QTY__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DSS3 Strapping Ducts(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DSS3_points__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISPICKVAL(DSS3_Is_duct_sealing_needed__c , &quot;Yes&quot;),325,0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DSS3 Duct sealing Performed?(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DryerVentInstall_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>56.179  *  DryerVentInstall_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Dryer Vent - Install(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DryerVentInstall_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Dryer Vent - Install(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Duct_Sealing_System1_kWh_savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(HVAC_S1_Heating_Type__c),
+&quot;Central /gas&quot;,4.48,
+&quot;Central/elect resist&quot;,16.92,
+&quot;Central/Heat Pump&quot;,9.99,
+&quot;Electric Space&quot;,0,
+&quot;Gas space&quot;,0,
+&quot;Room AC W/elec heat&quot;,0,
+0)
+
+* System1_CFM_Reduction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Duct Sealing System 1 kWh savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Duct_Sealing_System2_kWh_savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(HVAC_S2_Heating_Type__c), 
+&quot;Central /gas&quot;,4.48, 
+&quot;Central/elect resist&quot;,16.92, 
+&quot;Central/Heat Pump&quot;,9.99, 
+&quot;Electric Space&quot;,0, 
+&quot;Gas space&quot;,0, 
+&quot;Room AC W/elec heat&quot;,0, 
+0)
+
+* System2_CFM_Reduction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Duct Sealing System 2 kWh savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Duct_Sealing_System3_kWh_savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(HVAC_S3_Heating_Type__c), 
+&quot;Central /gas&quot;,4.48, 
+&quot;Central/elect resist&quot;,16.92, 
+&quot;Central/Heat Pump&quot;,9.99, 
+&quot;Electric Space&quot;,0, 
+&quot;Gas space&quot;,0, 
+&quot;Room AC W/elec heat&quot;,0, 
+0)
+
+* System3_CFM_Reduction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Duct Sealing System 3 kWh savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Duct_Sealing_Therms_Savings_Total__c</fullName>
+        <externalId>false</externalId>
+        <formula>Duct_sealing_Therms_S1_CFM_redu__c + Duct_sealing_Therms_S2_per_CFM_redu__c + Duct_sealing_Therms_S3_per_CFM_redu__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Duct Sealing Therms Savings Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Duct_Sealing_kWh_Savings_Total__c</fullName>
+        <externalId>false</externalId>
+        <formula>Duct_Sealing_System1_kWh_savings__c  +  Duct_Sealing_System2_kWh_savings__c  +  Duct_Sealing_System3_kWh_savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Duct Sealing kWh Savings Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Duct_sealing_Therms_S1_CFM_redu__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(HVAC_S1_Heating_Type__c) , 
+&quot;Central /gas&quot;,0.71,
+&quot;Central/elect resist&quot;,0,
+&quot;Central/heat pump&quot;,0,
+&quot;Electric space&quot;,0,
+&quot;Gas space&quot;,0,
+&quot;Room AC W/elec heat&quot;,0,
+0)
+
+*System1_CFM_Reduction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Duct sealing Therms savings per CFM redu</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Duct_sealing_Therms_S2_per_CFM_redu__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(HVAC_S2_Heating_Type__c) , 
+&quot;Central /gas&quot;,0.71,
+&quot;Central/elect resist&quot;,0,
+&quot;Central/heat pump&quot;,0,
+&quot;Electric space&quot;,0,
+&quot;Gas space&quot;,0,
+&quot;Room AC W/elec heat&quot;,0,
+0)
+
+*System2_CFM_Reduction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Duct sealing Therms savings per CFM redu</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Duct_sealing_Therms_S3_per_CFM_redu__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(TEXT(HVAC_S3_Heating_Type__c) , 
+&quot;Central /gas&quot;,0.71,
+&quot;Central/elect resist&quot;,0,
+&quot;Central/heat pump&quot;,0,
+&quot;Electric space&quot;,0,
+&quot;Gas space&quot;,0,
+&quot;Room AC W/elec heat&quot;,0,
+0)
+
+*System3_CFM_Reduction__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Duct sealing Therms savings per CFM redu</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EE_Auditor__c</fullName>
+        <externalId>false</externalId>
+        <label>EE Auditor</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EE_New_Contract_Marker_Num__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.Opportunity__r.EE_Amount__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE New Contract Marker Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ESHeatCoolWindowUnit_KWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>211*ESHeatCoolWindowUnit_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ES Heat/Cool Window Unit KWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ESHeatCoolWindowUnit_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>804.0048  *  ESHeatCoolWindowUnit_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ES Heat/Cool Window Unit(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ESHeatCoolWindowUnit_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>ES Heat/Cool Window Unit(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ESWindowUnitCoolAir_KWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>211*ESWindowUnitCoolAir_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ES Window Unit Cool Air KWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ESWindowUnitCoolAir_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>433  *  ESWindowUnitCoolAir_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ES Window Unit- Cool Air(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ESWindowUnitCoolAir_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>ES Window Unit- Cool Air(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Electric_Reduction_Savings_kWh_Mirror__c</fullName>
+        <externalId>false</externalId>
+        <label>Electric Reduction Savings kWh Mirror</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Electric_Reduction_Savings_kWh__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Air_Sealing_kWh_Savings__c  +  Duct_Sealing_kWh_Savings_Total__c   + insulation_kWh_savings__c+ Thermostat_KWh_Savings_Total__c  +  Light_Bulb_KWh_Savings_Total__c  +  Smart_Power_Strip_kWh_Savings__c  +  Window_Units_kWh_Savings_Total__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electric Reduction Savings kWh</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Estimated_Solar_Production__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Solar Production</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Estimated_total_annual_kWh_savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Estimated_Solar_Production__c  +  Electric_Reduction_Savings_kWh_Mirror__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Estimated total annual kWh savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Exterior_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Exterior Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Brick</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Metal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wood</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vinyl</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Foam Core</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>FaucetAerator_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>4.175  *  FaucetAerator_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Faucet Aerator(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FaucetAerator_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Faucet Aerator(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FiberglassBattInsulationSF_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>1.05  *  FiberglassBattInsulationSF_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Fiberglass Batt Insulation SF(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FiberglassBattInsulationSF_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Fiberglass Batt Insulation SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Foundation_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Foundation Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Slab</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Raised</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Gas_ReductionThermsEquivalent__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Air_sealing_Therms_Savings__c  +  Duct_Sealing_Therms_Savings_Total__c  +  Insulation_Therms_Savings__c )  * 29.3</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gas Therms Reduction kWh Equivalent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gas_Reduction_Mirror__c</fullName>
+        <externalId>false</externalId>
+        <label>Gas Reduction Mirror</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Gas_Therms_Reduction__c</fullName>
+        <externalId>false</externalId>
+        <formula>Air_sealing_Therms_Savings__c + Duct_Sealing_Therms_Savings_Total__c + Insulation_Therms_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Gas Therms Reduction</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>General_Observations__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>General Observations</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Holes in walls/ceiling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Broken windows</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>All/most lights left on</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Multiple appliances left on</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doors/window open while HVAC system is running</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>HS1Mr__c</fullName>
+        <externalId>false</externalId>
+        <label>HeatSytem1 mirror</label>
+        <length>32</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Cooling_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 1 Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Cooling_Estimated_Efficiency__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 1 Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Cooling_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 1 Model</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Cooling_SEER__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooling System 1 SEER</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Cooling_Tons__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooling System 1 Tons</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Cooling_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>System 1 Cooling Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>RAC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central AC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Room AC w/Elec Heat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Heating_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 1 Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Heating_Estimated_Efficiency__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 1 Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Heating_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 1 Model</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Heating_Tons__c</fullName>
+        <externalId>false</externalId>
+        <label>Heating System 1 Tons</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S1_Heating_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>System 1 Heating Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Central /gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central/elect resist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central/heat pump</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electric space</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Gas space</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Room AC w/Elec Heat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Cooling_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 2 Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Cooling_Estimated_Efficiency__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 2 Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Cooling_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 2 Model</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Cooling_SEER__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooling System 2 SEER</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Cooling_Tons__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooling System 2 Tons</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Cooling_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>System 2 Cooling Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>RAC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central AC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Room AC w/Elec Heat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Heating_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 2 Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Heating_Estimated_Efficiency__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 2 Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Heating_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 2 Model</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Heating_Tons__c</fullName>
+        <externalId>false</externalId>
+        <label>Heating System 2 Tons</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S2_Heating_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>System 2 Heating Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Central /gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central/elect resist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central/heat pump</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electric space</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Gas space</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Room AC w/Elec Heat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Cooling_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 3 Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Cooling_Estimated_Efficiency__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 3 Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Cooling_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Cooling System 3 Model</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Cooling_SEER__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooling System 3 SEER</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Cooling_Tons__c</fullName>
+        <externalId>false</externalId>
+        <label>Cooling System 3 Tons</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Cooling_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>System 3 Cooling Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>RAC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central AC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Room AC w/Elec Heat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Heating_Age__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 3 Age</label>
+        <picklist>
+            <picklistValues>
+                <fullName>0-5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5-10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10-15</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>15+</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Heating_Estimated_Efficiency__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 3 Estimated Efficiency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Medium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Very High</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Heating_Model__c</fullName>
+        <description>This is a text field.</description>
+        <externalId>false</externalId>
+        <label>Heating System 3 Model</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Heating_Tons__c</fullName>
+        <externalId>false</externalId>
+        <label>Heating System 3 Tons</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>1</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HVAC_S3_Heating_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>System 3 Heating Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central /gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central/elect resist</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Central/heat pump</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electric space</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Gas space</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Room AC w/Elec Heat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hacktime__c</fullName>
+        <externalId>false</externalId>
+        <label>Hacktime</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>HighLowPipeInstall_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>68.002  *  HighLowPipeInstall_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>High Low Pipe Install(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HighLowPipeInstall_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>High Low Pipe Install(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>House_Age__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>House Age</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>House_SF__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>House S.F.</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InsulationSFTotal__c</fullName>
+        <externalId>false</externalId>
+        <formula>FiberglassBattInsulationSF_QTY__c  +  Cellulose_HeatPumpHeatSF_QTY__c  +  Cellulose_GasHeatSF_QTY__c  +  Cellulose_ElectricHeatSF_QTY__c  +  Cellulose_NoRebateSf_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Insulation S.F. Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Insulation_Therms_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>InsulationSFTotal__c *  Insulation_Therms_Value__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Insulation Therms Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Insulation_Therms_Value__c</fullName>
+        <description>Automatically Populated Via Workflow</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically Populated</inlineHelpText>
+        <label>Insulation Therms Value</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Insulation_kWh_Table_Result__c</fullName>
+        <description>Populated from a Process Builder Process</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Automatically calculated</inlineHelpText>
+        <label>Insulation kWh Table Result</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KneewallFiberglassSF_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>2.7  *  KneewallFiberglassSF_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Knee wall: Fiberglass SF(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KneewallFiberglassSF_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Knee wall: Fiberglass SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KneewallFoamboardSF_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>3.7  *  KneewallFoamboardSF_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Knee wall: Foamboard SF(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>KneewallFoamboardSF_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Knee wall: Foamboard SF(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDCandelabraBulb_KWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEDCandelabraBulb_QTY__c * 24.09</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Candelabra Bulb KWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDCandelabraBulb_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>17.65  *  LEDCandelabraBulb_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Candelabra Bulb(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDCandelabraBulb_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>LED - Candelabra Bulb(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDExteriorFloodlight_KWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEDExteriorFloodlight_QTY__c*89.79</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Exterior Floodlight KWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDExteriorFloodlight_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>17.65  *  LEDExteriorFloodlight_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Exterior Floodlight(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDExteriorFloodlight_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>LED - Exterior Floodlight(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDIntDimmable60w_KWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEDIntDimmable60w_QTY__c * 55.845</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Int. Dimmable - 60w KWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDIntDimmable60w_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>11.24  *  LEDIntDimmable60w_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Int. Dimmable - 60w(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDIntDimmable60w_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>LED - Int. Dimmable - 60w(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDIntNonDimmable60w_KWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEDIntNonDimmable60w_QTY__c*51.465</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED Int Non-Dimmable 60 KWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDIntNonDimmable60w_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>6.8  *  LEDIntNonDimmable60w_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Int. Non-Dimmable - 60w(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDIntNonDimmable60w_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>LED - Int. Non-Dimmable - 60w(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDInteriorFloodlight_KWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEDInteriorFloodlight_QTY__c * 67.89</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Interior Floodlight KWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDInteriorFloodlight_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>15.1  *  LEDInteriorFloodlight_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Interior Floodlight(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDInteriorFloodlight_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>LED - Interior Floodlight(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDRecessedLightInsert_KWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEDRecessedLightInsert_QTY__c*67.89</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Recessed Light Insert KWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDRecessedLightInsert_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>38.0  *  LEDRecessedLightInsert_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LED - Recessed Light Insert(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LEDRecessedLightInsert_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>LED - Recessed Light Insert(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Light_Bulb_KWh_Savings_Total__c</fullName>
+        <externalId>false</externalId>
+        <formula>LEDIntNonDimmable60w_KWh_Savings__c+LEDIntDimmable60w_KWh_Savings__c+LEDInteriorFloodlight_KWh_Savings__c+LEDExteriorFloodlight_KWh_Savings__c+LEDCandelabraBulb_KWh_Savings__c+LEDRecessedLightInsert_KWh_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Light Bulb KWh Savings Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Local_CS_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>If(left(Project__r.Customer_Home_Phone__c,1)=&quot;(&quot;,
+
+(CASE(MID(Project__r.Customer_Home_Phone__c,2,3),
+&quot;318&quot;,&quot;(318) 299-6733&quot;,
+&quot;225&quot;,&quot;(225) 224-7223&quot;,
+&quot;985&quot;,&quot;(985) 221-4101&quot;,
+&quot;337&quot;,&quot;(337) 205-0035&quot;,
+&quot;504&quot;,&quot;(504) 264-6602&quot;,
+&quot;(504) 264-6602&quot;)),
+(CASE(left(Project__r.Customer_Home_Phone__c,3),
+&quot;318&quot;,&quot;(318) 299-6733&quot;,
+&quot;225&quot;,&quot;(225) 224-7223&quot;,
+&quot;985&quot;,&quot;(985) 221-4101&quot;,
+&quot;337&quot;,&quot;(337) 205-0035&quot;,
+&quot;504&quot;,&quot;(504) 264-6602&quot;,
+&quot;(504) 264-6602&quot;)))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Local CS Phone</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LowFlowShowerhead_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>35.905  *  LowFlowShowerhead_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Low Flow Showerhead(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LowFlowShowerhead_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Low Flow Showerhead(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MVR_of_70__c</fullName>
+        <externalId>false</externalId>
+        <formula>Blow_MVR__c * 0.70</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>70% of MVR</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MakeupAirInstall_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>59.652  *  MakeupAirInstall_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Make-up Air Install(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MakeupAirInstall_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Make-up Air Install(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NestThermostatInstall_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>400  *  NestThermostatInstall_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Nest Thermostat Install(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NestThermostatInstall_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Nest Thermostat Install(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notes_for_the_Homeowner__c</fullName>
+        <externalId>false</externalId>
+        <label>Notes for the Homeowner</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Bedrooms__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Bedrooms</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Exterior_Lights__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Exterior Lights</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Floors__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Floors</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Interior_Lights__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Interior Lights</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Occupants__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Number of Occupants</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opp_Numeric_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.Opportunity__r.Numeric_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opp Numeric ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OtherMeasures1_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Measures 1 (QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OtherMeasures2_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Measures 2 (QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Measures1_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>OtherMeasures1_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Other Measures 1 (Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Measures2_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>OtherMeasures2_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Other Measures 2 (Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Other Notes</label>
+        <length>500</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Owner_Representative_Present__c</fullName>
+        <externalId>false</externalId>
+        <label>Owner Representative Present</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.Opportunity__r.Account_Phone__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Phone</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProgrammableThermostat_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>111.3 *  ProgrammableThermostat_QTY__c</formula>
+        <label>Programmable Thermostat(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ProgrammableThermostat_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Programmable Thermostat(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>Energy Audit</relationshipLabel>
+        <relationshipName>Energy_Audit</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PropertyOwner__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.Opportunity__r.Account.FirstName &amp; &quot; &quot; &amp; Project__r.Opportunity__r.Account.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Property Owner</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Property</label>
+        <referenceTo>Property__c</referenceTo>
+        <relationshipLabel>Energy Audit</relationshipLabel>
+        <relationshipName>Energy_Audit</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>RRng__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF((A1A__c+A2A__c+A3A__c)=0,0,((A1RV__c*A1A__c)+(A2RV__c * A2A__c)+(A3RV__c*A3A__c))/(A1A__c+A2A__c+A3A__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>R-Value Range</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Recalculate__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Recalculate</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Shielding__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Shielding</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Well Shielded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Normal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Exposed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SmartPowerStripInstall_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>27.675  *  SmartPowerStripInstall_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Smart Power Strip Install(Points)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SmartPowerStripInstall_QTY__c</fullName>
+        <externalId>false</externalId>
+        <label>Smart Power Strip Install(QTY)</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Smart_Power_Strip_kWh_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>49*SmartPowerStripInstall_QTY__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Smart Power Strip kWh Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System1_CFM_Reduction__c</fullName>
+        <externalId>false</externalId>
+        <formula>System1_TestIn_CFM__c  -  System1_TestOut_CFM__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB 1 CFM Reduction</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System1_Reduced__c</fullName>
+        <externalId>false</externalId>
+        <formula>System1_CFM_Reduction__c /  System1_TestIn_CFM__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB 1 % Reduced</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>System1_TestIn_CFM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DB 1 Test-In CFM</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System1_TestOut_CFM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DB 1 Test-Out CFM</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System2_CFM_Reduction__c</fullName>
+        <externalId>false</externalId>
+        <formula>(System2_TestIn_CFM__c -  System2_TestOut_CFM__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB 2 CFM Reduction</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System2_Reduced__c</fullName>
+        <externalId>false</externalId>
+        <formula>System2_CFM_Reduction__c / System2_TestIn_CFM__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB 2 % Reduced</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>System2_TestIn_CFM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DB 2 Test-In CFM</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System2_TestOut_CFM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DB 2 Test-Out CFM</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System3_CFM_Reduction__c</fullName>
+        <externalId>false</externalId>
+        <formula>(System3_TestIn_CFM__c -  System3_TestOut_CFM__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB 3 CFM Reduction</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System3_Reduced__c</fullName>
+        <externalId>false</externalId>
+        <formula>System3_CFM_Reduction__c / System3_TestIn_CFM__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>DB 3 % Reduced</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>System3_TestIn_CFM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DB 3 Test-In CFM</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System3_TestOut_CFM__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>DB 3 Test-Out CFM</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Thermostat_KWh_Savings_Total__c</fullName>
+        <externalId>false</externalId>
+        <formula>(ProgrammableThermostat_QTY__c*1.12)+(NestThermostatInstall_QTY__c*1.12)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Thermostat KWh Savings Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Points__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Air_points__c  
++ DSS1_points__c 
++ DSS2_points__c 
++ DSS3_points__c 
++ Cellulose_NoRebateSf_Points__c  
++ Cellulose_ElectricHeatSF_Points__c  
++ Cellulose_GasHeatSF_Points__c  
++ CelluloseHeatPumpHeatSF_Points__c  
++ FiberglassBattInsulationSF_Points__c  
++ KneewallFiberglassSF_Points__c  
++ KneewallFoamboardSF_Points__c  
++ ProgrammableThermostat_Points__c  
++ NestThermostatInstall_Points__c  
++ LEDIntNonDimmable60w_Points__c  
++ LEDIntDimmable60w_Points__c  
++ LEDInteriorFloodlight_Points__c  
++ LEDExteriorFloodlight_Points__c  
++ LEDCandelabraBulb_Points__c  
++ LEDRecessedLightInsert_Points__c  
++ AirFilters_Points__c  
++ HighLowPipeInstall_Points__c  
++ MakeupAirInstall_Points__c  
++ CapGasWallHeater_Points__c  
++ CODetector_Points__c  
++ DHWPipeInsulation_Points__c  
++ SmartPowerStripInstall_Points__c  
++ LowFlowShowerhead_Points__c  
++ FaucetAerator_Points__c  
++ BathroomVent_Points__c  
++ DryerVentInstall_Points__c  
++ AtticStairTent_Points__c  
++ ESWindowUnitCoolAir_Points__c  
++ ESHeatCoolWindowUnit_Points__c 
++ OtherMeasures2_QTY__c 
++ OtherMeasures1_QTY__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Points</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type_of_House__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Type of House</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Single Family Dwelling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Modular</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Completed__c</fullName>
+        <externalId>false</externalId>
+        <label>Upgrade Completed</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Upgrades Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assessment Only</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Wall_insulation_RValue__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Wall insulation R-Value</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Water_Heater_1_Model__c</fullName>
+        <externalId>false</externalId>
+        <label>Water Heater 1 Model #</label>
+        <length>14</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Windo_Pane_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Window Pane Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Single</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Double</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Low-E</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Window_Type__c</fullName>
+        <description>This is a picklist field.</description>
+        <externalId>false</externalId>
+        <label>Window Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Wood</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Metal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Vinyl</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Window_Units_kWh_Savings_Total__c</fullName>
+        <externalId>false</externalId>
+        <formula>ESWindowUnitCoolAir_KWh_Savings__c+ESHeatCoolWindowUnit_KWh_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Window Units kWh Savings Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Windows_Area__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Windows Area (sq. ft.)</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year_Built__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Year Built</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>insulation_kWh_savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>InsulationSFTotal__c *  Insulation_kWh_Table_Result__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>insulation kWh savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Energy Audit</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Electric_Reduction_Savings_kWh__c</columns>
+        <columns>Gas_ReductionThermsEquivalent__c</columns>
+        <columns>Estimated_total_annual_kWh_savings__c</columns>
+        <columns>Gas_Therms_Reduction__c</columns>
+        <columns>Estimated_Solar_Production__c</columns>
+        <columns>System1_Reduced__c</columns>
+        <columns>Blow_Reduced__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Energy Audit Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Energy Audit</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>LOOP_Plus</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Create Report</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/loop__looplus?sessionId={!$Api.Session_ID}&amp;eid={!Energy_Audit__c.Id}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>SubcontractorCreateReport</fullName>
+        <availability>online</availability>
+        <description>deleteme</description>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Subcontractor Create Report</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/subcontractors/apex/loop__looplus?sessionId={!$Api.Session_ID}&amp;eid={!Energy_Audit__c.Id}</url>
+    </webLinks>
+</CustomObject>

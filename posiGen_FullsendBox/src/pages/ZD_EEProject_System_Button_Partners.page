@@ -1,0 +1,3 @@
+<apex:page standardController="Project__c" extensions="ZD_EEProject_System_Controller">
+    <a target="_blank" href="/subcontractors/apex/ZD_System_Detail?id={!systemId}">Summary Page (Partners)</a>
+</apex:page>

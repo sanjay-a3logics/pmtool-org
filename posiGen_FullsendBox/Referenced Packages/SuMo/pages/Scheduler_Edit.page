@@ -1,0 +1,107 @@
+<apex:page standardcontroller="success__Scheduler__c" extensions="success.SchedulerSettingsController" >
+    <apex:form >
+    <apex:image url="{!$Resource.success__Settings_icon}" width="50" height="50" />
+ 
+    <apex:pageBlock title="{!$Label.scheduler_settings}" mode="maindetail">
+            <apex:pagemessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!cancel}" title="{!$Label.cancel}" value="{!$Label.cancel}"/>
+                <apex:commandButton action="{!saveAndReturnToSchedulerSettings}" title="{!$Label.save}" value="{!$Label.save}"/>
+             </apex:pageBlockButtons>
+             
+            <apex:pageBlockSection title="{!$Label.information}" collapsible="true" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.object}" />
+					<apex:outputPanel styleClass="requiredInput" layout="block" >
+	    				
+	    				<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+						<apex:SelectList value="{!success__Scheduler__c.success__SObject__c}" size="1">
+						      <apex:selectOptions value="{!ObjectNames}"></apex:selectOptions>
+						      <apex:actionSupport event="onchange" action="{!resetConditionControllers}" rerender="output" status="objectSelectAction"/>
+					    </apex:SelectList>
+					    
+					    <apex:actionStatus id="objectSelectAction">
+					    	<apex:facet name="start">
+					    		<apex:image value="/img/loading.gif" />
+					    	</apex:facet>
+					    </apex:actionStatus>
+					    
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection> 
+            
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.days_upper}" />
+					<apex:outputPanel styleClass="requiredInput" layout="block" >
+	    				<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+				           <apex:selectCheckboxes value="{!weekdays}">
+				               <apex:selectOptions value="{!items}"/>
+				           </apex:selectCheckboxes>
+		           </apex:outputPanel>
+		       </apex:pageBlockSectionItem>
+	       
+		   		<apex:pageBlockSectionItem >
+		            <apex:outputLabel value="{!$Label.hour}" />
+		                <apex:selectList id="time" value="{!hours}" size="1">
+		                    <apex:selectOption itemValue="1" itemLabel="01"/> 
+		                    <apex:selectOption itemValue="2" itemLabel="02"/> 
+		                    <apex:selectOption itemValue="3" itemLabel="03"/>
+		                    <apex:selectOption itemValue="4" itemLabel="04"/> 
+		                    <apex:selectOption itemValue="5" itemLabel="05"/> 
+		                    <apex:selectOption itemValue="6" itemLabel="06"/>
+		                    <apex:selectOption itemValue="7" itemLabel="07"/> 
+		                    <apex:selectOption itemValue="8" itemLabel="08"/> 
+		                    <apex:selectOption itemValue="9" itemLabel="09"/>
+		                    <apex:selectOption itemValue="10" itemLabel="10"/> 
+		                    <apex:selectOption itemValue="11" itemLabel="11"/> 
+		                    <apex:selectOption itemValue="12" itemLabel="12"/>
+		                    <apex:selectOption itemValue="13" itemLabel="13"/> 
+		                    <apex:selectOption itemValue="14" itemLabel="14"/> 
+		                    <apex:selectOption itemValue="15" itemLabel="15"/>
+		                    <apex:selectOption itemValue="16" itemLabel="16"/> 
+		                    <apex:selectOption itemValue="17" itemLabel="17"/> 
+		                    <apex:selectOption itemValue="18" itemLabel="18"/>
+		                    <apex:selectOption itemValue="19" itemLabel="19"/> 
+		                    <apex:selectOption itemValue="20" itemLabel="20"/> 
+		                    <apex:selectOption itemValue="21" itemLabel="21"/>
+		                    <apex:selectOption itemValue="22" itemLabel="22"/> 
+		                    <apex:selectOption itemValue="23" itemLabel="23"/> 
+		                    <apex:selectOption itemValue="0" itemLabel="00"/>
+		                </apex:selectList>
+		        </apex:pageBlockSectionItem>
+	                
+		        <apex:pageBlockSectionItem >
+		            <apex:outputLabel value="{!$Label.minutes}" />
+		                <apex:selectList id="time" value="{!minutes}" size="1">
+		                    <apex:selectOption itemValue="0" itemLabel="00"/> 
+		                    <apex:selectOption itemValue="15" itemLabel="15"/> 
+		                    <apex:selectOption itemValue="30" itemLabel="30"/>
+		                    <apex:selectOption itemValue="45" itemLabel="45"/>        
+		                </apex:selectList>
+		        </apex:pageBlockSectionItem>
+	        </apex:pageBlockSection>
+
+		
+        	<apex:outputPanel id="output">    
+	        	<apex:repeat value="{!conditionControllers}" var="cc" id="conditionControllers" >
+	        			<apex:repeat value="{!cc.objectDescribes}" var="o">
+	        				<apex:selectList value="{!o.selectedFieldName}"  size="1">
+								<apex:selectOptions value="{!o.fields}" />
+								<apex:actionSupport event="onchange" action="{!o.handleSelection}" status="actionstatus"/>
+						  	</apex:selectList>
+						</apex:repeat>
+						<apex:actionstatus id="actionstatus" starttext="{!$Label.loading_dots}" />
+						<apex:selectList value="{!cc.condition.operator}"  size="1">
+							<apex:selectOptions value="{!cc.operators}" />
+						</apex:selectList>
+						<apex:inputText value="{!cc.value}" />
+						<apex:CommandButton action="{!cc.reset}" title="{!$Label.reset}" value="{!$Label.reset}" />
+						<br />
+	        	</apex:repeat>
+	        	<apex:CommandButton action="{!addCondition}" title="{!$Label.game_conf_addNewConditionhelptext}" value="{!$Label.game_conf_addNewConditionhelptext}" rendered="{!NOT(ISNULL(success__Scheduler__c.success__SObject__c))}" />
+	       	</apex:outputPanel>
+   
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

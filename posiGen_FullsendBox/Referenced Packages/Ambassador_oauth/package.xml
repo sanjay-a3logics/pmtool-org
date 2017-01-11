@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ambassador_oauth</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <modules>
+        <module>
+            <label>Ambassador_oauth</label>
+            <moduleType>connected</moduleType>
+            <name>Ambassador_oauth</name>
+            <types>
+                <members>Ambassador_oauth_devConfig</members>
+                <name>ConnectivityDevConfigMetadata</name>
+            </types>
+            <types>
+                <members>Ambassador__Ambassador_oauth</members>
+                <name>Module</name>
+            </types>
+            <version>218.0</version>
+        </module>
+    </modules>
+    <namespacePrefix>Ambassador</namespacePrefix>
+    <version>36.0</version>
+</Package>

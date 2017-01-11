@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <articleTypeChannelDisplay>
+        <articleTypeTemplates>
+            <channel>App</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Prm</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Csp</channel>
+            <template>Tab</template>
+        </articleTypeTemplates>
+        <articleTypeTemplates>
+            <channel>Pkb</channel>
+            <template>Toc</template>
+        </articleTypeTemplates>
+    </articleTypeChannelDisplay>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Promotions offered to customers, non-customers and employees as incentives for referring new customers to the company.</description>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <fields>
+        <fullName>Article_Body__c</fullName>
+        <description>Body text of any article.</description>
+        <externalId>false</externalId>
+        <label>Article Body</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Eligible_Parties__c</fullName>
+        <description>Types of referrers eligible for program.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Who is eligible for this program?</inlineHelpText>
+        <label>Eligible Parties</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Employees</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Customers</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <description>End date for a promotional time frame.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When does the promotion end?</inlineHelpText>
+        <label>End Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Payout_Amount__c</fullName>
+        <description>Cash value paid out.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>How much is the payout?</inlineHelpText>
+        <label>Payout Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payout_Type__c</fullName>
+        <description>Promotional payout type.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What type of payout is received?</inlineHelpText>
+        <label>Payout Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>American Express Giftcard</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Credits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Program_Name__c</fullName>
+        <description>Name of promotional program.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the name of this promotional program?</inlineHelpText>
+        <label>Program Name</label>
+        <length>255</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Program_Type__c</fullName>
+        <description>Promotional program type.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>What type of promotional program is it?</inlineHelpText>
+        <label>Program Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Credits</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Single Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solar Party</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <description>Start date for an effective period time frame.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>When does this promotion start?</inlineHelpText>
+        <label>Start Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <label>Referral Promotions</label>
+    <pluralLabel>Referral Promotions</pluralLabel>
+</CustomObject>

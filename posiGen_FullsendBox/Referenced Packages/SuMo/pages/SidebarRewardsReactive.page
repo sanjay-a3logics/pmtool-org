@@ -1,0 +1,9 @@
+<apex:page standardstylesheets="false" showheader="false" cache="true">
+	<c:RewardsReactiveComponent maxRewards="{!$CurrentPage.parameters.maxRewards}" 
+		badgeWidth="{!$CurrentPage.parameters.badgeWidth}" 
+		badgeHeight="{!$CurrentPage.parameters.badgeHeight}" 
+		iconWidth="{!$CurrentPage.parameters.iconWidth}" 
+		iconHeight="{!$CurrentPage.parameters.iconHeight}" 
+		marginSize="{!$CurrentPage.parameters.marginSize}" 
+		profileUserId="{!$CurrentPage.parameters.profileUserId}"/>
+</apex:page>

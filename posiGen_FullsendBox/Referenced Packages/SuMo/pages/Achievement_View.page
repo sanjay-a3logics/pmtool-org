@@ -1,0 +1,194 @@
+<apex:page standardController="success__Achievement__c" extensions="success.AchievementController,success.AchievementWrapper">
+     <!-- vendor js -->
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/jquery/jquery-2.1.3.min.js')}" /> 
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/moment/moment.min.js')}" /> 
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap/bootstrap.min.js')}" /> 
+   
+   
+        <apex:form >
+        <apex:sectionHeader title="{!$ObjectType.success__Achievement__c.Label} {!$Label.view}" subtitle="{!success__Achievement__c.Name}"/>
+           <apex:pageBlock title="{!$ObjectType.success__Achievement__c.Label} {!$Label.view}"  mode="maindetail">
+            <apex:pageMessages />
+                
+                <!--  Buttons -->
+                <apex:pageBlockButtons >
+                    <apex:commandButton title="{!$Label.edit}" value="{!$Label.edit}" action="{!edit}" rendered="{!$ObjectType.success__Achievement__c.updateable && isObjectDeleted == false}"/>
+                    <apex:commandButton title="{!$Label.delete}" value="{!$Label.delete}" action="{!deleteRecord}" rendered="{!$ObjectType.success__Achievement__c.deletable}"/>
+                    <apex:commandButton title="{!$Label.clone}" value="{!$Label.clone}" action="{!cloneWithAchievementCriteria}" rendered="{!$ObjectType.success__Achievement__c.createable && isObjectDeleted == false && RecordType.DeveloperName != 'Scheduled'}"/>
+                    <apex:commandButton action="{!URLFOR($Action.Achievement__c.Share,Achievement__c.Id)}" value="{!$Label.share}"/>
+                    <apex:commandButton rendered="{!AND(RecordType.DeveloperName == 'Scheduled', NOT(isScheduled))}" action="{!Schedule}" value="{!$Label.schedule}"/>
+                     <apex:commandButton rendered="{!AND(RecordType.DeveloperName == 'Scheduled', isScheduled)}" action="{!Unschedule}" value="{!$Label.unschedule}"/>
+                    
+                </apex:pageBlockButtons>
+                
+                <!-- Information Section -->
+                <apex:pageBlockSection columns="2" title="{!$Label.information}" collapsible="true">
+                    <apex:outputField value="{!success__Achievement__c.name}" /> 
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    <apex:outputField value="{!success__Achievement__c.success__Description__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    <apex:outputField value="{!success__Achievement__c.success__Functional_Area__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    <apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__StandardInformationFieldSet}" var="infofield"> 
+                        <apex:outputField value="{!success__Achievement__c[infofield]}" rendered="{!OR(IsAchieveEdition, NOT(CONTAINS(infofield, 'Competition_Only')))}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection columns="1" title="{!$Label.Evaluation_Criteria}" collapsible="true">
+                         <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Object__c.accessible}">
+                        <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Object__c.Label}" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Object__c.accessible}"/>
+                        <apex:outputText value="{!ObjectLabel}" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Object__c.accessible}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Recipient__c.accessible}">
+                        <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Recipient__c.Label}" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Recipient__c.accessible}"/>
+                        <apex:outputText value="{!RecipientLabel}" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Recipient__c.accessible}" />
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Action__c.accessible}">
+                        <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Action__c.Label}" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Action__c.accessible}"/>
+                        <apex:outputText value="{!actionLabel}" rendered="{!$ObjectType.success__Achievement__c.Fields.success__Action__c.accessible}"/>
+                    </apex:pageBlockSectionItem>
+                    
+                
+                </apex:pageBlockSection>
+
+               
+           
+           
+            
+                  <!-- Repetition Reward Section -->
+                <apex:pageBlockSection columns="2" title="{!$Label.repeated_reward}" collapsible="true" rendered="{!success__Achievement__c.RecordType.DeveloperName == 'Recurring'}">
+                    <apex:outputField value="{!success__Achievement__c.success__Experience_Repeat_Formula__c}" />
+                    <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    <apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__RepetitionRewardFieldSet}" var="field"> 
+                        <apex:outputField value="{!success__Achievement__c[field]}" rendered="{!OR(IsAchieveEdition, NOT(OR(CONTAINS(field, 'Automatically'),CONTAINS(field, 'Level'))))}" />
+                        <apex:pageBlockSectionItem rendered="{!OR(IsAchieveEdition, NOT(OR(CONTAINS(field, 'Automatically'),CONTAINS(field, 'Level'))))}"><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    </apex:repeat>
+                </apex:pageBlockSection>
+           
+           
+                
+                   <!-- Reward Section -->
+                <apex:pageBlockSection columns="2" title="{!$ObjectType.success__Reward__c.Label}" collapsible="true">
+                    <apex:outputField value="{!success__Achievement__c.success__Experience_Formula__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    <apex:outputField value="{!success__Achievement__c.success__Reward_Message__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    <apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__StandardRewardFieldSet}" var="field"> 
+                        <apex:outputField value="{!success__Achievement__c[field]}" rendered="{!OR(IsAchieveEdition, NOT(OR(CONTAINS(field, 'Automatically'),CONTAINS(field, 'Level'))))}" />
+                    </apex:repeat>
+                        <apex:pageBlockSectionItem rendered="{!IsAchieveEdition}"><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    <c:IconViewerComponent iconsize="0.75" iconurl="{!success__Achievement__c.success__Badge_URL__c}" iconcolor="{!success__Achievement__c.Badge_Type__r.success__Background_Colour__c}"/>
+                </apex:pageBlockSection>
+
+                    
+
+
+
+                <!-- Criteria Section -->
+                  <apex:pageBlockSection columns="2" title="{!$Label.Evaluation_Restrictions}" collapsible="false" rendered="{!NOT(RecordType.DeveloperName == 'Scheduled')}">
+                      
+                                            
+                    <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.accessible}"
+                         helpText="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.InlineHelpText}">
+                        <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.Label}" /> 
+                        <apex:outputText value="{!aggregateField}"  />
+                     </apex:pageBlockSectionItem>   
+
+
+                        <apex:outputField value="{!success__Achievement__c.success__Maximum_number_of_rewards__c}" />
+                        <apex:outputField value="{!success__Achievement__c.success__Number_of_occurrences__c}" />
+                    
+
+                       <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.accessible}"
+                                                    helpText="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.InlineHelpText}">   
+                          <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.Label}" />  
+                          <apex:outputPanel >
+                              <apex:outputField value="{!success__Achievement__c.success__Minimum_hours_between_actions__c}" style="width: 30px" />
+                              <apex:outputText value=" {!success__Achievement__c.success__Minimum_time_unit__c}" />
+                          </apex:outputPanel>
+                      </apex:pageBlockSectionItem>
+
+                       <apex:outputField value="{!success__Achievement__c.success__Repetition_Limit__c}" />
+
+                       <apex:pageBlockSectionItem />
+
+
+                      <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.accessible}"
+                                                    helpText="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.InlineHelpText}">   
+                          <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.Label}" />  
+                          <apex:outputPanel >
+                              <apex:outputField value="{!success__Achievement__c.success__Time_limit_in_days__c}" style="width: 30px" />
+                              <apex:outputText value=" {!success__Achievement__c.success__Time_Limit_Unit__c}" />
+                          </apex:outputPanel>
+                      </apex:pageBlockSectionItem>
+
+
+
+                    
+
+
+                      
+                  </apex:pageBlockSection>
+                 <!-- Scheduled Section -->
+                <apex:pageBlockSection columns="2" title="{!$Label.scheduler_criteria}" collapsible="false" rendered="{!RecordType.DeveloperName == 'Scheduled'}">
+                  <apex:outputField value="{!success__Achievement__c.success__Query__c}" />
+                  <apex:outputField value="{!success__Achievement__c.success__CRON_Expression__c}" />
+                   <apex:outputField value="{!success__Achievement__c.success__LastRunDateTime__c}" />
+
+
+                  <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Next Execution"/>
+                        <apex:outputText value="{!nextRunTime}" />
+                  </apex:pageBlockSectionItem>
+                 
+              
+              </apex:pageBlockSection>
+                
+                   <!-- System Information Section -->
+                <apex:pageBlockSection columns="2" title="{!$Label.sysinfo}" collapsible="true">
+                    <apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__SystemInformationFieldSet}" var="field"> 
+
+                        <apex:outputField value="{!success__Achievement__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                
+                
+
+            </apex:pageBlock>
+            <apex:pageBlock title="{!$ObjectType.success__Achievement_Criteria__c.LabelPlural}" rendered="{!isObjectDeleted == false}">
+                 <apex:pageBlockTable value="{!achievementCriteria.wrappers}"  var="ac">
+                    <apex:column headerValue="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field__c.Label}" value="{!ac.FieldLabel}" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field__c.accessible}"/>
+                    <apex:column headerValue="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Condition__c.Label}" value="{!ac.record.success__Condition__c}" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Condition__c.accessible}"/>
+                    <apex:column headerValue="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.Label}" value="{!ac.FieldDisplayValue}" rendered="{!$ObjectType.success__Achievement_Criteria__c.Fields.success__Field_Value__c.accessible}" />
+                </apex:pageBlockTable>   
+               
+                
+            </apex:pageBlock> 
+        </apex:form>
+
+        <apex:relatedList list="Team_Achievements__r" />
+
+        <apex:outputPanel rendered="false">
+            <apex:outputText value="{!success__Achievement__c.success__Object__c}" />
+            <apex:outputText value="{!success__Achievement__c.success__Recipient__c}" />
+            <apex:outputText value="{!success__Achievement__c.success__Action__c}" />
+            <apex:outputText value="{!success__Achievement__c.success__Aggregate_Field__c}" />
+        </apex:outputPanel>
+         <apex:relatedList list="rewards__r" rendered="{!renderRewardsRelatedList}" />
+
+
+        <script>
+    $(document).ready(function() {
+        resolveCRON();
+    });
+    function resolveCRON() {
+        $("div.readableCRON").text(prettyCron.toString("{!JSENCODE(Achievement__c.Cron_expression__c)}"));
+           
+    }
+
+  
+    </script>
+
+</apex:page>

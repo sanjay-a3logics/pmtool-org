@@ -1,0 +1,314 @@
+<apex:page controller="Ambassador.SetupController" action="{!checkSettings}" showHeader="false" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'styles.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'app/scripts/lib/highlightjs/github.min.css')}"/>
+    <body ng-app="GaApp" ng-controller="SetupCtrl">
+        <apex:outputPanel rendered="{!!isAuthenticated && !expiredToken}">
+          <div class="container" style="margin-left: 0; margin-right: 0;">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="highlight" style="margin-bottom: 40px">Authenticate</h1>
+                    <div style="margin-top: 32px; margin-right: 5px">           
+                      <ga-button color="primary" size="md" loading="loginLoading" ng-click="loginClick()">Login</ga-button> OR
+                    </div>
+                    <div style="width: 217px; margin-top: 20px">   
+                        <p style="text-align: center;">Don't have an account?</p> 
+                        <ga-button color="primary" size="md" loading="signupLoading" ng-click="signupClick()">Sign Up</ga-button>
+                        <ga-button color="gray" size="md" loading="demoLoading" ng-click="demoClick()">Schedule a Demo</ga-button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <h3 style="margin-top: 50px">Questions? We are happy to help!</h3>
+                    <p>Send us an email at <a href="mailto:salesforce@mailchimp.com">salesforce@getambassador.com</a><br />and we'll be sure to respond shortly.</p>
+                </div>
+                <div class="col-sm-6">
+                   <h1 class="highlight">Integration Resources</h1>
+                   <a href="https://s3.amazonaws.com/ambassador-resources/Guide_Salesforce%2BIntegration%2BGuide.pdf" target="_blank">Salesforce Integration Guide</a><br />
+                   <a href="https://s3.amazonaws.com/ambassador-resources/Guide_Salesforce%2BIntegration%2BGuide.pdf" target="_blank">
+                       <img src="{!URLFOR($Resource.Images, 'guide/integration_guide.png')}" alt="Salesforce Integration Guide" class="img-rounded" height="135" widht="200" />
+                   </a>
+                </div>
+            </div>
+          </div>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!isAuthenticated && expiredToken}">
+          <div class="container" style="margin-left: 0; margin-right: 0;">
+          	<div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-danger" role="alert">Refresh token has expired due to revocation or changes to its policy. Ambassador app needs to be re-authenticated. Before doing this make sure that refresh token policy is set to: "Refresh token is valid until revoked". You can check this by going to Setup -> Manage Apps -> Connected Apps -> Ambassador. If settings are correct, click "Log in to Ambassador" below.</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="highlight" style="margin-bottom: 25px">Re-Authenticate</h1>
+                    <div style="margin-top: 0px; margin-right: 5px">           
+                      <ga-button color="primary" size="md" loading="loginLoading" ng-click="reauthClick()">Log in to Ambassador</ga-button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <h3 style="margin-top: 30px">Questions? We are happy to help!</h3>
+                    <p>Send us an email at <a href="mailto:salesforce@mailchimp.com">salesforce@getambassador.com</a><br />and we'll be sure to respond shortly.</p>
+                </div>
+                <div class="col-sm-6">
+                   <h1 class="highlight">Integration Resources</h1>
+                   <a href="https://s3.amazonaws.com/ambassador-resources/Guide_Salesforce%2BIntegration%2BGuide.pdf" target="_blank">Salesforce Integration Guide</a><br />
+                   <a href="https://s3.amazonaws.com/ambassador-resources/Guide_Salesforce%2BIntegration%2BGuide.pdf" target="_blank">
+                       <img src="{!URLFOR($Resource.Images, 'guide/integration_guide.png')}" alt="Salesforce Integration Guide" class="img-rounded" height="135" widht="200" />
+                   </a>
+                </div>
+            </div>
+          </div>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!isAuthenticated && !expiredToken}">
+        <div class="container" style="margin-left: 0; margin-right: 0;">
+            <alert-system name="setupAlerts" type="form"></alert-system>
+            <apex:outputPanel rendered="{!ambAccountExceptionOccured}">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-info" role="alert">We could not create Ambassador Account. You need to create it manually or choose existing one. Get ID of that Account and go to Setup -> Develop -> Custom Settings -> Ambassador Settings (click Manage) -> Edit. Paste Account ID to "Ambassador Account ID" field and click "Save". Go back here and choose to create ambassadors as Contacts again.</div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+            <h1 class="highlight">Ambassador Configuration for Salesforce</h1>
+            <p>Welcome to the setup page for the Ambassador Salesforce app! Follow these steps to get your Ambassador account connected to Salesforce.</p>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <apex:form >
+                    <h1 >(1) Ambassador Creation (Choose 1)</h1>
+                    <label>Create Ambassadors As:</label>
+                    <apex:selectRadio layout="pageDirection" value="{!ambassadorAs}" styleClass="ga-radio">
+                        <apex:selectOptions value="{!ambassadorAsOptions}"></apex:selectOptions>
+                        <apex:actionSupport event="onchange" rerender="ContactOptionsPanel,ContactRecordTypesPanel"/>
+                    </apex:selectRadio>
+          <apex:outputPanel id="ContactOptionsPanel">
+              <apex:outputPanel rendered="{!ambassadorAs == 'Contact'}">
+                    <label>Accounts for Ambassadors:</label>
+                    <apex:selectRadio layout="pageDirection" value="{!contactOption}" styleClass="ga-radio" style="margin-top: 20px;">
+                        <apex:selectOptions value="{!contactOptions}"></apex:selectOptions>
+                    </apex:selectRadio>
+             </apex:outputPanel>
+          </apex:outputPanel>
+          <apex:outputPanel id="ContactRecordTypesPanel">
+              <apex:outputPanel rendered="{!ambassadorAs == 'Contact' && contactRecordTypes.size > 0}">
+                    <label style="margin-top: 15px; margin-right: 10px">Select Contact Record Type:</label>
+                    <apex:SelectList value="{!contactRecordType}" size="1">
+                        <apex:selectOptions value="{!contactRecordTypes}"></apex:selectOptions>
+                    </apex:SelectList>
+             </apex:outputPanel>
+          </apex:outputPanel>
+          
+          <h1 class="tooltip-popover" id="lead-mapping">(2) Lead Field Mapping <i class="icon-question-mark" tooltip-trigger="mouseenter" tooltip-placement="bottom" tooltip-html-unsafe="You may choose to map fields from your lead form into Ambassador.<br />There are two types of labels:<br /><br /><strong>Event Data</strong> (for event specific info, such as plan type, coupon code or date stamp) and<br /><br /><strong>Custom Labels</strong> (for ambassador specific information, such as URL, zip code or eye color)."></i></h1>
+          <div >
+                              <p>Map these fields from Ambassador variables (on the left) to the Salesforce Lead Record (in dropdown)</p>
+                          <div >
+                              <label style="margin-left: 4px; margin-right: 30px">1. Event Data 1:</label>
+                              <apex:SelectList value="{!leadEventData1}" size="1" styleClass="dropdown dropdown-select dropdown-form">
+                                  <apex:selectOptions value="{!leadFieldsOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                              <br />
+                              <label style="margin-right: 26px">2. Event Data 2:</label>
+                              <apex:SelectList value="{!leadEventData2}" size="1">
+                                  <apex:selectOptions value="{!leadFieldsOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                              <br />
+                              <label style="margin-right: 26px">3. Event Data 3:</label>
+                              <apex:SelectList value="{!leadEventData3}" size="1">
+                                  <apex:selectOptions value="{!leadFieldsOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                              <br />
+                              <label style="margin-right: 10px">4. Custom Label 1: </label>
+                              <apex:SelectList value="{!leadFieldLabel1}" size="1">
+                                  <apex:selectOptions value="{!leadFieldsOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                              <br />
+                              <label style="margin-right: 7px">5. Custom Label 2: </label>
+                              <apex:SelectList value="{!leadFieldLabel2}" size="1">
+                                  <apex:selectOptions value="{!leadFieldsOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                              <br />
+                              <label style="margin-right: 7px">6. Custom Label 3: </label>
+                              <apex:SelectList value="{!leadFieldLabel3}" size="1">
+                                  <apex:selectOptions value="{!leadFieldsOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                              <br />
+                              <label style="margin-right: 17px">7. Transaction ID: </label>
+                              <apex:SelectList value="{!leadTransactionId}" size="1">
+                                  <apex:selectOptions value="{!leadFieldsOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                          </div>
+                          </div>
+          
+          <h1>(3) Automated Campaign Options</h1>
+          <p class="text-justify">In order to connect referral data in Salesforce to Ambassador, you'll need to configure one (or more) of your campaigns.</p>
+          <p><ga-button color="primary" size="sm" loading="campaignTabLoading" ng-click="campaignTabClick()">Click here</ga-button></p>
+          <p class="text-justify">If you do not want a campaign to be mapped to Salesforce, be sure to uncheck the commission boxes and chose "Don't create commission" and "Don't deny commission" in the Opportunity Stage dropdowns.</p>
+
+          <br /><br />
+          <apex:commandButton value="Save Settings" action="{!saveSettings}" styleClass="btn btn-primary btn-lg"/>
+                    </apex:form>
+                </div>
+                <div class="col-sm-6">
+                
+          <h1>(4) Web-to-Lead Tracker</h1>
+          <p class="text-justify">Copy this code snippet and paste it on the page with your <b>existing</b> Web-to-Lead form. This snippet simply tracks activity and should not replace the form.</p>
+          <p class="text-justify">*You must sure to use your own form id for the tracker to work properly.</p>
+          <p class="text-justify">*Salesforce does not add the ID attribute by default when created in the Salesforce UI. Please create one, add it into your form code and in the tracker code below.</p>
+<hljs class="code">
+<script type="text/javascript" src="https://mbsy.co/embed/v2/getcookie/{!username}"></script>
+<script type="text/javascript">
+  var mbsy_web_to_lead_form_id = 'web-to-lead-form'; // Use your own form ID.
+        
+  window.onload = function() {
+    if (typeof mbsy_short_code != 'undefined') {
+      mbsy_form = document.getElementById(mbsy_web_to_lead_form_id);
+      var mbsy_shortcode_input = document.createElement('input');
+      mbsy_shortcode_input.type = 'hidden';
+      mbsy_shortcode_input.name = 'Ambassador__Short_Code__c';
+      mbsy_shortcode_input.id = 'Ambassador__Short_Code__c';
+      mbsy_shortcode_input.value = mbsy_short_code;
+      if (mbsy_form) {
+          mbsy_form.appendChild(mbsy_shortcode_input);
+      }
+    }
+  }
+</script>
+</hljs>
+          <h1>(5) Initial Ambassador Import</h1>
+          <p class="text-justify">Please follow these directions before starting the Initial Ambassador Import into Salesforce.</p>
+          <ul class="no-margin">
+              <li>Click the import button will add all existing Ambassadors into your Salesforce account</li>
+              <li>Ambassadors will be sync'd automatically after this initial import.</li>
+          </ul>
+          
+          <apex:form >
+          <apex:commandButton disabled="{!!importAmbassadors}" value="Initial Ambassador Import" action="{!importAmbassadors}" styleClass="btn btn-primary btn-sm"/>
+          </apex:form>
+          
+                </div>
+            </div>
+          
+      
+    <style type="text/css">
+        label { font-weight: 500 }
+        ul.no-margin { padding-left: 15px }
+        ul.no-margin li { margin: 0 }
+        table.ga-radio label { margin-left: 7px;}
+        table.ga-radio input { margin-left: 1px;}
+        .icon-question-mark:before { vertical-align: middle }
+        .tooltip-popover .tooltip-inner { 
+            text-align: left;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ccc;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            font-family: proxima_nova_rgregular;
+            color: #555;
+        }
+        .tooltip-popover .tooltip.in { opacity: 1 }
+        .tooltip-popover .tooltip-arrow { 
+            border-color: transparent; 
+            border-bottom-color: #fff !important;
+            border-bottom-color: #999 !important;
+            border-bottom-color: rgba(0,0,0,.25) !important;
+        }
+        #lead-mapping .tooltip-inner { max-width: 209px; width: 209px }
+        #create-ambassador-as { position: relative; top: -25px; left: 213px }
+        #create-ambassador-as i { cursor: pointer }
+        #create-ambassador-as .tooltip-inner { max-width: 385px; width: 385px }
+    </style>
+    
+      </div>
+      <!-- End Default Content REMOVE THIS -->
+      </apex:outputPanel>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/jquery/dist/jquery.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular/angular.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/json3/lib/json3.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-resource/angular-resource.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-cookies/angular-cookies.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-sanitize/angular-sanitize.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-touch/angular-touch.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-route/angular-route.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/lodash/dist/lodash.compat.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/restangular/dist/restangular.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-scroll/angular-scroll.min.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/spin.js/spin.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-spinner/angular-spinner.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/chartjs/Chart.min.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angles/angles.js')}"></script>
+        
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'app/scripts/lib/highlightjs/highlight.min.js')}"/>
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'app/scripts/lib/highlightjs/angular-highlight.js')}"/>
+        
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'ambassador/scripts/ng-ambassador.tables.js')}"/>
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'ambassador/scripts/ng-ambassador.js')}"/>
+        
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'app/scripts/constants.js')}"/>
+        <script type="text/javascript">
+        'use strict';
+        angular.module('GaApp', ['ngRoute', 'duScroll', 'ambassador.constants', 'ngAmbassador', 'ui.bootstrap', 'hljs'])
+          .controller('SetupCtrl', function($scope, $timeout, $alert, $modal) {
+            $scope.loginLoading = false;
+            $scope.signupLoading = false;
+            $scope.demoLoading = false;
+            $scope.campaignTabLoading = false;
+            $scope.importLoading = false;
+            
+            $scope.loginClick = function() {
+                $scope.loginLoading = true;
+                alert('You will be temporarily redirected to Ambassador to authenticate and will be returned to salesforce.com upon completion.');
+                window.parent.location = "https://{!IF(isSandbox, 'test', 'login')}.salesforce.com/services/oauth2/authorize?client_id=3MVG9rFJvQRVOvk5S1oo0wKqWP51.b2ohX07aj4SQW.ZTNVaQ1Do6wsOPQSzeSqABIfTS2pOI0iqHsdPhy7YW&redirect_uri=https%3A%2F%2Fapi.getambassador.com%2Fsalesforce%2Foauth2%2Fauthorize%2F&response_type=code&state={!IF(isSandbox, 'sandbox,false', 'production,false')}";
+            };
+            
+            $scope.reauthClick = function() {
+                $scope.loginLoading = true;
+                alert('You will be temporarily redirected to Ambassador to re-authenticate and will be returned to salesforce.com upon completion.');
+                window.parent.location = "https://{!IF(isSandbox, 'test', 'login')}.salesforce.com/services/oauth2/authorize?client_id=3MVG9rFJvQRVOvk5S1oo0wKqWP51.b2ohX07aj4SQW.ZTNVaQ1Do6wsOPQSzeSqABIfTS2pOI0iqHsdPhy7YW&redirect_uri=https%3A%2F%2Fapi.getambassador.com%2Fsalesforce%2Foauth2%2Fauthorize%2F&response_type=code&state={!IF(isSandbox, 'sandbox,true', 'production,true')}";
+            };
+            
+            $scope.signupClick = function() {
+                $scope.signupLoading = true;
+                window.parent.location = "https://getambassador.com/signup/";
+            };
+            
+            $scope.demoClick = function() {
+                $scope.demoLoading = true;
+                window.parent.location = "https://getambassador.com/schedule-a-demo/";
+            };
+            
+             $scope.campaignTabClick = function() {
+                $scope.campaignTabLoading = true;
+                window.parent.location = "{!URLFOR($Action.Ambassador__Ambassador_Campaign__c.Tab, $ObjectType.Ambassador__Ambassador_Campaign__c)}";
+            };
+            
+            if ({!IF(message != '', 1, 0)}) {
+                $alert.add({
+                  type: 'form',
+                  name: 'setupAlerts',
+                  style: 'success',
+                  text: '{!message}',
+                  timer: false
+                });
+            }
+          })
+          .controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+              $scope.cancel = function () {
+                $modalInstance.dismiss('cancel');
+              };
+          });
+    </script>
+  </body>
+</apex:page>

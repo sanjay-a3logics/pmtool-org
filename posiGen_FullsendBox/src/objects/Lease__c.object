@@ -1,0 +1,2668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>InDevelopment</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account_Receivables_Outstanding__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.A_R_Outstanding__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Account Receivables Outstanding</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.IsPersonAccount</field>
+                <operation>equals</operation>
+                <value>True</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Leases</relationshipLabel>
+        <relationshipName>Leases</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Activate_on_FA_On_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Activate on FA On Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Alpha_Code__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Alpha_Code__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Alpha Code</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Amount_Past_Due_121_150_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Past_Due121_150__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Past Due 121-150 Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Past_Due_151_180_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Past_Due151_180__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Past Due 151-180 Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Past_Due_1_30_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Past_Due1_30__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Past Due 1-30 Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Past_Due_31_60_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Past_Due31_60__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Past Due 31-60 Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Past_Due_61_90_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Past_Due61_90__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Past Due 61-90 Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Past_Due_91_120_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Past_Due91_120__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Past Due 91-120 Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Amount_Past_Due_Over_180_Days__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Past_Due_Over180__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Amount Past Due Over 180 Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Applicant_Email_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Applicant E-mail Address</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bank_Account_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Bank Account Number</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bank_Routing_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Bank Routing Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Contact_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Bill To Contact Name</label>
+        <length>150</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Contact_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Bill To Contact Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Bill_to_Contact_E_mail__c</fullName>
+        <externalId>false</externalId>
+        <label>Bill to Contact E-mail</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billed_AR__c</fullName>
+        <externalId>false</externalId>
+        <formula>Original_Loan_Amount_F__c -  Unbilled_Lease_Balance_F__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billed AR</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Billing_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing City</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing State</label>
+        <length>2</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Street__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing Street</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Zip__c</fullName>
+        <externalId>false</externalId>
+        <label>Billing Zip</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Boarding_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Boarding Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Research Before Boarding</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Need to Board</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Boarded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do Not Board: Duplicate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do Not Board: Not Ready</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Research: May Be Duplicate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Research: Not in FA only SF Lease</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Upload to LD (based on CAO File)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do Not Board: Deferred</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Do Not Board: Write-Off</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Book_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Book_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Book Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Booking_Date__c</fullName>
+        <description>Date uploaded to LMS.</description>
+        <externalId>false</externalId>
+        <label>Booking Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Borrower_Business_Phone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Borrower Business Phone Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Borrower_Phone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Borrower Phone Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>CAO_Monthly_Payment__c</fullName>
+        <externalId>false</externalId>
+        <label>CAO Monthly Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CAO_Original_Loan_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>CAO Original Loan Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CAO_Principal_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>CAO Principal Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CAO_vs_SF_Monthly_Payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>CAO_Monthly_Payment__c -  Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CAO vs SF Monthly Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CAO_vs_SF_Original_Loan_Amount__c</fullName>
+        <externalId>false</externalId>
+        <formula>CAO_Original_Loan_Amount__c -  Original_Loan_Amount_F__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CAO vs SF Original Loan Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>CAO_vs_SF_Principal_Balance__c</fullName>
+        <externalId>false</externalId>
+        <formula>CAO_Principal_Balance__c -  Principal_Balance_0531__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CAO vs SF Principal Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cash_Recd_0531__c</fullName>
+        <externalId>false</externalId>
+        <label>Cash Recd 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Cash_vs_Lease_Balance__c</fullName>
+        <externalId>false</externalId>
+        <formula>Paid_plus_Past_Due__c -  Billed_AR__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Cash vs Lease Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Co_Borrower_Business_Phone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Co Borrower Business Phone Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Co_Borrower_Home_Phone_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Co Borrower Home Phone Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Co_Lessee_Address_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Co Lessee Address City</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Co_Lessee_Address_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Co Lessee Address State</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Co_Lessee_Address_Street__c</fullName>
+        <externalId>false</externalId>
+        <label>Co Lessee Address Street</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Co_Lessee_Address_Zip__c</fullName>
+        <externalId>false</externalId>
+        <label>Co Lessee Address Zip</label>
+        <length>5</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Co_Lessee_Date_of_Birth__c</fullName>
+        <externalId>false</externalId>
+        <label>Co Lessee Date of Birth</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Co_Lessee_SSN__c</fullName>
+        <externalId>false</externalId>
+        <label>Co Lessee SSN</label>
+        <length>11</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Commencement_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Commencement Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Cost_per_Watt_Escalation_Percentage__c</fullName>
+        <externalId>false</externalId>
+        <label>Cost per Watt Escalation Percentage</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Count_of_Leases_on_Related_Opp__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Number_of_Leases__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Count of Leases on Related Opp</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date_of_last_payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Next_Pay_Due_Dte__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Date of last payment</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Days_Delinquent__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Days_Delinquent__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Days Delinquent</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_Past_Due_0531__c</fullName>
+        <externalId>false</externalId>
+        <label>Days Past Due 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <label>Past Due Days</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deferment_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Deferment Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Deferral_End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Deferral End Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Deferral_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Deferral Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Due_Date_of_Last_Fully_Paid_Invoice__c</fullName>
+        <externalId>false</externalId>
+        <label>Due Date of Last Fully Paid Invoice</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Due_Day__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Due_Day__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Due Day</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EE_Monthly_Payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Has_Energy_Efficiency__c = &apos;Y&apos;, 10, 0)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Monthly Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Electricity_Provider__c</fullName>
+        <externalId>false</externalId>
+        <label>Electricity Provider</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Energy_Efficiency_Outstanding__c</fullName>
+        <externalId>false</externalId>
+        <formula>Principal_Outstanding__c *  EE_Monthly_Payment__c  / Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Energy Efficiency Outstanding</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Equipment__c</fullName>
+        <externalId>false</externalId>
+        <label>Equipment</label>
+        <picklist>
+            <picklistValues>
+                <fullName>4 kw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4.5 kw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>4.7 kw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5 kw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>5.6 kw</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Estimated_PBI_Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated PBI Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>5</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Estimated_Rebate_Amount_in_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Estimated Rebate Amount in Dollars</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Expiration_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Expiration_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Expiration Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>FA_Original_Loan_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>FA Original Loan Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>FA_Payments_Made__c</fullName>
+        <externalId>false</externalId>
+        <label>FA Payments Made</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FA_Payments_Remaining__c</fullName>
+        <externalId>false</externalId>
+        <label>FA Payments Remaining</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FA_Principal_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>FA Principal Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Fair_Market_Value__c</fullName>
+        <externalId>false</externalId>
+        <formula>Gross_System_Cost_in_Dollars__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Fair Market Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fees_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>Fees Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Fees_Outstanding__c</fullName>
+        <externalId>false</externalId>
+        <formula>Fees_Balance__c +  Late_Charges_Balance__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Fees Outstanding</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Finance_Option_Code__c</fullName>
+        <externalId>false</externalId>
+        <label>Finance Option Code</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Finance_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Finance Type</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Financing_Bill_Payment_Option__c</fullName>
+        <externalId>false</externalId>
+        <label>Financing Bill Payment Option</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>First_Payment_Due_Date2__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.X1st_Pmt_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>First Payment Due Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>First_Payment_Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>First Payment Due Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Fund__c</fullName>
+        <externalId>false</externalId>
+        <label>Fund</label>
+        <picklist>
+            <picklistValues>
+                <fullName>RENEWABLE ENERGY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RENEWABLE ENERGY II</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RENEWABLE ENERGY - US BNK</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Funding_Tranche__c</fullName>
+        <externalId>false</externalId>
+        <label>Funding Tranche</label>
+        <picklist>
+            <picklistValues>
+                <fullName>ITC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NOS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV1</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV2</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV3</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UPT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Gross_System_Cost_in_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Gross System Cost in Dollars</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Has_Energy_Efficiency__c</fullName>
+        <externalId>false</externalId>
+        <label>Has Energy Efficiency?</label>
+        <length>3</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initial_Payment_in_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Initial Payment in Dollars</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Installation_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation City</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Installation_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation ID</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Installation_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation State</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Installation_Street_Address__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation Street Address</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Installation_Zip__c</fullName>
+        <externalId>false</externalId>
+        <label>Installation Zip</label>
+        <length>10</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Interconnection_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Interconnection Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Inverter_Make_Model__c</fullName>
+        <externalId>false</externalId>
+        <label>Inverter Make &amp; Model</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Inverter_Serial_Number_from_System__c</fullName>
+        <externalId>false</externalId>
+        <label>Inverter Serial Number from System</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Joint_Applicant_First_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Joint Applicant First Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Joint_Applicant_Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Joint Applicant Last Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Joint_Applicant_Middle_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Joint Applicant Middle Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LD_Lease__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>LD Lease</label>
+        <referenceTo>LD_Lease__c</referenceTo>
+        <relationshipLabel>Leases</relationshipLabel>
+        <relationshipName>Leases</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LMS_Account_Number__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>LMS Account Number</label>
+        <length>18</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Last_Activity_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Activity Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Late_Charges_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>Late Charges Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Lease Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Term__c</fullName>
+        <description>Length of Lease In Months</description>
+        <externalId>false</externalId>
+        <label>Lease Term (Months)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Loan_Class_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Loan Class 1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>JEFFERSON</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>JEFFERSON SOLAR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>JP SOLAR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NEW ORLEANS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NORTHSHORE SOLAR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NO SOLAR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ORLEANS SOLAR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>SUNLIGHT POWER MY HOME</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>UPTOWN</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Loan_Class_II__c</fullName>
+        <externalId>false</externalId>
+        <label>Loan Class II</label>
+        <picklist>
+            <picklistValues>
+                <fullName>NONE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV I</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV II</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ITC Conversion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solar Thermal I</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ManuaNum_of_Unbilled_Payments_as_of_0531__c</fullName>
+        <externalId>false</externalId>
+        <label>Manual_# of Unbilled Payments as of 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Maturity_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Maturity Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Module_Count__c</fullName>
+        <description>This comes from Module Count (System Number of Panels) on the Opportunity</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This comes from Module Count (System Number of Panels) on the Opportunity</inlineHelpText>
+        <label>Module Count</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Module_Description__c</fullName>
+        <description>Module Description (System Item Desc) is the Opportunity field</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Module Description (System Item Desc) is the Opportunity field</inlineHelpText>
+        <label>Module Description</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Monthly_ACH_Fee_in_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Monthly ACH Fee in Dollars</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Payment_Base_EE__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Payment (Base + EE)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Payment_Minus_EE__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Payment__c  -  EE_Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Monthly Payment Minus EE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Monthly_Payment__c</fullName>
+        <externalId>false</externalId>
+        <label>Monthly Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Next_Principal_Billing_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Next Principal Billing Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Non_Cash_Recd_0531__c</fullName>
+        <externalId>false</externalId>
+        <label>Non-Cash Recd 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Num_of_Billed_Payments_Thru_0531__c</fullName>
+        <externalId>false</externalId>
+        <label># of Billed Payments Thru 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Num_of_Unbilled_Payments__c</fullName>
+        <externalId>false</externalId>
+        <label># of Unbilled Payments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Num_of_Unbilled_Payments_as_of_0531__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lease_Term__c -  Num_of_Billed_Payments_Thru_0531__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label># of Unbilled Payments as of 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Numeric_ID__c</fullName>
+        <displayFormat>10-{00000}</displayFormat>
+        <externalId>true</externalId>
+        <label>Numeric ID</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Numeric_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE( Opportunity__r.Numeric_ID__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opportunity Numeric ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Leases</relationshipLabel>
+        <relationshipName>Leases_Sold</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Orig_Term_Greater_Than_Rem_Term__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lease_Term__c &gt;= Rem_Term_Based_on_Unbill_div_Mon_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Orig Term Greater Than Rem Term</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Original_Balance_Greater_Than_Unbilled__c</fullName>
+        <externalId>false</externalId>
+        <formula>Original_Loan_Amount_F__c &gt;=  Unbilled_Lease_Balance_F__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Original Balance Greater Than Unbilled</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Original_Loan_Amount_F__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lease_Term__c *  (Monthly_Payment__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Original Loan Amount (F)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Original_Payments__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Original_Pmts__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Original Payments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PVI_First_Production_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.PVI_First_Production_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PVI First Production Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PVI_Net_Meter_Install_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.PVI_Net_Meter_Install_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PVI Net Meter Install Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>PV_Installer__c</fullName>
+        <externalId>false</externalId>
+        <label>PV Installer</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Paid_plus_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <formula>Rental_Amount_Outstanding_Including_Sale__c +  Energy_Efficiency_Outstanding__c +  Total_Cash_Received__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Paid + Past Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Pay_via_ACH__c</fullName>
+        <description>Y/N</description>
+        <externalId>false</externalId>
+        <label>Pay via ACH</label>
+        <length>1</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year10__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c  &lt;=  108, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 10</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year11__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c  &lt;=  120, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 11</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year12__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 132, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 12</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year13__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 144, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 13</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year14__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 156, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 14</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year15__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 168, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 15</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year16__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 180, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 16</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year17__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 192, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 17</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year18__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 204, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 18</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year19__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 216, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 19</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year1__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt; 0, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year20__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 228, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 20</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year2__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 12, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year3__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 24, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year4__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 36, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 4</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year5__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt;= 48, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 5</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year6__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt; 60, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 6</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year7__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt; 72, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 7</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year8__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c &lt; 84, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 8</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Amount_Year9__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Lease_Term__c  &lt;=  96, 0, Monthly_Payment_Minus_EE__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Amount Year 9</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Inclusive_of_Tax__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;Y&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Inclusive of Tax</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;Lease&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Verification__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Payment_Amount_Year1__c + Payment_Amount_Year2__c + Payment_Amount_Year3__c + Payment_Amount_Year4__c + Payment_Amount_Year5__c + Payment_Amount_Year6__c + Payment_Amount_Year7__c + Payment_Amount_Year8__c + Payment_Amount_Year9__c + Payment_Amount_Year10__c + Payment_Amount_Year11__c + Payment_Amount_Year12__c + Payment_Amount_Year13__c + Payment_Amount_Year14__c + Payment_Amount_Year15__c + Payment_Amount_Year16__c + Payment_Amount_Year17__c + Payment_Amount_Year18__c + Payment_Amount_Year19__c + Payment_Amount_Year20__c) - ( Lease_Term__c *  Monthly_Payment__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Verification</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Applicant_Date_of_Birth__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Lessee DOB</inlineHelpText>
+        <label>Primary Applicant Date of Birth</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Applicant_First_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary Applicant First Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Applicant_Last_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary Applicant Last Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Applicant_Middle_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary Applicant Middle Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Applicant_SSN__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary Applicant SSN</label>
+        <length>11</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Primary_Telephone_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Primary Telephone Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Home</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Work</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Principal_Balance_0531__c</fullName>
+        <externalId>false</externalId>
+        <formula>FA_Original_Loan_Amount__c - Total_Cash_Received__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Principal Balance 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Principal_Outstanding__c</fullName>
+        <externalId>false</externalId>
+        <formula>Prinicpal_Current_Due_0531__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Principal Outstanding</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Principal_Past_Due_0531__c</fullName>
+        <externalId>false</externalId>
+        <label>Principal Past Due 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Principal_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <label>Principal Past Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Prinicpal_Current_Due_0531__c</fullName>
+        <externalId>false</externalId>
+        <label>Prinicpal Current Due 0531</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Cash_Grant_in_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Projected Cash Grant in Dollars</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_ITC__c</fullName>
+        <externalId>false</externalId>
+        <formula>Gross_System_Cost_in_Dollars__c * 0.3</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected ITC in $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Property_Classification__c</fullName>
+        <externalId>false</externalId>
+        <label>Property Classification</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RETC_Amount__c</fullName>
+        <externalId>false</externalId>
+        <label>RETC Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>RETC_Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>RETC Due Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_Reservation_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Rebate Reservation Number</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rem_Term_Based_on_Unbill_div_Mon_Payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>Unbilled_Lease_Balance_F__c /  Monthly_Payment_Base_EE__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rem Term Based on Unbill div Mon Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Remaining_Payments__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Remaining_Pmts__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Remaining Payments</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rental_Amount_Outstanding_Including_Sale__c</fullName>
+        <externalId>false</externalId>
+        <formula>Principal_Outstanding__c  * Rental_Monthly_Payment__c /  Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rental Amount Outstanding Including Sale</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Rental_Monthly_Payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>Monthly_Payment__c -  EE_Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rental Monthly Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Tax_Rate__c</fullName>
+        <externalId>false</externalId>
+        <label>Sales Tax Rate(%)</label>
+        <picklist>
+            <picklistValues>
+                <fullName>8.5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>8.75</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.5</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>9.75</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>10</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Secondary_Telephone_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Secondary Telephone Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Home</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Work</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Send_Invoice__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;Y&apos;</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Send Invoice</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Special_Reporting_Bucket__c</fullName>
+        <externalId>false</externalId>
+        <label>Special Reporting Bucket</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Aged Never Paid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Suspense__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Suspense__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Suspense</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>System_Size_in_DC_Watts__c</fullName>
+        <externalId>false</externalId>
+        <label>System Size in DC Watts</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Termination__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Termination__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Termination</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Total_Cash_Received__c</fullName>
+        <externalId>false</externalId>
+        <formula>Cash_Recd_0531__c +  Non_Cash_Recd_0531__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Cash Received</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Late_Fees__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Total_Late_Fees__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Late Fees</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Outstanding_Amount_Due__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Total_Curr_Recv__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Outstanding Amount Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Total_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <formula>LD_Lease__r.Total_Past_Due__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Total Past Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Unbilled_Lease_Balance_F__c</fullName>
+        <externalId>false</externalId>
+        <formula>Num_of_Unbilled_Payments_as_of_0531__c* Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Unbilled Lease Balance F</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Unbilled_Lease_Balance__c</fullName>
+        <externalId>false</externalId>
+        <label>Unbilled Lease Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Upload_to_FA_On_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Upload to FA On Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Upload_to_SF_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Upload to SF Notes</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Vendor__c</fullName>
+        <description>This is the Vendor (System Manufacturer) from the Opportunity.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This is the Vendor (System Manufacturer) from the Opportunity.</inlineHelpText>
+        <label>Vendor</label>
+        <length>25</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>WDTrackerID__c</fullName>
+        <externalId>true</externalId>
+        <inlineHelpText>GG Number on matching WDTracker Record</inlineHelpText>
+        <label>WDTrackerID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>of_Months_Deferred__c</fullName>
+        <externalId>false</externalId>
+        <label># of Months Deferred</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Lease</label>
+    <listViews>
+        <fullName>All_LD_Leases</fullName>
+        <columns>Boarding_Status__c</columns>
+        <columns>NAME</columns>
+        <columns>LMS_Account_Number__c</columns>
+        <columns>PVI_Net_Meter_Install_Date__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Count_of_Leases_on_Related_Opp__c</columns>
+        <columns>Lease_Term__c</columns>
+        <columns>Lease_Start_Date__c</columns>
+        <columns>Maturity_Date__c</columns>
+        <columns>Loan_Class_1__c</columns>
+        <columns>Monthly_Payment__c</columns>
+        <columns>EE_Monthly_Payment__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All LD Leases to Board</label>
+    </listViews>
+    <listViews>
+        <fullName>All_LD_Leases_to_Board_with_Wrong_Terms</fullName>
+        <columns>Boarding_Status__c</columns>
+        <columns>LMS_Account_Number__c</columns>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Count_of_Leases_on_Related_Opp__c</columns>
+        <columns>FA_Original_Loan_Amount__c</columns>
+        <columns>Monthly_Payment__c</columns>
+        <columns>EE_Monthly_Payment__c</columns>
+        <columns>Lease_Term__c</columns>
+        <columns>Lease_Start_Date__c</columns>
+        <columns>Maturity_Date__c</columns>
+        <columns>Loan_Class_1__c</columns>
+        <columns>Primary_Applicant_First_Name__c</columns>
+        <columns>Primary_Applicant_Last_Name__c</columns>
+        <columns>Next_Principal_Billing_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Boarding_Status__c</field>
+            <operation>equals</operation>
+            <value>Upload to LD (based on CAO File)</value>
+        </filters>
+        <filters>
+            <field>Lease_Term__c</field>
+            <operation>notEqual</operation>
+            <value>100</value>
+        </filters>
+        <filters>
+            <field>Lease_Term__c</field>
+            <operation>notEqual</operation>
+            <value>120</value>
+        </filters>
+        <filters>
+            <field>Lease_Term__c</field>
+            <operation>notEqual</operation>
+            <value>180</value>
+        </filters>
+        <label>All LD Leases to Board with Wrong Terms</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Non_Uptown_Leases</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Count_of_Leases_on_Related_Opp__c</columns>
+        <columns>FA_Original_Loan_Amount__c</columns>
+        <columns>Monthly_Payment__c</columns>
+        <columns>Lease_Term__c</columns>
+        <columns>Lease_Start_Date__c</columns>
+        <columns>Maturity_Date__c</columns>
+        <columns>Primary_Applicant_First_Name__c</columns>
+        <columns>Primary_Applicant_Last_Name__c</columns>
+        <columns>Next_Principal_Billing_Date__c</columns>
+        <columns>Loan_Class_1__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Loan_Class_1__c</field>
+            <operation>notEqual</operation>
+            <value>UPTOWN</value>
+        </filters>
+        <label>All Non-Uptown Leases</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Non_Uptown_Leases1</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Count_of_Leases_on_Related_Opp__c</columns>
+        <columns>FA_Original_Loan_Amount__c</columns>
+        <columns>Monthly_Payment__c</columns>
+        <columns>Lease_Term__c</columns>
+        <columns>Lease_Start_Date__c</columns>
+        <columns>Maturity_Date__c</columns>
+        <columns>Primary_Applicant_First_Name__c</columns>
+        <columns>Primary_Applicant_Last_Name__c</columns>
+        <columns>Next_Principal_Billing_Date__c</columns>
+        <columns>Loan_Class_1__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Loan_Class_1__c</field>
+            <operation>notEqual</operation>
+            <value>UPTOWN</value>
+        </filters>
+        <label>All Non-Uptown Leases</label>
+    </listViews>
+    <listViews>
+        <fullName>All_Uptown_Leases</fullName>
+        <columns>NAME</columns>
+        <columns>LMS_Account_Number__c</columns>
+        <columns>Account__c</columns>
+        <columns>Installation_Street_Address__c</columns>
+        <columns>Primary_Applicant_First_Name__c</columns>
+        <columns>Primary_Applicant_Last_Name__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Count_of_Leases_on_Related_Opp__c</columns>
+        <columns>FA_Original_Loan_Amount__c</columns>
+        <columns>Monthly_Payment__c</columns>
+        <columns>Lease_Term__c</columns>
+        <columns>Lease_Start_Date__c</columns>
+        <columns>Maturity_Date__c</columns>
+        <columns>Next_Principal_Billing_Date__c</columns>
+        <columns>Loan_Class_1__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Loan_Class_1__c</field>
+            <operation>equals</operation>
+            <value>UPTOWN</value>
+        </filters>
+        <label>All Uptown Leases</label>
+    </listViews>
+    <listViews>
+        <fullName>Exeption_Missing_Opportunity</fullName>
+        <columns>NAME</columns>
+        <columns>Loan_Class_1__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Primary_Applicant_First_Name__c</columns>
+        <columns>Primary_Applicant_Last_Name__c</columns>
+        <columns>Billing_Street__c</columns>
+        <columns>Billing_State__c</columns>
+        <columns>FA_Original_Loan_Amount__c</columns>
+        <columns>Lease_Term__c</columns>
+        <columns>Lease_Start_Date__c</columns>
+        <columns>Next_Principal_Billing_Date__c</columns>
+        <columns>Monthly_Payment__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Opportunity__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Exeption: Missing Opportunity</label>
+    </listViews>
+    <listViews>
+        <fullName>Leases_Missing_Accounts</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Primary_Applicant_First_Name__c</columns>
+        <columns>Primary_Applicant_Last_Name__c</columns>
+        <columns>Billing_Street__c</columns>
+        <columns>Billing_City__c</columns>
+        <columns>FA_Original_Loan_Amount__c</columns>
+        <columns>Monthly_Payment__c</columns>
+        <columns>Lease_Term__c</columns>
+        <columns>Lease_Start_Date__c</columns>
+        <columns>Maturity_Date__c</columns>
+        <columns>Next_Principal_Billing_Date__c</columns>
+        <columns>Loan_Class_1__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Account__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Leases Missing Accounts</label>
+    </listViews>
+    <listViews>
+        <fullName>Leases_Missing_Term</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Count_of_Leases_on_Related_Opp__c</columns>
+        <columns>FA_Original_Loan_Amount__c</columns>
+        <columns>Lease_Term__c</columns>
+        <columns>Monthly_Payment__c</columns>
+        <columns>Lease_Start_Date__c</columns>
+        <columns>Maturity_Date__c</columns>
+        <columns>Primary_Applicant_First_Name__c</columns>
+        <columns>Primary_Applicant_Last_Name__c</columns>
+        <columns>Next_Principal_Billing_Date__c</columns>
+        <columns>Loan_Class_1__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Loan_Class_1__c</field>
+            <operation>notEqual</operation>
+            <value>UPTOWN</value>
+        </filters>
+        <filters>
+            <field>Lease_Term__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Leases Missing Term</label>
+    </listViews>
+    <listViews>
+        <fullName>Past_Due_Leases</fullName>
+        <columns>Loan_Class_1__c</columns>
+        <columns>Opportunity__c</columns>
+        <columns>Days_Past_Due__c</columns>
+        <columns>LAST_ACTIVITY</columns>
+        <columns>NAME</columns>
+        <columns>Primary_Applicant_First_Name__c</columns>
+        <columns>Primary_Applicant_Last_Name__c</columns>
+        <columns>Late_Charges_Balance__c</columns>
+        <columns>Principal_Past_Due__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Days_Past_Due__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </filters>
+        <label>Past Due Leases</label>
+    </listViews>
+    <nameField>
+        <label>Loan Number</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Leases</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Joint_Applicant_First_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Joint_Applicant_Last_Name__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Late_Charges_Balance__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Principal_Past_Due__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Opportunity__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

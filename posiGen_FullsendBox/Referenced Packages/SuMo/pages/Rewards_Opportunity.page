@@ -1,0 +1,5 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="true" standardController="Opportunity" extensions="success.AchievementsComponentController">
+
+    <c:RewardsComponent recordid="{!Opportunity.Id}" extensionObjects="Task,Event" />
+
+</apex:page>

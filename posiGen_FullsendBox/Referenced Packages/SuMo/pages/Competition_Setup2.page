@@ -1,0 +1,1341 @@
+<apex:page controller="success.CompetitionController" sidebar="false" extensions="success.RequestController,success.ChatterController,success.AwardCompetitionWinnersController,success.CompetitionStateController,success.MailController,success.CompetitionRewardsController,success.CompetitionCloneController,success.SnapshotCompetitorController,success.PrimaryTeamController" tabStyle="success__Team__c">
+
+<apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/neutral/jquery-ui-1.11.1.custom.min.css')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.11.1.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.11.1.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQueryPajinate)}" />
+<script type="text/javascript"> $sj = successJQ.noConflict(); </script>
+<apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+
+
+
+<style>
+.sumoTable{position:relative;width:100%;font-family:Helvetica,Arial,sans-serif;border-collapse:collapse;margin: 5px 0px 5px 5px;}
+#secondarySelectList {margin-top:0!important}
+.progress-container {width: 100%;min-width:675px;}
+.imgArrowLeft {float:left;padding-top: 40px;display:none;cursor:pointer;}
+.imgArrowRight {padding-top: 40px;display:none;cursor:pointer;}
+.progress-meter {padding: 0;display:none;width:95%;float:left;}
+.progress-label {height:20px;overflow:hidden;cursor: pointer;}
+ol.progress-meter {padding-bottom: 30px;list-style-type: none;}
+ol.progress-meter li {position: relative;display: inline-block;text-align: center;height: 50px;width: 14.285%;margin:-2px;font-weight: bold;font-size:17px;color: #00476d;}
+ol.progress-meter li .border {background-color: silver;position: absolute;height: 4px;bottom: 0px;width: 50%;}
+ol.progress-meter li .right {right: 0;}
+ol.progress-meter li .active {background-color: #4995d1;}
+ol.progress-meter li:before {position: relative;float: left;text-indent: 0;left: -webkit-calc(50% - 9.5px);left: -moz-calc(50% - 9.5px);left: -ms-calc(50% - 9.5px);left: -o-calc(50% - 9.5px);left: calc(50% - 9.5px);}
+.indicator {background-color: silver;z-index: 2;position: absolute;width: 20px;height: 20px;bottom: -8px;left: 45%;border-radius: 10px;color: #FFF;font-size: 13px;line-height: 21px;}
+.current {border-radius: 0px;width: 20px;height: 20px;bottom: -8px;}
+.pointer {display:none;width: 0;height: 0;border-left: 9px solid transparent;border-right: 9px solid transparent;border-bottom: 9px solid #4995d1;bottom: 8px;left: 45.5%;position: absolute;
+cursor: pointer;}
+ol.progress-meter li.done .indicator {background-color: #4995d1;cursor: pointer;}
+ol.progress-meter li.todo .indicator {background-color: silver;cursor: pointer;}
+
+#container { height: 100%;margin-left: 289px;width: auto;position: relative;overflow: auto;z-index: 1; }
+#left { float:left;width: 278px;overflow:hidden;padding-top: 12px; }
+#right { overflow:hidden; }​
+#profilePhoto img {width: 60px;}
+.profileImg {width: 60px;} 
+.competitionNameContainer { position: relative; height: 60px;}
+.competitionNameInnerContainer { position: absolute; left: 65px; top: 0px; width: 215px; height: 60px; display: table; overflow:hidden; }
+.competitionName { color:#00476d;font-size: 1.7em;font-weight: normal;line-height: 1.1em; padding-left: 5px; display: table-cell; vertical-align: middle; }
+#navButtonsContainer { clear: both; text-align: center; padding-top:10px; padding-bottom: 10px; font-size:12px;}
+#descriptionContainer { font-size: 14px; font-style: italic; color:#00476d; clear:both;}
+#descriptionContainer .helptext { display: none; }
+.sidebarHelpText { font-size: 14px; padding: 5px 9px 5px 9px !important; color:#000;}
+#sidebarContainer, .sidebarSpinner {background-color: #D6EBF5;font-size: 14px;margin-top: 25px;}
+.sidebarSpinner {margin-top: 0;}
+#sidebarContainer .mainTitle, .sidebarSpinner .mainTitle {background-color:#4995D1;border-top: 5px solid #ffffff;padding:5px;}
+#sidebarContainer div, .sidebarSpinner div {padding:5px;}
+#sidebarContainer p, .sidebarSpinner p {padding:0;margin:0;}
+
+td { border-left-width: 0 !important;border-right-width: 0 !important; }
+
+.page_navigation {width:220px;margin:0 auto;padding-bottom:30px}
+.page_navigation a{padding:3px 5px;margin:2px;color:#222;text-decoration:none;float:left;font-family:Arial,"Lucida Grande",sans-serif;font-size:12px;background-color:transparent !important; line-height:16px; height: 16px;text-decoration: none !important}
+.page_navigation a:hover {color:#222 !important;}
+.page_navigation .active_page {font-weight: bold;}
+.page_navigation .ellipse {display:none !important;}
+.page_navigation .page_link {display:none !important;}
+.page_navigation .no_more {cursor:default;opacity:.35;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=35)";filter: alpha(opacity=35);-moz-opacity: 0.35;}
+
+.page_navigation .first_link{font-size: 14px!important;padding-top: 2px !important;}
+.page_navigation .previous_link{font-size: 14px!important;padding-top: 2px !important;}
+.page_navigation .next_link{font-size: 14px!important;padding-top: 2px !important;}
+.page_navigation .last_link{font-size: 14px!important;padding-top: 2px !important;}
+
+.page_navigation .paginationTitle {font-size:12px !important;}
+
+.headerStyle {
+	font-size:15px;line-height: 20px;color:#FFFFFF;font-weight:bold;padding: 0px 5px 0px 5px;
+}
+.labelStyle {
+	font-weight: bold;
+	font-size: 14px;
+	color: #0081AF;
+}
+.winCondition {
+	font-size: 13px;
+	padding:10px 5px 5px 5px !important;
+}
+
+
+.noUserRecords { display: none; padding-top: 10px}
+.noRecordsIcon {display:block;margin-left:auto;margin-right:auto;width:100px;padding-top:30px;}
+.noRecordsMsg {text-align: center;padding-top: 15px;font-family: "Arial",Arial,Helvetica,Regular;color: rgb(34, 34, 34);font-size: 18px;width: 500px;margin: 0 auto;}
+
+.confirmDialog{z-index:99999;background-color:#fff;width:524px!important;border-color:#b7b7b7;border-width:1px;border-radius:8px;border-style:solid;box-shadow:0 1px 9px 1px rgba(0,0,0,.25);transition:none 0s ease 0s!important;padding:0!important}:focus{outline:0}.confirmDialog p{height:auto!important}.confirmDialog .ui-dialog-titlebar{background-color:#f5f7f7!important;background-image:linear-gradient(#fdfdfd 0,#ebeff0 100%)!important;border-radius:8px 8px 0 0!important;height:33px!important;margin:0!important;padding:0 0 0 12px!important}.confirmDialog .ui-dialog-titlebar .ui-dialog-title{line-height:33px!important;text-shadow:none!important;font-family:Arial,Helvetica,sans-serif!important;font-size:15px!important;font-weight:700!important;color:#222!important}.confirmDialog .ui-button-text{font-size:13px!important;font-weight:700!important;padding-left:5px!important;padding-right:5px!important;padding-top:15px!important;padding-bottom:15px!important}.confirmDialog .ui-dialog-content{background:#fff!important;font-size:13px!important;border:0!important}.ui-widget-content{background:#fff!important;border:none !important}.ui-dialog .ui-dialog-buttonpane{padding:0!important;border-top:1px solid #eaebed!important;border-left:0!important;border-right:0!important;border-bottom:0!important;border-radius:0 0 8px 8px!important;background:none repeat scroll 0 0 #fbfbfb!important}.confirm-button{color:#fff!important;text-shadow:0 -1px 0 rgba(0,0,0,.25)!important;background:none!important;background-color:#87b347!important;background-image:linear-gradient(to bottom,#8cb84c,#80ac40)!important;background-repeat:repeat-x!important;border:none!important;border-color:rgba(0,0,0,.1)rgba(0,0,0,.1)rgba(0,0,0,.25)!important;border-width:1px!important;border-style:solid!important;-webkit-border-radius:3px!important;-moz-border-radius:3px!important;border-radius:3px!important;line-height:19px!important}.ui-dialog-buttonset .ui-button{background:#fbfbfb!important;border:0 solid #fbfbfb!important;color:#777!important;*margin-top:0!important}.confirmDialog .ui-dialog-titlebar-close{display:none}
+
+
+	#overlay {
+		position: fixed;
+		display: none;
+		overflow-y: scroll;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		background: rgba(0, 0, 0, 0.2);
+		z-index: 1000;
+	}
+	
+	#overlayContent {
+		background: white;
+		max-width: 900px;
+		margin: 0 auto;
+		margin-top: 26px;
+		padding: 10px 20px;
+		border-color: #b7b7b7;
+		border-width: 1px;
+		border-radius: 8px;
+		border-style: solid;
+		box-shadow: 0 1px 9px 1px rgba(0,0,0,.25);
+	}
+
+	.feedsupermenu { display: none !important; }
+
+	#selectableAchievementsContainer tr.inactive *, #selectedAchievementsContainer tr.inactive * {
+		color: #777 !important;
+		font-style: italic;
+		text-decoration: line-through;
+	}
+	
+	th[data-sortby], th[data-sortby] *, th[data-sortby] *:hover {
+		cursor: pointer;
+		text-decoration: none !important;
+		color: black !important;
+	}
+	
+	th[data-sortby].sortedBy {
+		background-color: rgb(233, 233, 233) !important;
+	}
+
+</style>
+
+<c:CompetitionSetupScripts />
+
+<apex:outputPanel id="loaderPanel">
+	<script type="text/javascript">
+
+		competitionWizard
+			.loadTeamRecord("{!JSENCODE(recordJSON)}")
+			.loadSelectedCompetitors("{!JSENCODE(selectedCompetitors)}")
+			.loadSelectedAchievements("{!JSENCODE(selectedAchievements)}")
+			.loadLeaderBoard("{!IF($ObjectType.User_Performance__c.Accessible, JSENCODE(userLeaderBoardData), '[]')}");
+
+		if ('{!hasSelectableCompetitors}' === 'false') {
+			$sj('#addCompetitorsButton').attr('disabled', true).addClass('disabled');
+		} 
+		else {
+			$sj('#addCompetitorsButton').attr('disabled', false).removeClass('disabled');
+		}
+
+		if (competitionWizard.selectedCompetitorsArray.length == 0) {
+			$sj('#removeCompetitorsButton').attr('disabled', true).addClass('disabled');
+		} 
+		else {
+			$sj('#removeCompetitorsButton').attr('disabled', false).removeClass('disabled');
+		}
+
+	</script>
+
+</apex:outputPanel>
+
+<script type="text/javascript">  
+teamRecordTypeId = '{!JSENCODE(teamRecordTypeId)}';
+STYLE = $sj.parseJSON('{!JSENCODE(styles)}');
+
+var parseQueryString = function() {
+
+    var str = window.location.search;
+    var objURL = {};
+
+    str.replace(
+        new RegExp( "([^?=&]+)(=([^&]*))?", "g" ),
+        function( $0, $1, $2, $3 ){
+            objURL[ $1 ] = $3;
+        }
+    );
+    return objURL;
+};
+
+$sj(window).load(function() { 
+
+	competitionWizard.stepWidth = $sj('#rightContent').width();
+
+	competitionWizard.init();	
+
+	competitionWizard.renderSteps();
+
+	var pageParams = parseQueryString();
+
+	if (pageParams.step && !isNaN(pageParams.step)) {
+		competitionWizard.goToStep(pageParams.step, true);
+	}
+	else if (pageParams.teamCreated) {
+		competitionWizard.goToStep(2, true);
+	}
+	else {		
+		competitionWizard.goToStep(1, true);
+	}
+
+
+});
+
+function showCancellationConfirmDialog () {
+	var message = '{!JSENCODE($Label.competition_cancel_confirm)}';
+	var confirmationDialog = $sj( "<p />", {id: 'dialog'} ).html(message);
+	confirmationDialog.dialog({
+		open: function() {
+			$sj('.ui-dialog-buttonset > button:last').prev().focus();
+			$sj('.ui-dialog-buttonset > button:last').css({'font-weight' : 'bold'});
+		},
+		dialogClass: 'confirmDialog',
+		title: '{!JSENCODE($ObjectType.Team__c.Label)}',
+		resizable: false,
+		modal: true,
+		buttons: {
+		  	"{!JSENCODE($Label.cancel)}": function() {
+		      	$sj(this).dialog( "close" );
+		    },
+		    "{!JSENCODE($Label.confirm)}": function() {
+		    	cancelCompetitionJs();
+		      	$sj(this).dialog( "close" );
+		    }
+		}
+	});
+	
+	$sj('.ui-dialog button').last().removeClass("ui-button").addClass("confirm-button");
+
+	return false;
+}
+
+
+</script>
+ 
+	<apex:form >
+
+		
+  
+    
+		
+		
+		<apex:actionFunction name="jsRerenderFirstStep" action="{!doNothing}" oncomplete="isExecutingActionFunction = false;setTimeout(function(){competitionWizard.renderSteps();competitionWizard.renderSidebarContent();successSetVisibility();}, 150);" reRender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,chatterBlock,notificationsBlockEvents,competitionBlock,reviewBlock,finaliseBlock,page" />
+		<apex:actionFunction name="jsCompetitionSave" action="{!saveRecord}" status="savingSpinner" oncomplete="isExecutingActionFunction = false;competitionWizard.renderSidebarContent();" reRender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,chatterBlock,notificationsBlockEvents,competitionBlock,reviewBlock,finaliseBlock,page">
+			<apex:param name="saveStep" value="" assignTo="{!competitionSaveStep}" />
+		</apex:actionFunction>
+		<apex:actionFunction name="jsCompetitionSaveNoRedir" action="{!saveNoRedirect}" status="savingSpinner" oncomplete="isExecutingActionFunction = false;competitionWizard.renderSidebarContent();" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,chatterBlock,notificationsBlockEvents,competitionBlock,reviewBlock,finaliseBlock,page" />
+		<apex:actionFunction name="jsCompetitionSaveNoRedirRefreshChatter" action="{!saveNoRedirect}" status="savingSpinner" oncomplete="isExecutingActionFunction = false;competitionWizard.renderSidebarContent();" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,chatterBlock,notificationsBlockEvents,competitionBlock,reviewBlock,finaliseBlock,page,chatterGroupBlock" />
+		<apex:actionFunction name="jsRefreshData" action="{!loadCompetitionSubIds}" status="savingSpinner" oncomplete="isExecutingActionFunction = false;if(typeof sumoSearch.reset!=='undefined')setTimeout(sumoSearch.reset, 10);competitionWizard.loadSelectableAchievements(competitionWizard.renderSelectableAchievements);competitionWizard.goToStep(competitionWizard.currentStep);" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,chatterBlock,notificationsBlockEvents,competitionBlock,reviewBlock,finaliseBlock,page" />
+		<apex:actionFunction name="jsRefreshDataNoStepSwitch" action="{!loadCompetitionSubIds}" status="savingSpinner" oncomplete="isExecutingActionFunction = false;if(typeof sumoSearch.reset!=='undefined')setTimeout(sumoSearch.reset, 10);competitionWizard.loadSelectableAchievements(competitionWizard.renderSelectableAchievements);competitionWizard.renderSidebarContent();" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,chatterBlock,notificationsBlockEvents,competitionBlock,reviewBlock,finaliseBlock,page,chatterGroupBlock" />
+		<apex:actionFunction rerender="pageMessageBlock" name="jsDeleteCompetition" action="{!deleteCompetition}" status="savingSpinner">
+			<apex:param name="deleteChatterGroupVar" value="" assignTo="{!whatToDoWithChatterGroup}" />
+		</apex:actionFunction>
+
+
+
+		<script type="text/javascript">
+		function startSpinner () {
+			$sj('#savingSpinner img').show();
+			$sj('#savingSpinner span').text('{!JSENCODE($Label.saving_dots)}');
+		} 
+		function stopSpinner () {
+			$sj('#savingSpinner img').hide();
+			$sj('#savingSpinner span').text('{!JSENCODE($Label.last_saved_at)} ' + pad(new Date().getHours(), 2) + ':' + pad(new Date().getMinutes(), 2));
+		}
+
+		function registerActionFunction (funcName) {
+
+			var args = [];
+
+			console.log(arguments);
+
+			if (arguments.length > 1) {
+				$sj.each(arguments, function (_i, _arg) {
+					!isNaN(_i) && parseInt(_i) && args.push(_arg);
+				});
+			}
+
+			startSpinner();
+
+			actionFunctionTimeouts = typeof actionFunctionTimeouts !== 'undefined' ? actionFunctionTimeouts : {};
+
+			if (typeof actionFunctionTimeouts[funcName] !== 'undefined') {
+				clearTimeout(actionFunctionTimeouts[funcName]);
+			}
+
+			if (	funcName.indexOf('jsCompetitionSave') != -1 
+					&& typeof actionFunctionTimeouts['jsRefreshData'] !== 'undefined'
+					&& actionFunctionTimeouts['jsRefreshData'] != null
+			) {
+				clearTimeout(actionFunctionTimeouts['jsRefreshData']);
+			}
+
+			if (	(	funcName.indexOf('jsCompetitionSave') != -1 
+						|| funcName.indexOf('jsRefreshData') != -1 
+					)
+					&& typeof actionFunctionTimeouts['jsRerenderFirstStep'] !== 'undefined'
+					&& actionFunctionTimeouts['jsRerenderFirstStep'] != null
+			) {
+				clearTimeout(actionFunctionTimeouts['jsRerenderFirstStep']);
+			}
+
+			actionFunctionTimeouts[funcName] = setTimeout(function () {
+				executeActionFunction(funcName, args);
+			}, 500);
+			
+		}
+
+		isExecutingActionFunction = false;
+
+		function executeActionFunction (funcName, args) {
+			//console.log('Request for ' + funcName);
+			if (isExecutingActionFunction == true) {
+				//console.log('Executing another, queueing...');
+				setTimeout(function () {
+					executeActionFunction(funcName, args); 
+				}, 200);
+			}
+			else {
+				//console.log('Executing ' + funcName);
+				isExecutingActionFunction = true;
+				console.log(args);
+				window[funcName].apply(window, args);
+			}
+		}
+
+		function safeActionFunction (func) {
+			//console.log('Request for a Safe Function');
+			if (isExecutingActionFunction == false) {
+				//console.log('Executing');
+				func();
+			}
+			else {
+				//console.log('Skipping');
+			}
+			return false;
+		}
+
+		function showDeleteDialogue () {
+			var deleteDialogueHtml = '{!JSENCODE($Label.delete_competition_confirm)}';
+
+			if (hasChatterGroup) {
+				if (userCanEditChatterGroup) {
+					deleteDialogueHtml += '<br /><br />'
+										+ '{!JSENCODE($Label.delete_competition_chattergroup_confirm)}<br /><br />'.replace('{0}', hasChatterGroupName)
+										+ '<input type="radio" checked="checked" name="whatToDoWithChatterGroup" id="competition-chatter-group-keep" /> <label for="competition-chatter-group-keep">{!JSENCODE($Label.keep)}</label><br />';
+
+					if(canArchiveChatterGroups) {
+						deleteDialogueHtml += '<input type="radio" name="whatToDoWithChatterGroup" id="competition-chatter-group-archive" /> <label for="competition-chatter-group-archive">{!JSENCODE($Label.archive)}</label><br />';
+					}
+
+					deleteDialogueHtml += '<input type="radio" name="whatToDoWithChatterGroup" id="competition-chatter-group-delete" /> <label for="competition-chatter-group-delete">{!JSENCODE($Label.delete)}</label>';
+				}
+				else {
+					deleteDialogueHtml += '<br /><br />'
+										+ '{!JSENCODE($Label.delete_competition_chattergroup_permissionMissing)}<br />'.replace('{0}', hasChatterGroupName);
+				}
+			}
+			var deleteDialogue = $sj( "<p />", {id: 'deleteDialogue'} ).html(deleteDialogueHtml);
+			deleteDialogue.dialog({
+									open: function() {
+										$sj('.ui-dialog-buttonset > button:last').focus();
+										$sj('.ui-dialog-buttonset > button:last').css({'font-weight' : 'bold'});
+									},
+			                        title: '{!$ObjectType.Team__c.Label}',
+			                        dialogClass: 'confirmDialog',
+			                        modal: true,
+			                        width: 625,
+			                        buttons: {
+			                            "{!$Label.confirm}": function() {
+			                            	var whatToDoWithChatterGroup = $sj('#competition-chatter-group-delete').is(':checked')
+			                            							? 2
+			                            							: $sj('#competition-chatter-group-archive').is(':checked')
+			                            								? 1
+			                            								: 0;
+			                            	window.jsDeleteCompetitionCustom = function () {
+			                            		jsDeleteCompetition(whatToDoWithChatterGroup);
+			                            	};
+			                                registerActionFunction('jsDeleteCompetitionCustom');
+				                            $sj( this ).dialog( "close" );
+			                            },
+				                        "{!$Label.cancel}": function() {
+				                            $sj( this ).dialog( "close" );
+				                        }
+			                        }
+			                    });
+			$sj('.ui-dialog button').last().removeClass("ui-button").addClass("confirm-button");
+			return false;
+		}
+
+		</script>
+
+		<apex:actionStatus id="savingSpinner" onstart="startSpinner()" onstop="stopSpinner()" />
+
+		
+
+		<apex:outputPanel id="competitorsSelectionPanel">
+			<apex:outputPanel rendered="{!competitorSelectionProcessor != NULL}">
+				<div id="overlay">
+					<div id="overlayContent">
+						<c:UsersSelectionUI processor="{!competitorSelectionProcessor}" />
+					</div>
+				</div>
+			</apex:outputPanel>
+		</apex:outputPanel>
+
+
+		<apex:outputPanel id="sidebarBlock">
+		<div id="left">
+
+		<script type="text/javascript">
+		window.hasChatterGroup = {!IF(chatterGroup == NULL, 'false', 'true')};
+		window.hasChatterGroupName = '{!IF(chatterGroup == NULL, '', JSENCODE(chatterGroup.name))}';
+		window.userCanEditChatterGroup = {!userCanEditChatterGroup};
+		window.canArchiveChatterGroups = {!canArchiveChatterGroups};
+		</script>
+		
+
+			<div id="profilePhoto" style="float:left;margin-bottom: 15px;">
+				<apex:image styleClass="profileImg" url="{!chatterGroup.photo.smallPhotoURL}" />
+			</div>
+			<div class="competitionNameContainer">
+				<div class="competitionNameInnerContainer">
+					<apex:outputtext styleClass="competitionName" value="{!record.Name}" />
+				</div>
+			</div>
+			
+			<div id="sidebarContainer">
+				<apex:outputPanel styleClass="mainTitle" layout="block" rendered="{!NOT(isBaseInformationEmpty)}">
+					<h2 class="headerStyle">
+						<apex:outputText value="{!$Label.comp_wiz_sidebar_sec1}" />
+					</h2>
+				</apex:outputPanel>
+  
+				<apex:outputPanel id="sidebarContent" layout="block" rendered="{!NOT(isBaseInformationEmpty)}">
+					<apex:outputPanel layout="block" rendered="{!NOT(record.success__Status__c == NULL) && NOT(record.RecordTypeId == teamRecordTypeId)}" style="padding-bottom:0px !important;">
+						<strong class="labelStyle"> 
+							<apex:outputText value="{!$ObjectType.success__Team__c.Fields.success__Status__c.Label}:" />
+						</strong>
+						<strong>
+							<apex:outputText value="{!competitionStatusTranslation[record.success__Status__c]}" />
+						</strong>
+						<br />
+					</apex:outputPanel>
+
+					<apex:outputPanel layout="block" rendered="{!NOT(chatterGroup == NULL)}" style="padding-bottom:0px !important;">
+						<apex:outputPanel style="display:block;float:right;width:196px;">
+							<apex:outputText value="{!chatterGroup.Name}" />
+						</apex:outputPanel>
+						<strong class="labelStyle">
+							<apex:outputText value="Chatter:"/>
+						</strong>
+						<div style="clear:both;height:1px;margin:0;padding:0">&nbsp;</div>
+					</apex:outputPanel>
+
+					<apex:outputPanel layout="block" rendered="{!NOT(record.success__Start_Date_Time__c == NULL) && NOT(record.RecordTypeId == teamRecordTypeId)}" style="padding-bottom:0px !important;">
+						<strong class="labelStyle">
+							<apex:outputLabel value="{!$ObjectType.success__Team__c.Fields.success__Start_Date_Time__c.Label}:" />
+						</strong>
+						<apex:outputText value="{!competitionStartDateTime}" />
+						<br />
+					</apex:outputPanel>
+
+					<apex:outputPanel layout="block" rendered="{!NOT(record.success__End_Date_Time__c == NULL) && NOT(record.RecordTypeId == teamRecordTypeId)}" style="padding-bottom:0px !important;">
+						<strong class="labelStyle">
+							<apex:outputLabel value="{!$ObjectType.success__Team__c.Fields.success__End_Date_Time__c.Label}:" />
+						</strong>
+						<apex:outputText value="{!competitionEndDateTime}" />
+						<br />
+					</apex:outputPanel>
+
+					<p class="winCondition">
+						<apex:outputText value="{!record.success__Win_Condition__c}" />
+					</p>
+				</apex:outputPanel>
+
+
+				<div class="mainTitle targettingContent">
+
+					<h2 class="headerStyle">
+						<apex:outputText value="{!JSENCODE($Label.comp_wiz_sidebar_sec2)}" />
+					</h2>
+
+				</div>
+
+				<div>
+
+					<p style="margin-left:5px;margin-bottom:5px;margin-top: 5px;line-height: 21px;">
+						<span class="achiev">
+							<span class="labelStyle"></span> {!$Label.comp_wiz_stage2_name}
+							<br />
+						</span>
+						<span class="compe">
+							<span class="labelStyle"></span> {!JSENCODE($Label.comp_wiz_stage3_name)} <span class="membershippolicy"></span>
+						</span>
+					</p>
+
+				</div>
+
+
+				<div class="mainTitle performanceContent">
+					<h2 class="headerStyle">
+						<apex:outputText value="{!$Label.comp_wiz_sidebar_sec3}" />
+					</h2>
+				</div>
+
+				<div>
+					<table style="margin-left:5px;margin-bottom:5px;margin-top: 5px;line-height: 21px;" class="sumoTable"><tbody></tbody></table>
+				</div>
+
+
+				<div class="mainTitle sideHelpText">
+					<h2 class="headerStyle"> 
+						{!$Label.comp_wiz_sidebar_sec0}
+					</h2>
+				</div>
+
+				<div>
+					<p class="sidebarHelpText"></p>
+				</div>
+
+			</div>
+
+			<div class="sidebarSpinner">
+				<div id="savingSpinner" class="actionStatusSpinner mainTitle">
+					<div style="padding:0;margin:0">
+						<h2 class="headerStyle">
+							<img src="/img/loading32.gif" width="14px" height="14px" style="display: none; margin-right: 6px; vertical-align: middle;" />
+							<span>{!$ObjectType.Team__c.label} {!IF(record.Id = NULL, $Label.not_saved_yet, $Label.not_updated_yet)}</span>
+						</h2>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+		</apex:outputPanel>
+
+
+
+		<div id="container">
+			<div class="progress-container">
+				<div id="previousButtonPlaceholder" class="imgArrowLeft" style="display:none;width:14px">&nbsp;</div>
+				<img id="previousButton" class="imgArrowLeft" src="{!URLFOR($Resource.SuMoSalesAssets, 'navigation_icons/arrow_left.png')}" />
+				<ol class="progress-meter">
+					<li id="detailsTrackerButton" class="progress-point todo">
+						<div class="border right"></div>
+						<div class="progress-label">
+							<apex:outputText value="{!$Label.comp_wiz_stage1_name}" />
+						</div>
+						<div class="pointer"></div>
+						<div class="indicator">1</div>
+					</li>
+					<li id="achievementsTrackerButton" class="progress-point todo">
+						<div class="border"></div><div class="border right"></div>
+						<div class="progress-label">
+							<apex:outputText value="{!$Label.comp_wiz_stage2_name}" />
+						</div>
+						<div class="pointer"></div>
+						<div class="indicator">2</div>
+					</li>
+					<li id="membersTrackerButton" class="progress-point todo">
+						<div class="border"></div><div class="border right"></div>
+						<div class="progress-label">
+							<apex:outputText value="{!$Label.comp_wiz_stage3_name}" />
+						</div>
+						<div class="pointer"></div>
+						<div class="indicator">3</div>
+					</li>
+					<li id="communicationsTrackerButton" class="progress-point todo">
+						<div class="border"></div><div class="border right"></div>
+						<div class="progress-label">
+							<apex:outputText value="{!$Label.comp_wiz_stage4_name}" />
+						</div>
+						<div class="pointer"></div>
+						<div class="indicator">4</div>
+					</li>
+					<li id="statusTrackerButton" class="progress-point todo">
+						<div class="border"></div><div class="border right"></div>
+						<div class="progress-label">
+							<apex:outputText value="{!$Label.comp_wiz_stage5_name}" />
+						</div>
+						<div class="pointer"></div>
+						<div class="indicator">5</div>
+					</li>
+					<li id="reviewTrackerButton" class="progress-point todo">
+						<div class="border"></div><div class="border right"></div>
+						<div class="progress-label">
+							<apex:outputText value="{!$Label.comp_wiz_stage6_name}" />
+						</div>
+						<div class="pointer"></div>
+						<div class="indicator">6</div>
+					</li>
+					<li id="finaliseTrackerButton" class="progress-point todo">
+						<div class="border"></div>
+						<div class="progress-label">
+							<apex:outputText value="{!$Label.comp_wiz_stage7_name}" />
+						</div>
+						<div class="pointer"></div>
+						<div class="indicator">7</div>
+					</li>
+				</ol>
+				<img id="nextButton" class="imgArrowRight" src="{!URLFOR($Resource.SuMoSalesAssets, 'navigation_icons/arrow_right.png')}" />
+			</div>
+
+			<div id="descriptionContainer">
+				<p>
+					<apex:outputText value="{!$Label.comp_wiz_stage1_help}" styleClass="helptext step-1" />
+					<apex:outputText value="{!$Label.comp_wiz_stage2_help}" styleClass="helptext step-2" />
+					<apex:outputText value="{!$Label.comp_wiz_stage3_help}" styleClass="helptext step-3" />
+					<apex:outputText value="{!$Label.comp_wiz_stage4_help}" styleClass="helptext step-4" />
+					<apex:outputText value="{!$Label.comp_wiz_stage5_help}" styleClass="helptext step-5" />
+					<apex:outputText value="{!$Label.comp_wiz_stage6_help}" styleClass="helptext step-6" />
+					<apex:outputText value="{!$Label.comp_wiz_stage7_help}" styleClass="helptext step-7" />
+				</p>
+			</div>
+
+			<div id="right"> 
+
+
+				<apex:outputPanel id="pageMessageBlock">
+					<script type="text/javascript">
+					pageHasErrors = false;
+					</script>
+					<apex:pageMessages id="pageMessages" /> 
+					<apex:outputPanel rendered="{!hasMessages}">
+						<script type="text/javascript">
+							pageHasErrors = true;
+							setTimeout(function () {
+
+								if ( 	competitionWizard.teamRecord.Id == null
+										|| competitionWizard.teamRecord.Id == ''
+								) {
+									return;
+								}
+
+								var _msg = $sj(document.getElementById('{!$Component.pageMessages}'));
+
+								if (_msg.find('span:contains("hatter")').length > 0) {
+									if ($sj("[id$='teamTypeSelection']").val() == teamRecordTypeId) {
+										competitionWizard.goToStep(3, false, false);
+									}
+									else {
+										competitionWizard.goToStep(4, false, false);
+									}
+								}
+							}, 200);
+
+						</script>
+					</apex:outputPanel>
+				</apex:outputPanel>
+
+
+
+				<div id="rightSlider"><div id="rightContent">
+
+
+				<!-- STEP 1 -->
+				<apex:pageBlock tabStyle="Team__c" title="{!$Label.comp_wiz_stage1_name}" id="stepBlock1" mode="maindetail" >
+					<apex:pageBlockButtons location="top">
+						<apex:commandButton title="{!$Label.clone}" value="{!$Label.clone}" action="{!cloneCompetition}" rendered="{!record.Name != NULL}" />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<apex:commandButton title="{!$Label.delete}" rendered="{!record.id != null}" value="{!$Label.delete}" onclick="return showDeleteDialogue();" action="{!standardController.delete}" />
+					</apex:pageBlockButtons>
+
+					<apex:pageblockSection title="{!$Label.Details}" columns="2">
+						<apex:pageBlockSectionItem >
+							<apex:outputText value="{!$ObjectType.success__Team__c.fields.Name.label}" />
+							<apex:outputPanel >
+								<div class="requiredInput">
+									<div class="requiredBlock"></div>
+									<apex:inputText value="{!record.name}" />
+								</div>
+							</apex:outputPanel>
+						</apex:pageBlockSectionItem>
+						<apex:selectList id="teamTypeSelection" rendered="{!IsAchieveEdition}" size="1" multiselect="false" value="{!record.RecordTypeId}">
+							<apex:selectOptions value="{!recordTypeOptions}" />
+						</apex:selectList>
+					</apex:pageblockSection>
+					<apex:pageblockSection columns="1" id="startEndDateSection" rendered="{!NOT(record.RecordTypeId == teamRecordTypeId)}">
+						<apex:inputField value="{!record.success__Start_Date_Time__c}" />
+						<apex:inputField id="endDateTime" value="{!record.success__End_Date_Time__c}"/>
+					</apex:pageblockSection>
+					<apex:pageblockSection columns="1" id="winningScoreSection" rendered="{!NOT(record.RecordTypeId == teamRecordTypeId)}">
+						<apex:inputField value="{!record.success__Winning_Score__c}"/>
+					</apex:pageblockSection>
+					<apex:pageblockSection columns="1">
+						<apex:inputField id="membershipPolicyPicklist" required="true" value="{!record.success__Membership_Policy__c}" onchange="successSetVisibility()" />
+						<apex:pageBlockSectionItem rendered="{!AND($ObjectType.success__Team__c.fields.success__Visibility__c.updateable, NOT(ISNULL(record.RecordTypeId)), NOT(record.RecordTypeId == teamRecordTypeId))}"
+						helpText="{!$ObjectType.success__Team__c.Fields.success__Visibility__c.InlineHelpText}">
+							<apex:outputText value="{!$ObjectType.success__Team__c.fields.success__Visibility__c.label}" />
+							<apex:outputPanel >
+								<script type="text/javascript">
+									window.successVisibilityPicklist = '{!$Component.visibilityPicklist}';
+								</script>
+								<apex:selectList id="visibilityPicklist" size="1" multiselect="false" required="true" value="{!record.success__Visibility__c}">
+									<apex:selectOptions value="{!visibilityOptionValues}" />
+								</apex:selectList>
+							</apex:outputPanel>
+						</apex:pageBlockSectionItem>
+						<apex:inputField value="{!record.success__Description__c}" style="width:79%;height:165px;" />
+						<script type="text/javascript">
+							window.successMembershipPolicyPicklist = '{!$Component.membershipPolicyPicklist}';
+						</script>
+					</apex:pageblockSection>
+					<script type="text/javascript">
+					function successSetVisibility () {
+						if(window.successVisibilityPicklist) {
+							var _membershipType = $sj(document.getElementById(successMembershipPolicyPicklist)).val();
+							if (_membershipType == '{!membershipOpenType}' || _membershipType == '{!membershipModeratedType}') {
+								$sj(document.getElementById(window.successVisibilityPicklist)).val('{!visibilityPublicType}');
+							}
+							else {
+								$sj(document.getElementById(window.successVisibilityPicklist)).val('{!visibilityMembersOnlyType}');
+							}
+						}
+					}
+
+					$sj("[id$='teamTypeSelection']").change(function() {
+						//if ('{!record.Id}'.length > 0)
+							//jsRerenderFirstStep();
+							registerActionFunction('jsRerenderFirstStep');
+					});
+					</script>
+				</apex:pageBlock>
+				<!-- STEP 1 END -->
+
+				<!-- STEP 2 -->
+				<div>
+				<apex:pageBlock tabStyle="Team__c" title="{!$Label.select} {!$ObjectType.success__Achievement__c.LabelPlural}" id="selectAchievementsBlock" mode="maindetail">
+					<apex:pageBlockButtons location="top">&nbsp;</apex:pageBlockButtons>
+					<apex:pageBlockSection title="{!$ObjectType.success__Achievement__c.LabelPlural}" columns="1">
+						<div id="selectableAchievementsContainer">
+							<table cellspacing="0" cellpadding="0" border="0" class="list">
+								<colgroup span="2"></colgroup>
+							<thead class="rich-table-thead">
+								<tr class="headerRow">
+									<th colspan="1" scope="col" class="headerRow">{!$Label.action}</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="name">
+										<a href="#">{!$Label.name}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="object">
+										<a href="#">{!$ObjectType.Achievement__c.Fields.Functional_Area__c.Label}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="experience">
+										<a href="#">{!$ObjectType.User.Fields.Experience__c.Label}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="recipient">
+										<a href="#">{!$ObjectType.Achievement__c.Fields.Recipient__c.Label}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="competitionOnlyState">
+										<a href="#">{!$ObjectType.Achievement__c.Fields.Competition_Only__c.Label}</a>
+									</th>
+								</tr>
+							</thead>
+							<!-- Placeholder - populated by: renderSelectableAchievements -->
+							<tbody id="selectableAchievementsTableBody" class="content"></tbody>
+						</table>
+						<div class="page_navigation"></div>
+					</div>
+					<button id="addAchievementsButton">{!$Label.add_selected}</button>
+					<script type="text/javascript">
+					$sj('#addAchievementsButton').click(function (e) {
+						e.preventDefault();
+						e.stopPropagation();
+						safeActionFunction(competitionWizard.addAchievements);
+						return false;
+					});
+					</script>
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+
+			<apex:pageblock tabStyle="Team__c" id="selectedAchievementsBlock" mode="maindetail">
+				<apex:pageBlockSection title="{!$Label.selected} {!$ObjectType.success__Achievement__c.LabelPlural}" columns="1">
+					<div id="selectedAchievementsContainer">
+						<table cellspacing="0" cellpadding="0" border="0" class="list">
+							<colgroup span="2"></colgroup>
+							<thead class="rich-table-thead">
+								<tr class="headerRow">
+									<th colspan="1" scope="col" class="headerRow">{!$Label.action}</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="name">
+										<a href="#">{!$Label.name}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="object">
+										<a href="#">{!$ObjectType.Achievement__c.Fields.Functional_Area__c.Label}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="experience">
+										<a href="#">{!$ObjectType.User.Fields.Experience__c.Label}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="recipient">
+										<a href="#">{!$ObjectType.Achievement__c.Fields.Recipient__c.Label}</a>
+									</th>
+									<th colspan="1" scope="col" class="headerRow" data-sortby="competitionOnlyState">
+										<a href="#">{!$ObjectType.Achievement__c.Fields.Competition_Only__c.Label}</a>
+									</th>
+								</tr>
+							</thead>
+							<tbody id="selectedAchievementsTableBody" class="content"></tbody>
+							<!-- Placeholder - populated by: renderSelectedAchievements -->
+						</table>
+						<div class="page_navigation"></div>
+					</div>
+					<button id="removeAchievementsButton">{!$Label.remove_selected}</button>
+					<script type="text/javascript">
+					$sj('#removeAchievementsButton').click(function (e) {
+						e.preventDefault();
+						e.stopPropagation();
+						safeActionFunction(competitionWizard.removeAchievements);
+						return false;
+					});
+					</script>
+			</apex:pageBlockSection>
+		</apex:pageblock>
+		</div>
+		<!-- STEP 2 END -->
+
+		<!-- STEP 3 -->
+		<div>
+		<apex:pageBlock tabStyle="Team__c" title="{!$Label.comp_wiz_stage3_name}" id="stepBlock2" mode="maindetail">
+			<apex:pageBlockButtons location="top">&nbsp;</apex:pageBlockButtons>
+			<apex:pageBlockSection title="{!$Label.selected} {!$Label.comp_wiz_stage3_name}" columns="1">
+				<div id="selectedCompetitorsContainer">
+					<table cellspacing="0" cellpadding="0" border="0" class="list">
+						<colgroup span="2"></colgroup>
+					<thead class="rich-table-thead">
+						<tr class="headerRow">
+							<th colspan="1" scope="col" class="headerRow">{!$Label.action}</th>
+							<th colspan="1" scope="col" class="headerRow" data-sortby="name">
+								<a href="#">{!$Label.name}</a>
+							</th>
+							<th colspan="1" scope="col" class="headerRow" data-sortby="email">
+								<a href="#">{!$Label.email}</a>
+							</th>
+							<th colspan="1" scope="col" class="headerRow" data-sortby="role">
+								<a href="#">{!$Label.role}</a>
+							</th>
+							<th colspan="1" scope="col" class="headerRow" data-sortby="title">
+								<a href="#">{!$Label.title}</a>
+							</th>
+							<th colspan="1" scope="col" class="headerRow" data-sortby="manager">
+								<a href="#">{!$Label.manager}</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody id="selectedCompetitorsTableBody" class="content"></tbody>
+						<!-- Placeholder - populated by: renderSelectedCompetitors -->
+					</table>
+					<div class="page_navigation"></div>
+				</div>
+
+				<button id="addCompetitorsButton" onclick="$sj('#overlay').show(); sumoSearch.hideResults(); return false;">{!$Label.comp_wiz_addCompetitors}</button>
+				<button id="removeCompetitorsButton">{!$Label.remove_selected}</button>
+				<script type="text/javascript">
+				$sj('#removeCompetitorsButton').click(function (e) {
+					e.preventDefault();
+					e.stopPropagation();
+					safeActionFunction(function () {
+						document.getElementById('removeCompetitorsButton').disabled=true;
+						competitionWizard.removeSelectedCompetitors();
+					});
+					return false;
+				});
+				</script>
+
+		</apex:pageBlockSection>
+	</apex:pageblock>
+
+<apex:pageBlock tabStyle="Team__c" title="{!$Label.membership_request} {!$Label.administration}" id="page" mode="maindetail">
+
+	<apex:pageblockSection title="{!$Label.new} {!$Label.join_requests}" columns="1" rendered="{!recordId != null && newJoinRequests != null}">
+		<apex:pageBlockTable value="{!newJoinRequests}" var="req">
+			<apex:column headerValue="{!$Label.action}">
+				<apex:commandButton action="{!approveRequest}" onclick="startSpinner();" value="{!$Label.approve}" rerender="pageMessageBlock" oncomplete="registerActionFunction('jsRefreshData');">
+					<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+				</apex:commandButton>
+				<apex:commandButton action="{!rejectRequest}" onclick="startSpinner();" value="{!$Label.reject}" rerender="pageMessageBlock" oncomplete="registerActionFunction('jsRefreshData');">
+					<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+				</apex:commandButton>
+			</apex:column>
+
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.Name.Label}">
+				<apex:outputField value="{!req.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.name}">
+				<apex:outputField value="{!req.createdById}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.User.fields.email.Label}">
+				<apex:outputField value="{!req.createdBy.email}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.role}">
+				<apex:outputField value="{!req.createdBy.userrole.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.createdDate.Label}">
+				<apex:outputField value="{!req.createdDate}" />
+			</apex:column>
+
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:pageblockSection title="{!$Label.new} {!$Label.leave_requests}" columns="1" rendered="{!recordId != NULL && newLeaveRequests != null}">
+		<apex:pageBlockTable value="{!newLeaveRequests}" var="req">
+			<apex:column headerValue="{!$Label.action}">
+				<apex:commandButton action="{!approveRequest}" onclick="startSpinner();" value="{!$Label.approve}" rerender="pageMessageBlock" oncomplete="registerActionFunction('jsRefreshData');">
+					<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+				</apex:commandButton>
+				<apex:commandButton action="{!rejectRequest}" onclick="startSpinner();" value="{!$Label.reject}" rerender="pageMessageBlock" oncomplete="registerActionFunction('jsRefreshData');">
+					<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+				</apex:commandButton>
+			</apex:column>
+
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.Name.Label}">
+				<apex:outputField value="{!req.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.name}">
+				<apex:outputField value="{!req.createdById}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.User.fields.email.Label}">
+				<apex:outputField value="{!req.createdBy.email}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.role}">
+				<apex:outputField value="{!req.createdBy.userrole.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.createdDate.Label}">
+				<apex:outputField value="{!req.createdDate}" />
+			</apex:column>
+
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:pageblockSection id="approvedJoinRequests" title="{!$Label.approved} {!$Label.join_requests}" columns="1" rendered="{!recordId != NULL && approvedJoinRequests != null}">
+		<apex:pageBlockTable value="{!approvedJoinRequests}" var="req">
+
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.Name.Label}">
+				<apex:outputField value="{!req.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.name}">
+				<apex:outputField value="{!req.createdById}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.User.fields.email.Label}">
+				<apex:outputField value="{!req.createdBy.email}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.role}">
+				<apex:outputField value="{!req.createdBy.userrole.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.createdDate.Label}">
+				<apex:outputField value="{!req.createdDate}" />
+			</apex:column>
+
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:pageblockSection id="approvedLeaveRequests" title="{!$Label.approved} {!$Label.leave_requests}" columns="1" rendered="{!recordId != NULL && approvedLeaveRequests != null}">
+		<apex:pageBlockTable value="{!approvedLeaveRequests}" var="req">
+
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.Name.Label}">
+				<apex:outputField value="{!req.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.name}">
+				<apex:outputField value="{!req.createdById}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.User.fields.email.Label}">
+				<apex:outputField value="{!req.createdBy.email}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.role}">
+				<apex:outputField value="{!req.createdBy.userrole.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.createdDate.Label}">
+				<apex:outputField value="{!req.createdDate}" />
+			</apex:column>
+
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:pageblockSection id="rejectedJoinRequests" title="{!$Label.rejected} {!$Label.join_requests}" columns="1" rendered="{!recordId != NULL && rejectedJoinRequests != null}">
+		<apex:pageBlockTable value="{!rejectedJoinRequests}" var="req">
+
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.Name.Label}">
+				<apex:outputField value="{!req.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.name}">
+				<apex:outputField value="{!req.createdById}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.User.fields.email.Label}">
+				<apex:outputField value="{!req.createdBy.email}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.role}">
+				<apex:outputField value="{!req.createdBy.userrole.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.createdDate.Label}">
+				<apex:outputField value="{!req.createdDate}" />
+			</apex:column>
+
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:pageblockSection id="rejectedLeaveRequests" title="{!$Label.rejected} {!$Label.leave_requests}" columns="1" rendered="{!recordId != NULL && rejectedLeaveRequests != null}">
+		<apex:pageBlockTable value="{!rejectedLeaveRequests}" var="req">
+
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.Name.Label}">
+				<apex:outputField value="{!req.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.name}">
+				<apex:outputField value="{!req.createdById}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.User.fields.email.Label}">
+				<apex:outputField value="{!req.createdBy.email}" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.role}">
+				<apex:outputField value="{!req.createdBy.userrole.name}" />
+			</apex:column>
+			<apex:column headerValue="{!$ObjectType.success__Approval__c.fields.createdDate.Label}">
+				<apex:outputField value="{!req.createdDate}" />
+			</apex:column>
+
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:outputText style="display:block;text-align:center;" value="{!$Label.no_pending_requests}" rendered="{!recordId != NULL && newJoinRequests == null && newLeaveRequests == null && approvedJoinRequests == null && approvedLeaveRequests == null && rejectedJoinRequests == null && rejectedLeaveRequests == null}"/>
+
+</apex:pageBlock> 
+</div>
+<!-- STEP 3 END -->
+
+<!-- STEP 4 -->
+<div>
+<apex:pageBlock tabStyle="Team__c" title="{!$Label.comp_wiz_stage4_name}" id="communicationsBlock" mode="maindetail">
+	<apex:pageBlockButtons location="top">&nbsp;</apex:pageBlockButtons>
+	<apex:pageblockSection columns="1" title=" " collapsible="false">
+		<apex:inputField id="chatterNotificationCheckBox" value="{!record.success__Notify_by_Chatter__c}" onclick="if(this.checked===false){registerActionFunction('jsCompetitionSaveNoRedirRefreshChatter');}"/>
+		<apex:inputField id="emailNotificationCheckBox" value="{!record.success__Notify_By_Email__c}" />
+	</apex:pageblockSection>
+</apex:pageBlock> 
+
+<apex:pageBlock tabStyle="Team__c" title="Chatter" id="chatterBlock" mode="maindetail">
+
+	<script type="text/javascript">
+		chatterNotificationCheckBoxHandler();
+	</script>
+
+	<!--  Buttons -->
+	<apex:pageBlockButtons location="top">
+		<apex:commandButton title="{!$Label.comp_wiz_createChatterGrouphelptext}" status="chatterSpinner" value="{!$Label.comp_wiz_createChatterGroup}" action="{!createChatterGroup}" rendered="{!ISNULL(chattergroup)}" rerender="pageMessageBlock,chatterGroupBlock" oncomplete="if(pageHasErrors===false)registerActionFunction('jsCompetitionSaveNoRedir');" />
+		<apex:commandButton title="{!$Label.comp_wiz_unlinkChatterGrouphelptext}" status="chatterSpinner" value="{!$Label.comp_wiz_unlinkChatterGroup}" action="{!unlinkChatterGroup}" rendered="{!NOT(ISNULL(chattergroup))}" rerender="pageMessageBlock,sidebarBlock,competitionBlock,chatterBlock,chatterGroupBlock" oncomplete="competitionWizard.renderSidebarContent();" />
+		<apex:commandButton title="{!$Label.comp_wiz_chatterAddCompetitors}" value="{!$Label.comp_wiz_chatterAddCompetitors}" status="chatterSpinner" action="{!addMembers}" rendered="{!NOT(ISNULL(chattergroup))}" rerender="pageMessageBlock,sidebarBlock,competitionBlock,chatterBlock,chatterGroupBlock" oncomplete="competitionWizard.renderSidebarContent();" />
+
+		<apex:actionStatus id="chatterSpinner" onstart="$sj('#chatterSpinner img').show();" onstop="$sj('#chatterSpinner img').hide();competitionWizard.renderSidebarContent();stopSpinner();" />
+
+		<span id="chatterSpinner" class="actionStatusSpinner" style="display:inline-block; position:relative; width:160px; vertical-align: top;">
+			<div style="position:absolute">
+				<img src="/img/loading32.gif" width="20px" height="20px" style="display: none; float: left; margin-right: 6px;" />
+			</div>
+		</span>
+
+	</apex:pageBlockButtons>
+
+	<apex:pageblockSection title="{!$Label.comp_wiz_chatterLinkedGroup}" rendered="{!NOT(ISNULL(chattergroup))}" columns="1">
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$ObjectType.CollaborationGroup.Fields.Name.Label}"/>
+			<apex:outputLink value="{!$Site.CurrentSiteUrl}/{!chatterGroup.id}">
+				<apex:outputText value="{!chatterGroup.name}"/>
+			</apex:outputLink>
+		</apex:pageblockSectionItem>
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$ObjectType.CollaborationGroup.Fields.Description.Label}"/>
+			<apex:outputText value="{!chatterGroup.description}"/>
+		</apex:pageblockSectionItem>
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$ObjectType.CollaborationGroup.Fields.InformationTitle.Label}"/>
+			<apex:outputText value="{!chatterGroup.information.title}"/>
+		</apex:pageblockSectionItem>
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$ObjectType.CollaborationGroup.Fields.InformationBody.Label}"/>
+			<apex:outputText value="{!chatterGroup.information.text}"/>
+		</apex:pageblockSectionItem>
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$Label.owner_name}"/>
+			<apex:outputText value="{!chatterGroup.owner.name}"/>
+		</apex:pageblockSectionItem>
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$Label.visibility}"/>
+			<apex:outputText value="{!chatterGroup.visibility}"/>
+		</apex:pageblockSectionItem>
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$Label.members_count}"/>
+			<apex:outputText value="{!chatterGroup.memberCount}"/>
+		</apex:pageblockSectionItem>
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$Label.my_role}"/>
+			<apex:outputText value="{!chatterGroup.myRole}"/>
+		</apex:pageblockSectionItem>
+		<apex:pageblockSectionItem >
+			<apex:outputLabel value="{!$Label.last_post_date}"/>
+			<apex:outputText value="{!chatterGroupLastPostDate}"/>
+		</apex:pageblockSectionItem>
+
+	</apex:pageblockSection>
+
+	<apex:pageblockSection id="availableChatterGroupsContainer" title="{!$Label.available_chatter_groups}" columns="1" rendered="{!ISNULL(chattergroup)}">
+		<apex:pageBlockTable value="{!groupPage.groups}" var="g">
+			<apex:column >
+				<apex:commandButton action="{!linkChatterGroup}" value="link" status="chatterSpinner" rerender="pageMessageBlock,chatterGroupBlock" oncomplete="if(pageHasErrors===false)registerActionFunction('jsCompetitionSaveNoRedir');">
+					<apex:param value="{!g.id}" assignTo="{!contextGroupId}" name="contextId"/>
+				</apex:commandButton>
+			</apex:column>
+			<apex:column headerValue="{!$Label.name}">
+				<apex:outputText value="{!g.name}" style="font-weight:bold;" />
+			</apex:column>
+			<apex:column headerValue="{!$Label.description}">
+				<apex:outputText value="{!g.Description}" />
+			</apex:column>
+		</apex:pageBlockTable>
+		<div class="page_navigation"></div>
+	</apex:pageblockSection>
+</apex:pageBlock>
+
+<apex:pageBlock tabStyle="Team__c" id="notificationsBlock" mode="maindetail">
+	<apex:pageblockSection columns="1" id="startNotification" title="{!$Label.notification_start}" collapsible="true">
+		<apex:inputField value="{!record.success__Notify_days_before_start__c}" />
+		<apex:inputField value="{!record.success__Start_Notification_Subject__c}" />
+		<apex:inputField value="{!record.success__Start_Notification_Body__c}" />
+	</apex:pageblockSection>
+
+	<apex:pageblockSection columns="1" id="endNotification" title="{!$Label.notification_end}" collapsible="true">
+		<apex:inputField value="{!record.success__Notify_days_before_end__c}" />
+		<apex:inputField value="{!record.success__End_Notification_Subject__c}" />
+		<apex:inputField value="{!record.success__End_Notification_Body__c}" />
+	</apex:pageblockSection>
+</apex:pageBlock>
+
+<apex:outputPanel id="notificationsBlockEvents">
+	<script type="text/javascript">
+
+		function toggleStartEndNotificationEditPanels () {
+
+			var condOne = $sj('[id$=emailNotificationCheckBox]')[0].checked,
+				condTwo = $sj('[id$=teamTypeSelection]').val() == teamRecordTypeId,
+				condThree = $sj('[id$=endDateTime]').val() != '';
+
+			if (condOne && !condTwo) {
+				$sj('[id$=notificationsBlock]').show();
+			} else {
+				$sj('[id$=notificationsBlock]').hide();
+			}
+
+			if(!condTwo) {
+				$sj('[id$=emailNotificationCheckBox]').closest('tr').show();
+			} else {
+				$sj('[id$=emailNotificationCheckBox]').closest('tr').hide();
+			}
+
+			if (condOne && !condTwo && condThree) {
+				$sj('[id$=endNotification]').show();
+			} else {
+				$sj('[id$=endNotification]').hide();
+			}
+
+		}
+
+		$sj('[id$=emailNotificationCheckBox]').change(toggleStartEndNotificationEditPanels);
+
+		$sj('[id$=teamTypeSelection]').change(toggleStartEndNotificationEditPanels);
+
+		$sj('[id$=endDateTime]').change(toggleStartEndNotificationEditPanels);
+
+		toggleStartEndNotificationEditPanels();
+
+	</script>
+</apex:outputPanel>
+</div>  
+<!-- STEP 4 END -->
+
+<!-- STEP 5 -->
+<div>
+<apex:pageBlock tabStyle="Team__c" title="{!$Label.comp_wiz_stage5_name}" id="competitionBlock" mode="maindetail">
+
+	<!-- STEP 5 FORM BLOCK -->
+	<apex:actionFunction name="cancelCompetitionJs" action="{!cancelCompetition}" rendered="{!stateContext.cancellable && NOT(record.RecordTypeId == teamRecordTypeId)}" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,competitionBlock,reviewBlock,finaliseBlock,competitionBlock" oncomplete="competitionWizard.renderSidebarContent();hideExtraButtons()" />
+
+	<apex:pageBlockButtons location="top">
+		<apex:commandButton title="{!$Label.comp_wiz_starthelptext}" value="{!$Label.comp_wiz_start}" action="{!startCompetition}" rendered="{!stateContext.runnable && NOT(record.RecordTypeId == teamRecordTypeId)}" oncomplete="competitionWizard.renderSidebarContent();" status="savingSpinner" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,chatterBlock,notificationsBlockEvents,competitionBlock,reviewBlock,finaliseBlock,page,chatterGroupBlock" />
+		<apex:commandButton title="{!$Label.comp_wiz_setPrimaryhelptext}" value="{!$Label.comp_wiz_setPrimary}" action="{!applyCompetitionAsPrimaryForAll}" status="savingSpinner" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,competitionBlock,reviewBlock,finaliseBlock,competitionBlock" oncomplete="competitionWizard.renderSidebarContent();hideExtraButtons()" />
+		<apex:commandButton title="{!$Label.comp_wiz_finishhelptext}" value="{!$Label.comp_wiz_finish}" action="{!finishCompetition}"  status="savingSpinner" rendered="{!stateContext.finishable && NOT(record.RecordTypeId == teamRecordTypeId)}" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,competitionBlock,reviewBlock,finaliseBlock,competitionBlock" oncomplete="competitionWizard.renderSidebarContent();hideExtraButtons()" />
+		<apex:commandButton title="{!$Label.comp_wiz_cancelhelptext}" value="{!$Label.comp_wiz_cancel}" action="{!cancelCompetition}"  status="savingSpinner" onclick="return showCancellationConfirmDialog();" rendered="{!stateContext.cancellable && NOT(record.RecordTypeId == teamRecordTypeId)}" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,competitionBlock,reviewBlock,finaliseBlock,competitionBlock" oncomplete="competitionWizard.renderSidebarContent();hideExtraButtons()" />
+	</apex:pageBlockButtons>
+
+	<apex:pageBlockSection columns="1" title=" " collapsible="false"></apex:pageBlockSection>
+
+</apex:pageBlock>
+<apex:pageBlock tabStyle="Team__c" mode="maindetail">
+	<apex:pageblockSection title="{!$Label.comp_wiz_snapshotscheduling}" rendered="{!NOT(SnapshotCronTrigger == NULL)}">
+		<apex:pageBlockSectionItem >
+				<apex:outputLabel value="{!$Label.timezone}"/>
+				<apex:outputText value="{!SnapshotCronTrigger.TimeZoneSidKey}" />
+		</apex:pageBlockSectionItem>
+		<apex:outputField value="{!SnapshotCronTrigger.PreviousFireTime}" />
+
+		<apex:pageBlockSectionItem >
+				<apex:outputLabel value="{!$Label.frequency}"/>
+				<apex:outputText value="{!snapshotFrequency}" />
+		</apex:pageBlockSectionItem>
+		<apex:pageBlockSectionItem >
+				<apex:outputLabel value="{!$Label.past_runs}"/>
+				<apex:outputText value="{!SnapshotCronTrigger.TimesTriggered}" />
+		</apex:pageBlockSectionItem>
+
+		<apex:outputField value="{!SnapshotCronTrigger.StartTime}" />
+		<apex:outputField value="{!SnapshotCronTrigger.NextFireTime}" />
+
+		<apex:outputField value="{!SnapshotCronTrigger.State}" />
+		<apex:outputField value="{!SnapshotCronTrigger.EndTime}" />
+	</apex:pageblockSection>
+
+
+
+	<apex:outputPanel id="chatterGroupBlock">
+
+	 	<apex:outputPanel id="chatterIframe" rendered="{!NOT(ISNULL(chatterGroup)) && NOT(chatterGroupNotAccessible)}">
+	 		<br /><br /><br />
+	 		<iframe src="{!$Page.ChatterFeed}?feedId={!chatterGroupId}" style="width:100%;height:1200px" frameBorder="0" seamless="seamless"></iframe>
+	 	</apex:outputPanel>
+
+
+		<apex:outputPanel rendered="{!ISNULL(SnapshotCronTrigger) && ISNULL(chatterGroup)}">
+			<div id="noRecordsContainer5">
+				<img class="noRecordsIcon" src="{!URLFOR($Resource.SuMoSalesAssets, 'profile-bg/team@2x_grey.png')}" />
+				<div class="noRecordsMsg"><p><apex:outputText value="{!$Label.comp_wiz_stage5_no_records_message}" /></p></div>
+			</div>
+		</apex:outputPanel>
+	
+	</apex:outputPanel>
+
+</apex:pageBlock>
+</div>
+<!-- STEP 6 -->
+<apex:pageBlock tabStyle="Team__c" title="{!$Label.comp_wiz_stage6_name}" id="reviewBlock" mode="maindetail">
+	<!-- STEP 6 FORM BLOCK -->
+	<apex:pageBlockButtons location="top">&nbsp;</apex:pageBlockButtons>
+
+	<apex:pageBlockSection columns="1" title=" " collapsible="false" rendered="{!NOT(OR(stateContext.running, stateContext.finished))}"></apex:pageBlockSection>
+	<apex:pageblockSection title="Live Leaderboard" columns="1" rendered="{!OR(stateContext.running, stateContext.finished)}">
+		<apex:pageBlockTable value="{!infoLeaderBoard}" var="tm">
+			<apex:column >
+				<apex:commandButton title="{!$Label.comp_wiz_fetchrewards}" value="{!$Label.comp_wiz_fetchrewards}" action="{!fetchRewards}" rendered="{!stateContext.declarable}"  rerender="reviewBlock">
+					<apex:param value="{!tm.id}" assignTo="{!competitorContextId}" name="competitorContextId"/>
+				</apex:commandButton>
+			</apex:column>
+			<apex:column value="{!tm.record.success__User__c}" />
+			<apex:column headerValue="{!$Label.score}" value="{!tm.score}" />
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:pageblockSection title="{!$ObjectType.success__Reward__c.labelPlural}" columns="1" rendered="{!hasRewards}">
+		<apex:pageBlockTable value="{!rewards}" var="r" rendered="{!NOT(rewards.size==0)}">
+			<apex:column >
+				<apex:commandButton title="{!$Label.delete}" value="{!$Label.delete}" action="{!deleteReward}" rendered="{!stateContext.declarable}"  rerender="pageMessageBlock,loaderPanel,sidebarBlock,finaliseBlock,reviewBlock" oncomplete="competitionWizard.renderSidebarContent()">
+					<apex:param value="{!r.id}" assignTo="{!rewardContextId}" name="rewardContextId"/>
+				</apex:commandButton>
+			</apex:column>
+			<apex:column value="{!r.name}" />
+			<apex:column headerValue="{!$ObjectType.success__Reward__c.fields.success__Achievement__c.label}">
+				<a href="/{!r.Achievement__c}" target="_blank">
+					{!r.Achievement__r.Name}
+				</a>
+			</apex:column>
+			<apex:column value="{!r.success__Experience__c}" />
+			<apex:column value="{!r.success__Number_of_occurrences__c}" />
+			<apex:column headerValue="{!$ObjectType.success__Reward__c.fields.success__Reward_Source__c.label}">
+				<a href="/{!r.Rewarded_Object_Id__c}" target="_blank">
+					Link to Record
+				</a>
+			</apex:column>
+			<apex:column value="{!r.success__Started_Date_Time__c}" />
+			<apex:column value="{!r.success__Last_Updated_Date_Time__c}" />
+		</apex:pageBlockTable>
+		<apex:outputText value="{!$Label.no_rewards_found}" rendered="{!rewards.size==0}"/>
+	</apex:pageblockSection>
+
+	<apex:outputPanel rendered="{!NOT(OR(stateContext.running, stateContext.finished)) && NOT(hasRewards)}">
+		<div id="noRecordsContainer5">
+			<img class="noRecordsIcon" src="{!URLFOR($Resource.SuMoSalesAssets, 'profile-bg/leaderboard@2x_grey.png')}" />
+			<div class="noRecordsMsg"><p><apex:outputText value="{!$Label.comp_wiz_stage6_no_records_message}" /></p></div>
+		</div>
+	</apex:outputPanel>
+
+</apex:pageBlock>
+
+<!-- STEP 7 -->
+<apex:pageBlock tabStyle="Team__c" title="{!$Label.comp_wiz_stage7_name}" id="finaliseBlock" mode="maindetail">
+
+	<!-- STEP 7 FORM BLOCK -->
+	<apex:pageBlockButtons location="top">
+		<apex:commandButton title="{!$Label.comp_wiz_saveAdjustmentshelptext}" value="{!$Label.comp_wiz_saveAdjustments}" action="{!applyFinalResults}" rendered="{!stateContext.finished}" oncomplete="competitionWizard.renderSidebarContent();" status="savingSpinner" reRender="sidebarBlock,finaliseBlock" />
+		<apex:commandButton title="{!$Label.comp_wiz_declareResultshelptext}" value="{!$Label.comp_wiz_declareResults}" action="{!declareCompetition}" rendered="{!stateContext.finished}" oncomplete="competitionWizard.renderSidebarContent();" status="savingSpinner" rerender="pageMessageBlock,loaderPanel,sidebarBlock,stepBlock1,chatterBlock,notificationsBlockEvents,competitionBlock,reviewBlock,finaliseBlock,page,chatterGroupBlock" />
+		&nbsp;
+	</apex:pageBlockButtons>
+
+	<apex:pageBlockSection columns="1" title=" " collapsible="false" rendered="{!NOT(OR(stateContext.declarable, stateContext.declared))}"></apex:pageBlockSection>
+
+	<apex:pageblockSection title="{!$Label.comp_wiz_finalPositions}" columns="1" rendered="{!stateContext.declarable && !stateContext.finished}" >
+		<apex:pageBlockTable id="declareLeaderboard" value="{!competitors}" var="tm">
+			<apex:column styleClass="sortName" value="{!tm.success__User__c}" />
+			<apex:column styleClass="sortScore" value="{!tm.success__Score__c}" />
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:pageblockSection title="{!$Label.comp_wiz_finalPositions}" columns="1" rendered="{!stateContext.declarable && stateContext.finished}" >
+		<apex:pageBlockTable id="declareLeaderboard" value="{!competitors}" var="tm">
+			<apex:column styleClass="sortName" value="{!tm.success__User__c}" />
+			<apex:column styleClass="sortScore" value="{!tm.success__Score__c}" />
+			<apex:column styleClass="sortPosition" headerValue="Position">
+				<apex:inputField value="{!tm.success__Finishing_Position__c}" />
+			</apex:column>
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:pageblockSection id="declareTopCompetitors" title="{!$Label.comp_wiz_topCompetitors}" columns="1" rendered="{!stateContext.declared}">
+		<apex:pageBlockTable value="{!competitors}" var="tm">
+			<apex:column styleClass="sortName" value="{!tm.success__User__c}" />
+			<apex:column styleClass="sortScore" value="{!tm.success__Score__c}" />
+			<apex:column styleClass="sortPosition" value="{!tm.success__Finishing_Position__c}" />
+		</apex:pageBlockTable>
+	</apex:pageblockSection>
+
+	<apex:outputPanel rendered="{!NOT(stateContext.declarable) && NOT(stateContext.declared)}">
+		<div id="noRecordsContainer5">
+			<img class="noRecordsIcon" src="{!URLFOR($Resource.SuMoSalesAssets, 'profile-bg/leaderboard@2x_grey.png')}" />
+			<div class="noRecordsMsg"><p><apex:outputText value="{!$Label.comp_wiz_stage7_no_records_message}" /></p></div>
+		</div>
+	</apex:outputPanel>
+
+</apex:pageBlock>
+
+
+</div></div>
+
+
+</div>
+</div>
+
+</apex:form>
+
+</apex:page>

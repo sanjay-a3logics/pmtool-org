@@ -1,0 +1,9 @@
+@isTest
+public class FormulaExecuterMock implements HttpCalloutMock {
+    String bodyString = '<?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://soap.sforce.com/2006/08/apex" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><soapenv:Header><DebuggingInfo><debugLog>31.0 APEX_CODE,FINEST;APEX_PROFILING,NONE;CALLOUT,NONE;DB,NONE;SYSTEM,NONE;VALIDATION,NONE;VISUALFORCE,NONE;WORKFLOW,NONE Execute Anonymous: if((2/2)==1){return 1;}else{return 2;} 05:53:33.5 (5856993)|USER_INFO|[EXTERNAL]|005d0000004bbZJ|dev@appcino.com.posigen.fulldev|Central Standard Time|GMT-05:00 05:53:33.5 (5876078)|EXECUTION_STARTED 05:53:33.5 (5886202)|CODE_UNIT_STARTED|[EXTERNAL]|execute_anonymous_apex 05:53:33.5 (6021471)|HEAP_ALLOCATE|[72]|Bytes:3 05:53:33.5 (6077330)|HEAP_ALLOCATE|[77]|Bytes:152 05:53:33.5 (6094924)|HEAP_ALLOCATE|[342]|Bytes:408 05:53:33.5 (6115372)|HEAP_ALLOCATE|[355]|Bytes:408 05:53:33.5 (6133958)|HEAP_ALLOCATE|[467]|Bytes:48 05:53:33.5 (6166203)|HEAP_ALLOCATE|[139]|Bytes:6 05:53:33.5 (6215483)|HEAP_ALLOCATE|[EXTERNAL]|Bytes:1 05:53:33.5 (6331840)|STATEMENT_EXECUTE|[1] 05:53:33.5 (6344201)|STATEMENT_EXECUTE|[1] 05:53:33.5 (6345384)|STATEMENT_EXECUTE|[1] 05:53:33.5 (6389011)|CODE_UNIT_FINISHED|execute_anonymous_apex 05:53:33.5 (8018152)|EXECUTION_FINISHED </debugLog></DebuggingInfo></soapenv:Header><soapenv:Body><executeAnonymousResponse><result><column>-1</column><compileProblem xsi:nil="true"/><compiled>true</compiled><exceptionMessage xsi:nil="true"/><exceptionStackTrace xsi:nil="true"/><line>-1</line><success>true</success></result></executeAnonymousResponse></soapenv:Body></soapenv:Envelope>';
+    public HTTPResponse respond(HTTPRequest req) {
+        HttpResponse resp = new HttpResponse();
+        resp.setBody(bodyString);
+        return resp;
+    }
+}

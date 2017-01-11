@@ -1,0 +1,21 @@
+.THIS.slds .slds-grid .border-left {
+    border-left: thin solid;
+}
+.THIS.slds .slds-grid .slds-col .slds-button .hidden {
+    display: none;
+}
+.THIS .business-body-buffer {
+    height: 3.722rem;
+}
+.THIS .standard-body-buffer {
+    height: 7.66rem;
+}
+.THIS .slds-checkbox {
+    cursor: pointer;
+}
+.THIS .slds-button {
+    cursor: pointer;
+}
+.THIS .hidden {
+    display: none;
+}

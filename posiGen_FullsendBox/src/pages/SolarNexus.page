@@ -1,0 +1,11 @@
+<apex:page >
+   <script>
+       var SNProjectID = "{!$CurrentPage.parameters.projectID}";
+       var SNMode = "{!$CurrentPage.parameters.view_mode}";
+       if (SNMode == 'create') {
+           document.write("<iframe src=\"https://posigen.app.solarnexus.com/view_modes/switch/client?url=/projects/" + SNProjectID + "/energy_services/new\" height=\"800\" width=\"100%\" scrolling=\"true\"></iframe>");
+       } else {
+           document.write("<iframe src=\"https://posigen.app.solarnexus.com/view_modes/switch/client?url=/projects/" + SNProjectID + "\" height=\"800\" width=\"100%\" scrolling=\"true\"></iframe>");
+       } 
+  </script>
+</apex:page>

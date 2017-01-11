@@ -1,0 +1,167 @@
+<apex:page sidebar="false" setup="false" controller="Loop.aboutLoop" id="aPage" title="Drawloop Document Generation Admin" showHeader="true" tabStyle="DDP_Admin__tab" action="{!onload}">
+    <apex:form id="tsoResetLinkForm">
+        <apex:commandLink action="{!resetDdpFilesUpdate}" value="TSO Reset" style="display: none;" id="tsoResetLink" />
+    </apex:form>
+    <apex:outputPanel layout="block" rendered="{!!setupWizardComplete}">
+        <html>
+            <head>
+                <style type="text/css">
+                    .spinnerContainer {
+						width: 100px;
+                    	height: 100px;
+                    	position: absolute;
+                    	top: 0;
+	                    right: 0;
+    	                bottom: 0;
+        	            left: 0;
+                    	margin: auto;
+                    }
+                </style>
+                <script>
+                    var isLightning = {!$User.UIThemeDisplayed == "Theme4d"};
+                    function resize() {
+                        var lightningDiv = document.getElementById('lightning');
+                        if (lightningDiv) {
+                            var bodyTable = document.getElementById('bodyTable');
+                            if (!isLightning && bodyTable) {
+                                // Viewing in Salesforce Classic
+                                bodyTable.style.padding = 0;
+                                bodyTable.rows[0].cells[0].className = '';
+                            } else {
+                                // Vieing in Lightning Experience
+                                lightningDiv.closest('html').style.height = '100%';
+                                lightningDiv.style.height = '100%';
+                                lightningDiv.childNodes[0].style.height = '100%';
+                                lightningDiv.childNodes[0].childNodes[1].style.position = 'fixed';
+                                
+                                var content = lightningDiv.childNodes[0].childNodes[0];
+                                var footer = lightningDiv.childNodes[0].childNodes[1];
+                                content.style.height = lightningDiv.closest('body').clientHeight - footer.scrollHeight + 'px';
+                                content.style.overflowY = 'auto';
+                            }
+                        }
+                    }
+                
+                	// Highlight DDP tab
+                	if (!isLightning && {!cameFromDdpTab}) {
+                        var ddpAdminTab = document.getElementsByClassName('wt-DDP-Admin');                       
+                        ddpAdminTab[0].classList.remove('zen-active');
+                        ddpAdminTab[0].classList.remove('brandPrimaryBgr');
+                        ddpAdminTab[0].classList.remove('primaryPalette');
+                        var ddpTab = document.getElementsByClassName('wt-DDP');
+                        ddpTab[0].classList.add('zen-active');
+                        ddpTab[0].classList.add('brandPrimaryBgr');
+                        ddpTab[0].classList.add('primaryPalette');
+                    }
+                </script>
+            </head>
+            <body style="padding: 0px;" onresize="if (isLightning) {resize();}">
+                <apex:includeScript value="/lightning/lightning.out.js" />
+                <apex:includeLightning />
+                <div id="spinner" style="height: 100px;">
+                    <div class="slds spinnerContainer">
+                        <img src="{!'/resource/Loop__SalesforceLightning/assets/images/spinners/slds_spinner_brand.gif'}" alt="Loading..." style="width: 5rem;"/>
+                    </div>
+                </div>
+                <div id="lightning"/>
+                <script>
+                    $Lightning.use("Loop:SetupWizardApp", function() {
+                        $Lightning.createComponent("Loop:SetupWizard", {sessionId : '{!sessionId}'}, "lightning", function() {
+                            var spinner = document.getElementById('spinner');
+                            spinner.parentNode.removeChild(spinner);
+                            setTimeout(function() {
+                                // Need to resize after apps stylesheet has loaded.
+                                // including the style reference on the visualforce page seems to work,
+                                // but fails in a package
+		                        resize();
+                            }, 100);
+                        });
+                    });
+                </script>
+            </body>
+        </html>
+    </apex:outputPanel>
+    <apex:outputPanel layout="block" rendered="{!setupWizardComplete}">
+        <html>
+            <head>
+                <style type="text/css">
+                    .spinnerContainer {
+                        width: 100px;
+                        height: 100px;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        margin: auto;
+                    }
+                </style>
+ 				<script>
+                	if ({!cameFromDdpTab} && {!setupWizardComplete} && !!'{!ddpListViewId}' && window.sforce && sforce.one && sforce.one.navigateToList) {
+                        sforce.one.navigateToList('{!ddpListViewId}', null, 'Loop__DDP__c');
+                	}
+                    var isLightning = {!$User.UIThemeDisplayed == "Theme4d"};
+                    function resize() {
+                        var lightningDiv = document.getElementById('lightning');
+                        if (lightningDiv) {
+                            var bodyTable = document.getElementById('bodyTable');
+                            if (!isLightning && bodyTable) {
+                                // Viewing in Salesforce Classic
+                                bodyTable.style.padding = 0;
+                                bodyTable.rows[0].cells[0].className = '';
+                            } else {
+                                // Viewing in Salesforce Lightning
+								lightningDiv.closest('html').style.height = '100%';
+                                lightningDiv.style.height = '100%';
+                                
+                                var nav = document.getElementById('nav');
+                                nav.style.height = '100%';
+                                nav.style.position = 'fixed';
+                                
+                                var footer = document.getElementById('pageFooter');
+                                var footerHeight = 0;
+                                if (footer) {
+                                    footer.style.position = 'fixed';
+                                    footer.style.width = lightningDiv.closest('body').scrollWidth - 275 + 'px';
+                                    footerHeight = footer.clientHeight;
+                                }
+                                
+                                var grid = document.getElementById('grid');
+                                grid.style.height = lightningDiv.closest('body').clientHeight - footerHeight + 'px';
+                                
+                                var content = document.getElementById('content');
+                                content.style.marginLeft = '275px';
+                                content.style.height = lightningDiv.closest('body').clientHeight - footerHeight + 'px';
+                                content.style.overflow = 'auto';
+                            }
+                        }
+                    }
+                </script>
+            </head>
+            <body style="padding: 0px;" onresize="if (isLightning) {resize();}">
+                <apex:includeScript value="/lightning/lightning.out.js" />
+                <apex:includeLightning />
+                <div id="spinner" style="height: 100px;">
+                    <div class="slds spinnerContainer">
+                        <img src="{!'/resource/Loop__SalesforceLightning/assets/images/spinners/slds_spinner_brand.gif'}" alt="Loading..." style="width: 5rem;"/>
+                    </div>
+                </div>
+                <div id="lightning" />
+                <script>
+                $Lightning.use("Loop:DdpAdminApp", function() {
+                    $Lightning.createComponent("Loop:DdpAdmin", {sessionId : '{!sessionId}'}, "lightning", function() {
+                        var spinner = document.getElementById('spinner');
+                        spinner.parentNode.removeChild(spinner);
+                        setTimeout(function() {
+                            // Need to resize after apps stylesheet has loaded.
+                            // including the style reference on the visualforce page seems to work,
+                            // but fails in a package
+                            resize();
+                        }, 100);
+                    });
+                });
+                </script>
+            </body>
+        </html>
+    </apex:outputPanel>
+</apex:page>

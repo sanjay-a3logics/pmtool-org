@@ -1,0 +1,5 @@
+<apex:page showHeader="false" sidebar="false" controller="success.PerformanceHistoryController">
+
+    <c:PerformanceHistoryChartComponent xAxisLabel="Time Period" user_Id="{!$User.Id}" chartPeriod="WEEKLY" showButtons="false" customHeight="260"/>
+
+</apex:page>

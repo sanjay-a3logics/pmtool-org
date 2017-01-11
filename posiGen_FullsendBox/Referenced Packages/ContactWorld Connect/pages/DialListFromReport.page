@@ -1,0 +1,74 @@
+<apex:page controller="NVMConnect.DialListFromReportController">
+
+	<apex:pageMessages />
+
+	<apex:form >
+		<apex:actionFunction action="{!UpdateIsSelectedReportValid}" name="selectReport" reRender="columnsPanel, createButton"/>
+		<apex:pageBlock title="Create Dial List From A Report" mode="edit">
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Dial List Name"/>
+					<apex:inputText id="DialListName" value="{!dialListName}" html-placeholder="Enter Dial List Name..." maxlength="80"/>
+				</apex:pageBlockSectionItem>
+				<apex:outputPanel id="dialListInvalidMessage">
+					<apex:pageMessage rendered="{!!isValidDialListName}" summary="Please enter a name for the generated Dial List" title="Dial List Name required" severity="error" strength="1"/>
+				</apex:outputPanel>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Source Report"/>
+						<apex:selectList value="{!selectedReport}" size="1" onchange="selectReport();">
+							<apex:selectOptions value="{!reports}"/>
+						</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+
+			<apex:outputPanel id="columnsPanel">
+				<apex:pageBlockSection columns="1" rendered="{!selectedReport != null && selectedReport != ''}">
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Object ID Column"/>
+						<apex:pageBlockSectionItem >
+							<apex:selectList value="{!idColumn}" size="1" >
+								<apex:selectOptions value="{!columns}"/>
+							</apex:selectList>
+							<apex:outputLabel value="Please choose the column that contains the object ID" style="margin-left:10px" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSectionItem>
+
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Dial Entry Description Column"/>
+						<apex:pageBlockSectionItem >
+							<apex:selectList value="{!descriptionColumn}" size="1" >
+								<apex:selectOptions value="{!columns}"/>
+							</apex:selectList>
+							<apex:outputLabel value="This will be used to describe the dial entry, it can be any column" style="margin-left:10px" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSectionItem>
+
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Dial Entry Primary Phone Column"/>
+						<apex:pageBlockSectionItem >
+							<apex:selectList value="{!primaryPhoneColumn}" size="1" >
+								<apex:selectOptions value="{!columns}"/>
+							</apex:selectList>
+							<apex:outputLabel value="Please choose a column containing phone numbers only" style="margin-left:10px" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSectionItem>
+
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Dial Entry Secondary Phone Column"/>
+						<apex:pageBlockSectionItem >
+							<apex:selectList value="{!secondaryPhoneColumn}" size="1" >
+								<apex:selectOptions value="{!columns}"/>
+							</apex:selectList>
+							<apex:outputLabel value="Please choose a column containing phone numbers only" style="margin-left:10px" />
+						</apex:pageBlockSectionItem>
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+			</apex:outputPanel>
+
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton id="createButton" action="{!Create}" value="Create Dial List" disabled="{!!isValidSelectedReport}"/>
+			</apex:pageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,1399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Activation_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.PVI_Activation_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activation Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Activation_Scheduled_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Activation_Scheduled_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activation Scheduled Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Actual_System_Size__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.PVFA_System_Size_kW__c / 1000</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual System Size</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Address__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Property_Address__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Address</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Aging_Since_Contract_Approved__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Contract_Approved_Date__c &gt; TODAY(), NULL, TODAY()- Contract_Approved_Date__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Aging Since Contract Approved</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Aging_since_Contract_Signed__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Contract_Signed_Date__c &gt; TODAY(), NULL, TODAY() - Contract_Signed_Date__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Aging since Contract Signed</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Agreement_Appr_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Removal__r.Agreement_Approved_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Agreement Approved Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Assessment_Comp_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Assessment_Completed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Assessment Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Assessment_Req_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Assessment_Requested_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Assessment Requested Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Billing_Packet_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Install__r.Billing_Packet_Status__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billing Packet Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Packet_Submitted__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Billing_packet_submitted__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Billing Packet Submitted</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Building_Permit_Applied_For__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Building_Permit_Applied_For_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Building Permit Applied For</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Building_Permit_received__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Building_Permit_Received_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Building Permit received</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Property_City__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>City</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Closing_Call__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Opportunity__r.Touch_Milestones__c , &quot;Closing Call&quot;), TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Closing Call</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Completion_Average__c</fullName>
+        <defaultValue>0</defaultValue>
+        <externalId>false</externalId>
+        <label>Completion Average</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Contract_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Contracts_Approved_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contract Approved Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Contract_Signed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Contracts_Signed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Contract Signed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Cust_Accept_Rec_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Customer_Acceptance_Received_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Customer Acceptance Received Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Property__r.AssessorOwnerName1__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Customer Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deal__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Deal</label>
+        <referenceTo>Deal__c</referenceTo>
+        <relationshipLabel>PM Tools V2</relationshipLabel>
+        <relationshipName>PM_Tools_V2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EA_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EE_Approved_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA Approved Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Assigned_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EE_Assigned_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA Assigned Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EE_Completed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Project_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_EE_Assessment__r.Status__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA Project Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EA_Rebate_Submitted_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EA_Rebate_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA Rebate Submitted Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Scheduled_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EE_Scheduled_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA Scheduled Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_St_App_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EA_State_Application_Approved_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA State Application Approved Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_St_App_Sub_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EA_State_Application_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EA State Application Submitted Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Accepted__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Has_EE_as_a_Solar_Product__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Accepted</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EE_Lease_Payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Validation_EE_Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EE Lease Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>EU_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Upgrade__r.EE_Approved_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EU Approved Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Upgrade__r.EE_Completed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EU Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Project_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_EE_Upgrade__r.Status__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EU Project Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EU_Scheduled_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Upgrade__r.EE_Scheduled_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EU Scheduled Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Elec_Install_Sch_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.PVI_Electrical_Scheduled_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electrical Install Scheduled date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Install_Completed_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.PVI_Electrical_Installed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electrical Install Completed date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Installed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.PVI_Electrical_Installed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electrical Installed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Permit_Applied_For__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Electrical_Permit_Applied_For_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electrical Permit Applied For</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Electrical_Permit_received__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Electrical_Permit_Received_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Electrical Permit received</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Account_Email__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Email</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Eng_Report_Rec_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Engineering_Report_Received_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Engineering Report Received Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Eng_Report_Req_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Engineering_Report_Requested_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Engineering Report Requested Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Engineering_Required__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Feasibility__r.Engineering_Required__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Engineering Required</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feasibility_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Marked_Completed_On_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Feasibility Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Feasibility_Project_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Feasibility__r.Status__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Feasibility Project Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feasibility_Result__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Feasibility__r.Result__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Feasibility Result</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Feasibility_result_call__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Opportunity__r.Touch_Milestones__c , &quot;Feasibility Result Call&quot;), TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Feasibility result call</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Field_Verif_Comp_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Field_Verification_Completed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Field Verification Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Field_Verif_Req_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Field_Verification_Requested_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Field Verification Requested Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>First_Closing_Call_Made__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.First_Closing_Call_Made__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>First Closing Call Made</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>First_Intro_Call_Made__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.First_Intro_Call_Made__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>First Intro Call Made</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HDLC_Appr_Comp_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.HDLC_Approval_Completed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HDLC Approval Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>HDLC_Appr_Req_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.HDLC_Approval_Requested_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HDLC Approval Requested Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>HDLC_Approval__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.HDLC_Approval__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HDLC Approval</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>HOA_Appr_Comp_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.HOA_Approval_Completed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HOA Approval Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>HOA_Appr_Req_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.HOA_Approval_Requested_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HOA Approval Requested Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>HOA_Approval_Required__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Are_you_in_a_Homeowner_s_Association__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HOA Approval Required</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Inf_Net_Meter_Inst_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Informed_Net_Meter_Installed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Informed Net Meter Installed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Initial_Determination_Result__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Feasibility__r.Initial_Determination_Result__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Initial Determination Result</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Insp_Comp_With_Letter_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Inspection_Complete_With_Letter_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inspection Complete With Letter Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Inspection_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Inspection_Complete_With_Letter_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inspection Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Inspection_Requested_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Inspection_Requested_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inspection Requested Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Inspection_Result__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Inspection_Result__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Inspection Result</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Intro_Call__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Opportunity__r.Touch_Milestones__c , &quot;Intro Call&quot;), TRUE, FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Intro Call</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>LMI_Acceptance_Result__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Opportunity__r.LMI_Acceptance_Result__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LMI Acceptance Result</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LMI_Accpt_Rec_Date__c</fullName>
+        <description>Old field name LMI_Accpt_Rec_Date</description>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.LMI_Status_Result_Received__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LMI Status Result Received</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>LMI_Accpt_Sub_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.LMI_Application_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>LMI Application Submitted</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Layout_Appr_Rec_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Layout_Approval_Received_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Layout Approval Received Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Layout_Appr_Sub_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.Layout_Approval_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Layout Approval Submitted Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Layout_Approval_Required__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Layout_Approval_Required__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Layout Approval Required</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Lease Type</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>M2_submission_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.M2_submission_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M2 submission date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>M3_submission_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.M3_submission_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>M3 submission date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Net_Meter_Inst_Sch_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Net_Meter_Install_Scheduled_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Net Meter Install Scheduled Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Net_Meter_Inst_Verified_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.PV_Net_Meter_Install_Verified_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Net Meter Installed Verified Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Numeric_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Opp_Numeric_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opportunity Numeric ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>PM Tools V2</relationshipLabel>
+        <relationshipName>PM_Tools_V2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PV_Comp_EU_Sch_Call__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(INCLUDES( Opportunity__r.Touch_Milestones__c , &quot;PV Completion/EU Scheduling Call&quot;), TRUE, False)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PV Completion/EU Scheduling Call</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PV_Install_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Install__r.Status__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PV Install Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PV_Lease_Payment__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Lease_System_Monthly_Payment__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PV Lease Payment</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Permanent_Removal__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Removal__r.Permanent_Removal__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Permanent Removal</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Pipeline_Stage__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Pipeline_Stage__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Pipeline Stage</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Placed_In_Service_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.PVI_Placed_In_Service_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Placed In Service Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Primary_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Account_Phone__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Primary Phone</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Completion_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Project Completion Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Project_EE_Assessment__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project EE Assessment</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools V2 (Project EE Assessment)</relationshipLabel>
+        <relationshipName>PM_Tools_V21</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_EE_Upgrade__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project EE Upgrade</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools V2 (Project EE Upgrade)</relationshipLabel>
+        <relationshipName>PM_Tools_V22</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Manager__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Project_Manager__r.FirstName+&apos; &apos;+Opportunity__r.Project_Manager__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Manager</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_PV_Feasibility__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project PV Feasibility</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools V2</relationshipLabel>
+        <relationshipName>PM_Tools_V2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_PV_Install__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project PV Install</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools V2</relationshipLabel>
+        <relationshipName>PM_Tools_V24</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_PV_Removal__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project PV Removal</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>PM Tools V2 (Project PV Removal)</relationshipLabel>
+        <relationshipName>PM_Tools_V23</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Project_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Project Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Close</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Active</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non-Feasible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Transfer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terminated</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>QC_Completed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.QC_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>QC Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>QC_Passed__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.QC_Passed__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>QC Passed</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>QC_Requested_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.QC_Requested_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>QC Requested Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>QC_Result__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.QC_Result__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>QC Result</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>R_P_Inst_Sch_date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.PVI_Rails_Scheduled_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>R&amp;P Install Scheduled date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>R_P_Installed_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.PVI_Rails_Installed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>R&amp;P Installed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>R_P_Removal_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Removal__r.R_P_Removal_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>R&amp;P Removal Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_Sub_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Assessment__r.EA_Rebate_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Rebate Submission Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Referring_Customer__c</fullName>
+        <externalId>false</externalId>
+        <formula>(Opportunity__r.Referring_Customer__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Referring Customer</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Removal_Project_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Removal__r.Status__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Removal Project Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Removal_Project__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Removal__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Removal Project</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Removal_Reason__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Removal__r.Removal_Reason__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Removal Reason</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Removal_Scheduled_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Removal__r.Removal_Scheduled_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Removal Scheduled Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order_Created__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(AND(Sales_Order__c!=NULL,Sales_Order__c!=&apos;&apos;),true,false)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sales Order Created</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Order__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Sales Order</label>
+        <referenceTo>Sales_Order__c</referenceTo>
+        <relationshipLabel>PM Tools V2</relationshipLabel>
+        <relationshipName>PM_Tools_V2</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Person__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Owner.FirstName+&apos; &apos;+Opportunity__r.Owner.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sales Person</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Secondary_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Account_Mobile__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Secondary Phone</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Site_Verification_Required__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_PV_Feasibility__r.Site_Verification_Required__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Site Verification Required</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State_Prog_App_Appr_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.State_Program_Application_Received_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Program Application Approved Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State_Prog_App_Sub_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.State_Program_Application_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State Program Application Submitted Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.Property_State__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>State</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System_Size__c</fullName>
+        <externalId>false</externalId>
+        <formula>Opportunity__r.System_Size_in_KW__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>System Size</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Telemarketer__c</fullName>
+        <externalId>false</externalId>
+        <formula>&apos;&apos;+Opportunity__r.Telemarketer__r.FirstName+&apos; &apos;+Opportunity__r.Telemarketer__r.LastName</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Telemarketer</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Utility_Final_Appr_Com_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Utility_Final_Approval_Completed_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Utility Final Approval Completed Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Utility_Final_Appr_Req_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Install__r.Utility_Final_Approval_Requested_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Utility Final Approval Requested Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Utility_Init_Appr_Rec_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.NMIA_Received_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Utility Initial Approval Received Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Utility_Init_Appr_Sub_Date__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_PV_Feasibility__r.NMIA_Submitted_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Utility Initial Approval Submitted Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Utility__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(Opportunity__r.Electricity_Provider__r.IsPersonAccount = true, Opportunity__r.Electricity_Provider__r.FirstName+&apos; &apos;+Opportunity__r.Electricity_Provider__r.LastName, Opportunity__r.Electricity_Provider__r.Name)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Utility</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Work_Scope_Approved__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Upgrade__r.Work_Scope_Approved__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Work Scope Approved</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Work_Scope_Submitted__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project_EE_Upgrade__r.Work_Scope_Submitted__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Work Scope Submitted</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <label>PM Tool V2</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>State__c</columns>
+        <columns>Contract_Approved_Date__c</columns>
+        <columns>Pipeline_Stage__c</columns>
+        <columns>Project_Manager__c</columns>
+        <columns>Project_Status__c</columns>
+        <columns>Completion_Average__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>PM Tool V2 Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>PM Tools V2</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>PM_Review</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Stage Completion Review</masterLabel>
+        <openType>sidebar</openType>
+        <page>PM_Review</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

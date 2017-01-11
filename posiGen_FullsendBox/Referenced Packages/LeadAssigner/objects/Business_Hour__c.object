@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>BusinessHoursManagement</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Apply_Rule_Immediately__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Execute Immediately</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Assign_to_only_Logged_in_users__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Mark this checkbox if you want to assign a lead to only logged-in users among the assigned users.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Mark this checkbox if you want to assign a lead to only logged-in users among the assigned users.</inlineHelpText>
+        <label>Assign to only Logged-in users</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Business_Days__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Business Days</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mon</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tue</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thu</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fri</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sun</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Count_of_Users__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field displays total number of users assigned to the selected business hours</description>
+        <externalId>false</externalId>
+        <inlineHelpText>This field displays total number of users assigned to the selected business hours</inlineHelpText>
+        <label>Count of Users</label>
+        <summaryForeignKey>Assigned_User__c.Business_Hour__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Default_User__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>If none of the users are available or logged-in then this user owns the lead.</inlineHelpText>
+        <label>Default User</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Business_users</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>End_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Integer value of hour for end time of business hours. Supports 24 hour format so value can be from 0-23</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Integer value of hour for end time of business hours. Supports 24 hour format so value can be from 0-23</inlineHelpText>
+        <label>End Time</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Execute_On_Type_Update__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Execute On Type Update</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Full_Time_Shift__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF((Start_Time__c &gt;= End_Time__c)&amp;&amp;(End_Time__c!=0)
+,TRUE,FALSE)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Full Time Shift</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>IsActive__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Active</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Counter__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Lead Counter</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SelectedAllDays__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>AND( INCLUDES(Business_Days__c, &quot;Mon&quot;),
+INCLUDES(Business_Days__c, &quot;Tue&quot;),
+INCLUDES(Business_Days__c, &quot;Wed&quot;),
+INCLUDES(Business_Days__c, &quot;Thu&quot;),
+INCLUDES(Business_Days__c, &quot;Mon&quot;),
+INCLUDES(Business_Days__c, &quot;Fri&quot;),
+INCLUDES(Business_Days__c, &quot;Sat&quot;),
+INCLUDES(Business_Days__c, &quot;Sun&quot;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SelectedAllDays</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Start_Time__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Integer value of hour for start time of business hours. Supports 24 hour format so value can be from 0-23</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Integer value of hour for start time of business hours. Supports 24 hour format so value can be from 0-23</inlineHelpText>
+        <label>Start Time</label>
+        <precision>2</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This field indicates type of lead the assigned users to this slot are to work on</description>
+        <externalId>false</externalId>
+        <inlineHelpText>value for this field should match with value for custom type field on lead object</inlineHelpText>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CTWEB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LAWEB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NYWEB</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BrightCurrentNY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>BrightCurrentCT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Assignment Rule</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Description</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Assignment Rules</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Start_Time__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>End_Time__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>IsActive__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>End_time_should_be_between_0_and_23</fullName>
+        <active>true</active>
+        <description>this rule checks if end time is between 0-23</description>
+        <errorConditionFormula>OR( End_Time__c &lt; 0,End_Time__c &gt; 23)</errorConditionFormula>
+        <errorDisplayField>End_Time__c</errorDisplayField>
+        <errorMessage>End time should be an integer value between 0-23</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Start_time_should_be_between_0_23</fullName>
+        <active>true</active>
+        <description>this rule checks if start time of business hour is between 0-23 with the increment of 1 hr</description>
+        <errorConditionFormula>OR(Start_Time__c  &lt; 0 , Start_Time__c  &gt; 23)</errorConditionFormula>
+        <errorDisplayField>Start_Time__c</errorDisplayField>
+        <errorMessage>Start time should be an integer value in the range of 0-23</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Validate_Full_Time_Shift</fullName>
+        <active>true</active>
+        <errorConditionFormula>Full_Time_Shift__c &amp;&amp; (SelectedAllDays__c == FALSE)</errorConditionFormula>
+        <errorMessage>Please, Select All business days if rule is configured for full day time.</errorMessage>
+    </validationRules>
+</CustomObject>

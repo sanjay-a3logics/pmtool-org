@@ -1,0 +1,424 @@
+<apex:page docType="html"
+	showHeader="false" 
+	sidebar="false"
+	standardStylesheets="false"
+	cache="true"
+	controller="success.ProfileController"
+	extensions="success.RemoteController">
+
+	<apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/custom/jquery-ui-1.10.1.custom.min.css')}"/>
+
+	<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.10.1.custom.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__jQueryPajinate)}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__Moment)}" />
+
+	<apex:includeScript value="{!URLFOR($Resource.success__SuMoProfileBundle, 'lib/utils.js')}" />
+
+
+	<script type="text/javascript">
+		
+		$sj = successJQ.noConflict();
+
+		if(('{!profileUser.sumo_user__c}' == 'false' && '{!profileUser.sumo_observer__c}' == 'false') ||'{!profileUser.hidden__c}' == 'true') {
+			$sj("body").hide();
+			window.location.replace('/apex/NoData');
+		}
+			
+		mygetUrlParameter = function (sParam) {
+		    var sPageURL = window.location.search.substring(1);
+		    var sURLVariables = sPageURL.split('&');
+		    for (var i = 0; i < sURLVariables.length; i++) 
+		    {
+		        var sParameterName = sURLVariables[i].split('=');
+		        if (sParameterName[0] == sParam) 
+		        {
+		            return sParameterName[1];
+		        }
+		    }
+		    return null;
+		};
+
+		var competitionDetailId = mygetUrlParameter('competition_detail_id');
+		if (competitionDetailId != null) {
+			document.body.style.display = 'none';
+			window.location.href = "{!URLFOR($Page.Profile_Competition_Detail)}?id=" + competitionDetailId + "&v=" + new Date().getTime();
+		}
+
+		var adjustLayout = function () {
+			var body = $sj(document.body);
+			var windowWidth = $sj(window).innerWidth();
+			body.scrollLeft(1);
+			if(body.scrollLeft() != 0 || windowWidth < body.width()){
+				body.css({overflowX:'hidden',marginRight: 0, marginLeft: 0});
+				if ($sj.support.leadingWhitespace) {
+					body.css({paddingRight: body.width() - windowWidth});
+				}
+			}
+			body.scrollLeft(0);
+			var wwidth = $sj(window).innerWidth();
+			if (!isNaN(wwidth) && wwidth > 40) {
+				body.css({width: $sj(window).innerWidth()});
+			}
+		}
+
+		$sj(document).ready( function () {
+			window.setTimeout( function () {
+				$sj('.dataTable').each(function (i, el) {
+					$sj(el).on('draw.dt', function () {
+						adjustLayout();
+					})
+				})
+			}, 50);		
+			//window.setTimeout(adjustLayout, 500);
+			adjustLayout();
+		});
+
+		var viewerUserId = '{!viewerUserId}';
+		var profileUserId = '{!profileUser}';
+		
+		var isOwner = '{!isOwner}';
+		var isPlayer = '{!viewerUser.sumo_user__c}';
+
+		var parentOrigin = location.hash.replace(/#/, "") || null;
+
+		var TEAM_TYPE = '{!JSENCODE(TEAM)}';
+		var TEAM_TYPE_LABEL = '{!JSENCODE(TEAMLabel)}';
+		var COMPETITION_TYPE = '{!JSENCODE(COMPETITION)}';
+		var COMPETITION_TYPE_LABEL = '{!JSENCODE(COMPETITIONLabel)}';
+
+		var TEAMS = $sj.parseJSON('{!JSENCODE(teams)}');
+		TEAMS = TEAMS || [];
+		
+		var COMPETITIONS = $sj.parseJSON('{!JSENCODE(competitions)}');
+		COMPETITIONS = COMPETITIONS || [];
+
+		var COMPETITIONSTATUSTRANSLATION = $sj.parseJSON('{!JSENCODE(competitionStatusTranslation)}');
+
+		var TEAMLEADERBOARDDATA = [];
+
+		var PERFORMANCE_DETAIL =  $sj.parseJSON('{!JSENCODE(performanceDetailComponentAsJSON)}');
+		var PRIMARY_TEAM_DETAILS;
+		if (PERFORMANCE_DETAIL) {
+			PRIMARY_TEAM_DETAILS = PERFORMANCE_DETAIL.primaryTeamDetails;
+		}
+
+		var fetchLeaderBoardData = function(recordId) {
+			if(!recordId) return false;
+			
+			Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.RemoteController.fetchLeaderBoardData2}',
+				[recordId, viewerUserId, profileUserId],
+				function(result, event){    
+					if (event.status) {
+						ProfileCompetitions.leaderboardDataCallBack(recordId, result);
+					}  else {
+						ProfileCompetitions.showDialog(event);
+					}
+				}
+			);
+		};
+
+		$sj(document).ready(function() {
+			var type;
+			if (PRIMARY_TEAM_DETAILS) {
+				type = PRIMARY_TEAM_DETAILS.teamType || TEAM_TYPE;
+		 	} else {
+				type = TEAM_TYPE;
+			}
+			if (location.search.indexOf('showTargeted') !== -1) {
+				type = COMPETITION_TYPE;
+			}
+			if (location.search.indexOf('showGroup') !== -1) {
+				type = TEAM_TYPE;
+			}
+
+			var teamRecords = _.clone(TEAMS) || [];
+
+			if (type == TEAM_TYPE && teamRecords.length == 0) {
+				teamRecords = _.clone(COMPETITIONS) || [];
+				if(teamRecords.length > 0) type = COMPETITION_TYPE;
+			} 
+
+			//reset competition type drop-down selection
+			$sj('.dropDownButton').html(
+				type == TEAM_TYPE 
+					? '{!JSENCODE($Label.competitions_group)}'
+					: '{!JSENCODE($Label.competitions_targeted)}'
+			);
+
+			ProfileCompetitions.renderDropDownList(type);
+
+			ProfileCompetitions.renderCompetitionList(type);
+
+			$sj(document).click(function() {
+				//hide open drop-downs
+				$sj('.zen-options').hide();
+				$sj('.uiMenuList').hide();
+			});
+
+			$sj('.dropDownButton').click(function(e) {
+				//toggle competition type drop-down
+				e.stopPropagation();
+				$sj('.uiMenuList').toggle();
+			});
+
+			$sj('.uiMenuList li').click(function(e) {
+				//hide competition type drop-down
+				e.stopPropagation();
+				$sj('.uiMenuList').hide();
+
+				if(this.id == 'menuitem1') {
+					$sj('.dropDownButton').html(TEAM_TYPE_LABEL + ' {!$ObjectType.success__Team__c.LabelPlural}');
+					ProfileCompetitions.renderCompetitionList(TEAM_TYPE);
+				} else {
+					$sj('.dropDownButton').html(COMPETITION_TYPE_LABEL + ' {!$ObjectType.success__Team__c.LabelPlural}');
+					ProfileCompetitions.renderCompetitionList(COMPETITION_TYPE);
+				}
+			});
+
+			$sj('#teamsTable tbody').click(function(e) {
+				var target = $sj(e.target);
+
+				if(target.hasClass('zen-trigger')) {
+					e.stopPropagation();
+
+					$sj('.zen-options').not(target.next('.zen-options')).hide();
+					target.next('.zen-options').toggle();
+				}
+				else if(target.hasClass('zen-selectArrow')) {
+					e.stopPropagation();
+
+					$sj('.zen-options').not(target.parent().next('.zen-options')).hide();
+					target.parent().next('.zen-options').toggle();
+				}
+				else if(target.hasClass('action')) {
+					e.stopPropagation();
+					$sj('.zen-options').hide();
+					var recordId = target.closest('tr').attr('id');
+					var approvalId = target.closest('tr').attr('data-approval-id');
+
+					if(target.hasClass('joinBtn')) {
+						Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.joinTeam}', recordId,
+							function(result, event){ 	
+								if (event.status) {          
+									location.reload();	      
+								}  else {
+									ProfileCompetitions.showDialog(event);
+								}
+							},         
+							{escape: true}   
+						);
+					} else if(target.hasClass('leaveBtn')) {
+						Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.leaveTeam}', recordId,
+							function(result, event){ 	
+								if (event.status) {          
+									location.reload();	      
+								}  else {
+									ProfileCompetitions.showDialog(event);
+								}
+							},         
+							{escape: true}   
+						);
+					} else if(target.hasClass('setPrimaryBtn')) {
+						Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.primeTeam}', recordId,
+							function(result, event){ 
+								//conditional redirection - desktop v mobile client	
+								if (event.status) {
+									//Mobile
+									if( SuMoUtils.isTabletDevice() ) {
+										window.location.href = "{!URLFOR($Page.Profile_Competitions)}?v=" + new Date().getTime() + "#success.origin.home";
+									} 
+									//User Profile page
+									else if (parentOrigin == 'success.origin.home') {
+										if(!SuMoUtils.isIFrameLightningExperience()) {
+										//classic experience
+											window.top.location.href = "{!URLFOR($Page.User_Profile)}?v=" + new Date().getTime() + "#motivate";
+										} else {
+											parent.postMessage("profile","*");
+										}
+									}
+									//Chatter Profile tab
+									else {       
+										window.top.location.href = "/_ui/core/userprofile/UserProfilePage?tab=success.Profile_Motivate";
+									}      
+								}  else {
+									ProfileCompetitions.showDialog(event);
+								}
+							},         
+							{escape: true}   
+						);
+					} else if(target.hasClass('unsetPrimaryBtn')) {
+						Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.unprimeTeam}', recordId,
+							function(result, event){ 
+								//conditional redirection - desktop v mobile client
+								if (event.status) {
+									//Mobile
+									if( SuMoUtils.isTabletDevice() ) {
+										window.location.href = "{!URLFOR($Page.Profile_Performance)}?v=" + new Date().getTime() + "#success.origin.home";
+									} 
+									//User Profile page
+									else if (parentOrigin == 'success.origin.home') {
+										if(!SuMoUtils.isIFrameLightningExperience()) {
+											//classic experience
+											window.top.location.href = "{!URLFOR($Page.User_Profile)}?v=" + new Date().getTime() + "#motivate";
+										} else {
+											parent.postMessage("profile","*");
+										}
+									}
+									//Chatter Profile tab
+									else {       
+										window.top.location.href = "/_ui/core/userprofile/UserProfilePage?tab=success.Profile_Motivate";
+									}      
+
+								}  else {
+									ProfileCompetitions.showDialog(event);
+								}
+							},         
+							{escape: true}   
+						);
+					} else if(target.hasClass('joinRequestBtn')) {
+						Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.requestToJoinTeam}', recordId,
+							function(result, event){ 	
+								if (event.status) {          
+									location.reload();	      
+								}  else {
+									ProfileCompetitions.showDialog(event);
+								}
+							},         
+							{escape: true}   
+						);
+					} else if(target.hasClass('leaveRequestBtn')) {
+						Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.requestToLeaveTeam}', recordId,
+							function(result, event){ 	
+								if (event.status) {          
+									location.reload();	      
+								}  else {
+									ProfileCompetitions.showDialog(event);
+								}
+							},         
+							{escape: true}   
+						);
+					} else if(target.hasClass('cancelRequestBtn')) {
+						Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.cancelRequest}', approvalId,
+							function(result, event){ 	
+								if (event.status) {          
+									location.reload();	      
+								}  else {
+									ProfileCompetitions.showDialog(event);
+								}
+							},         
+							{escape: true}   
+						);
+					} else if(target.hasClass('viewDetailsBtn')) {
+						//VIEW DETAILS
+						window.location.href = '{!$Page.Profile_Competition_Detail}?id=' + recordId + '&origin=' + parentOrigin;
+					} 
+				}
+				else {				
+					$sj('#comparisonPanel').html('');
+					fetchLeaderBoardData(target.closest('tr').attr('id'));
+				}
+			});
+
+			//IE support - stacking
+			$sj(function() {
+				var zIndexNumber = 9999999;
+				$sj('div').each(function() {
+					$sj(this).css('zIndex', zIndexNumber);
+					zIndexNumber -= 1;
+				});
+			});
+		});
+	</script>
+
+	<!-- import css component -->
+	<c:css_profile_common />
+	<!-- import js component -->
+	<c:js_profile_competitions />
+
+	<div class="container" id="contentContainer">
+		<div class="wide">
+			<div class="narrow-left">
+
+				<div class="dropDownList">
+					<div class="menu">
+						<div>
+							<a href="javascript:void(0);" title="" class="dropDownButton">
+								<apex:outputText value="{!$ObjectType.success__Team__c.LabelPlural}" />
+							</a>
+						</div>
+						<div style="top: auto;" class="uiMenuList">
+							<ul>
+								<c:Visibility edition="Achieve" showMessage="false">
+									<li class="uiMenuItem" id="menuitem1"> 
+										<apex:outputText value="{!$Label.competitions_group}" />
+									</li>
+								</c:Visibility>
+								<li class="uiMenuItem" id="menuitem2">
+									<apex:outputText value="{!$Label.competitions_targeted}" />
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div id="teamsContainer" class="teams">
+					<table id="teamsTable" class="leaderboardTable">
+						<thead>
+							<tr>
+								<th scope="col" style="padding-left:5px;">
+									<apex:outputText value="{!$Label.leaderboard_rank}" />
+								</th>
+								<th scope="col">
+									<apex:outputText value="" />
+								</th>
+								<th scope="col">
+									<apex:outputText value="" />
+								</th>
+							</tr>
+						</thead>
+						<tbody id="teamsTableBody" class="content">
+			   
+						</tbody>
+					</table>
+					<div id="competitionsNavigation" class="page_navigation"></div>
+				</div>
+			</div>
+			<div class="narrow-right">
+				<div id="leaderboardContainer" class="primaryTeam">
+					<h2 id="primaryTeamHeader" class="mainTitle">{!$Label.leaderboard}</h2>
+					<table id="teamMemberLeaderboardTable" class="leaderboardTable">
+						<thead>
+							<tr>
+								<th scope="col" style="padding-left:5px;">
+									<apex:outputText value="{!$Label.leaderboard_rank}" />
+								</th>
+								<th scope="col" colspan="2" style="text-align:right;padding-right:5px;">
+									<apex:outputText value="{!$Label.score}" />
+								</th>
+							</tr>
+						</thead>
+						<tbody id="teamMemberLeaderboardTableBody" class="content">
+						
+						</tbody>
+					</table>
+					<div class="noUserRecords">{!$Label.no_records_found}</div>
+					<div id="leaderboardNavigation" class="page_navigation"></div>
+				</div>
+			</div>
+		</div>
+		<div class="sidebar">
+			<h2 class="mainTitle">{!$Label.comparison}</h2>
+			<div id="comparisonPanel"></div>
+		</div>
+	</div>
+
+	<div id="noRecordsContainer" class="sectionBody">
+		<img class="noRecordsIcon" src="{!URLFOR($Resource.SuMoSalesAssets, 'profile-bg/team@2x_grey.png')}" />
+		<div class="noRecordsMsg"><p>
+			<apex:outputText value="{!$Label.no_teams_message}" />
+		</p></div>
+	</div>
+
+</apex:page>

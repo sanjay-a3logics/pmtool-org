@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Approved_By_Accounting__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Approved By Accounting</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Inv_Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Due Date of Invoice</inlineHelpText>
+        <label>Inv Due Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Inv_Paid_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select if invoice was paid or not from the drop down.</inlineHelpText>
+        <label>Inv Paid Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Unpaid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Invoice_Amount__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Total Invoice Amount</inlineHelpText>
+        <label>Invoice Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>PG_Inv_Approved__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Approval of invoice after work has been performed to scope of work defined in contract (site assessment docs upload, install QC completed, etc)</inlineHelpText>
+        <label>PG Invoice Approval</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PV_System__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>PV System</label>
+        <referenceTo>Systems__c</referenceTo>
+        <relationshipName>Task_Attachments</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProjectId_from_Task__c</fullName>
+        <externalId>false</externalId>
+        <formula>Task__r.ProjectId__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ProjectId from Task</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Project</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>Attachments</relationshipLabel>
+        <relationshipName>Attachments</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <description>Field dependency to display the attachment types for each state</description>
+        <externalId>false</externalId>
+        <inlineHelpText>By selecting the state in which you perform the work, the appropriate attachment types will be available to select</inlineHelpText>
+        <label>State</label>
+        <picklist>
+            <picklistValues>
+                <fullName>LA</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CT</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Submitter_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Submitter Notes</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Task</label>
+        <referenceTo>Task__c</referenceTo>
+        <relationshipLabel>Attachments</relationshipLabel>
+        <relationshipName>Attachments</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Territory_State__c</fullName>
+        <externalId>false</externalId>
+        <formula>Project__r.Opportunity__r.Account_State__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Territory State</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <controllingField>State__c</controllingField>
+            <picklistValues>
+                <fullName>01CT- PVAssessment Schematics</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>01CT- PVAssessment Breaker Box photos</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>01CT- PVAssessment Pathfinder Trace</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>01CT- PVAssessment Powerclerk Summary</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>01CT- PVAssessment PV Assessment site photo</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>01CT- PVAssessment Roof photo’s</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>01CT- PVAssessment Site Survey form</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>01CT- Permitting Invoice</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Attachment C NYSERDA Billing</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Close out Images</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Conditional Utility Approval</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Field Verification Results</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Final Utility Approval</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Inspection Results</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Permits</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Posigen QC Checklist</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY Install Site Safety Plan</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment 3 Line Electric Drawing</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment Agent Form</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment Attachment B</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment Pathfinder Results</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment Pre-site Assessment Report</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment Site Photos (NYSERDA)</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment Site Visit/Clipboard Audit</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment Utility Interconnect Auth Letter</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>03CTNY- Engineering Report</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>03CTNY- PV Assessment Invoice</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>03CTNY- PV Install Invoice</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>03CTNY- Design/Engineering Invoice</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Breaker Box Picture</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Building Permit</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electrical Permit</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mechanical Permit</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contractor License</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EE document</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Executed NMIA</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Final Inspection Letter</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Internal project</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Net Meter Interconnect Agreement</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Placed in Service Letter</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pre-Install PV Pictures</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Post-Install PV Pictures</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Feasibility Analysis</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Roof Layout</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV System Spec</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Service Call After Picture</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Service Call Before Picture</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tax Assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>One Line Diagram</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV Assessment Invoice</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV Install Invoice</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV Retainage Invoice</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>02NY- PVAssessment Site Map</fullName>
+                <default>false</default>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV Service Invoice</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EIA</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QC Report</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tier 2 Signed Doc</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Removal Agreement</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Disconnect Letter</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>120-Day Removal Letter</fullName>
+                <default>false</default>
+                <controllingFieldValues>CT</controllingFieldValues>
+                <controllingFieldValues>LA</controllingFieldValues>
+                <controllingFieldValues>NY</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>HSE</fullName>
+                <default>false</default>
+                <controllingFieldValues>LA</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Attachment</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Type__c</columns>
+        <columns>Submitter_Notes__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All Task Attachments</label>
+    </listViews>
+    <nameField>
+        <displayFormat>ATT-{000000}</displayFormat>
+        <label>Attachment Number</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Attachments</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>EE</fullName>
+        <active>true</active>
+        <label>EE</label>
+        <picklistValues>
+            <picklist>Inv_Paid_Status__c</picklist>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unpaid</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PG_Inv_Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>State__c</picklist>
+            <values>
+                <fullName>CT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NY</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>EE document</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tier 2 Signed Doc</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>PV_Assessment</fullName>
+        <active>true</active>
+        <label>PV</label>
+        <picklistValues>
+            <picklist>Inv_Paid_Status__c</picklist>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unpaid</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PG_Inv_Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>State__c</picklist>
+            <values>
+                <fullName>CT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NY</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>01CT- PVAssessment Breaker Box photos</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>01CT- PVAssessment PV Assessment site photo</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>01CT- PVAssessment Pathfinder Trace</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>01CT- PVAssessment Powerclerk Summary</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>01CT- PVAssessment Roof photo%E2%80%99s</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>01CT- PVAssessment Schematics</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>01CT- PVAssessment Site Survey form</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>01CT- Permitting Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Attachment C NYSERDA Billing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Close out Images</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Conditional Utility Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Field Verification Results</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Final Utility Approval</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Inspection Results</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Permits</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Posigen QC Checklist</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY Install Site Safety Plan</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment 3 Line Electric Drawing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment Agent Form</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment Attachment B</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment Pathfinder Results</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment Pre-site Assessment Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment Site Map</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment Site Photos %28NYSERDA%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment Site Visit%2FClipboard Audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>02NY- PVAssessment Utility Interconnect Auth Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>03CTNY- Design%2FEngineering Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>03CTNY- Engineering Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>03CTNY- PV Assessment Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>03CTNY- PV Install Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Building Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contractor License</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE document</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EIA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electrical Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Feasibility Analysis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Final Inspection Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>HSE</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mechanical Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>One Line Diagram</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Assessment Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Install Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Retainage Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Service Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Placed in Service Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Post-Install PV Pictures</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pre-Install PV Pictures</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>QC Report</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roof Layout</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Removal</fullName>
+        <active>true</active>
+        <label>Removal</label>
+        <picklistValues>
+            <picklist>Inv_Paid_Status__c</picklist>
+            <values>
+                <fullName>Paid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unpaid</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PG_Inv_Approved__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>State__c</picklist>
+            <values>
+                <fullName>CT</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LA</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NY</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Type__c</picklist>
+            <values>
+                <fullName>120-Day Removal Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Disconnect Letter</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Removal Agreement</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Need_Ops_Approval_First</fullName>
+        <active>true</active>
+        <description>Requires Ops to approve an invoice before accounting can approve it</description>
+        <errorConditionFormula>AND( ISPICKVAL( PG_Inv_Approved__c,&quot;&quot;),   Approved_By_Accounting__c  = True, LastModifiedBy.ProfileId  =  &quot;00ed0000000WiaVAAS&quot;)</errorConditionFormula>
+        <errorDisplayField>Approved_By_Accounting__c</errorDisplayField>
+        <errorMessage>You cannot approve an invoice before the Ops team approves it</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>New_FromProject</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>New</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>open(&quot;/e?cas21=1&amp;CF00NC0000005M2vR={!User.Name}&amp;CF00NC0000005M2vR_lkid={!User.Id}&quot;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Quick_Doc_Upload</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Quick Doc Upload</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/apex/DragDropAttach__AttachFiles?recordid={!Attachment__c.Id}&amp;recordname={!Attachment__c.Name}&amp;recordtype=Attachment</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Quick_Doc_Upload_Partner</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>url</linkType>
+        <masterLabel>Quick Doc Upload (Partner)</masterLabel>
+        <openType>newWindow</openType>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+        <url>/subcontractors/apex/DragDropAttach__AttachFiles?recordid={!Attachment__c.Id}&amp;recordname={!Attachment__c.Name}&amp;recordtype=Attachment</url>
+    </webLinks>
+</CustomObject>

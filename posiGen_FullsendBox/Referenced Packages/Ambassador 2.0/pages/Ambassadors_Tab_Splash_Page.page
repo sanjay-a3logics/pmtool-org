@@ -1,0 +1,29 @@
+<apex:page controller="Ambassador.AmbassadorTabSplashPageCtrl" showHeader="false" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'styles.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'app/scripts/lib/highlightjs/github.min.css')}"/>
+    
+    <body>
+        <apex:outputPanel layout="none" rendered="{!createAs != 'Ambassador__Ambassador__c'}">
+            <div class="container">
+                
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-info" role="alert">Your current setup creates Ambassadors as {!createAmbassadorsAs}</div>
+                        <h2>Your current setup creates Ambassadors as {!createAmbassadorsAs}, if you would like to create them as custom "Ambassador" objects, please update the settings <a href="#" onclick="redirectToSetup()">here</a>.</h2>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+        <script type="text/javascript">
+            <apex:outputPanel layout="none" rendered="{!createAs == 'Ambassador__Ambassador__c'}">
+                window.parent.location = '{!URLFOR($Action.Ambassador__c.Tab, $ObjectType.Ambassador__c)}';
+            </apex:outputPanel>
+            
+            var redirectToSetup = function() {
+                window.parent.location = '{!URLFOR($Page.Ambassador__setup)}';
+            }
+            
+        </script>
+    </body>  
+
+</apex:page>

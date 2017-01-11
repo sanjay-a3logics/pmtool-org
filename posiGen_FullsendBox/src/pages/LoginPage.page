@@ -1,0 +1,36 @@
+<apex:page title="Box" action="{!startup}" controller="BoxLogincontroller" sidebar="false" showHeader="true" standardStylesheets="false" tabStyle="Box_Authenatication__tab">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+       <link href="{!URLFOR($Resource.Box,'Box/metro-bootstrap.css')}" rel="stylesheet" media="screen" />
+       
+    </head>
+    <script>
+        function login(){
+            if({!isLicenseUser}){
+                var str=window.location.href;
+                var res = str.split("//");
+                var retURL=res[1].split("?");
+                window.top.location='https://appbox-developer-edition.ap2.force.com/boxLogin?RU='+retURL[0];
+            }else{
+                window.top.location='/apex/UserLicense';
+            }
+        }
+    </script>
+    <apex:form >
+        <br/>
+     <div class="jumbotron">
+     	<apex:outputPanel rendered="{!isLoggedIn==false}">
+          <h2>Need to Login in BOX!</h2>
+          <p><h4><b>We're here to help. Send us an email at<br/><a href="mailto:info@appcino.com">info@appcino.com</a> and we'll be sure to respond shortly.</b></h4></p><br/><br/>
+          <p><a onclick="login();return false;" style="cursor:pointer;"   class="btnsfdc btnsfdc-primary btnsfdc-lg">Login</a></p>
+     	</apex:outputPanel>
+     	<apex:outputPanel rendered="{!isLoggedIn==true}">
+          <h2>You are already Logged in!</h2>
+          <p><h4><b>We're here to help. Send us an email at<br/><a href="mailto:info@appcino.com">info@appcino.com</a> and we'll be sure to respond shortly.</b></h4></p><br/><br/>
+          <p><a onclick="login();return false;" style="cursor:pointer;"   class="btnsfdc btnsfdc-primary btnsfdc-lg">Revoke Access &amp; Login Again</a></p>
+     	</apex:outputPanel>
+      </div>
+          
+    </apex:form>
+        
+</apex:page>

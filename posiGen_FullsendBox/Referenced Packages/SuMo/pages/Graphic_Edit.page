@@ -1,0 +1,38 @@
+<apex:page standardController="success__Graphic__c" extensions="success.GraphicController">
+  	
+  	<c:ColourPickerComponent colorpicker_textbox="custom_colour_picker_textbox"/>
+  	
+    <apex:form >
+    	<apex:sectionHeader title="{!$ObjectType.success__Graphic__c.Label} {!$Label.edit}" subtitle="{!graphic.Name}"/>
+        <apex:pageBlock title="{!$ObjectType.success__Graphic__c.Label} {!$Label.edit}"  mode="edit">
+		
+			<apex:pageMessages />
+	   
+		   	<!--  Buttons -->
+			<apex:pageBlockButtons >
+			    <apex:commandButton title="{!$Label.save}" value="{!$Label.save}" action="{!save}" />
+			    <apex:commandButton title="{!$Label.cancel_no_save}" value="{!$Label.cancel}" action="{!cancel}" />
+			</apex:pageBlockButtons>
+	
+	 		<!-- Information Section -->
+	       	<apex:pageBlockSection columns="1" title="{!$ObjectType.success__Graphic__c.Label} {!$Label.information}" collapsible="false">
+		        <apex:repeat value="{!$ObjectType.success__Graphic__c.FieldSets.success__StandardInformationFieldSet}" var="infofield"> 
+		            <apex:inputField value="{!graphic[infofield]}" required="{!OR(infofield.required, infofield.dbrequired)}"/>
+		        </apex:repeat>
+	         	<apex:pageBlockSectionItem >
+	            	<apex:outputLabel value="{!$ObjectType.success__Graphic__c.Fields.success__Background_Colour__c.Label}" />
+					<apex:inputField value="{!graphic.success__Background_Colour__c}" styleClass="custom_colour_picker_textbox"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			
+			<!-- System Section -->
+	       	<apex:pageBlockSection columns="2" title="{!$Label.sysinfo}" collapsible="false">
+		        <apex:repeat value="{!$ObjectType.success__Graphic__c.FieldSets.success__SystemInformationFieldSet}" var="infofield"> 
+		            <apex:inputField value="{!graphic[infofield]}" required="{!OR(infofield.required, infofield.dbrequired)}"/>
+		        </apex:repeat>
+			</apex:pageBlockSection>
+
+		</apex:pageBlock>
+    </apex:form>
+
+</apex:page>

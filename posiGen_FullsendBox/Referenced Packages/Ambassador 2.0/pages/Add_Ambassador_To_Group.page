@@ -1,0 +1,10 @@
+<apex:page standardController="Ambassador__Ambassador_Group_Association__c" extensions="Ambassador.Ambassador_Add_To_Group">
+<apex:outputPanel rendered="{!createAmbassadorsAs == ''}">
+    <apex:iframe src="{!url}" width="100%" height="900px" scrolling="true" />
+</apex:outputPanel>
+<script type="text/javascript">
+    if ('{!createAmbassadorsAs}' == 'Ambassador__Ambassador__c') {
+        window.parent.location = '{!URLFOR($Action.Ambassador__c.Tab, $ObjectType.Ambassador__c)}';
+    }
+</script>
+</apex:page>

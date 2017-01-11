@@ -1,0 +1,654 @@
+<apex:page docType="html"
+	showHeader="false" 
+	sidebar="false"
+	standardStylesheets="false"
+	cache="true"
+	controller="success.ProfileController">
+
+<apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/custom/jquery-ui-1.10.1.custom.min.css')}"/>
+
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.10.1.custom.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+
+<apex:includeScript value="{!URLFOR($Resource.success__SuMoProfileBundle, 'lib/utils.js')}" />
+
+<style>
+img{-ms-interpolation-mode:bicubic}
+body {overflow-x:hidden;width: 750px;margin: 20px auto 0 auto;font-family: Arial,"Lucida Grande",sans-serif;font-size:13px;}
+#detailPage {display:none;}
+h1 {font-size: 25px;margin-top: 4px;margin-bottom: 10px;font-weight: normal;}
+h2 {color: #000000;font-weight: 700;padding-bottom: 6px;font-size: 12px;border-bottom: 1px solid #d5dadd;margin-bottom: 11px;}
+.back {font-size: 12px;color: rgb(1, 91, 167);text-decoration: none;cursor:pointer;}
+.container { margin-top:10px; *margin-top:20px; margin-left:0; width:750px }  
+.container .wide { display:inline; float:left; margin-left:0; margin-right:0; width:510px }  
+.container .narrow-left { display:inline; float:left; margin-left:0; margin-right:0; width:235px }  
+.container .narrow-right { display:inline; float:left; margin-left:40px; margin-right:0; width:235px }  
+.container .sidebar { display:inline; float:left; margin-left:20px; margin-right:0; width:220px }  
+.clear { clear:both; display:block; overflow:hidden; visibility:hidden; width:0; height:0 }  
+.clearfix:before,.clearfix:after,.container:before,.container:after { content:'.'; display:block; overflow:hidden; visibility:hidden; font-size:0; line-height:0; width:0; height:0 }  
+.clearfix:after,.container:after { clear:both }  
+.clearfix,.container { zoom:1 }
+.badge{width:47px;height:47px;float:left;margin:5px;position: relative;} 
+.badge img{padding-left:9.5px;padding-top:9.5px;width:28px;height:28px;margin:0!important;}
+.promotion{position:absolute;left:2px;top:2px;font-weight:bold;font-size:11px;color:#fff;display:none;}
+.constraintIcon {float:left;width: 40px;height: 35px;}
+.constraintIcon img{width: 25px;}
+.constraintDescription {line-height: 30px;margin:0; padding:0;}
+.typeContainer {float:left;padding-right:10px;}
+.additionalInfo {display: block; color: rgb(1, 91, 167);text-decoration: none;line-height: 40px;}
+#titleLabel {margin-bottom:0px;}
+.typeImageContainer {position: relative;display: inline;}
+#typeImage {vertical-align:middle;height: 40px;}
+#typeLabel {position: absolute;font-size: 16px;top: 0px;left: 1px;width: 38px;text-align: center;*line-height: 38px;}
+.button {
+margin-top: 2px;
+color: rgb(255, 255, 255);
+text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+background-color: rgb(135, 179, 71);
+background-image: linear-gradient(to bottom, rgb(140, 184, 76), rgb(128, 172, 64));
+background-repeat: repeat-x;
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+border-width: 1px;
+border-style: solid;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+line-height: 38px;
+overflow: hidden;
+padding: 10px;
+text-decoration: none;
+cursor:pointer;
+}
+
+.confirmDialog {
+	z-index: 99999;
+	background-color: rgb(255, 255, 255);
+	width: 524px !important;
+	border-color: rgb(183, 183, 183);
+	border-width: 1px;
+	border-radius: 8px;
+	border-style: solid;
+	box-shadow: 0px 1px 9px 1px rgba(0, 0, 0, 0.25);
+	transition: none 0s ease 0s !important;
+	padding: 0px 0px 0px 0px !important;
+}
+
+*:focus {
+    outline: 0;
+}
+
+.confirmDialog p {
+	height: auto !important;
+}
+
+.confirmDialog .ui-dialog-titlebar {
+	background-color: rgb(245, 247, 247) !important;
+	background-image: linear-gradient(rgb(253, 253, 253) 0px, rgb(235, 239, 240) 100%) !important;
+	border-radius: 8px 8px 0px 0px !important;
+	height: 33px !important;
+	margin: 0px !important;
+	padding: 0px 0px 0px 12px !important;
+}
+
+.confirmDialog .ui-dialog-titlebar .ui-dialog-title {
+	line-height: 33px !important;
+	text-shadow: none !important;
+	font-family: Arial,Helvetica,sans-serif !important;
+	font-size: 15px !important;
+	font-weight: bold !important;
+	color: rgb(34, 34, 34) !important;
+}
+
+.confirmDialog .ui-button-text {
+	font-size: 13px !important;
+	font-weight: bold !important;
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+	padding-top: 15px !important;
+	padding-bottom: 15px !important;
+}
+
+
+.confirmDialog .ui-dialog-content {
+	background: #ffffff !important;
+	font-size: 13px !important;
+	border: 0px !important;
+}
+
+.ui-widget-content {
+	background: #ffffff !important;
+	border: 1px solid #ddd !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+	padding: 0px !important;
+	border-top: 1px solid rgb(234, 235, 237) !important;
+	border-left: 0px !important;
+	border-right: 0px !important;
+	border-bottom: 0px !important;
+	border-radius: 0px 0px 8px 8px !important;
+	background: none repeat scroll 0% 0% rgb(251, 251, 251) !important;
+}
+
+.confirm-button {
+	color: rgb(255, 255, 255) !important;
+	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25) !important;
+	background: none !important;
+	background-color: rgb(135, 179, 71) !important;
+	background-image: linear-gradient(to bottom, rgb(140, 184, 76), rgb(128, 172, 64)) !important;
+	background-repeat: repeat-x !important;
+	border: none !important;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
+	border-width: 1px !important;
+	border-style: solid !important;
+	-webkit-border-radius: 3px !important;
+	-moz-border-radius: 3px !important;
+	border-radius: 3px !important;
+	line-height: 19px !important;
+}
+
+
+.ui-dialog-buttonset .ui-button {
+	background: rgb(251, 251, 251) !important;
+	border: 0px solid rgb(251, 251, 251) !important;
+	color: #777 !important;
+	*margin-top: 0px !important;
+}
+
+.ui-widget-header{border:0 !important;background:#fff;color:#333333;height:30px;font-weight:normal;font-size:13px;font-family:'Arial','Helvetica',sans-serif;} 
+
+
+.confirmDialog .ui-dialog-titlebar-close {
+	display: none;
+}
+
+</style>
+
+	<script type="text/javascript">	
+		var $sj = successJQ.noConflict();
+		
+		var STYLE = $sj.parseJSON('{!JSENCODE(styles)}');
+		
+		var CHALLENGE;
+		
+		var parentOrigin = getURLParameter('origin') || null;
+
+		function goBack() {
+			window.location.href = "{!URLFOR($Page.Profile_Challenges)}";
+		}
+
+		function getURLParameter(name) {
+		    return decodeURI(
+		        (RegExp(name + '=' + '(.+?)(&|$)').exec(window.location.search)||[,null])[1]
+		    );
+		}
+
+		function addHTTP(url) {
+		   if (!/^(f|ht)tps?:\/\//i.test(url)) {
+		      url = "http://" + url;
+		   }
+		   return url;
+		}
+
+		var imgValidate = function(url, type, customStandardUrl) {
+		
+			if(type == 'challenge') {
+				if(url == null || url == undefined || url == '') {
+					if(customStandardUrl != undefined) {
+						return customStandardUrl;
+					} else {
+						return '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/challenges.png')}';
+					}				
+				} else {
+					return url;
+				}
+			}
+			
+			if(type == 'experience') {
+				if(url == null || url == undefined || url == '') {
+					return '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/experience.png')}';
+				} else {
+					return url;
+				}
+			}
+		}
+
+		var fontColorValidate = function(defaultColor, bgColor) {
+			if(bgColor == 'transparent') {
+				return '#00476d';
+			}
+				return defaultColor;
+		};
+
+		var hexGenerate = function(hex, exception) {
+			if(hex == null || hex == undefined || hex == '' || hex == 'transparent') {
+				if(exception) {
+					return exception;
+				}
+				return 'transparent';
+			} else {
+				if(hex.indexOf("#") == -1) {
+					return '#' + hex;
+				} else {
+					return hex;
+				}
+			}
+		};
+
+		var getDifficultyIcon = function(title) {
+			if(title == 'Easy') {
+				return "{!URLFOR($Resource.SuMoSalesAssets, 'v3/easy.png')}";
+			}
+			if(title == 'Average') {
+				return "{!URLFOR($Resource.SuMoSalesAssets, 'v3/average.png')}";
+			}
+			if(title == 'Difficult') {
+				return "{!URLFOR($Resource.SuMoSalesAssets, 'v3/difficult.png')}";
+			}
+			if(title == 'V. Hard') {
+				return "{!URLFOR($Resource.SuMoSalesAssets, 'v3/vhard.png')}";
+			}
+		};
+
+		var getTypeIcon = function(args) {
+			if(args.frequency == 'Recurring') {
+				if(args.status && args.status.count > 0) {
+					$sj('#typeTitle').html("{!$Label.progress} ");
+					
+					$sj('#typeLabel').css({'width' :'65px'});
+					return "{!URLFOR($Resource.SuMoSalesAssets, 'v3/arrow-progress.png')}";
+				} else {
+					return "{!URLFOR($Resource.SuMoSalesAssets, 'v3/arrow-repeat.png')}";
+				}
+			} else {
+				$sj('#typeImage').css({'height' :'37px'});
+				return "{!URLFOR($Resource.SuMoSalesAssets, 'v3/one_off.png')}";
+			}
+		};
+
+		var getTypeLabel = function(args) {
+			if(args.frequency == 'Recurring') {
+				if(args.status && args.status.count > 0) {
+					return ~~args.status.count + " / " + ~~args.numberOfOccurrences;
+				} else {
+					return ~~args.numberOfOccurrences;
+				}
+			}
+		};
+
+		var renderButton = function(args) {
+			if(args.frequency == 'Recurring') {
+				if(args.status.status == 'available' || args.status.status == 'failed') {
+					$sj('#actionButton').html("{!$Label.accept}").addClass('accept');
+				} else{
+					$sj('#actionButton').html("{!$Label.repeat}").addClass('repeat');
+				}
+			} else {
+				if(args.status.status == 'available' || args.status.status == 'failed') {
+					$sj('#actionButton').html("{!$Label.accept}").addClass('accept');
+				} else {
+					$sj('#actionButton').html("{!$Label.pledge}").addClass('pledge');
+				}
+			}
+
+			if(args.status.status == 'completed') {
+				$sj('.buttonContainer').remove();
+			}
+		};
+
+		var getRewardsMsg = function(args) {
+			var acceptanceMsg = args.rewardAcceptanceText || ''; 
+			var repetitionMsg = args.rewardRepetitionText || ''; 
+			var completionMsg = args.rewardCompletionText || ''; 
+			
+			var rewardMessage = acceptanceMsg;
+			if(acceptanceMsg != '') rewardMessage += '. ';
+			rewardMessage += repetitionMsg;
+			if(repetitionMsg != '') rewardMessage += '. ';
+			rewardMessage += completionMsg;
+			
+			return rewardMessage;
+		};
+
+		var renderPage = function(item) {
+			var challengeBadgeBackgroundColour = hexGenerate(item.backgroundColour);
+
+			if(STYLE.challenge.imageURL == imgValidate(item.imageURL, 'challenge', STYLE.challenge.imageURL) || imgValidate(item.imageURL, 'challenge', STYLE.challenge.imageURL) == '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/challenges.png')}') {
+				challengeBadgeBackgroundColour = hexGenerate(STYLE.challenge.backgroundColour);
+			}
+
+			$sj('#badgeContainer').css({'background-color' : challengeBadgeBackgroundColour});
+			$sj('#badgeIcon').attr('src', imgValidate(item.imageURL, 'challenge'));
+
+			if(item.promoted) {
+				$sj('.promotion').css({'color': fontColorValidate('#ffffff', hexGenerate(challengeBadgeBackgroundColour))});
+				$sj('.promotion').show();
+			}
+
+			$sj('#titleLabel').html(item.name);
+			$sj('#difficultyLabel').html(item.complexityText + ' ');
+
+			$sj('#difficultyImage').attr('src', getDifficultyIcon(item.complexityText));
+			$sj('#typeLabel').html(getTypeLabel(item));
+			$sj('#typeImage').attr('src', getTypeIcon(item));
+
+			if(item.description) {
+				$sj('#description').html(item.description);
+			} else {
+				$sj('#description').hide();
+			}
+
+			$sj('#rewardMessage').html(getRewardsMsg(item));
+
+			$sj('#repetitionsToComplete').html(item.repetitionsConstraintText);
+			
+			$sj('#timeLimit').html(item.timeConstraintText);
+
+			$sj('#minimumPeriod').html(item.periodConstraintText);
+
+			if(item.fullDescription || item.additionalInformation) {
+				$sj('#additionalDetails').append(item.fullDescription);
+			} else {
+				$sj('#additionalDetailsContainer').hide();
+			}
+
+			if(item.additionalInformation) {
+				var url = addHTTP(item.additionalInformation);
+				$sj('#additionalDetails').append('<a class="additionalInfo" href="' + 
+								url + '" target="_blank">{!JSENCODE($Label.additional_info)}</a>');
+			}
+
+			renderButton(item);
+
+			$sj('#detailPage').show();
+
+
+			var body = $sj(document.body);
+			var windowWidth = $sj(window).innerWidth();
+			body.scrollLeft(1);
+			if(body.scrollLeft() != 0 || windowWidth < body.width()){
+				body.css({overflowX:'hidden',marginRight: 0, marginLeft: 0});
+				if ($sj.support.leadingWhitespace) {
+					body.css({paddingRight: body.width() - windowWidth});
+				}
+			}
+			body.scrollLeft(0);
+			body.css({width: $sj(window).innerWidth()});
+
+			var Wgradient = document.createElement('div');
+			Wgradient.className = 'frame-bottom-white-gradient';
+			document.body.appendChild(Wgradient);
+			document.body.style.paddingBottom = '50px';
+
+		};
+
+		$sj(document).ready(function() {
+			var id = getURLParameter('id');
+
+			Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.fetchChallengeDetailData}',
+				id, '{!profileUserId}',
+				function(result, event){ 
+		      		if (event.status) {   
+						var DATA = $sj("<div/>").html(result).text();
+						DATA = $sj.parseJSON(DATA);
+						CHALLENGE = (_.isArray(DATA)) ? DATA[0] : [];
+						renderPage(DATA[0]);
+					}  else {
+						if (this.console) {             
+							console.log(event.message);
+						}
+					}
+				},         
+				{escape: true}   
+			);
+
+			//PLEDGE CHALLENGE
+			$sj('#actionButton').click(function(e) {
+				e.stopPropagation();
+				var challengeId = CHALLENGE.id;
+				var userChallengeId = CHALLENGE.status.userChallengeId;
+
+				if($sj(this).hasClass('accept')) {
+			 		var message = "{!JSENCODE($Label.challenge_acceptance_confirm)}";
+			 		var confirmationDialog = $sj( "<p />", {id: 'dialog'} ).html(message);
+				 	confirmationDialog.dialog({
+				 		dialogClass: 'confirmDialog',
+				 		position:[80,95],
+				 		title: '{!$ObjectType.Challenge__c.Label}',
+						resizable: false,
+					    height:175,
+					    modal: false,
+					    buttons: {
+					    	"{!JSENCODE($Label.cancel)}": function() {
+						    	$sj(this).dialog( "close" );
+						    },
+						    "{!JSENCODE($Label.confirm)}": function() {
+						    	$sj(this).dialog( "close" );
+						    	Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.acceptChallenge}',
+									challengeId,
+									function(result, event){ 
+							      		if (event.status) { 
+											//Mobile
+											if( SuMoUtils.isTabletDevice() ) {    
+												window.location.href = "{!URLFOR($Page.Profile_Performance)}?v=" + new Date().getTime() + "#success.origin.home";
+											} 
+											//User Profile page
+											else if (parentOrigin == 'success.origin.home') {
+												if(!SuMoUtils.isIFrameLightningExperience()) {
+													//classic experience
+													window.top.location.href = "{!URLFOR($Page.User_Profile)}?v=" + new Date().getTime() + "#motivate";
+												} else {
+													parent.postMessage("profile","*");
+												}
+											}
+											//Chatter Profile tab
+											else {       
+												window.top.location.href = "/_ui/core/userprofile/UserProfilePage?tab=success.Profile_Motivate";
+											}     
+										}  else {
+											var errorDialog = $sj( "<p />", {id: 'dialog'} ).html('<p>' + event.message + '</p>');
+												errorDialog.dialog({
+													dialogClass: 'confirmDialog',
+											 		position:[80,95],
+											 		title: '{!$ObjectType.Challenge__c.Label}',
+													resizable: false,
+												    height:300,
+												    modal: false,
+													buttons: {
+												    	"OK": function() {
+													    	$sj(this).dialog( "close" );
+													    }
+													}
+												});
+												$sj(".confirmDialog button").removeClass("ui-button").addClass("confirm-button");
+										}
+									},         
+									{escape: true}   
+								);
+						    }
+						}
+				   	}); 
+				}
+
+				else if($sj(this).hasClass('repeat') || $sj(this).hasClass('pledge')) {
+					var message = "{!JSENCODE($Label.challenge_repetition_confirm)}";
+					if($sj(this).hasClass('pledge')) {
+						message = "{!JSENCODE($Label.challenge_pledge_confirm)}";
+					}
+			 		var confirmationDialog = $sj( "<p />", {id: 'dialog'} ).html(message);
+			 		var leftAbsPosition = ($sj(this).position().left > 650) ? 132 : 80;
+				 	confirmationDialog.dialog({
+				 		dialogClass: 'confirmDialog',
+				 		position:[leftAbsPosition,95],
+				 		title: '{!$ObjectType.Challenge__c.Label}',
+						resizable: false,
+					    height:175,
+					    modal: false,
+					    buttons: {
+					    	"{!JSENCODE($Label.cancel)}": function() {
+						    	$sj(this).dialog( "close" );
+						    },
+						    "{!JSENCODE($Label.confirm)}": function() {
+						    	$sj(this).dialog( "close" );
+						    	Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.ProfileController.pledgeChallenge}',
+									userChallengeId,
+									function(result, event){ 
+							      		if (event.status) {          
+											//Mobile
+											if( SuMoUtils.isTabletDevice() ) {    
+												window.location.href = "{!URLFOR($Page.Profile_Performance)}?v=" + new Date().getTime() + "#success.origin.home";
+											} 
+											//User Profile page
+											else if (parentOrigin == 'success.origin.home') {
+												if(!SuMoUtils.isIFrameLightningExperience()) {
+													//classic experience
+													window.top.location.href = "{!URLFOR($Page.User_Profile)}?v=" + new Date().getTime() + "#motivate";
+												} else {
+													parent.postMessage("profile","*");
+												}
+											}
+											//Chatter Profile tab
+											else {       
+												window.top.location.href = "/_ui/core/userprofile/UserProfilePage?tab=success.Profile_Motivate";
+											}
+										}  else {
+											if(event.message.indexOf('FIELD_CUSTOM_VALIDATION_EXCEPTION') > 0) {
+												var errorDialog = $sj( "<p />", {id: 'dialog'} )
+													.html("<p>{!JSENCODE($Label.challenge_min_time_not_passed)}</p>");
+
+													errorDialog.dialog({
+														dialogClass: 'confirmDialog',
+												 		position:[leftAbsPosition,95],
+												 		title: '{!$ObjectType.Challenge__c.Label}',
+														resizable: false,
+													    height:175,
+													    modal: false,
+														buttons: {
+													    	"OK": function() {
+														    	$sj(this).dialog( "close" );
+														    }
+														}
+													});
+													$sj(".confirmDialog button").removeClass("ui-button").addClass("confirm-button");
+											} else {
+												var errorDialog = $sj( "<p />", {id: 'dialog'} ).html('<p>' + event.message + '</p>');
+												errorDialog.dialog({
+													dialogClass: 'confirmDialog',
+											 		position:[leftAbsPosition,95],
+											 		title: '{!$ObjectType.Challenge__c.Label}',
+													resizable: false,
+												    height:300,
+												    modal: false,
+													buttons: {
+												    	"OK": function() {
+													    	$sj(this).dialog( "close" );
+													    }
+													}
+												});
+												$sj(".confirmDialog button").removeClass("ui-button").addClass("confirm-button");
+											}
+										}
+									},         
+									{escape: true}   
+								);
+						    }
+						}
+				   	});
+				}
+				$sj(".confirmDialog button:nth-child(2)").removeClass("ui-button").addClass("confirm-button");
+			});
+		});
+
+	</script>
+
+	<style type="text/css">
+	.frame-bottom-white-gradient {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		height: 48px;
+		background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 56%, rgba(255,255,255,1) 88%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(56%,rgba(255,255,255,0.85)), color-stop(88%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.85) 56%,rgba(255,255,255,1) 88%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.85) 56%,rgba(255,255,255,1) 88%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.85) 56%,rgba(255,255,255,1) 88%,rgba(255,255,255,1) 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.85) 56%,rgba(255,255,255,1) 88%,rgba(255,255,255,1) 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+
+	}
+	</style>
+
+	<span onClick="goBack();" class="back">&laquo; {!$Label.backto} {!$ObjectType.Challenge__c.LabelPlural}</span>
+	<div id="detailPage">
+		<div class="container">
+			<div class="wide">
+				<div id="badgeOuterContainer">
+					<div id="badgeContainer" class="badge">
+						<img id="badgeIcon" />
+						<div class="promotion">p</div>
+					</div>
+				</div>
+				<div id="titleContainer">
+					<h1 id="titleLabel"></h1>
+					<span id="difficultyLabel" style="color: rgb(1, 91, 167);font-weight:bold"></span>
+					<img id="difficultyImage" style="vertical-align:middle;margin-bottom:3px;padding-left: 5px;" />
+				</div>
+			</div>
+			<div class="sidebar">
+				<div class="typeContainer">
+					<span id="typeTitle" style="font-weight:bold;padding-right:4px">{!$Label.type} </span>
+					<div class="typeImageContainer">
+						<img id="typeImage" />
+						<span id="typeLabel"></span>
+					</div>
+				</div>
+				<div class="buttonContainer">
+					<span id="actionButton" class="button">{!$Label.accept}</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="wide">
+				<h2>{!$Label.overview}</h2>
+				<p id="description"></p>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="narrow-left">
+				<h2>{!$ObjectType.Reward__c.Label}</h2>
+				<p id="rewardMessage"></p>
+			</div>
+			<div class="narrow-right">
+				<h2>{!$Label.Constraints}</h2>
+				<div>
+					<div class="constraintIcon">
+						<img src="{!URLFOR($Resource.SuMoSalesAssets, 'v3/repetitions.png')}" />
+					</div>
+					<p id="repetitionsToComplete" class="constraintDescription"></p>
+					<div class="clear"></div>
+					<div class="constraintIcon">
+						<img src="{!URLFOR($Resource.SuMoSalesAssets, 'v3/time-limit.png')}" />
+					</div>
+					<p id="timeLimit" class="constraintDescription"></p>
+					<div class="clear"></div>
+					<div class="constraintIcon">
+						<img style="padding-top: 6px;" src="{!URLFOR($Resource.SuMoSalesAssets, 'v3/minimum.png')}" />
+					</div>
+					<p id="minimumPeriod" class="constraintDescription"></p>
+				</div>
+			</div>
+		</div>
+
+		<div id="additionalDetailsContainer" class="container">
+			<div class="wide">
+				<h2>{!$Label.additional_info}</h2>
+				<div id="additionalDetails"></div>
+			</div>
+		</div>
+	</div>
+	
+</apex:page>

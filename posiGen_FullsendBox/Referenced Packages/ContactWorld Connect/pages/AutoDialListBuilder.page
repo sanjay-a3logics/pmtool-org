@@ -1,0 +1,119 @@
+<apex:page Controller="NVMConnect.AutoDialBuilder" title="Create New Dial List">
+
+    <apex:pageMessages />
+
+	<apex:sectionHeader title="Create New Dial List"/>
+
+    <apex:form >
+        <apex:pageBlock title="List Source" rendered="{!stage == STAGE_1_SET_BASE_OBJECT}">
+            <apex:pageBlockButtons rendered="true">
+                <apex:commandButton action="{!pickBaseObject}" value="Next"  />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1">
+
+                	<apex:inputField label="List Name" required="true" value="{!dialList.Name}" style="padding-left:1px;padding-right:1px;width:200px"/>
+                	<apex:inputField label="List type" required="true" value="{!dialList.NVMConnect__Type__c}" style="padding-left:1px;padding-right:1px;width:200px"/>
+    	            <apex:inputField label="Phone Field" required="true" value="{!dialList.NVMConnect__Primary_Phone_Field__c}" style="padding-left:1px;padding-right:1px;width:200px"/>
+	                <apex:inputField label="Alternate Phone" value="{!dialList.NVMConnect__Secondary_Phone_Field__c}" style="padding-left:1px;padding-right:1px;width:200px"/>
+
+
+            </apex:pageBlockSection>
+            
+    
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Create New Filter on {!dialList.NVMConnect__Type__c}" id="newfilters" rendered="{!stage == STAGE_2_SET_FILTERS}">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!addFilter}" value="More Filters" rerender="newfilters"/>
+                <apex:commandButton action="{!removeFilter}" value="Fewer Filters" rerender="newfilters"/>
+            </apex:pageBlockButtons>
+            
+            <apex:repeat value="{!filterDeclarationList}" var="fd">
+                <apex:pageBlockSection collapsible="true" columns="4" >
+
+                    <apex:pageBlockSectionItem >
+                    	<apex:OutputLabel value="{!fd.rowNum}" style="padding-left:1px;padding-right:1px;width:30px"/>
+                        <apex:selectList label="{!fd.rowNum}" value="{!fd.filterField}" size="1" style="padding-left:1px;padding-right:1px;width:150px">
+                            <apex:actionSupport event="onchange" action="{!updateFilterOptions}" rerender="newfilters"/>
+                            <apex:selectOptions value="{!fieldNames}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem >
+                        <apex:selectList value="{!fd.filterOperator}" size="1" style="padding-left:1px;padding-right:1px;width:150px">
+                            <apex:selectOptions value="{!fd.filterOperatorList}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+
+
+                    <apex:pageBlockSectionItem rendered="{!fd.filterFieldType == 'PICKLIST'}" >
+                        <apex:selectList multiselect="false" value="{!fd.pickListValue}" size="1" style="padding-left:10px;padding-right:1px;width:162px">
+                            <apex:selectOptions value="{!fd.picklistValues}" />
+                        </apex:selectList>        
+                    </apex:pageBlockSectionItem>
+
+                    <apex:pageBlockSectionItem rendered="{!fd.filterFieldType == 'LOOKUP'}" >
+                    	<apex:inputField value="{!fd.relatedObject[fd.filterField]}" style="padding-left:1px;padding-right:1px;width:132px"/>
+                    </apex:pageBlockSectionItem>                
+
+                    <apex:pageBlockSectionItem rendered="{!fd.filterFieldType == 'READ_ONLY_LOOKUP'}" >
+                    	<apex:inputField value="{!fd.relatedObject['OwnerId']}" style="padding-left:1px;padding-right:1px;width:132px"/>
+                    </apex:pageBlockSectionItem>  
+
+                    <apex:pageBlockSectionItem rendered="{!fd.filterFieldType == 'DEFAULT'}" >
+                        <apex:inputText value="{!fd.filterValue}" style="padding-left:1px;padding-right:1px;width:156px"/>
+                    </apex:pageBlockSectionItem>                
+
+                </apex:pageBlockSection>                               
+            </apex:repeat>
+        </apex:pageBlock>
+            
+        <apex:pageBlock title="Filter Logic" id="filters" rendered="{!stage == STAGE_2_SET_FILTERS}">           
+            <apex:pageBlockSection collapsible="true" columns="4">
+                <apex:pageBlockSectionItem >
+                Filter rules are ANDed unless you enter an override: 
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:inputText value="{!userLogic}" style="padding-left:1px;padding-right:1px;width:200px"/>
+                </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>    
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Order by fields on {!dialList.NVMConnect__Type__c}" id="orderBys" rendered="{!stage == STAGE_2_SET_FILTERS}">
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!addOrderBy}" value="More Fields" rerender="orderBys"/>
+                <apex:commandButton action="{!removeOrderBy}" value="Fewer Fields" rerender="orderBys"/>
+            </apex:pageBlockButtons>
+            
+            <apex:repeat value="{!orderByDeclarationList}" var="od">
+                <apex:pageBlockSection columns="4">
+                    <apex:pageBlockSectionItem >
+                    	<apex:OutputLabel value="{!od.rowNum}" style="padding-left:1px;padding-right:1px;width:30px"/>
+                        <apex:selectList value="{!od.orderByField}" size="1" style="padding-left:1px;padding-right:1px;width:150px">
+                            <apex:selectOptions value="{!fieldNames}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:selectList value="{!od.ascOrDesc}" size="1" style="padding-left:1px;padding-right:1px;width:150px">
+                            <apex:selectOptions value="{!PICKLIST_ASC_DESC}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:selectList value="{!od.nullsFirstOrLast}" size="1" style="padding-left:10px;padding-right:1px;width:162px">
+                            <apex:selectOptions value="{!PICKLIST_NULLS_FIRST_LAST}" />
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:pageBlockSection>            
+            </apex:repeat>
+        </apex:pageBlock>
+
+        <apex:pageBlock title="Generate List" rendered="{!stage == STAGE_2_SET_FILTERS}">
+                <apex:commandButton action="{!parseLogic}" value="Generate List"/>
+		</apex:pageBlock>
+    
+    </apex:form>
+
+
+</apex:page>

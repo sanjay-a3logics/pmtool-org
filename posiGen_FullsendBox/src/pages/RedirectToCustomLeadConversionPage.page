@@ -1,0 +1,15 @@
+<apex:page standardController="Prospect__c" extensions="RedirectToCustomLeadConversionPageCtrler">
+	<apex:pagemessages id="messages" />
+	
+	<apex:form id="buttonForm"> 
+		<apex:commandButton id="placeOrderButton" value="Convert Lead" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50); redirect();" />
+	</apex:form>
+	
+	<script>
+		function redirect(){
+			top.location.href = '{!leadConversionURL}';
+		}
+		
+		
+	</script>
+</apex:page>

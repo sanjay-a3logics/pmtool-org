@@ -1,0 +1,14 @@
+<apex:page showHeader="true" sidebar="true" controller="success.UsersSelection">
+
+	<apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/neutral/jquery-ui-1.11.1.custom.min.css')}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.11.1.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.11.1.min.js')}" />
+	
+	<script type="text/javascript"> $sj = successJQ.noConflict(); </script>
+
+
+	<apex:form >
+		<c:UsersSelectionUI processor="{!processorInstance}" />
+	</apex:form>
+	  
+</apex:page>

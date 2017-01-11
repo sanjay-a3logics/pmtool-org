@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>CustomerName__c</fullName>
+        <externalId>false</externalId>
+        <label>CustomerName</label>
+        <length>100</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ItemDescription__c</fullName>
+        <externalId>false</externalId>
+        <label>ItemDescription</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ItemNumber__c</fullName>
+        <externalId>false</externalId>
+        <label>ItemNumber</label>
+        <length>150</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Processed_On__c</fullName>
+        <externalId>false</externalId>
+        <label>Processed On</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Qty__c</fullName>
+        <externalId>false</externalId>
+        <label>Qty</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SONumber__c</fullName>
+        <externalId>false</externalId>
+        <label>SONumber</label>
+        <length>50</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Serial__c</fullName>
+        <externalId>false</externalId>
+        <label>Serial</label>
+        <length>30</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>TmpUploadQSSOItem</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>SONumber__c</columns>
+        <columns>CustomerName__c</columns>
+        <columns>ItemNumber__c</columns>
+        <columns>ItemDescription__c</columns>
+        <columns>Serial__c</columns>
+        <columns>Qty__c</columns>
+        <columns>Date__c</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>SONumber__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0}</displayFormat>
+        <label>TmpUploadQSSOItem Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>TmpUploadQSSOItems</pluralLabel>
+    <searchLayouts>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Del</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Delete</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&apos;/soap/ajax/29.0/connection.js&apos;)}
+try
+{
+  var selectedRecords = {!GETRECORDIDS( $ObjectType.Lead )};
+  if(selectedRecords.length&lt;1)
+    alert(&apos;Please Select at Least One Row !&apos;);
+  else
+  {
+    userConsent = confirm(
+        selectedRecords.length + 
+        &apos; Record(s) will be Deleted. Continue ? &apos;
+      );
+    if(userConsent == true)
+    {
+      delResult = sforce.connection.deleteIds(selectedRecords);
+      if (delResult[0].getBoolean(&quot;success&quot;))
+      {
+        alert(&apos;The Record(s) were Deleted Successfully.&apos;); 
+        window.location.reload();
+      }
+      else
+        alert(
+          &apos;The Record(s) Could Not be Deleted. Error Message: &apos; + 
+          delResult[0].errors.message
+        );
+    }  
+  }
+}
+catch(e)
+{
+  alert(&apos;The Action Could not be Completed. Error Message: &apos; + e);
+}</url>
+    </webLinks>
+</CustomObject>

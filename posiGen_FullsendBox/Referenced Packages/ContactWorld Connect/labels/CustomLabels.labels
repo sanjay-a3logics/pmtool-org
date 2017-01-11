@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>CRUDFLSException</fullName>
+        <categories>Errors</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CRUD or FLS Exception message</shortDescription>
+        <value>Insufficient Privileges for this operation. Please contact your Salesforce Administrator or NewVoiceMedia support.</value>
+    </labels>
+    <labels>
+        <fullName>GenericException</fullName>
+        <categories>Errors</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Generic Exception</shortDescription>
+        <value>An error has occured; if it persists, contact NewVoiceMedia support.</value>
+    </labels>
+    <labels>
+        <fullName>GenericExceptionTitle</fullName>
+        <categories>Errors</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Generic Exception Title</shortDescription>
+        <value>An error has occured</value>
+    </labels>
+    <labels>
+        <fullName>IncorrectFileEncoding</fullName>
+        <categories>Errors</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Incorrect File Encoding</shortDescription>
+        <value>Sorry, we don&apos;t support that format. Please upload the file in UTF-8 format. Please contact your Salesforce Administrator or NewVoiceMedia support for more information.</value>
+    </labels>
+    <labels>
+        <fullName>ReturnToDialList</fullName>
+        <categories>Buttons</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Return to Dial List</shortDescription>
+        <value>Return to the Dial List</value>
+    </labels>
+</CustomLabels>

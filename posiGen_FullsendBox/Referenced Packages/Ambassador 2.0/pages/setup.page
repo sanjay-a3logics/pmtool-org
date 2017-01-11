@@ -1,0 +1,3 @@
+<apex:page controller="Ambassador.SetupIframeController">
+    <apex:iframe src="{!setupIframeUrl}" width="100%" height="900px" scrolling="true" />
+</apex:page>

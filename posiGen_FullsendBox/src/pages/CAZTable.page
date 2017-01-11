@@ -1,0 +1,4 @@
+<apex:page standardcontroller="CAZ_Test__c">
+  <apex:image url="{!$Resource.CAZTables}" width="800" height="250"/>
+
+</apex:page>

@@ -1,0 +1,11 @@
+<apex:page standardController="Prospect__c" extensions="CustomLeadConversionButtonController" action="{!performLeadConversion}">
+	<apex:pagemessages id="messages" />
+	
+	<script>
+		if({!redirectToDeal} == true){
+			window.location.href = "{!baseURL}/{!dealId}";
+		}
+		//window.onload = window.setTimeout(redirect(),5000);
+	</script>
+	
+</apex:page>

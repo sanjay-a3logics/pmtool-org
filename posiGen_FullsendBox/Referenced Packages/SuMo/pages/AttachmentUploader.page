@@ -1,0 +1,46 @@
+<apex:page controller="success.AttachmentUploaderController" showHeader="false" sidebar="false">
+
+	<apex:form id="AttachmentUploader">
+
+		<apex:actionFunction name="uploadJs" action="{!upload}" />
+
+		<script type="text/javascript">
+			
+			function setUploadCallback (callback) {
+				localStorage.setItem("_uploadCallback", callback);
+			}
+			
+			var _uploadStartCallback;
+			function setUploadStartCallback (callback) {
+				_uploadStartCallback = callback;
+			}
+
+			function uploadJsCustom () {
+				if (!_uploadStartCallback || window.top[_uploadStartCallback]()) {
+					uploadJs();
+				}
+			}
+
+		</script>
+
+		<apex:inputFile value="{!theAttachment.Body}" fileName="{!theAttachment.Name}" onchange="uploadJsCustom()" />	
+
+		<apex:inputHidden value="{!RecordId}" id="RecordId" />
+		<apex:inputHidden value="{!RecordCreateType}" id="RecordCreateType" />
+		<apex:inputHidden value="{!RecordUpdateJSON}" id="RecordUpdateJSON" />
+		<apex:inputHidden value="{!RecordCreateJSON}" id="RecordCreateJSON" />
+		<apex:inputHidden value="{!RecordContentType}" id="RecordContentType" />
+		<apex:inputHidden value="{!AttachmentId}" id="AttachmentId" />
+		<apex:inputHidden value="{!Processor}" id="Processor" />	
+
+		<apex:outputPanel rendered="{!uploaded && NOT(ISBLANK(uploadResult))}">
+			<script type="text/javascript">
+				if (localStorage.getItem("_uploadCallback")) {
+					window.top[localStorage.getItem("_uploadCallback")]({!uploadResultJson});
+				}
+			</script>
+		</apex:outputPanel>
+
+	</apex:form>
+
+</apex:page>

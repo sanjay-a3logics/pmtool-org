@@ -1,0 +1,9 @@
+<aura:component >
+    <aura:attribute name="sessionId" type="String" required="true"/>
+    <aura:attribute name="searchText" type="String" access="Private"/>
+    <aura:attribute name="businessUser" type="String" access="Private"/>
+    <aura:method name="save" action="{!c.save}" access="Public"/>
+    <aura:handler name="filterDdps" event="Loop:filterDdps" action="{!c.filterDdps}"/>
+    <Loop:SampleDdpSearch sessionId="{!v.sessionId}"/>
+    <Loop:SampleDdpTable sessionId="{!v.sessionId}" aura:id="sampleDdpTable" searchText="{!v.searchText}" businessUser="{!v.businessUser}"/>
+</aura:component>

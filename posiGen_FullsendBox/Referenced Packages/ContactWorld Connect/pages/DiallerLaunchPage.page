@@ -1,0 +1,110 @@
+<apex:page controller="NVMConnect.DiallerLaunchController" standardStylesheets="false" title="Dialler Launch Page">
+    <apex:pageMessages />
+    <apex:panelGrid cellspacing="20" width="100%" columns="2" id="topGrid">
+        <apex:outputPanel >
+            <apex:image url="{!$Resource.NVMConnect__NVMLogo}"/>
+        </apex:outputPanel>
+        <apex:outputPanel >
+            <span style="font-size:200%;">My Total Calls Remaining: <b>{!totalCallsRemaining}</b>
+            <br/>
+            <apex:outputLink value="{!$Page.NVMConnect__Dialler}">Click to begin dialling</apex:outputLink>
+            </span>
+        </apex:outputPanel>
+    </apex:panelGrid>
+    <apex:panelGrid cellspacing="20" width="100%" columns="2" id="tblGrid">
+        <apex:outputPanel >
+            <apex:dataTable width="400" value="{!workToDo}" var="row" id="workToDoTbl" rowClasses="odd,even" styleClass="tableClass">
+                <apex:facet name="header">My Next {!nextListSize} Call(s)</apex:facet>
+                <apex:column colspan="2" >
+                    <apex:facet name="header">Name</apex:facet>
+                    <apex:outputLink target="_blank" value="{!row.link}" >
+                        <apex:outputText value="{!row.description}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column colspan="2">
+                    <apex:facet name="header">List</apex:facet>
+                    <apex:outputText value="{!row.listName}"/>
+                </apex:column>
+           </apex:dataTable>
+        </apex:outputPanel>
+        <apex:outputPanel >
+            <apex:dataTable width="400" value="{!workDone}" var="row" id="workDoneTbl" rowClasses="odd,even" styleClass="tableClass">
+                <apex:facet name="header">My Last {!lastListSize} Call(s)</apex:facet>
+                <apex:column colspan="2" >
+                    <apex:facet name="header">Name</apex:facet>
+                    <apex:outputLink target="_blank" value="{!row.link}" >
+                        <apex:outputText value="{!row.description}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column colspan="2">
+                    <apex:facet name="header">List</apex:facet>
+                    <apex:outputText value="{!row.listName}"/>
+                </apex:column>
+                <apex:column >
+                <apex:facet name="header">Call?</apex:facet>
+                    <apex:outputPanel rendered="{!row.complete == TRUE}">
+                        <apex:image value="{!URLFOR($Resource.NVMConnect__Images,'images/Complete.png')}"/>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column >
+                        <apex:facet name="header">Skip?</apex:facet>
+                    <apex:outputPanel rendered="{!row.skipped== TRUE}">
+                        <apex:image value="{!URLFOR($Resource.NVMConnect__Images,'images/Skip.png')}"/>
+                    </apex:outputPanel>
+                </apex:column>
+                <apex:column >
+                        <apex:facet name="header">Outcome</apex:facet>
+                    <apex:outputText value="{!row.outcome}"/>
+                </apex:column>
+           </apex:dataTable>
+        </apex:outputPanel>
+    </apex:panelGrid>
+
+    <span style="font-size:150%;">My Calls By List</span>
+
+    <apex:panelGrid cellspacing="20" width="100%" columns="2" id="barGrid">
+        <apex:outputPanel >
+            <apex:chart animate="false" width="400" height="450" data="{!myInTrayByList}">
+                <apex:axis type="Numeric" position="left" minimum="0" fields="value" title="Calls Remaining" grid="true"/>
+                <apex:axis type="Category" position="bottom" fields="name" title="Dial List">
+                    <apex:chartLabel font="9px Helvetica" rotate="270"/>
+                </apex:axis>
+                <apex:barSeries title="My Calls by List" colorsProgressWithinSeries="true" orientation="vertical" axis="left" xField="name" yField="value">
+                    <apex:chartTips height="20" width="120"/>
+                </apex:barSeries>
+            </apex:chart>
+        </apex:outputPanel>
+        <apex:outputPanel >
+            <apex:chart animate="false" width="400" height="400" data="{!myInTrayByList}">
+                <apex:pieSeries highlight="false" tips="true" dataField="value" labelField="name">
+                    <apex:chartLabel field="description"/>
+                </apex:pieSeries>
+                <apex:legend position="right" font="9px Helvetica"/>
+            </apex:chart>
+        </apex:outputPanel>
+    </apex:panelGrid>
+
+    <span style="font-size:150%;">All Calls Remaining on All Active Lists</span>
+
+    <apex:panelGrid cellspacing="20" width="100%" columns="2" id="pieGrid">
+        <apex:outputPanel >
+            <apex:chart animate="false" width="400" height="450" data="{!activeListSizes}">
+                <apex:axis type="Numeric" position="left" minimum="0" fields="value" title="Calls Remaining" grid="true"/>
+                <apex:axis type="Category" position="bottom" fields="name" title="Dial List">
+                    <apex:chartLabel font="9px Helvetica" rotate="270"/>
+                </apex:axis>
+                <apex:barSeries title="All Calls by List" colorsProgressWithinSeries="true" orientation="vertical" axis="left" xField="name" yField="value">
+                    <apex:chartTips height="20" width="120"/>
+                </apex:barSeries>
+            </apex:chart>
+        </apex:outputPanel>
+        <apex:outputPanel >
+            <apex:chart animate="false" width="400" height="400" data="{!activeListSizes}">
+                <apex:pieSeries highlight="false" tips="true" dataField="value" labelField="name" >
+                    <apex:chartLabel field="description"/>
+                </apex:pieSeries>
+                <apex:legend position="right" font="9px Helvetica"/>
+            </apex:chart>
+        </apex:outputPanel>
+    </apex:panelGrid>
+</apex:page>

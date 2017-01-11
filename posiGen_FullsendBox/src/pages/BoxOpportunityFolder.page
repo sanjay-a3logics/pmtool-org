@@ -1,0 +1,170 @@
+<apex:page standardController="Deal__c" extensions="OpportunityExtension">
+    <head>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+         <style type="text/css">
+             #contentLoading{
+                width: 100%;
+                height: 100%;
+                top: 0px;
+                left: 0px;
+                position: fixed;
+                display: block;
+                opacity: 0.7;
+                background-color: #fff;
+                z-index: 10001;   
+                text-align: center;
+            }
+
+            #contentLoading1{
+                position: absolute;
+                top:150px;
+                z-index: 10000;
+            }
+            
+            .badge a{
+                color: #fff;
+                text-decoration: none;
+            }
+            
+            .badge a:hover{
+                color: #000;
+                text-decoration: none;
+            }
+            
+            .parentNode{
+                
+            } 
+            
+            .parentNode:hover{
+                text-decoration: none;
+            }
+            
+            .collapse li.list-group-item, .collapsing li.list-group-item{
+                padding-left: 50px;
+            }
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <apex:includeScript value="{!$Resource.jquery}"/>
+        <apex:includeScript value="{!$Resource.jQueryUI}"/>
+        <apex:includeScript value="{!URLFOR($Resource.bootstrap, 'bootstrap-3.3.4-dist/js/bootstrap.min.js')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.bootstrap,'bootstrap-3.3.4-dist/css/bootstrap.min.css')}" />
+        <apex:stylesheet value="{!URLFOR($Resource.bootstrap,'bootstrap-3.3.4-dist/css/bootstrap-theme.min.css')}" />
+    </head>
+    <apex:form >
+        <apex:pageMessages id="errmsgs"></apex:pageMessages>
+          
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a role="button" class="parentNode" data-toggle="collapse" href="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                  <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>&nbsp;&nbsp;{!Deal__c.Opportunity__r.Name}  
+                </a>
+           </li>
+            <div class="collapse" id="collapseExample" >
+                <apex:repeat value="{!ChList1}" var="Ch">
+                    <li class="list-group-item"><a href="https://app.box.com/files/0/f/{!Ch.Cf_box_folder_id__c}" target="_blank">
+                        <span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>&nbsp;&nbsp;
+                        <apex:outputText value="{!Ch.name}"></apex:outputText></a>
+                    </li>
+                </apex:repeat>
+            </div>
+        </ul>
+
+        <div id="myModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Share Folder</h4>
+              </div>
+              <div class="modal-body">
+                   <apex:pageMessages id="popupmsgs"></apex:pageMessages>
+                   <apex:outputPanel id="popupdata">
+                   <div class="form-group">
+                       <label>User</label>
+                       
+                        <apex:selectList styleClass="form-control" size="1" value="{!SelectedUserId}">
+                            <apex:selectOptions value="{!lstUsers}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>
+                    <div class="form-group">
+                    <label>Role</label>
+                        <apex:selectList styleClass="form-control" size="1" value="{!SelectedRole}">
+                            <apex:selectOptions value="{!lstRoles}"></apex:selectOptions>
+                        </apex:selectList>
+                    </div>    
+                </apex:outputPanel>
+                
+              </div>
+              <div class="modal-footer">
+                  <apex:commandButton value="Share" oncomplete="Share();"/>
+                  <button type="button" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div id="contentLoading" style="display:none;">
+            <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+        </div>
+    </apex:form>
+    <script>
+        $( document ).ready(function() {
+            $("#PopUp").dialog({
+                autoOpen: false, 
+                minWidth: 650, 
+                modal: true,
+                buttons:{"Cancel": {click:function(){$(this).dialog("close" );}, text: 'Close'}} 
+            });
+        });
+        
+        $( ".parentNode" ).click(function() {
+            if($(this).find( "span" ).hasClass('glyphicon-folder-open')){
+                $(this).find( "span" ).addClass('glyphicon-folder-close');
+                $(this).find( "span" ).removeClass('glyphicon-folder-open');
+            }
+            else{
+                $(this).find( "span" ).addClass('glyphicon-folder-open');
+                $(this).find( "span" ).removeClass('glyphicon-folder-close');
+            }
+        });
+        $( "#collapseExample" ).collapse('show');
+        
+        function OpenPopUp(flag){
+            console.log('****** flag '+flag);
+            loading(false);
+            if(flag == 'true'){
+                //$(".ui-dialog-title").html('Share Folder');
+                //$('#PopUp').dialog('open');
+                $('#myModal').modal('show');
+            }
+        }
+        
+        function ShowAck(flag){
+            console.log('****** flag '+flag);
+            loading(false);
+            if(flag == 'true'){
+                $('#myModal').modal('hide');
+                alert('Folder has been shared.');
+            }
+        }
+        
+        function loading(val) {
+            if (val) {
+                document.getElementById('contentLoading').style.display = 'inline-block';
+                //document.getElementById('contentLoading1').style.display = 'none';
+            }
+            else {
+                document.getElementById('contentLoading').style.display = 'none';
+                //document.getElementById('contentLoading1').style.display = 'inline-block';
+            }
+        }
+        function ShowPopUp(val){
+        
+            loading(true);
+            JsShowPopUp(val);
+        }
+        function Share(){
+            loading(true);
+            JsShare();
+        }
+    </script>
+</apex:page>

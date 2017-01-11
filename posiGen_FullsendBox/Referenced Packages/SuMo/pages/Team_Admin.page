@@ -1,0 +1,368 @@
+<apex:page standardController="success__Team__c" extensions="success.RequestController,success.ChatterController,success.AwardCompetitionWinnersController,success.CompetitionStateController,success.MailController,success.CompetitionRewardsController,success.SnapshotCompetitorController,success.DigestController,success.PrimaryTeamController">
+             
+	 <apex:form >
+	 		
+	 	
+	 	<apex:tabPanel switchType="client" selectedTab="requests" id="theTabPanel">
+    		
+			<apex:tab label="Requests" name="Requests" id="Requests"> 		
+	 		
+           <apex:pageBlock title="Request Admin"  mode="maindetail" id="page">
+           
+               	 <apex:pageMessages />
+     
+                <!--  Buttons -->
+                <apex:pageBlockButtons >
+                	<apex:commandButton title="request to join" value="request to join" action="{!requestToJoin}"/>
+                	<apex:commandButton title="request to leave" value="request to leave" action="{!requestToLeave}"/>
+                </apex:pageBlockButtons>
+                	
+                <apex:pageblockSection title="New Join Requests">
+                	<apex:pageBlockTable value="{!newJoinRequests}" var="req">
+                		<apex:column >
+                					<apex:commandButton action="{!approveRequest}" value="approve" rerender="page">
+                							<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+                					</apex:commandButton>
+                		</apex:column>
+                		<apex:column >
+                					<apex:commandButton action="{!rejectRequest}" value="reject" rerender="page">
+                							<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+                					</apex:commandButton>
+                		</apex:column>
+                		<apex:column >
+                					<apex:commandButton action="{!cancelRequest}" value="cancel" rerender="page">
+                							<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+                					</apex:commandButton>
+                		</apex:column>
+              
+                		<apex:column ><apex:outputField value="{!req.name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdBy.Name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdDate}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+                <apex:pageblockSection title="New Leave Requests">
+                	<apex:pageBlockTable value="{!newLeaveRequests}" var="req">
+                		<apex:column >
+                					<apex:commandButton action="{!approveRequest}" value="approve" rerender="page">
+                							<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+                					</apex:commandButton>
+                		</apex:column>
+                		<apex:column >
+                					<apex:commandButton action="{!rejectRequest}" value="reject" rerender="page">
+                							<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+                					</apex:commandButton>
+                		</apex:column>
+                		<apex:column >
+                					<apex:commandButton action="{!cancelRequest}" value="cancel" rerender="page">
+                							<apex:param value="{!req.id}" assignTo="{!contextId}" name="contextId"/>
+                					</apex:commandButton>
+                		</apex:column>
+                		<apex:column ><apex:outputField value="{!req.name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdBy.Name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdDate}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+                 <apex:pageblockSection title="Approved Join Requests">
+                	<apex:pageBlockTable value="{!approvedJoinRequests}" var="req">
+                		<apex:column ><apex:outputField value="{!req.name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdBy.Name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdDate}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+                <apex:pageblockSection title="Approved Leave Requests" >
+                	<apex:pageBlockTable value="{!approvedLeaveRequests}" var="req">
+                		<apex:column ><apex:outputField value="{!req.name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdBy.Name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdDate}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+                  <apex:pageblockSection title="Rejected Join Requests" >
+                	<apex:pageBlockTable value="{!rejectedJoinRequests}" var="req">
+                		<apex:column ><apex:outputField value="{!req.name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdBy.Name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdDate}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+                <apex:pageblockSection title="Rejected Leave Requests">
+                	<apex:pageBlockTable value="{!rejectedLeaveRequests}" var="req">
+                		
+                		<apex:column ><apex:outputField value="{!req.name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdBy.Name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdDate}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+                  <apex:pageblockSection title="Cancelled Join Requests" >
+                	<apex:pageBlockTable value="{!cancelledJoinRequests}" var="req">
+                		<apex:column ><apex:outputField value="{!req.name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdBy.Name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdDate}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+                <apex:pageblockSection title="Cancelled Leave Requests">
+                	<apex:pageBlockTable value="{!cancelledLeaveRequests}" var="req">
+                		<apex:column ><apex:outputField value="{!req.name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdBy.Name}" /></apex:column>
+                		<apex:column ><apex:outputField value="{!req.createdDate}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+             </apex:pageBlock>
+             </apex:tab>
+             
+              <apex:tab label="Competition Manager" name="state" id="state" rendered="{!NOT(stateContext == null)}">
+              		 <apex:pageMessages />
+     
+		 		<apex:pageBlock title="State Manager"  mode="maindetail" id="stateBlock">
+		 		 
+		 			  <!--  Buttons -->
+	                <apex:pageBlockButtons >
+	                	<apex:commandButton title="Run Competition" value="Start Competition" action="{!startCompetition}" rendered="{!stateContext.runnable}" rerender="stateBlock"/>
+	                	<apex:commandButton title="Finish Competition" value="Finish Competition" action="{!finishCompetition}" rendered="{!stateContext.finishable}"  rerender="stateBlock"/>
+	                	<apex:commandButton title="Declare Competition" value="Declare Competition" action="{!declareCompetition}" rendered="{!stateContext.declarable}"  rerender="stateBlock"/>
+	                	<apex:commandButton title="Cancel Competition" value="Cancel Competition" action="{!cancelCompetition}" rendered="{!stateContext.cancellable}"  rerender="stateBlock"/>
+	                	<apex:commandButton title="Snapshot Competitors" value="Snapshot Competitors" action="{!snapshotCompetitors}" rendered="{!stateContext.finishable}"  rerender="stateBlock"/>
+	                	<apex:commandButton title="View" value="View" action="{!view}"  rerender="stateBlock"/>
+	                </apex:pageBlockButtons>
+	               
+	               <apex:pageblockSection title="Current Status" >
+	     				<apex:outputField value="{!success__Team__c.success__Status__c}" />
+	     				<apex:outputField value="{!success__Team__c.success__Start_Date_Time__c}" />
+	     				<apex:outputField value="{!success__Team__c.success__End_Date_Time__c}" />
+              	   </apex:pageblockSection>
+              		
+              	   <apex:pageblockSection title="Snapshot Scheduling" rendered="{!NOT(SnapshotCronTrigger == NULL)}">
+	     				<apex:outputField value="{!SnapshotCronTrigger.CronJobDetail.Name}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.TimesTriggered}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.TimeZoneSidKey}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.State}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.StartTime}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.EndTime}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.PreviousFireTime}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.NextFireTime}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.OwnerId}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.LastModifiedById}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.CreatedById}" />
+	     				<apex:outputField value="{!SnapshotCronTrigger.CreatedDate}" />
+	     				
+	     				<apex:pageBlockSectionItem >
+	     					<apex:outputLabel value="Frequency"/>
+	     					<apex:outputText value="{!snapshotFrequency}" />
+	     				</apex:pageBlockSectionItem>
+	     				
+	     	  	  </apex:pageblockSection>
+              	
+              	
+		 			
+		 		</apex:pageBlock>	
+	 		</apex:tab>
+             
+            <apex:tab label="Communication" name="comms" id="comms">
+		 		<apex:pageBlock title="Communication Manager"  mode="maindetail" id="commsBlock">
+		 			 <apex:pageMessages />
+     
+		 		
+		 		 	  <!--  Buttons -->
+	                <apex:pageBlockButtons >
+	                	<apex:commandButton title="Post Start Notification" value="Post Start Notification" action="{!postStartNotification}" rendered="{!stateContext.runnable}" />
+	                	<apex:commandButton title="Post End Notification" value="Post End Notification" action="{!postEndNotification}"   rendered="{!stateContext.finishable}" />
+	                	<apex:commandButton title="Email Start Notification" value="Email Start Notification" action="{!emailStartNotification}" rendered="{!stateContext.runnable}" />
+	                	<apex:commandButton title="Email End Notification" value="Email End Notification" action="{!emailEndNotification}"   rendered="{!stateContext.finishable}" />
+	                	<apex:commandButton title="Send Team Digest" value="Send Team Digest" action="{!runDigests}"    />
+	               
+	                	<apex:commandButton title="Save" value="Save" action="{!save}" />
+	                </apex:pageBlockButtons>
+	               
+	              	<apex:pageblockSection >
+						<apex:inputField value="{!success__Team__c.success__Notify_by_Chatter__c}" />
+						<apex:inputField value="{!success__Team__c.success__Notify_By_Email__c}" />
+						<apex:inputField value="{!success__Team__c.success__Start_Date_Time__c}" />
+						<apex:inputField value="{!success__Team__c.success__Notify_days_before_start__c}" />
+					</apex:pageblockSection>
+					
+					<apex:pageblockSection columns="1">
+						<apex:inputField value="{!success__Team__c.success__Start_Notification_Subject__c}" />
+						<apex:inputField value="{!success__Team__c.success__Start_Notification_Body__c}" />
+					</apex:pageblockSection>
+						
+					<apex:pageblockSection columns="1">
+						<apex:inputField value="{!success__Team__c.success__End_Date_Time__c}"/>
+						<apex:inputField value="{!success__Team__c.success__Notify_days_before_end__c}" />
+						<apex:inputField value="{!success__Team__c.success__End_Notification_Subject__c}" />
+						<apex:inputField value="{!success__Team__c.success__End_Notification_Body__c}" />
+					</apex:pageblockSection>
+					
+		 		</apex:pageBlock>	
+	 		</apex:tab>
+	 		
+	 		<apex:tab label="Chatter" name="chatter" id="chatter">
+	 		<apex:pageBlock title="Chatter"  mode="maindetail" id="chatterBlock">
+	 	      	 <apex:pageMessages id="success.Messages"/>
+     
+	 			  <!--  Buttons -->
+                <apex:pageBlockButtons >
+                	<apex:commandButton title="Create Chatter Group" value="Create Chatter Group" action="{!createChatterGroup}" rendered="{!ISNULL(chatterGroup)}"/>
+                	<apex:commandButton title="Unlink Chatter Group" value="Unlink Chatter Group" action="{!unlinkChatterGroup}" rendered="{!NOT(ISNULL(chatterGroup))}"/>
+                	<apex:commandButton title="Add Competitors To Chatter Group" value="Add Competitors To Chatter Group" action="{!addMembers}" rendered="{!NOT(ISNULL(chatterGroup))}"/>
+                </apex:pageBlockButtons>
+            	<apex:image url="{!chatterGroup.photo.smallPhotoURL}"/>
+               
+               <apex:pageblockSection title="Linked Chatter Group" rendered="{!NOT(ISNULL(chatterGroup))}" columns="1">
+            		<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="{!$ObjectType.CollaborationGroup.Fields.Name.Label}"/><apex:outputLink value="{!$Site.CurrentSiteUrl}/{!chatterGroup.id}"><apex:outputText value="{!chatterGroup.name}"/></apex:outputLink>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="{!$ObjectType.CollaborationGroup.Fields.Description.Label}"/><apex:outputText value="{!chatterGroup.description}"/>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="{!$ObjectType.CollaborationGroup.Fields.InformationTitle.Label}"/><apex:outputText value="{!chatterGroup.information.title}"/>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="{!$ObjectType.CollaborationGroup.Fields.InformationBody.Label}"/><apex:outputText value="{!chatterGroup.information.text}"/>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="Pending Requests"/><apex:outputText value="{!chatterGroup.pendingRequests}"/>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="File Count"/><apex:outputText value="{!chatterGroup.fileCount}"/>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="Owner Name"/><apex:outputText value="{!chatterGroup.owner.name}"/>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="Visibility"/><apex:outputText value="{!chatterGroup.visibility}"/>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="Member Count"/><apex:outputText value="{!chatterGroup.memberCount}"/>
+	 				</apex:pageblockSectionItem>
+	 				<apex:pageblockSectionItem >
+	 					<apex:outputLabel value="My Role"/><apex:outputText value="{!chatterGroup.myRole}"/>
+	 				</apex:pageblockSectionItem>
+                    <apex:pageblockSectionItem >
+                        <apex:outputLabel value="Last Post Date"/><apex:outputText value="{!chatterGroupLastPostDate}"/>
+                    </apex:pageblockSectionItem>
+	 
+	 			</apex:pageblockSection>
+	 			
+	 			 <apex:pageblockSection title="Available Chatter Groups" rendered="{!ISNULL(chatterGroup)}">
+                	<apex:pageBlockTable value="{!groupPage.groups}" var="g">
+                		<apex:column >
+                			<apex:commandButton action="{!linkChatterGroup}" value="link" rerender="chatterBlock, messages">
+                				<apex:param value="{!g.id}" assignTo="{!contextGroupId}" name="contextId"/>
+                			</apex:commandButton>
+                		</apex:column>
+                		<apex:column ><apex:outputText value="{!g.name}" /></apex:column>
+                		<apex:column ><apex:outputText value="{!g.Description}" /></apex:column>
+                	</apex:pageBlockTable>
+                </apex:pageblockSection>
+                
+                
+	 			
+	 		</apex:pageBlock>
+	 		</apex:tab>
+	 		
+             
+             <apex:tab label="Administer Competitors" name="competitors" id="competitors">
+		 		<apex:pageBlock title="Competitors"  mode="maindetail" id="competitorBlock">
+		     		 <apex:pageMessages />
+     
+	         		  <!--  Buttons -->
+	                <apex:pageBlockButtons >
+	                	<apex:commandButton title="Apply Provisional Results" value="Apply Provisional Results" action="{!applyProvisionalResults}" rendered="{!stateContext.declarable}"  rerender="competitorBlock"/>
+	                	<apex:commandButton title="Make competition primary for all competitors" value="Make competition primary for all competitors" action="{!applyCompetitionAsPrimaryForAll}"  rerender="competitorBlock"/>
+	               
+	                </apex:pageBlockButtons>
+	                       
+	         		<apex:pageblockSection title="Competitors" rendered="{!NOT(OR(stateContext.running, stateContext.finished))}">
+                		<apex:pageBlockTable value="{!success__Team__c.team_members__r}" var="tm">
+                			<apex:column headervalue="Select">
+                				<apex:commandButton title="Make competition primary" value="Make competition primary" action="{!applyCompetitionAsPrimaryForSelected}" rerender="competitorBlock">
+	       							<apex:param value="{!tm.id}" assignTo="{!contextIds}" name="contextIds"/>
+               					</apex:commandButton>
+                			</apex:column>
+	     	 				<apex:column value="{!tm.name}" />
+                			<apex:column value="{!tm.success__User__c}" />
+                			<apex:column value="{!tm.success__Score__c}" />
+                		</apex:pageBlockTable>
+	     	 		</apex:pageblockSection>	
+                	
+	         
+	         
+                	
+                 	 <apex:pageblockSection title="Live Leaderboard" rendered="{!OR(stateContext.running, stateContext.finished)}">
+                		<apex:pageBlockTable value="{!infoLeaderBoard}" var="tm">
+	     	 				<apex:column >
+            	             	<apex:commandButton title="Fetch Rewards" value="Fetch Rewards" action="{!fetchRewards}" rendered="{!stateContext.declarable}"  rerender="competitorBlock">
+	       							<apex:param value="{!tm.id}" assignTo="{!competitorContextId}" name="competitorContextId"/>
+               					</apex:commandButton>
+                			</apex:column>
+	     	 				<apex:column value="{!tm.record.name}" />
+                			<apex:column value="{!tm.record.success__User__c}" />
+                			<apex:column headerValue="Score" value="{!tm.score}" />
+                			<apex:column headerValue="Position" value="{!tm.position}" />
+                		</apex:pageBlockTable>
+                	</apex:pageblockSection> 
+                
+                	<apex:pageblockSection title="Rewards" rendered="{!hasRewards}">
+	     	 			<apex:pageBlockTable value="{!rewards}" var="r" rendered="{!NOT(rewards.size==0)}">
+	     	 			<apex:column >
+            	             	<apex:commandButton title="Delete Reward" value="Delete Reward" action="{!deleteReward}" rendered="{!stateContext.declarable}"  rerender="competitorBlock">
+	       							<apex:param value="{!r.id}" assignTo="{!rewardContextId}" name="rewardContextId"/>
+               					</apex:commandButton>
+                			</apex:column>
+	     	 				<apex:column value="{!r.name}" />
+                			<apex:column value="{!r.success__User__c}" />
+                			<apex:column value="{!r.success__Achievement__c}" />
+                			<apex:column value="{!r.success__Experience__c}" />
+                			<apex:column value="{!r.success__Badge_Type__c}" />
+                			<apex:column value="{!r.success__Badge_Name__c}" />
+                			<apex:column value="{!r.success__Badge_Name__c}" />
+                			<apex:column value="{!r.success__Number_of_occurrences__c}" />
+                			<apex:column value="{!r.success__Started_Date_Time__c}" />
+                			<apex:column value="{!r.success__Last_Updated_Date_Time__c}" />
+                		</apex:pageBlockTable>
+                		<apex:outputText value="No Rewards found" rendered="{!rewards.size==0}"/>
+                	</apex:pageblockSection>
+		 			
+		 		</apex:pageBlock>	
+	 		</apex:tab>
+             
+             
+             <apex:tab label="Award Winners" name="winners" id="winners">
+		 		<apex:pageBlock title="Winners"  mode="maindetail" id="winnerBlock">
+           		  <apex:pageMessages />
+     
+		 		   
+	               <apex:pageblockSection title="Leaderboard" rendered="{!stateContext.declarable}" >
+	     	 			<apex:pageBlockTable value="{!success__Team__c.team_members__r}" var="tm">
+	     	 				<apex:column value="{!tm.name}" />
+                			<apex:column value="{!tm.success__User__c}" />
+                			<apex:column value="{!tm.success__Score__c}" />
+                			<apex:column headerValue="Position"><apex:inputField value="{!tm.success__Finishing_Position__c}" /></apex:column>
+                		</apex:pageBlockTable>
+	     	 		</apex:pageblockSection>		
+	               
+	               
+	               <apex:pageblockSection title="Top Competitors" rendered="{!stateContext.declared}">
+	     	 			<apex:pageBlockTable value="{!success__Team__c.team_members__r}" var="tm">
+	     	 				<apex:column value="{!tm.name}" />
+                			<apex:column value="{!tm.success__User__c}" />
+                			<apex:column value="{!tm.success__Score__c}" />
+                			<apex:column value="{!tm.success__Finishing_Position__c}" />
+                		</apex:pageBlockTable>
+              	</apex:pageblockSection>
+		 			
+		 		</apex:pageBlock>	
+	 		</apex:tab>
+             
+    	</apex:tabPanel>         
+    </apex:form>   
+
+
+</apex:page>

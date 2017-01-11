@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Actual savings by month from PV and EU</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Customer Actual Savings</relationshipLabel>
+        <relationshipName>Customer_Actual_Savings</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EU_Project__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>EU Project</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>$Source.Opportunity__c</field>
+                <operation>equals</operation>
+                <valueField>Project__c.Opportunity__c</valueField>
+            </filterItems>
+            <filterItems>
+                <field>Project__c.Record_Type_Name__c</field>
+                <operation>equals</operation>
+                <value>EE Upgrade</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipLabel>Customer Actual Savings</relationshipLabel>
+        <relationshipName>Customer_Actual_Savings</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EU_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>EU_kWh_Conserved__c * Utility_Rate_Per_kWh__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>EU $ Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>EU_kWh_Conserved__c</fullName>
+        <description>Conserved kWh due to EE Upgrades performed. Populated by the monthly import. Calculated from the EU Line Item figures for the customer&apos;s EE Upgrades objects for the current month.</description>
+        <externalId>false</externalId>
+        <label>EU kWh Conserved</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Future_Total_EE_Savings__c</fullName>
+        <description>Snapshot of future total EE savings</description>
+        <externalId>false</externalId>
+        <formula>ROUND(Future_Total_EE_kWh_Conserved__c * Utility_Rate_Per_kWh__c * (1.02 ^ (FLOOR(Lease_Months_Remaining__c / 12) - 1)), 2 )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of future total EE savings</inlineHelpText>
+        <label>Future Total EE Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Future_Total_EE_kWh_Conserved__c</fullName>
+        <description>Estimated future total kWh conserved due to EE Upgrades, populated by monthly job</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Estimated future total kWh conserved due to EE Upgrades, populated by monthly job</inlineHelpText>
+        <label>Future Total EE kWh Conserved</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Future_Total_Lease_Cost__c</fullName>
+        <description>Snapshot of total future lease payments</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Snapshot of total future lease payments</inlineHelpText>
+        <label>Future Total Lease Cost</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Future_Total_Net_Savings__c</fullName>
+        <description>Snapshot of future total net savings</description>
+        <externalId>false</externalId>
+        <formula>Future_Total_PV_Plus_EE_Savings__c - Future_Total_Lease_Cost__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of future total net savings</inlineHelpText>
+        <label>Future Total Net Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Future_Total_PV_Plus_EE_Savings__c</fullName>
+        <description>Snapshot of future total savings</description>
+        <externalId>false</externalId>
+        <formula>Future_Total_PV_Savings__c +  Future_Total_EE_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of future total savings</inlineHelpText>
+        <label>Future Total PV Plus EE Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Future_Total_PV_Savings__c</fullName>
+        <description>Snapshot of projected future PV savings</description>
+        <externalId>false</externalId>
+        <formula>ROUND( Future_Total_Production_kWh__c * Utility_Rate_Per_kWh__c * (1.02 ^ (FLOOR(Lease_Months_Remaining__c / 12) - 1)), 2 )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of projected future PV savings</inlineHelpText>
+        <label>Future Total PV Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Future_Total_Production_kWh__c</fullName>
+        <description>Snapshot of projected future PV production based on system design</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Snapshot of projected future PV production based on system design</inlineHelpText>
+        <label>Future Total Production kWh</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Integration_Notes__c</fullName>
+        <description>for logging Monthly import job notes</description>
+        <externalId>false</externalId>
+        <label>Integration Notes</label>
+        <length>255</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lease_Cost__c</fullName>
+        <description>Lease cost for the current month, populated by the monthly job</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Lease cost for the current month, populated by the monthly job</inlineHelpText>
+        <label>Lease Cost</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Months_Remaining__c</fullName>
+        <description>Monthly snapshot: number of months remaining on the lease</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Monthly snapshot: number of months remaining on the lease</inlineHelpText>
+        <label>Lease Months Remaining</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lifetime_Total_EE_Savings__c</fullName>
+        <description>Snapshot of expected total EE savings over the life of the lease; =to-date total EE savings plus projected future total EE savings</description>
+        <externalId>false</externalId>
+        <formula>To_Date_EE_Savings__c + Future_Total_EE_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of expected total EE savings over the life of the lease; =to-date total EE savings plus projected future total EE savings</inlineHelpText>
+        <label>Lifetime Total EE Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lifetime_Total_EE_kWh_Conserved__c</fullName>
+        <externalId>false</externalId>
+        <formula>To_Date_EE_kWh_Conserved__c + Future_Total_EE_kWh_Conserved__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Lifetime Total EE kWh Conserved</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lifetime_Total_Lease_Cost__c</fullName>
+        <description>Total lifetime lease cost. This will be copied from the LD Lease object when production data is inserted.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Total lifetime lease cost. This will be copied from the LD Lease object when production data is inserted.</inlineHelpText>
+        <label>Lifetime Total Lease Cost</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lifetime_Total_Net_Savings__c</fullName>
+        <description>Snapshot of expected total net savings over the life of the lease; lifetime total PV Plus EE savings minus lifetime lease cost.</description>
+        <externalId>false</externalId>
+        <formula>Lifetime_Total_PV_Plus_EE_Savings__c - Lifetime_Total_Lease_Cost__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of expected total net savings over the life of the lease; lifetime total PV Plus EE savings minus lifetime lease cost.</inlineHelpText>
+        <label>Lifetime Total Net Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lifetime_Total_PV_Plus_EE_Savings__c</fullName>
+        <description>Snapshot of expected total PV and EE savings over the life of the lease; =to-date total PV and EE savings plus projected future total PV and EE savings</description>
+        <externalId>false</externalId>
+        <formula>Lifetime_Total_PV_Savings__c + Lifetime_Total_EE_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of expected total PV and EE savings over the life of the lease; =to-date total PV and EE savings plus projected future total PV and EE savings</inlineHelpText>
+        <label>Lifetime Total PV Plus EE Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lifetime_Total_PV_Savings__c</fullName>
+        <description>Snapshot of expected total PV savings over the life of the lease; =to-date total PV savings plus projected future total PV savings</description>
+        <externalId>false</externalId>
+        <formula>To_Date_PV_Savings__c + Future_Total_PV_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of expected total PV savings over the life of the lease; =to-date total PV savings plus projected future total PV savings</inlineHelpText>
+        <label>Lifetime Total PV Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Lifetime_Total_Production_kWh__c</fullName>
+        <description>Snapshot of expected total PV production over the life of the lease; =to-date total PV production plus projected future total PV production</description>
+        <externalId>false</externalId>
+        <formula>To_Date_PV_Production__c + Future_Total_Production_kWh__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Snapshot of expected total PV production over the life of the lease; =to-date total PV production plus projected future total PV production</inlineHelpText>
+        <label>Lifetime Total Production kWh</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Month_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( Savings_Month__c, 
+      1, &quot;Jan&quot;,
+      2, &quot;Feb&quot;,
+      3, &quot;Mar&quot;,
+      4, &quot;Apr&quot;,
+      5, &quot;May&quot;,
+      6, &quot;Jun&quot;,
+      7, &quot;Jul&quot;,
+      8, &quot;Aug&quot;,
+      9, &quot;Sep&quot;,
+     10, &quot;Oct&quot;,
+     11, &quot;Nov&quot;,
+     12, &quot;Dec&quot;,
+     &quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Month Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_Net_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Month_Total_Savings__c - Lease_Cost__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Month Net Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Month_Total_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>PV_Savings__c + EU_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Month Total Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Month_Total_kWh_for_PV_and_EE__c</fullName>
+        <externalId>false</externalId>
+        <formula>PV_Production_kWh__c + EU_kWh_Conserved__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Month Total kWh for PV and EE</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Customer Actual Savings</relationshipLabel>
+        <relationshipName>Opp_Actual_Savings</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PV_Production_kWh__c</fullName>
+        <externalId>false</externalId>
+        <label>PV Production kWh</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PV_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>PV_Production_kWh__c * Utility_Rate_Per_kWh__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>PV $ Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Period_As_Text__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Savings_Year__c ) + TEXT( Savings_Month__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Period As Text</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Annual_EE_kWh_Saved__c</fullName>
+        <description>Populated by monthly heroku rollup job; look up from Energy_Audit__c.Electric_Reduction_Savings_kWh__c</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Populated by monthly heroku rollup job; look up from Energy_Audit__c.Electric_Reduction_Savings_kWh__c</inlineHelpText>
+        <label>Projected Annual EE kWh Saved</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Annual_PV_Production__c</fullName>
+        <description>Populated by monthly heroku job, using figures from the PV Feasibility project</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Populated by monthly heroku job, using figures from the PV Feasibility project</inlineHelpText>
+        <label>Projected Annual PV Production</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_01Yr_EE_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>ROUND((Projected_Annual_EE_kWh_Saved__c * Utility_Rate_Per_kWh__c  * 1.02),2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 01Yr EE Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_01Yr_Lease_Cost__c</fullName>
+        <externalId>false</externalId>
+        <label>Projected Next 01Yr Lease Cost</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_01Yr_Net_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Next_01Yr_Total_Savings__c - Projected_Next_01Yr_Lease_Cost__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 01Yr Net Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_01Yr_PV_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>ROUND((Projected_Annual_PV_Production__c * Utility_Rate_Per_kWh__c  * 1.02),2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 01Yr PV Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_01Yr_Total_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Next_01Yr_PV_Savings__c + Projected_Next_01Yr_EE_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 01Yr Total Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_05Yrs_EE_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>ROUND((Projected_Annual_EE_kWh_Saved__c * Utility_Rate_Per_kWh__c  * (1.02 ^ 5)),2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 05Yrs EE Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_05Yrs_EE_kWh__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Annual_EE_kWh_Saved__c * 5</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 05Yrs EE kWh</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_05Yrs_Lease_Cost__c</fullName>
+        <description>Populated by monthly heroku rollup</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Populated by monthly heroku rollup</inlineHelpText>
+        <label>Projected Next 05Yrs Lease Cost</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_05Yrs_Net_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Next_05Yrs_Total_Savings__c - Projected_Next_05Yrs_Lease_Cost__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 05Yrs Net Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_05Yrs_PV_Prod__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Annual_PV_Production__c * 5</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 05Yrs PV Prod</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_05Yrs_PV_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>ROUND((Projected_Annual_PV_Production__c * Utility_Rate_Per_kWh__c  * (1.02 ^ 5)),2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 05Yrs PV Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_05Yrs_Total_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Next_05Yrs_PV_Savings__c +  Projected_Next_05Yrs_EE_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 05Yrs Total Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_10Yrs_EE_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>ROUND((Projected_Annual_EE_kWh_Saved__c * Utility_Rate_Per_kWh__c  * (1.02 ^ 10)),2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 10Yrs EE Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_10Yrs_EE_kWh__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Annual_EE_kWh_Saved__c * 10</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 10Yrs EE kWh</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_10Yrs_Lease_Cost__c</fullName>
+        <externalId>false</externalId>
+        <label>Projected Next 10Yrs Lease Cost</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_10Yrs_Net_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Next_10Yrs_Total_Savings__c - Projected_Next_10Yrs_Lease_Cost__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 10Yrs Net Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_10Yrs_PV_Prod__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Annual_PV_Production__c * 10</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 10Yrs PV Prod</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_10Yrs_PV_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>ROUND((Projected_Annual_PV_Production__c * Utility_Rate_Per_kWh__c  * (1.02 ^ 10)),2)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 10Yrs PV Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Next_10Yrs_Total_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>Projected_Next_10Yrs_PV_Savings__c +  Projected_Next_10Yrs_EE_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Next 10Yrs Total Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Production_kWh__c</fullName>
+        <description>We are still awaiting confirmation that the source of this value should be the monthly projection figures for the planned array.</description>
+        <externalId>false</externalId>
+        <label>Projected Production kWh</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Contact_User__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID(Property__r.Account__r.PersonContact.Id)</formula>
+        <label>Property Contact User</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Latitude__c</fullName>
+        <description>Location Latitude field from the Property object</description>
+        <externalId>false</externalId>
+        <formula>Property__r.Location__Latitude__s</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Location Latitude field from the Property object</inlineHelpText>
+        <label>Property Latitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>10</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Longitude__c</fullName>
+        <description>Location Longitude field from the Property object</description>
+        <externalId>false</externalId>
+        <formula>Property__r.Location__Longitude__s</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Location Longitude field from the Property object</inlineHelpText>
+        <label>Property Longitude</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>10</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property_Person_Account__c</fullName>
+        <externalId>false</externalId>
+        <formula>Property__r.Account__c</formula>
+        <label>Property Person Account</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Property__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Property</label>
+        <referenceTo>Property__c</referenceTo>
+        <relationshipLabel>Customer Actual Savings</relationshipLabel>
+        <relationshipName>Property_Actual_Savings</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Savings_Month_Ending_Date__c</fullName>
+        <description>Last day of month for savings month/year</description>
+        <externalId>false</externalId>
+        <formula>DATE ( Savings_Year__c,
+       Savings_Month__c,
+       CASE ( Savings_Month__c,
+              2, CASE ( MOD ( Savings_Year__c, 4 ),
+                        0, 29,
+                        28
+                       ),
+              4, 30,
+              6, 30,
+              9, 30,
+              11, 30,
+              31
+            )
+     )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Savings Month Ending Date</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Savings_Month__c</fullName>
+        <externalId>false</externalId>
+        <label>Savings Month</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Savings_Year__c</fullName>
+        <externalId>false</externalId>
+        <label>Savings Year</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System_Account_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID(  System__r.Install_Project_Created_On__r.Opportunity__r.Account.Id  )</formula>
+        <label>System Account ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System_Opportunity_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID( System__r.Install_Project_Created_On__r.Opportunity__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>System Opportunity ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System_Property_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID( System__r.Install_Project_Created_On__r.Opportunity__r.Property__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>System Property ID</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>System__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>System</label>
+        <referenceTo>Systems__c</referenceTo>
+        <relationshipLabel>Customer Actual Savings</relationshipLabel>
+        <relationshipName>Customer_Actual_Savings</relationshipName>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>To_Date_EE_Savings__c</fullName>
+        <description>Cumulative EE savings snapshot</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Cumulative EE savings snapshot</inlineHelpText>
+        <label>To Date EE Savings</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>To_Date_EE_kWh_Conserved__c</fullName>
+        <description>Sum of estimated kWh conserved by EE Upgrades to date, populated by monthly job</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Sum of estimated kWh conserved by EE Upgrades to date, populated by monthly job</inlineHelpText>
+        <label>To Date EE kWh Conserved</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>To_Date_Lease_Cost__c</fullName>
+        <description>Cumulative lease cost snapshot</description>
+        <externalId>false</externalId>
+        <label>To Date Lease Cost</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>To_Date_Net_Savings__c</fullName>
+        <externalId>false</externalId>
+        <formula>To_Date_Total_Savings__c - To_Date_Lease_Cost__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>To Date Net Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>To_Date_PV_Production__c</fullName>
+        <description>Cumulative PV production (kWh) snapshot</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Cumulative PV production (kWh) snapshot</inlineHelpText>
+        <label>To Date PV Production</label>
+        <precision>11</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>To_Date_PV_Savings__c</fullName>
+        <description>Cumulative PV savings snapshot</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Cumulative PV savings snapshot</inlineHelpText>
+        <label>To Date PV Savings</label>
+        <precision>10</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>To_Date_Total_Savings__c</fullName>
+        <description>Cumulative total savings snapshot</description>
+        <externalId>false</externalId>
+        <formula>To_Date_PV_Savings__c + To_Date_EE_Savings__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Cumulative total savings snapshot</inlineHelpText>
+        <label>To Date Total Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Utility_Rate_Per_kWh__c</fullName>
+        <description>Utility Rate $/kWh for the recorded month</description>
+        <externalId>false</externalId>
+        <label>Utility Rate $ Per kWh</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>6</scale>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Customer Actual Saving</label>
+    <nameField>
+        <label>Cust Actual Saving Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Customer Actual Savings</pluralLabel>
+    <searchLayouts>
+        <listViewButtons>View_Savings_Charts</listViewButtons>
+        <listViewButtons>View_Energy_Production</listViewButtons>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>View_Energy_Production</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>View Energy Production</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/22.0/connection.js&quot;)} 
+// var confirmflag = confirm(&apos;Do you want to open new Visualforce page?&apos;); 
+// if(confirmflag == true) 
+window.parent.location.href=&quot;/apex/CustomerCommunity_SolarEnergyAnalysis?a={!Account.Id}&quot;;</url>
+    </webLinks>
+    <webLinks>
+        <fullName>View_Savings_Charts</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>View Savings Charts</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/22.0/connection.js&quot;)} 
+//    var confirmflag = confirm(&apos;Do you want to open new Visualforce page?&apos;);
+//    if(confirmflag == true)
+      window.parent.location.href=&quot;/apex/CustomerCommunity_MySavings?a={!Account.Id}&quot;;</url>
+    </webLinks>
+</CustomObject>

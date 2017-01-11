@@ -1,0 +1,4 @@
+<apex:page standardcontroller="success__Set__c" 
+				sidebar="false" 
+				action="{!URLFOR($Page.Set_View, Set__c.Id, [setId=Set__c.Id,retURL=$Currentpage.parameters.referer])}">
+</apex:page>

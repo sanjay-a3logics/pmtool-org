@@ -1,0 +1,1 @@
+<apex:page controller="emma.EmmaWebhookCallBackController" showHeader="false" sidebar="false" action="{!processPayload}" contentType="text/plain">{!message}</apex:page>

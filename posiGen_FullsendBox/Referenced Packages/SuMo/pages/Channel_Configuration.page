@@ -1,0 +1,214 @@
+<apex:page showHeader="false" 
+	sidebar="false" 
+	standardStylesheets="false" 
+	applyBodyTag="false"
+	applyHtmlTag="false"
+	docType="html-5.0"
+	cache="false"
+	controller="success.QueryBuilder">
+
+	<html lang="en" class="success-bs">
+		<head>
+			<meta charset="utf-8"/>
+			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>Channel Configuration</title>
+
+			<!--[if lte IE 9]>
+				<link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.ChannelBundle, 'css/ie.css')}"/>
+			<![endif]-->
+
+			<!-- styles -->
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap/css/bootstrap.min.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'css/animate.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'vendor/x-editable/css/xeditable.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ConfigurationBundle, 'css/styles.css')}"/>
+			<!-- -->
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/css/simpleLeaderboard.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/css/extendedLeaderboard.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'leaderboard/css/gridLeaderboard.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ChannelBundle, 'header/header.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ConfigurationBundle, 'css/preview.css')}" />
+			<!-- -->
+			<apex:stylesheet value="{!URLFOR($Resource.success__ConfigurationBundle, 'css/builder.css')}" />
+			<apex:stylesheet value="{!URLFOR($Resource.success__ConfigurationBundle, 'css/colorpicker.min.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__ConfigurationBundle, 'css/bootstrap-switch.min.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'css/ng-sortable.min.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}" />
+
+			
+			<apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'css/icon-font.css')}"/>
+			<apex:stylesheet value="{!URLFOR($Resource.success__FontsBundle, 'css/fonts.css')}"/>
+
+		</head>
+		
+		<body ng-app="sensei.configuration" class="default-bg-gradient" ng-cloak="true">
+			<!-- layout -->
+			<div class="container-fluid full-height">
+				<div class="row full-height" ng-controller="Layout">
+					<!-- floating showSidebar button -->
+					<div class="showSidebarBtn" ng-show="!showSidebar">
+						<button type="button" class="btn btn-primary btn-custom" ng-class="{shake: shake}" ng-click="show()" style="font-size:18px; z-index: 600">
+						 	<span class="glyphicon glyphicon-transfer"></span>
+						</button>
+					</div>
+					<!-- sidebar -->
+					<div class="col-md-4" ng-show="showSidebar"
+						 ng-include="' {!URLFOR($Resource.ConfigurationBundle, 'sidebar/sidebar.html')} '">
+					</div>
+					<!-- main -->
+					<div class="main-area full-height" ng-class="showSidebar ? 'col-md-8' : 'col-md-12'"
+						 ng-include="' {!URLFOR($Resource.ConfigurationBundle, 'main/main.html')} '">
+					</div>
+				</div>
+			</div>
+
+			<!--  VF CONSTANTS -->
+			<c:VF_Constants />
+
+			<!-- vendor js -->
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/lodash.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/postal.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/offline.min.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/jquery/jquery-2.1.3.min.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/bootstrap/js/bootstrap.min.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/angular/angular.min.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/angular/angular-animate.min.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/x-editable/js/xeditable.min.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/angular/ng-sortable.min.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/moment/moment.min.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/moment/moment-locales.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/howler.js')}"></script>
+
+			<script type="text/javascript">
+
+				//get the user locale
+				var _userLocale = window.USER_LOCALE.toLowerCase().replace('_', '-');
+
+				//set moment to use user's locale
+				moment.locale(_userLocale);
+
+				//check if it has been set fine
+				if (moment.locale() != _userLocale) {
+
+					//if not, try with first part only
+					_userLocale = _userLocale.split('-')[0];
+
+					//set moment to use user's locale
+					moment.locale(_userLocale);
+
+					//check it set fine or fallback to english
+					if (moment.locale() != _userLocale) {
+						
+						moment.locale('en-gb');
+
+					}
+				}
+
+			</script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/spin.min.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/machina.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/machina.postal.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/tinycolor.min.js')}"></script>
+			
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/angular/ngDraggable.js')}"></script>
+
+
+			<!-- app js -->
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'app.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'layout.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/common.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/components.factory.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/audio.service.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/sfdc.service.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/channel.service.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/style.service.js')}"></script>
+
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/common/common.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/common/configuration.service.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/alert.service.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/directives/field-directive/field.directive.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/directives/sidebar-alert-directive/sidebar-alert.directive.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/directives/toArray.directive.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/directives/bootstrap-colorpicker-module.min.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/directives/bootstrap-switch.min.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/directives/angular-bootstrap-switch.min.js')}"></script>
+
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/sidebar.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/sidebar.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/channelConfiguration/channelConfiguration.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/channelConfiguration/channelConfiguration.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/colorPaletteConfiguration/colorPaletteConfiguration.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/colorPaletteConfiguration/colorPaletteConfiguration.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/backgroundConfiguration/backgroundConfiguration.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/backgroundConfiguration/backgroundConfiguration.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/colorBackgroundConfiguration/colorBackgroundConfiguration.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/colorBackgroundConfiguration/colorBackgroundConfiguration.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/contentConfiguration/contentConfiguration.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/contentConfiguration/contentConfiguration.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/objectSelection/objectSelection.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/objectSelection/objectSelection.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/soundConfiguration/soundConfiguration.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/soundConfiguration/soundConfiguration.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/soundConfiguration/soundPlayButton.directive.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/soundConfiguration/ieSelectFix.directive.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/fieldSelection/fieldSelection.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/fieldSelection/fieldSelection.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/fieldSelection/field.directive.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'sidebar/fieldSelection/fieldList.directive.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/main.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/main.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/preview/preview.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/preview/preview.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/help/help.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/help/help.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/builder/builder.module.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/builder/builder.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/builder/directives/bootstrapDatePicker.directive.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/builder/directives/picklist.directive.js')}"></script>
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/builder/filters/filters.js')}"></script>
+
+			<script type="text/javascript" src="{!URLFOR($Resource.ConfigurationBundle, 'main/builder/board/board.js')}"></script>
+
+			<script src="{!URLFOR($Resource.QueryBundle, 'query.module.js')}"></script>
+
+			<script src="{!URLFOR($Resource.QueryBundle, 'services/builder.service.js')}"></script>
+			<script src="{!URLFOR($Resource.QueryBundle, 'services/object.service.js')}"></script>
+			<script src="{!URLFOR($Resource.QueryBundle, 'services/field.service.js')}"></script>
+			<script src="{!URLFOR($Resource.QueryBundle, 'services/date.service.js')}"></script>
+			<script src="{!URLFOR($Resource.QueryBundle, 'services/filterLogicValidation.service.js')}"></script>
+			<script src="{!URLFOR($Resource.QueryBundle, 'services/filterCondition.service.js')}"></script>
+			<script src="{!URLFOR($Resource.QueryBundle, 'services/filter.service.js')}"></script>
+			<script src="{!URLFOR($Resource.QueryBundle, 'services/query.service.js')}"></script>
+
+		</body>
+	</html>
+
+</apex:page>

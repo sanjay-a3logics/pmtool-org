@@ -1,0 +1,248 @@
+<apex:page controller="BoxPermissionController" sidebar="false">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.0.0/css/fixedHeader.dataTables.min.css"></link>
+    <link rel="stylesheet" href="h  ttps://cdn.datatables.net/fixedcolumns/3.1.0/css/fixedColumns.dataTables.min.css"></link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"  src="https://cdn.datatables.net/fixedheader/3.0.0/js/dataTables.fixedHeader.min.js"></script>
+    <script type="text/javascript" charset="utf8"  src="https://cdn.datatables.net/fixedcolumns/3.1.0/js/dataTables.fixedColumns.min.js "></script>
+
+
+ <script>
+   $(document).ready(function(){
+      $('tabs').tab();
+          //applyDataTable();
+      $('a[data-toggle="tab"]').on( 'shown.bs.tab', function (e) {
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+    } );
+     
+        $('table.table').DataTable( {
+                    "bPaginate": false,
+                    "bFilter": false,
+                    "info":false
+                    
+        } );  
+    });
+   
+</script>
+<apex:form >
+ <apex:pageMessages id="pageMsgsId"></apex:pageMessages> 
+<div>
+
+  <!-- Nav tabs -->
+  <ul id="tabs" class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#sales" aria-controls="home" role="tab" data-toggle="tab">Sales</a></li>
+    <li role="presentation"><a href="#application" aria-controls="profile" role="tab" data-toggle="tab" onclick="applyDataTable1();">Application</a></li>
+    <li role="presentation"><a href="#funding-vendor" aria-controls="messages" role="tab" data-toggle="tab">Funding-Vendor</a></li>
+    <li role="presentation"><a href="#ee" aria-controls="settings" role="tab" data-toggle="tab">EE</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="sales">
+        <table id="salesTable" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Profiles</th>
+                    <th>Permission</th>
+                    <th>Lookup Permission</th>
+                    <apex:repeat value="{!stagesList}" var="stage">
+                        <th>{!stage}</th>
+                    </apex:repeat>
+                </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!mapCustomProfile['Sales']}" var="profile">
+                <tr>
+                    <td >{!mapCustomProfile['Sales'][profile].Profile_Name__c } </td>
+                    
+                    <td ><apex:SelectList size="1" value="{!permissionMap['Sales'][profile]}">
+                         
+                           <apex:selectOptions value="{!permissionList}"/>
+                        </apex:SelectList>  
+                    </td>
+                    <td style="background-color: white;">
+                      <apex:outputPanel rendered="{!mapCustomProfile['Sales'][profile].Profile_Name__c ='Concierge'||mapCustomProfile['Sales'][profile].Profile_Name__c ='Salesperson' }">
+                       <apex:SelectList size="1" id="selectListSales" value="{!mapCustomProfile['Sales'][profile].Lookup_Field_Name__c}" >
+                           <apex:selectOptions value="{!LookupList}"/>
+                        </apex:SelectList>
+                      </apex:outputPanel> 
+                  
+                      <apex:outputPanel rendered="{!mapCustomProfile['Sales'][profile].Profile_Name__c ='EE Assessor'||mapCustomProfile['Sales'][profile].Profile_Name__c ='EE Partner User'||mapCustomProfile['Sales'][profile].Profile_Name__c ='PV Partner User' }">
+                       <apex:SelectList size="1" value="{!mapCustomProfile['Sales'][profile].Lookup_Field_Name__c}">
+                           <apex:selectOptions value="{!accLookupList}"/>
+                        </apex:SelectList>
+                      </apex:outputPanel> 
+                    </td>
+                    
+                    <apex:repeat value="{!stagesList}" var="stage">
+                        <td> 
+                            <apex:outputPanel rendered="{!mapCustomProfile['Sales'][profile].Profile_Name__c ='System Administrator'}">
+                            <apex:inputCheckbox id="Sdmin" disabled="true" value="{!mapLstAccessMatrixStage['Sales'][profile][stage].Check__c}" /></apex:outputPanel> 
+                            <apex:outputPanel rendered="{!mapCustomProfile['Sales'][profile].Profile_Name__c!='System Administrator'}"><apex:inputCheckbox value="{!mapLstAccessMatrixStage['Sales'][profile][stage].Check__c}"/></apex:outputpanel> 
+                        </td>
+                    </apex:repeat>
+                </tr>
+             </apex:repeat>   
+           </tbody>
+        </table>
+       <apex:commandButton value="Save"  action="{!saveSales}"/> 
+    </div>
+  <div role="tabpanel" class="tab-pane" id="application">
+     <table id="applicationTable" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="background-color: white;">Profiles</th>
+                    <th style="background-color: white;">Permission</th>
+                    <th style="background-color: white;">Lookup Permission</th>
+                    <apex:repeat value="{!stagesList}" var="stage">
+                        <th>{!stage}</th>
+                        
+                    </apex:repeat>
+                </tr>
+            </thead>
+            <tbody>
+           <apex:repeat value="{!mapCustomProfile['Application']}" var="profile">
+                <tr>
+                    <td style="background-color: white;">{!mapCustomProfile['Application'][profile].Profile_Name__c } </td>
+                    
+                    <td style="background-color: white;"><apex:SelectList size="1" value="{!permissionMap['Application'][profile]}">
+                         
+                           <apex:selectOptions value="{!permissionList}"/>
+                        </apex:SelectList>  
+                    </td>
+                    <td style="background-color: white;">
+                      <apex:outputPanel rendered="{!mapCustomProfile['Application'][profile].Profile_Name__c ='Concierge'||mapCustomProfile['Application'][profile].Profile_Name__c ='Salesperson' }">
+                       <apex:SelectList size="1" value="{!mapCustomProfile['Application'][profile].Lookup_Field_Name__c}">
+                           <apex:selectOptions value="{!LookupList}"/>
+                        </apex:SelectList>
+                      </apex:outputPanel> 
+                  
+                      <apex:outputPanel rendered="{!mapCustomProfile['Application'][profile].Profile_Name__c ='EE Assessor'||mapCustomProfile['Application'][profile].Profile_Name__c ='EE Partner User'||mapCustomProfile['Application'][profile].Profile_Name__c ='PV Partner User' }">
+                       <apex:SelectList size="1" value="{!mapCustomProfile['Application'][profile].Lookup_Field_Name__c}">
+                           <apex:selectOptions value="{!accLookupList}"/>
+                        </apex:SelectList>
+                      </apex:outputPanel> 
+                    </td>
+                    
+                    <apex:repeat value="{!stagesList}" var="stage">
+                        <td> 
+                            <apex:outputPanel rendered="{!mapCustomProfile['Application'][profile].Profile_Name__c ='System Administrator'}">
+                            <apex:inputCheckbox id="Sdmin" disabled="true" value="{!mapLstAccessMatrixStage['Application'][profile][stage].Check__c}" /></apex:outputPanel> 
+                            <apex:outputPanel rendered="{!mapCustomProfile['Application'][profile].Profile_Name__c!='System Administrator'}"><apex:inputCheckbox value="{!mapLstAccessMatrixStage['Application'][profile][stage].Check__c}"/></apex:outputpanel> 
+                        </td>
+                    </apex:repeat>
+                </tr>
+             </apex:repeat>   
+           </tbody>
+        </table>
+       <apex:commandButton value="Save" action="{!saveApplication}"/> 
+    </div>
+    <div role="tabpanel" class="tab-pane" id="funding-vendor">
+     <table id="fvTable" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="background-color: white;">Profiles</th>
+                    <th style="background-color: white;">Permission</th>
+                    <th style="background-color: white;">Lookup Permission</th>
+                    <apex:repeat value="{!stagesList}" var="stage">
+                        <th>{!stage}</th>
+                        
+                    </apex:repeat>
+                </tr>
+            </thead>
+           <tbody>
+            <apex:repeat value="{!mapCustomProfile['Funding-Vendor']}" var="profile">
+                <tr>
+                    <td style="background-color: white;">{!mapCustomProfile['Funding-Vendor'][profile].Profile_Name__c }</td>
+                    <td style="background-color: white;"><apex:SelectList size="1" value="{!permissionMap['Funding-Vendor'][profile]}">
+                          
+                           <apex:selectOptions value="{!permissionList}"/>
+                        </apex:SelectList> 
+                    </td>
+                     <td style="background-color: white;">
+                      <apex:outputPanel rendered="{!mapCustomProfile['Funding-Vendor'][profile].Profile_Name__c ='Concierge'|| mapCustomProfile['Funding-Vendor'][profile].Profile_Name__c ='Salesperson' }">
+                       <apex:SelectList size="1" value="{!mapCustomProfile['Funding-Vendor'][profile].Lookup_Field_Name__c}">
+                           <apex:selectOptions value="{!LookupList}"/>
+                        </apex:SelectList>
+                      </apex:outputPanel> 
+                   
+                      <apex:outputPanel rendered="{!mapCustomProfile['Funding-Vendor'][profile].Profile_Name__c ='EE Assessor'||mapCustomProfile['Funding-Vendor'][profile].Profile_Name__c ='EE Partner User'||mapCustomProfile['Funding-Vendor'][profile].Profile_Name__c ='PV Partner User' }">
+                       <apex:SelectList size="1" value="{!mapCustomProfile['Funding-Vendor'][profile].Lookup_Field_Name__c}">
+                           <apex:selectOptions value="{!accLookupList}"/>
+                        </apex:SelectList>
+                      </apex:outputPanel> 
+                    </td> 
+                    
+                    
+                    <apex:repeat value="{!stagesList}" var="stage">
+                        <td> 
+                       <!-- <apex:inputCheckbox value="{!mapLstAccessMatrixStage['Funding-Vendor'][profile][stage].Check__c}"/>-->
+                           <apex:outputPanel rendered="{!mapCustomProfile['Funding-Vendor'][profile].Profile_Name__c ='System Administrator'}">
+                            <apex:inputCheckbox id="Sdmin" disabled="true" value="{!mapLstAccessMatrixStage['Funding-Vendor'][profile][stage].Check__c}" /></apex:outputPanel> 
+                           <apex:outputPanel rendered="{!mapCustomProfile['Funding-Vendor'][profile].Profile_Name__c!='System Administrator'}"><apex:inputCheckbox value="{!mapLstAccessMatrixStage['Funding-Vendor'][profile][stage].Check__c}"/></apex:outputpanel> 
+                        </td>
+                    </apex:repeat>
+                </tr>
+             </apex:repeat>   
+           </tbody>
+        </table>
+       <apex:commandButton value="Save" action="{!saveFunding}"/> 
+    </div>
+    <div role="tabpanel" class="tab-pane" id="ee">
+     <table id="eeTable" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="background-color: white;">Profiles</th>
+                    <th style="background-color: white;">Permission</th>
+                    <th style="background-color: white;">Lookup Permission</th>
+                    <apex:repeat value="{!stagesList}" var="stage">
+                        <th>{!stage}</th>
+                        
+                    </apex:repeat>
+                </tr>
+            </thead>
+           <tbody>
+            <apex:repeat value="{!mapCustomProfile['EE']}" var="profile">
+                <tr>
+                    <td style="background-color: white;">{!mapCustomProfile['EE'][profile].Profile_Name__c }</td>
+                    <td style="background-color: white;"><apex:SelectList size="1" value="{!permissionMap['EE'][profile]}">
+                          
+                           <apex:selectOptions value="{!permissionList}"/>
+                        </apex:SelectList> 
+                    </td>
+                     <td style="background-color: white;">
+                      <apex:outputPanel rendered="{!mapCustomProfile['EE'][profile].Profile_Name__c ='Concierge'|| mapCustomProfile['EE'][profile].Profile_Name__c ='Salesperson' }">
+                        <apex:SelectList size="1" value="{!mapCustomProfile['EE'][profile].Lookup_Field_Name__c}">
+                           <apex:selectOptions value="{!LookupList}"/>
+                        </apex:SelectList>
+                      </apex:outputPanel> 
+                   
+                      <apex:outputPanel rendered="{!mapCustomProfile['EE'][profile].Profile_Name__c ='EE Assessor'||mapCustomProfile['EE'][profile].Profile_Name__c ='EE Partner User'||mapCustomProfile['EE'][profile].Profile_Name__c ='PV Partner User' }">
+                       <apex:SelectList size="1" value="{!mapCustomProfile['EE'][profile].Lookup_Field_Name__c}">
+                           <apex:selectOptions value="{!accLookupList}"/>
+                        </apex:SelectList>
+                      </apex:outputPanel> 
+                    </td>  
+                    
+                    <apex:repeat value="{!stagesList}" var="stage">
+                        <td> 
+                           <!--<apex:inputCheckbox value="{!mapLstAccessMatrixStage['EE'][profile][stage].Check__c}"/>-->
+                           <apex:outputPanel rendered="{!mapCustomProfile['EE'][profile].Profile_Name__c ='System Administrator'}">
+                            <apex:inputCheckbox id="Sdmin" disabled="true" value="{!mapLstAccessMatrixStage['EE'][profile][stage].Check__c}" /></apex:outputPanel> 
+                           <apex:outputPanel rendered="{!mapCustomProfile['EE'][profile].Profile_Name__c!='System Administrator'}"><apex:inputCheckbox value="{!mapLstAccessMatrixStage['EE'][profile][stage].Check__c}"/></apex:outputpanel>
+                        </td>
+                    </apex:repeat>
+                </tr>
+             </apex:repeat>   
+           </tbody>
+        </table>
+       <apex:commandButton value="Save" action="{!saveEE}"/> 
+    </div>
+  </div>
+
+</div>
+
+</apex:form>
+</apex:page>

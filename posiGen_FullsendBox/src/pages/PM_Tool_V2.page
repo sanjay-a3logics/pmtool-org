@@ -1,0 +1,743 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="PMToolV2Controller">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Project Management Tool</title>
+    <apex:includeScript value="{!$Resource.jquery220}"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/dt/jq-2.2.0,dt-1.10.11,cr-1.3.1,fc-3.2.1,fh-3.1.1,sc-1.4.1,se-1.1.2/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/t/dt/jq-2.2.0,dt-1.10.11,cr-1.3.1,fc-3.2.1,fh-3.1.1,sc-1.4.1,se-1.1.2/datatables.min.js"></script>
+
+    <!--<apex:includeScript value="{!URLFOR($Resource.datatable, 'jquery.dataTables.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.datatable, 'jquery.dataTables.min.css')}"/> -->
+    <apex:stylesheet value="{!URLFOR($Resource.sldc, 'styles/salesforce-lightning-design-system.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.sldc, 'styles/salesforce-lightning-design-system-vf.css')}"/>
+    <style>
+        body {
+            font-size: 0.675rem;
+        }
+        
+        .slds-page-header{
+            margin-bottom: 5px;
+        }
+        
+        table.slds-table {
+            margin: 0px;
+            border-top: 0;
+        }
+        .slds-text-heading--label {
+            
+            
+        }
+        .slds-table--bordered th,td{
+            border-right: 1px solid #d8dde6;
+            text-align: center;
+
+        }
+        .slds-table--bordered th{
+           
+            font-weight: bold;
+            background-color: #f4f6f9;
+        }
+        
+        .tdThCustomWidth{
+            width: 20px !important;
+        }
+        
+        .customFweight th{
+            font-weight: normal !important;
+        }
+        
+        #tableDiv{
+            
+        }
+        
+        table.dataTable thead th, table.dataTable thead td {
+            padding: 2px 10px;
+            border-bottom: none;
+        }
+        
+        table.dataTable thead th, table.dataTable tfoot th {
+            font-weight: none !important;
+        }
+        
+        table.dataTable.no-footer {
+           border-bottom: 1px solid #d8dde6;
+        }
+        
+        #pmTable_filter, #pmTable_length{
+            display:none;
+        }
+        
+        .slds-select_container .slds-select{
+            height: 2.25rem;
+        }
+        
+        #pmTable_info{
+
+        }
+        
+        #pmTable_paginate{
+
+        }
+        
+        .paginate_button {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            border: 1px solid #d8dde6 !important;
+            
+        }
+        
+        .paginate_button.current{
+            background: none !important;
+            background-color: #f4f6f9 !important;
+        }
+        
+        .paginate_button.current:hover{
+        
+        }
+        
+        .slds-table--bordered thead > tr + tr > th {
+            border-bottom: 1px solid #d8dde6;
+        }
+        
+        .slds-table tr > th:last-child, .slds-table tr > td:last-child {
+            padding-right: 0.5rem !important;
+        }
+        
+        div.DTFC_LeftHeadWrapper .slds-table tr:first-child > th span.firstTh {
+           display:none;
+        }
+        
+        div.DTFC_LeftHeadWrapper .slds-table tr:first-child > th {
+           border-right :0;
+        }
+        
+        .scoreImg{
+            width: 20px;
+        }
+        
+        .slds-text-heading--medium {
+            font-size: 1.3rem;
+        }
+        
+        .slds-text-heading--label {
+            font-size: 0.70rem;
+            text-transform: capitalize;
+        }
+        
+        .slds-table tr > th:first-child, .slds-table tr > td:first-child{
+                padding-left: 5px;
+        }
+        
+        .col-2{
+          max-width: 20px;
+          padding: 0px 0px;
+        }
+        
+        .dlySlsFcstWkTtl {
+          max-width: 40px;
+        }
+        
+        .col-0, .col-1, .col-4 {
+          max-width: 40px;
+        }
+        
+        .col-7 {
+          max-width: 20px;
+        }
+        
+        .col-8 {
+          max-width: 20px;
+        }
+        
+        .col-3 {
+          max-width: 50px;
+        }
+        
+        .col-5, .col-6{
+           max-width: 40px;
+        }
+        
+        .dataTables_wrapper.no-footer .dataTables_scrollBody {
+            border-bottom: none;
+        }
+        
+         #contentLoading{
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            position: fixed;
+            display: block;
+            opacity: 0.7;
+            background-color: #fff;
+            z-index: 99;
+            text-align: center;
+        }
+
+        #contentLoading1{
+            position: absolute;
+            top:350px;
+            z-index: 100;
+        }
+        
+        .slds-modal__header{
+            text-align: left !important;
+        }
+        
+    </style>
+    
+    <apex:form >
+        <apex:actionFunction status="loading" action="{!loadData}" name="loadFilteredData" reRender="pmTableOutputPanel, pmList, avgDisplay, msgs, fStringDisplay,prjManagerList">
+            <apex:param name="p11" value="" assignTo="{!filterText}"/>
+            <apex:param name="p12" value="" assignTo="{!filterConditions}"/>
+        </apex:actionFunction>
+        <apex:actionStatus id="loading" onstart="loading(true)" onstop="loading(false)" />
+        <div id="contentLoading" style="display:none; ">
+            <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+        </div>
+        <apex:pageMessages id="msgs"></apex:pageMessages>
+        <div class="slds-page-header" role="banner">
+          <div class="slds-grid">
+            <div class="slds-col slds-has-flexi-truncate">
+              <div class="slds-grid">
+                <div class="slds-grid slds-no-space">
+                    <h1 class="slds-text-heading--medium slds-truncate" title="Project Management Tool">Project Management Tool</h1>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-has-flexi-truncate">
+              <div class="slds-grid">
+                <div class="slds-grid slds-no-space">
+                  <apex:outputPanel id="avgDisplay">
+                      <p class="slds-text-body--small slds-m-top--x-small">Average % Completion: {!averageCompletion}%
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      Active Projects: {!activeProjects}</p>
+                  </apex:outputPanel>
+                </div>
+              </div>
+            </div>
+            <div class="slds-col slds-no-flex slds-align-bottom">
+              <div class="slds-grid">
+                <div class="slds-button-group" role="group">
+                  <div class="slds-form-element">
+                      <div class="slds-form-element__control">
+                        <div class="slds-select_container">
+                            <apex:selectList styleClass="slds-select" value="{!selectedMarket}" multiselect="false" size="1">
+                                <apex:selectOptions value="{!BusinessMarkets}"/>
+                                <apex:actionSupport status="loading" action="{!loadData}" event="onchange" reRender="pmTableOutputPanel, avgDisplay,prjManagerList, pmList"><!--slds-page-header-->
+                                    <apex:param name="p1" value="true" assignTo="{!stateChanged}"/>
+                                </apex:actionSupport>
+                            </apex:selectList>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="slds-button-group" role="group">
+                  <div class="slds-form-element">
+                      <div class="slds-form-element__control">
+                        <div class="slds-select_container">
+                            <apex:outputPanel id="pmList">
+                                <apex:selectList required="false" styleClass="slds-select prjManagerList" value="{!selectedProjectManager}" multiselect="false" size="1">
+                                    <apex:selectOptions value="{!projectManagerList}"/>
+                                    <apex:actionSupport status="loading" action="{!loadData}" event="onchange" reRender="pmTableOutputPanel, avgDisplay, msgs, prjManagerList"/>
+                                </apex:selectList>
+                                <script>
+                                    $("select.prjManagerList").prop('selectedIndex', 0);
+                                </script>
+                             </apex:outputPanel>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="slds-button-group slds-button-space-left" role="group">
+                    <div class="slds-form-element">
+                      <div class="slds-form-element__control">
+                        <input onKeyUp="searchData(this.value);" id="searchbox" class="slds-input" type="text" placeholder="Search" />
+                      </div>
+                    </div>
+                </div>
+                
+                 <!-- <div class="slds-button-group" role="group">
+                      <div class="slds-form-element">
+                          <div class="slds-form-element__control">
+                            <div class="slds-select_container">
+                               
+                              <select onChange="entriesData(this.value);" class="slds-select">
+                                  <option value="10">Show 10 entries</option>
+                                  <option value="25">Show 25 entries</option>
+                                  <option value="50">Show 50 entries</option>
+                                  <option value="100">Show 100 entries</option>
+                               </select> 
+                               
+                             </div>
+                          </div>
+                        </div>
+                    </div>-->
+              
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slds-page-header" role="banner" style="border-top: 1px solid #d8dde6; padding: 10px 5px 10px 25px;">
+            <button onclick="showFilterModal(); return false;" class="slds-button slds-button--neutral slds-not-selected" aria-live="assertive" style="margin-right: 5px;">          
+              <span class="slds-text-not-selected">
+                <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
+                  <use xlink:href="{!URLFOR($Resource.sldc, 'icons/utility-sprite/svg/symbols.svg#filterList')}"></use>
+                </svg>Filter</span>
+              <span class="slds-text-selected">
+                <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
+                  <use xlink:href="{!URLFOR($Resource.sldc, 'icons/utility-sprite/svg/symbols.svg#filterList')}"></use>
+                </svg>Filtering</span>
+              <span class="slds-text-selected-focus">
+                <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
+                  <use xlink:href="{!URLFOR($Resource.sldc, 'icons/utility-sprite/svg/symbols.svg#filterList')}"></use>
+                </svg>Filter</span>
+            </button>
+            <a href="/apex/PM_Tool_V2" class="slds-button slds-button--neutral slds-not-selected" aria-live="assertive" style="margin-right: 5px;">
+              Reset
+            </a>
+            <apex:outputPanel id="fStringDisplay">
+                <span id="filterText">{!evalConditions}</span>
+                <script>
+                    document.getElementById("filterText").innerHTML=document.getElementById("filterText").innerHTML.toString().split('amp;').join('');
+                </script>
+            </apex:outputPanel>
+            
+        </div>
+        <div id="tableDiv">
+            <apex:outputPanel id="pmTableOutputPanel">
+                <table id="pmTable" class="slds-table slds-table--bordered">
+                  <thead>
+                    <!--<tr class="slds-text-heading--label">
+                        <th colspan="11" class="slds-text-heading--label">&nbsp;</th>
+                         
+                        <apex:repeat value="{!businessInstallationStepList}" var="stage">
+                          
+                          <th colspan="{!stage.size}" scope="col" class="slds-cell-wrap">
+                            {!stage.bStage.Name}
+                          </th>
+                      </apex:repeat> 
+                    </tr>-->
+                    <tr class="slds-text-heading--label">
+                     
+                      <th colspan="10" scope="col" class="slds-cell-wrap">
+                        <span class="firstTh">General Information</span>
+                      </th>
+                      <th scope="1" class="slds-cell-wrap">
+                        % Completion
+                      </th>
+                     
+                    <apex:repeat value="{!businessInstallationStepList}" var="stage">
+                      
+                      <th colspan="{!stage.size}" class="slds-cell-wrap">
+                        {!stage.bStage.Name}
+                      </th>
+                    </apex:repeat> 
+                    </tr>
+                  
+                      <tr class="slds-text-heading--label customFweight">
+                      <th class="slds-cell-wrap" scope="col">
+                        Project Manager
+                      </th>
+                      <th scope="col" class="slds-cell-wrap slds-is-sortable">
+                        Customer Name
+                        <!--<button class="slds-button slds-button--icon-bare">
+                          <svg aria-hidden="true" class="slds-button__icon slds-button__icon--small">
+                            <use xlink:href="{!URLFOR($Resource.sldc, 'icons/utility-sprite/svg/symbols.svg#arrowdown')}"></use>
+                          </svg>
+                          <span class="slds-assistive-text">Sort</span>
+                        </button>-->
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        State
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        Address
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        Opp Numeric Id
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        Contract Signed Date
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        Aging since Contract Signed
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        Contract Approved Date
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        Aging Since Contract Approved
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        System Size
+                      </th>
+                      <th scope="col" class="slds-cell-wrap">
+                        
+                      </th>
+                      <apex:repeat value="{!businessInstallationStepList}" var="stage">
+
+                              <apex:repeat value="{!stage.bStepsList}" rendered="{!stage.size > 0}" var="step">
+                                  <th scope="col" class="slds-cell-wrap">
+                                    {!step.Name}
+                                  </th>
+                              </apex:repeat> 
+                              
+                              <apex:repeat value="{!temList}" rendered="{!stage.size = 0}" var="step">
+                                  <th scope="col" class="slds-cell-wrap">
+                                    &nbsp;
+                                  </th>    
+                              </apex:repeat> 
+                          
+                        </apex:repeat> 
+                     </tr>
+                  </thead>
+                  <tbody>
+                       <apex:repeat value="{!lstPMWrapper}" var="pmwrapper">
+                        <tr class="slds-hint-parent">
+                          
+                          <td class="slds-cell-wrap" data-label="opportunity-name" role="row">{!pmwrapper.pmTool.Project_Manager__c}</td>
+                          <td class="slds-cell-wrap customerName" data-label="account">
+                              <!--<apex:commandLink target="_blank" styleClass="slds-truncate" value="{!pmwrapper.pmTool.Customer_Name__c}" action="{!viewCustomerDetail}">
+                                    <apex:param name="customerId" value="{!pmwrapper.pmTool.id}" assignTo="{!customerId}"/> 
+                                </apex:commandLink> -->
+                                <a target="_blank" class="slds-truncate" href="/apex/PM_Customer_Detail_V2?customerId={!pmwrapper.pmTool.id}" > {!pmwrapper.pmTool.Customer_Name__c} </a>
+                          </td>
+                          <td class="slds-cell-wrap" data-label="activity">
+                            {!pmwrapper.pmTool.State__c}
+                          </td>
+                          <td class="slds-cell-wrap" data-label="stage">
+                              <!--<apex:commandLink target="_blank" styleClass="slds-truncate" value="{!pmwrapper.pmTool.Address__c}" action="{!viewCustomerDetail}">
+                                    <apex:param name="customerId" value="{!pmwrapper.pmTool.id}" assignTo="{!customerId}"/>
+                                </apex:commandLink> -->
+                              <a target="_blank" class="slds-truncate" href="/apex/PM_Customer_Detail_V2?customerId={!pmwrapper.pmTool.id}" > {!pmwrapper.pmTool.Address__c} </a>  
+                          </td>
+                          <td class="slds-cell-wrap" data-label="confidence">
+                            {!pmwrapper.pmTool.Opportunity_Numeric_ID__c}
+                          </td>
+                          <td class="slds-cell-wrap" data-label="amount">
+                              <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                 <apex:param value="{!pmwrapper.pmTool.Contract_Signed_Date__c}" />
+                              </apex:outputText>
+                          </td>
+                          <td class="slds-cell-wrap" data-label="confidence">
+                            {!pmwrapper.pmTool.Aging_since_Contract_Signed__c}
+                          </td>
+                          <td class="slds-cell-wrap" data-label="contact">
+                              <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                 <apex:param value="{!pmwrapper.pmTool.Contract_Approved_Date__c}" />
+                              </apex:outputText>
+                          </td>
+                          <td class="slds-cell-wrap" data-label="confidence">
+                             {!pmwrapper.pmTool.Aging_Since_Contract_Approved__c} 
+                          </td>
+                          <td class="slds-row-action slds-cell-wrap">
+                             {!pmwrapper.pmTool.System_Size__c}
+                          </td>
+                          <td class="slds-row-action slds-cell-wrap" style="background-color: #f4f6f9;">
+                             {!pmwrapper.avg}%
+                          </td>
+                          
+                          <apex:repeat value="{!pmwrapper.pmStageWrapper}" var="stage">
+                              
+                                  <apex:repeat value="{!stage.pmStepsList}" rendered="{!stage.pmStepsList.size > 0}" var="step">
+                                      <td style="background:{!if(AND((step.PM_Review_Aging_Exception__c == true),(step.Business_Status__r.Score__c == 1)),'#ff4d4d',if(AND((step.In_Process_Aging_Exception__c == true),(step.Business_Status__r.Score__c == 2)),'#ff4d4d',''))}"  class="slds-row-action slds-cell-wrap ExceptionCol">
+                                          <!-- {!step.Business_Installation_Step__r.Name} -->
+                                          
+                                          <span style="display:none">{!step.Business_Status__r.Score__c}</span>
+                                          <apex:outputText rendered="{!step.Business_Status__r.Score__c == -1}">
+                                              <img title="Not Applicable" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'NA.gif')}" alt="NA"></img>
+                                          </apex:outputText>
+                                          <apex:outputText rendered="{!step.Business_Status__r.Score__c == 0}">
+                                              <img title="Not Started" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Not_Started.gif')}" alt="0"></img>
+                                          </apex:outputText>
+                                          <apex:outputText rendered="{!step.Business_Status__r.Score__c == 1}">
+                                              <img title="PM Review" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Pm_Review.gif')}" alt="1"></img>
+                                          </apex:outputText>
+                                          <apex:outputText rendered="{!step.Business_Status__r.Score__c == 2}">
+                                              <img title="In Process" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'In_Progress.gif')}" alt="2"></img>
+                                          </apex:outputText>
+                                          <apex:outputText rendered="{!step.Business_Status__r.Score__c == 3}">
+                                              <img title="Completed" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Complete.gif')}" alt="3"></img>
+                                          </apex:outputText>
+                                          <apex:outputText rendered="{!step.Business_Status__r.Score__c == 4}">
+                                              <img title="Confirm Completed" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Complete.gif')}" alt="4"></img>
+                                          </apex:outputText>
+                                      </td>  
+                                      </apex:repeat> 
+                                      
+                                  <apex:repeat value="{!temList}" rendered="{!stage.pmStepsList.size == 0}" var="step">
+                                  <td class="slds-row-action slds-cell-wrap">
+                                      <!-- {!stage.pmStage.Business_Installation_Stage__r.Name} -->
+                                      <span style="display:none">{!stage.pmStage.Business_Status__r.Score__c}</span>
+                                      <apex:outputText rendered="{!stage.pmStage.Business_Status__r.Score__c == -1}">
+                                          <img title="Not Applicable" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'NA.gif')}" alt="NA"></img>
+                                      </apex:outputText>
+                                      <apex:outputText rendered="{!stage.pmStage.Business_Status__r.Score__c == 0}">
+                                          <img title="Not Started" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Not_Started.gif')}" alt="0"></img>
+                                      </apex:outputText>
+                                      <apex:outputText rendered="{!stage.pmStage.Business_Status__r.Score__c == 1}">
+                                          <img title="PM Review" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Pm_Review.gif')}" alt="1"></img>
+                                      </apex:outputText>
+                                      <apex:outputText rendered="{!stage.pmStage.Business_Status__r.Score__c == 2}">
+                                          <img title="In Process" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'In_Progress.gif')}" alt="2"></img>
+                                      </apex:outputText>
+                                      <apex:outputText rendered="{!stage.pmStage.Business_Status__r.Score__c == 3}">
+                                          <img title="Completed" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Complete.gif')}" alt="3"></img>
+                                      </apex:outputText>
+                                      <apex:outputText rendered="{!stage.pmStage.Business_Status__r.Score__c == 4}">
+                                          <img title="Confirm Completed" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Complete.gif')}" alt="4"></img>
+                                      </apex:outputText>
+                                  </td>
+                                 </apex:repeat>
+                          </apex:repeat>
+                        </tr>
+                    </apex:repeat>
+                  </tbody>
+                </table>
+                <script>applyDataTable();</script>
+            </apex:outputPanel>
+        </div>
+        
+        <div class="slds-modal slds-modal--large slds-fade-in-open filter_modal" aria-hidden="true" role="dialog" style="display:none">
+          <div class="slds-modal__container">
+            <div class="slds-modal__header">
+              
+              <h2 class="slds-text-heading--medium">Filter criteria</h2>
+              <span id="displayFilterText"></span>
+              <span id="displayFilterTextId"></span>
+            </div>
+            <div class="slds-modal__content slds-p-around--large">
+              <div>
+                  
+                  <fieldset class="slds-form--compound">
+                      <div class="form-element__group">
+                        <span style="float: left;margin-right: 10px;margin-top: 8px;width:15px;">&nbsp;</span>
+                        <div class="slds-form-element__row">
+                          <div class="slds-form-element slds-size--1-of-3" style="float:left;">
+                            <label class="slds-form-element__label" for="input-01">Select Step</label>
+                            <select onchange="addFilterString(0);" class="slds-select" id="select_stage_0">
+                                <apex:repeat value="{!bisFilterList}" var="bis">
+                                    <option value="{!bis.id}">{!bis.Name}</option>
+                                </apex:repeat>
+                            </select>
+                          </div>
+                          <div class="slds-form-element slds-size--1-of-3" style="float:left; margin-left:5px;">
+                            <label class="slds-form-element__label" for="input-02">Select Status</label>
+                            <select onchange="addFilterString(0);" class="slds-select" id="select_step_0">
+                                <apex:repeat value="{!bStatusFilterList}" var="bs">
+                                    <option value="{!bs.Score__c}">{!bs.Name}</option>
+                                </apex:repeat>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <div id="filterDataDiv"></div>
+              </div>
+            </div>
+            <div class="slds-modal__footer">
+              <button onclick="addRow(); return false;" class="slds-button slds-button--neutral slds-button--brand" style="float:left;">Add Row</button>  
+              <button onclick="hideFilterModal(); return false;" class="slds-button slds-button--neutral">Cancel</button>
+              <button onclick="filterData(); return false;" class="slds-button slds-button--neutral slds-button--brand">Save</button>
+            </div>
+          </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop--open filter_modal" style="display:none"></div>
+        
+    </apex:form>
+    <script>
+    
+        var rowid = 0;
+        var jsonData=[];
+        
+        $(document).ready(function(){
+          
+            applyDataTable();
+            //$("#filterText").innerHTML=$("#filterText").innerHTML.replace('amp;', '');//replaceAll("amp;","");
+        });
+        
+        Array.prototype.removeValue = function(name, value){
+           var array = $.map(this, function(v,i){
+              return v[name] === value ? null : v;
+           });
+           this.length = 0; //clear original array
+           this.push.apply(this, array); //push all elements except the one we want to delete
+        }
+        
+        function applyDataTable(){
+            $('#pmTable').DataTable({
+                "sScrollX": "70%",
+                "scrollY": '65vh',
+                "sScrollXInner": "100%",
+                "bScrollCollapse": true,
+                "bAutoWidth": false,
+                "iDisplayLength": 50,       
+               
+                fixedColumns:   {
+                    leftColumns: 2
+                }
+                
+            });
+            
+            resetSearch();
+        }
+        
+        function resetSearch(){
+            $('#searchbox').val('');
+        }
+        
+        function searchData(val){
+            $('#pmTable_filter').find('input').val(val);
+            $('#pmTable_filter').find('input').keyup();
+        }
+        
+        function entriesData(val){
+            $('#pmTable_length').find('select').val(val);
+            $('#pmTable_filter').find('select').change();
+        }
+        
+        function loading(val) {
+            if (val) {
+                document.getElementById('contentLoading').style.display = 'inline-block';
+                document.getElementById('contentLoaded').style.display = 'none';
+            }
+            else {
+                document.getElementById('contentLoading').style.display = 'none';
+                document.getElementById('contentLoaded').style.display = 'inline-block';
+            }
+        }
+        function showFilterModal(){
+            //$('#displayFilterText').html($('#first_select_step option:selected').val()+' = '+$("#first_select_status option:selected").val());
+            //rowid = 0;
+            console.log('rowid='+rowid);
+            jsonData=[];
+            
+            
+            for(var row_i=0; row_i<= rowid; row_i++){
+               // $('#displayFilterText').html('<span id="dtext_'+row_i+'">('+$('#select_stage_'+row_i+'  option:selected').text()+' = '+$('#select_step_'+row_i+' option:selected').text()+')</span>');
+               // var obj = new Object();
+               // obj.id = row_i;
+               // obj.step = $('#select_stage_'+row_i+' option:selected').text();
+               // obj.status = $('#select_step_'+row_i+' option:selected').text();
+                
+               // jsonData.push(obj);
+               
+               addFilterString(row_i);
+            }
+            
+            //$('#displayFilterTextId').html('('+$('#first_select_step  option:selected').value()+' = '+$("#first_select_status  option:selected").value()+')');
+            $('.filter_modal').show();
+            
+           
+            console.log('jsonData='+JSON.stringify(jsonData));
+
+        }
+        
+        function hideFilterModal(){
+            $('.filter_modal').hide();
+        }
+        
+        
+        function addRow(){
+            rowid++;
+            var row = '<fieldset class="slds-form--compound" id="row_'+rowid+'">';
+                row += '<div class="form-element__group">';
+                row += '<span style="float: left;margin-right: 5px;margin-top: 8px;">and </span>';
+                row += '<div class="slds-form-element__row">';
+                row += '<div class="slds-form-element slds-size--1-of-3" style="float:left;">';
+                row += '<select onchange="addFilterString('+rowid+');" class="slds-select" id="select_stage_'+rowid+'">';
+                row += '<apex:repeat value="{!bisFilterList}" var="bis">';
+                row += '<option value="{!bis.id}">{!bis.Name}</option>';
+                row += '</apex:repeat>';
+                row += '</select>';
+                row += '</div>';
+                row += '<div class="slds-form-element slds-size--1-of-3" style="float:left; margin-left:5px;">';
+                row += '<select onchange="addFilterString('+rowid+');" class="slds-select" id="select_step_'+rowid+'">';
+                row += '<apex:repeat value="{!bStatusFilterList}" var="bs">';
+                row += '<option value="{!bs.Score__c}">{!bs.Name}</option>';
+                row += '</apex:repeat>';
+                row += '</select>';
+                row += '</div>';
+                row += '<div class="slds-form-element slds-size--1-of-3" style="float:left; margin-left:5px; width:30%;">';
+                row += '<label class="slds-form-element__label" for="input-02">&nbsp;</label>';
+                row += '<a onclick="deleteRow('+rowid+');" style="cursor:pointer">Delete</a>';
+                row += '</div>';
+                row += '</div>';
+                row += '</div>';
+                row += '</fieldset>';
+                
+                $('#filterDataDiv').append(row);
+        }
+        
+        function deleteRow(row_id){
+        
+            console.log('deleteRow row_id-'+row_id);
+            $('#row_'+row_id).remove();
+            $('#dtext_'+row_id).remove();
+            
+            jsonData.removeValue('id', row_id);
+            
+            console.log('data---'+JSON.stringify(jsonData));
+        }
+        
+        function filterData(){
+            $('.filter_modal').hide();
+            
+            var data = '{"data":'+JSON.stringify(jsonData)+'}';
+            
+            console.log('data---'+data);
+            
+            var ftext = $('#displayFilterText').html();
+            console.log(ftext);
+            
+            loadFilteredData(data,ftext);
+        }
+ 
+        
+        function addFilterString(row_id){
+
+            if($('#dtext_'+row_id).length){
+                var and_val = '';
+                if(row_id != 0){
+                    and_val = ' and ';
+                }
+                
+                
+                $('#dtext_'+row_id).html(''+and_val+'('+$('#select_stage_'+row_id+'  option:selected').text()+' = '+$('#select_step_'+row_id+'  option:selected').text()+')');
+                
+                jsonData.removeValue('id', row_id);
+                
+                var obj = new Object();
+                obj.id = row_id;
+                obj.step = $('#select_stage_'+row_id+'  option:selected').text();
+                obj.status = $('#select_step_'+row_id+'  option:selected').text();
+                
+                jsonData.push(obj);
+            }
+            else{
+                 console.log($('#select_stage_'+row_id+'  option:selected').text());
+                 var and_val = '';
+                if(row_id != 0){
+                    and_val = ' and ';
+                }
+                
+                if($('#select_stage_'+row_id+'  option:selected').text() != null && $('#select_stage_'+row_id+'  option:selected').text() != ''){
+                    $('#displayFilterText').append('<span id="dtext_'+row_id+'">'+and_val+'('+$('#select_stage_'+row_id+'  option:selected').text()+' = '+$('#select_step_'+row_id+'  option:selected').text()+')</span>');
+                    
+                    var obj = new Object();
+                    obj.id = row_id;
+                    obj.step = $('#select_stage_'+row_id+'  option:selected').text();
+                    obj.status = $('#select_step_'+row_id+'  option:selected').text();
+                    
+                    jsonData.push(obj);
+                
+                }
+            }    
+        }
+        
+        
+    </script>
+   </html>
+</apex:page>

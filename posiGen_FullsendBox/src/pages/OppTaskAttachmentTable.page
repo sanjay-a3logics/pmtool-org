@@ -1,0 +1,8 @@
+<apex:page standardController="Opportunity">
+    <div style='min-height: 200px; overflow: overlay; max-height: 300px;'>
+    <div style='width: 100%; float: left; height: 200px; overflow: overlay;'>
+    <c:TaskAttatchmentTable >
+    </c:TaskAttatchmentTable>
+        </div>
+    </div>
+</apex:page>

@@ -1,0 +1,600 @@
+<apex:page Controller="AccountDetailsController" showHeader="true" readOnly="true" sidebar="true"          
+standardStylesheets="false" tabStyle="Account" applyBodyTag="false" docType="html-5.0"  >  
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   
+        <apex:includeScript value="{!URLFOR($Resource.Loop__Scripts, 'jquery-2.1.4.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.Loop__Scripts, 'jquery.ui-1.11.3.js')}"/>   
+        <apex:stylesheet value="{!URLFOR($Resource.Loop__SalesforceLightning, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+        
+        <!-- jquery Data Table -->
+        <apex:includeScript value="{!$Resource.jquery220}"/>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/dt/jq-2.2.0,dt-1.10.11,cr-1.3.1,fc-3.2.1,fh-3.1.1,sc-1.4.1,se-1.1.2/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/t/dt/jq-2.2.0,dt-1.10.11,cr-1.3.1,fc-3.2.1,fh-3.1.1,sc-1.4.1,se-1.1.2/datatables.min.js"></script>
+                                                
+        <apex:form >
+            <apex:actionFunction status="loading" action="{!getAccountDetails}" name="showAccDetails" reRender="OPRightId">  
+                 <apex:param assignTo="{!accountId}" value="" name="accId"/>   
+            </apex:actionFunction>
+
+            <apex:actionStatus id="loading" onstart="loading(true)" onstop="loading(false)" />
+        </apex:form> 
+        <head>
+            <title>AM Tool</title>
+        </head>
+        <body>   
+        
+         <style>		  				                   
+                .slds-table--bordered th{
+                   
+                    font-weight: bold;
+                    background-color: #f4f6f9;
+                }
+                
+                .tdThCustomWidth{
+                    width: 20px !important;
+                }
+                
+                .customFweight th{
+                    font-weight: normal !important;
+                }
+                
+                #tableDiv{
+                    
+                }
+                
+                table.dataTable thead th, table.dataTable thead td {
+                    padding: 2px 10px;
+                    border-bottom: none;
+                }
+                
+                table.dataTable thead th, table.dataTable tfoot th {
+                    font-weight: none !important;
+                }
+                
+                table.dataTable.no-footer {
+                   border-bottom: 1px solid #d8dde6;
+                }
+                
+                #pmTable_filter, #pmTable_length{
+                    display:none;
+                }
+                
+                .slds-select_container .slds-select{
+                    height: 2.25rem;
+                }
+             
+                
+                .paginate_button {
+                    padding-left: 1rem !important;
+                    padding-right: 1rem !important;
+                    text-align: center !important;
+                    vertical-align: middle !important;
+                    border: 1px solid #d8dde6 !important;
+                    
+                }
+                
+                .paginate_button.current{
+                    background: none !important;
+                    background-color: #f4f6f9 !important;
+                }
+                
+                .paginate_button.current:hover{
+                
+                }
+                
+                .slds-table--bordered thead > tr + tr > th {
+                    border-bottom: 1px solid #d8dde6;
+                }
+                
+                .slds-table tr > th:last-child, .slds-table tr > td:last-child {
+                    padding-right: 0.5rem !important;
+                }
+                
+           
+                .dataTables_wrapper.no-footer .dataTables_scrollBody {
+                    border-bottom: none;
+                }
+                
+                #pmTable tr td {
+                    height: 8px;  
+                }
+                
+                /* to hide footer
+                .dataTables_filter, .dataTables_info { display: none; }  
+                .dataTables_paginate, .paging_simple_numbers { display: none; }     
+                     */        
+                
+                 #contentLoading{
+                    width: 100%;
+                    height: 100%;
+                    top: 0px;
+                    left: 0px;
+                    position: fixed;
+                    display: block;
+                    opacity: 0.7;
+                    background-color: #fff;
+                    z-index: 99;
+                    text-align: center;
+                }
+        
+                #contentLoading1{
+                    position: absolute;
+                    top:350px;
+                    z-index: 100;
+                }        
+        </style>
+    
+
+            
+            <div class="slds" style="border-left: 1px solid #a8b7c7; border-top: 1px solid #a8b7c7">    
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2">
+                        <div class="slds-card">
+
+                        <!--FILTER-->
+
+                            <div class="slds-page-header" role="banner" style="border-top: 1px solid #d8dde6; padding: 10px 5px 10px 5px;">
+
+                                <apex:form >
+                                    <apex:actionFunction status="loading" action="{!loadAccounts}" name="filterMyAccs" reRender="leftPanel, dataTableJQId">  
+                                    </apex:actionFunction>
+                                    <div id="contentLoading" style="display:none; ">
+                                        <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+                                    </div>
+                                    
+                                   <div> 
+                                    <span style="font-size: 12px;">Account Manager :  </span>
+                                    <apex:selectList id="PMSelList" value="{!selMan}" size="1" styleClass="slds-select PMSelect" style="width: 70px; height:25px; font-size: 12px;margin-right: 4px;">    
+                                        <apex:selectOptions value="{!listProjMan}">    
+                                        </apex:selectOptions>
+                                    </apex:selectList>                
+                                    
+                                    <span style="font-size: 12px;"> Days Delinquent : </span>  
+                                    <apex:selectList id="AMSelList" value="{!selAcc}" size="1" styleClass="slds-select AMSelect" style="width: 70px; height:25px; font-size: 12px;margin-right: 4px;">
+                                        <apex:selectOptions value="{!listAccMan}">    
+                                        </apex:selectOptions>
+                                    </apex:selectList>
+                                    <button onclick="showFilterModal(); return false;" class="slds-button slds-button--neutral slds-not-selected" aria-live="assertive" style="margin-right: 4px;">          
+                                        <span class="slds-text-not-selected">
+                                            <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
+                                                <use xlink:href="{!URLFOR($Resource.sldc, 'icons/utility-sprite/svg/symbols.svg#filterList')}"></use>
+                                            </svg>Filter
+                                        </span>
+                                    </button> 
+                                    <button onclick="resetAccount(); return false;" class="slds-button slds-button--neutral slds-not-selected" aria-live="assertive" style="margin-left: 0px;margin-right: 5px;">          
+                                        <span class="slds-text-not-selected">
+                                               Reset
+                                        </span>
+                                    </button>  
+                                     
+                                    </div> 
+                                </apex:form>  
+                            </div>
+                            
+                        <!--Filter END-->
+                       
+                       <!-- Light Panel  ---->
+                            <div class="slds-card__header slds-grid">
+                                <div class="slds-media slds-media--center slds-has-flexi-truncate">
+                                    <div class="slds-media__figure">
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-text-heading--small slds-truncate">Business Accounts</h2>
+                                    </div>
+                                </div>                          
+                            </div>
+                            
+                            <div class="slds-card__body">   <!--  slds-scrollable--y -->               
+                                <apex:outputPanel id="leftPanel">
+                                    <table id="pmTable" class="slds-table slds-table--bordered slds-table--cell-buffer slds-scrollable--y" cellpadding="0">
+                                        <thead>
+                                            <tr class="slds-text-heading--label">
+                                                <th scope="col" style="border-right: 1px solid #d8dde6;">
+                                                    <div class="slds-truncate" title="Account Name">Account Name</div>
+                                                </th>
+                                                <th scope="col" style="border-right: 1px solid #d8dde6;">  
+                                                    <div class="slds-truncate" title="Phone">Phone</div>
+                                                </th>
+                                                <th scope="col" style="border-right: 1px solid #d8dde6; border-right: 1px solid rgb(216, 221, 230); width: 50px; !important;">       
+                                                    <div class="slds-truncate" title="Days Delinquent" style="margin-left:15px; width: 50px; !important;">Days Delinquent</div>
+                                                </th>
+                                                 <th scope="col" style="border-right: 1px solid #d8dde6; width: 50px; !important;">    
+                                                    <div class="slds-truncate" title="Total Past Due" style="margin-left:15px; width: 50px; !important;">Total Past Due</div>
+                                                </th>                                                 
+                                                 <th scope="col" style="border-right: 1px solid #d8dde6;">
+                                                    <div class="slds-truncate" title="Last Interaction" style="margin-left:15px">Last Interaction</div>
+                                                </th>                                                
+                                                <th scope="col" style="border-right: 1px solid #d8dde6;">
+                                                    <div class="slds-truncate" title="Committed Date" style="margin-left:15px">Committed Date</div>
+                                                </th>
+                                                <th scope="col" style="border-right: 1px solid #d8dde6;">
+                                                    <div class="slds-truncate" title="Last Activity" style="margin-left:15px">Last Activity</div>
+                                                </th>
+                                            </tr>
+                                        </thead>                                        
+                                        <tbody>
+                                            <apex:repeat value="{!wrapperList}" var="accRecords" id="Repeat">       
+                                              
+                                                <tr>             
+                                                    <td data-label="Account Name" style="border-right: 1px solid #d8dde6; font-size: small;">                   
+                                                        <div class="slds-truncate" title="">
+                                                               <apex:form >
+                                                                  <apex:commandlink value="{!accRecords.accName}" onClick="showAccDetails('{!accRecords.accId}'); return false;"/>  
+                                                               </apex:form> 
+                                                        </div>
+                                                    </td>                                       
+                                                    <td data-label="Phone" style="border-right: 1px solid #d8dde6;">                 
+                                                       <apex:form >                                                         
+                                                               <support:clickToDial number="{!accRecords.accPhone}" 
+                                                                entityId="{!accRecords.accId}"        
+                                                                params="myparam1,myparam2" 
+                                                                />                                                                  
+                                                         </apex:form>        
+                                    
+                                                         </td>  
+                                                    <td data-label="Days Delinquent" style="border-right: 1px solid #d8dde6;">                  
+                                                        <div class="slds-truncate" title="" style="margin-left:15px">
+                                                                {!accRecords.accDaysDelinquent}                                              
+                                                        </div>
+                                                    </td> 
+                                                    <td data-label="Total Past Due" style="border-right: 1px solid #d8dde6;">                  
+                                                        <div class="slds-truncate" title="" style="margin-left:15px">
+                                                                {!accRecords.accLeaseTotalPastDue}                                              
+                                                        </div>
+                                                    </td>  
+                                                    <td data-label="Last Interaction" style="border-right: 1px solid #d8dde6;">                  
+                                                            <div class="slds-truncate" title="" style="margin-left:15px">
+                                                                    {!accRecords.ldLeaseLastInteraction}                                                                
+                                                            </div>  
+                                                        </td>
+                                                     <td data-label="Committed Date" style="border-right: 1px solid #d8dde6;">                  
+                                                         <div class="slds-truncate" title="" style="margin-left:15px">
+                                                                 {!accRecords.ldCommittedDate}                                                                    
+                                                         </div>  
+                                                     </td>                                                    
+                                                    <td data-label="Last Activity" style="border-right: 1px solid #d8dde6;">                  
+                                                       <!--   <div class="slds-truncate" title="" style="margin-left:15px">
+                                                                {!accRecords.LastActivityDate}                                                   
+                                                        </div> -->
+                                                        
+                                                        <apex:outputText value="{0, date, MMM d','  yyyy}">
+                                                    			<apex:param value="{!accRecords.accLastActivity}" />       
+                                                       </apex:outputText>                                                         
+                                                    </td>                                                    
+                                                </tr>  
+                                                 
+                                            </apex:repeat>                                
+                                        </tbody>
+                                    </table>                              
+                              </apex:outputPanel>
+                            </div>                         
+                        </div>  
+                    </div>
+                                              
+                    
+
+                    <!-- Right Panel  ---->
+              
+                    <div class="slds-col slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--1-of-2" id="div1">
+                        <apex:outputpanel id="OPRightId" >
+                            <div class="slds-card">
+                                <div class="slds-card__body slds-scrollable--y" style="overflow:auto; height:350px; width:600p;" >                           
+                                 
+                                   
+                                  <!-- <chatter:newsfeed />  -->
+                                   <!-- chatter:feed entityId="{!accountId}"/> -->
+                                   <!--   <apex:outputPanel id="chatter" rendered="{!accountId != null}">  -->
+                                      <chatter:feed entityId="{!accountId}" id="chatterId"  showpublisher="true"/> 
+                                  <!--  </apex:outputPanel>   -->  			 
+                                  
+                                </div>   
+                            </div>  
+
+                            <div class="slds-tabs--default slds-scrollable--y" style="overflow:auto; height:575px;">  
+                                <ul class="slds-tabs--default__nav" role="tablist">
+                                    <li class="slds-tabs--default__item slds-text-heading--label slds-active" title="Item One" role="presentation"><a class="slds-tabs--default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item" >RELATED</a></li>
+                                    <li class="slds-tabs--default__item slds-text-heading--label" title="Item Two" role="presentation"><a class="slds-tabs--default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item" >DETAILS</a></li>
+                                </ul>
+
+                                <!-- RELATED TAB   --->
+                                
+                                <div id="tab-default-1" class="slds-tabs--default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+
+                                    <!-- code for Display the Related List of Lease-->                                              
+                                    
+                                    <table border="1" style="width: 90%; margin-left: 40px;">  
+                                        <caption>Lease Status</caption>
+                                                                            
+                                          <tr style="height: 30px; background-color: #cccccc;">
+                                             <th style="">Lease</th>   
+                                             <th style="">Days Delinquent</th>  
+                                             <th>Total Past Due</th> 
+                                             <th>Contract Number</th>       
+                                          </tr>                                         
+                                         
+                                         <apex:repeat value="{!accRecord.LD_Leases__r}" var="leaseRecords">
+                                              <tr style="height: 30px; {!IF(leaseRecords.Days_Delinquent__c==null,'',IF(leaseRecords.Days_Delinquent__c<=30,'background-color:  lightgreen;',IF(leaseRecords.Days_Delinquent__c>30 && leaseRecords.Days_Delinquent__c<=60,'background-color: #fff2cc;','background-color: #ea9999;')))}"> 
+                                                <td> <a href="/{!leaseRecords.Id}" target="_blank"> {!leaseRecords.Name} </a> </td>
+                                                <td>{!leaseRecords.Days_Delinquent__c}</td>
+                                                <td>{!leaseRecords.Total_Past_Due__c}</td>  
+                                                <td>{!leaseRecords.Contract_No__c}</td>                                                          
+                                              </tr> 
+                                        </apex:repeat>                                           
+                                    </table>      
+                                    <!-- Lease Finish    -->     
+
+                                    <br/>
+
+                                    <!-- code for Display the Related List of Issue-->                                              
+                                    <table border="1" style="width: 90%;margin-left: 40px;">   
+                                        <caption>Issue Status</caption>
+                                                                            
+                                          <tr style="height: 30px; background-color: #cccccc;">
+                                             <th style="">Issue</th>
+                                             <th style="">Issue Age</th>
+                                             <th>Issue Status</th>
+                                          </tr>                                         
+                                         
+                                         <apex:repeat value="{!accRecord.Issues__r}" var="caseRecords">
+                                              <tr style="height: 30px; {!IF(caseRecords.Status__c=='Closed','background-color:  white;' , IF(caseRecords.CaseAgeDays__c==null,'',IF(caseRecords.CaseAgeDays__c<=30,'background-color:  lightgreen;;',IF(caseRecords.CaseAgeDays__c>30 && caseRecords.CaseAgeDays__c<=60,'background-color: #fff2cc;','background-color: #ea9999;'))))}">
+                                                <td><a href="/{!caseRecords.Id}" target="_blank"> {!caseRecords.CaseNumber__c} </a></td>
+                                                <td>{!caseRecords.CaseAgeDays__c}</td> 
+                                                <td>{!caseRecords.Status__c}</td>                                                                         
+                                              </tr> 
+                                        </apex:repeat>                                           
+                                    </table>   
+                                    <!-- Issue Finish---- -->     
+
+                                    <br/>   
+                                    
+                                     <!-- code for Display the Related List of Project-->                                              
+                                    <table border="1" style="width: 90%;margin-left: 40px;">   
+                                        <caption>Project</caption>
+                                                                            
+                                          <tr style="height: 30px; background-color: #cccccc;">
+                                             <th style="">Record Type</th>
+                                             <th style="">Status</th>
+                                             <th>Date</th>
+                                          </tr>                                         
+                                         
+                                         <apex:repeat value="{!accRecord.Projects__r}" var="projectRecords">
+                                              <tr>
+                                                <td style="width: 150px;"><a href="/{!projectRecords.Id}" target="_blank"> {!projectRecords.RecordType.Name} </a></td>           
+                                                <td style="width: 200px;">{!projectRecords.Status__c}</td>   
+                                                <td >{!projectRecords.createdDate }</td>                                                                      
+                                              </tr> 
+                                        </apex:repeat>                                           
+                                    </table>   
+                                    <!-- Project Finish---- -->     
+
+                                    <br/>   
+                                                                       
+
+                                    <!-- code for Display the Related List of Deal -->                                               
+                                    <table border="1" style="width: 90%;margin-left: 40px;">   
+                                        <caption>Deal</caption>
+                                                                            
+                                          <tr style="height: 30px; background-color: #cccccc;">   
+                                             <th style="">Deal Name</th>
+                                             <th style="">System Size</th>             
+                                             <th>Product</th>
+                                          </tr>                                         
+                                         
+                                         <apex:repeat value="{!accRecord.Deals__r}" var="oppRecords">
+                                              <tr style="height: 30px;">        
+                                                <td> <a href="/{!oppRecords.Id}" target="_blank"> {!oppRecords.Name} </a> </td>
+                                                <td>{!oppRecords.System_Size_in_KW__c}</td>
+                                                <td>{!oppRecords.Solar_Product__c}</td>                                            
+                                              </tr> 
+                                        </apex:repeat>                                           
+                                    </table>   
+                                    <!-- Deal Finish -->  
+                                    
+                                    <br/>   
+                                    
+                                    <!-- code for Display the Related List of Activities  -->                                               
+                                    <table border="1" style="width: 90%; margin-left: 40px;">   
+                                        <caption>Activities</caption>
+                                                                            
+                                          <tr style="height: 30px; background-color: #cccccc;">   
+                                             <th style="">Type</th>
+                                             <th style="">Date</th>   
+                                             <th style="">Assigned To</th>             
+                                             <th>Comments</th>
+                                          </tr>                                         
+                                         
+                                         <apex:repeat value="{!accRecord.tasks}" var="oppRecords">
+                                              <tr style="height: 30px;">        
+                                                <td style="width: 120px;"> <a href="/{!oppRecords.Id}" target="_blank"> {!oppRecords.Type} </a> </td>
+                                                <td style="width: 100px;">
+                                                    <apex:outputText value="{0, date, MMM d','  yyyy}">
+                                                    <apex:param value="{!oppRecords.ActivityDate}" />  
+                                                    </apex:outputText>  
+                                                </td>
+                                                <td style="width: 130px;">{!oppRecords.Owner.Name}</td>                                                     
+                                                <td>{!oppRecords.Description}</td>  
+                                               </tr> 
+                                        </apex:repeat>                                           
+                                    </table>   
+                                    <!-- Activities Finish -->  
+                                                  
+                                </div>
+
+
+                                                
+                                <!-- DETAILS TAB   --->                           
+                                <div id="tab-default-2" class="slds-tabs--default__content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">
+
+                                    <!-- code for Display Account Record-->                                             
+                                    <table border="0" style="width: 90%; margin-left: 40px;">    
+                                        
+                                                                               
+                                        <tr>
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:70px">Name</td>
+                                            <td style="vertical-align:top;">  <a href="/{!accRecord.Id}" target="_blank">  {!accRecord.Name} </a> </td>
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:50px">Home Phone</td>
+                                            <td style="vertical-align:top;">
+                                                   <support:clickToDial number=" {!accRecord.PersonHomePhone}" 
+                                                                entityId="{!accRecord.id}" 
+                                                                params="myparam1,myparam2" 
+                                                                />   
+                                            </td>               
+                                        </tr> 
+                                                                                                                             
+                                        <tr>        
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:70px">Address</td>
+                                            <td style="vertical-align:top; width: 100px;">{!accRecord.BillingStreet}, {!accRecord.BillingCity}, {!accRecord.BillingPostalCode} {!accRecord.BillingState} {!accRecord.BillingCountry}</td>   
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:50px">Mobile</td> 
+                                            <td style="vertical-align:top; width: 100px;">                                                   
+                                                    <support:clickToDial number="{!accRecord.PersonMobilePhone}" 
+                                                                entityId="{!accRecord.id}" 
+                                                                params="myparam1,myparam2" 
+                                                                /> 
+                                            </td>       
+                                        </tr>
+                                      
+                                        <tr>
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:70px">Phone</td> 
+                                            <td style="vertical-align:top;"> 
+                                                <support:clickToDial number="{!accRecord.Phone}" 
+                                                                entityId="{!accRecord.id}" 
+                                                                params="myparam1,myparam2" 
+                                                                /> 
+                                             </td>
+                                             <td style="font-weight: bold; height:50px; vertical-align:top; width:50px">Asst. Phone</td> 
+                                             <td style="vertical-align:top; width: 100px;">                                                   
+                                                    <support:clickToDial number="{!accRecord.PersonAssistantPhone}" 
+                                                                entityId="{!accRecord.id}" 
+                                                                params="myparam1,myparam2" 
+                                                                /> 
+                                             </td>          
+                                        </tr>
+                                        
+                                         <tr>
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:70px">Employer Phone</td> 
+                                            <td style="vertical-align:top;"> 
+                                                <support:clickToDial number="{!accRecord.Employer_Phone__c}"   
+                                                                entityId="{!accRecord.id}" 
+                                                                params="myparam1,myparam2" 
+                                                                /> 
+                                             </td>
+                                             <td style="font-weight: bold; height:50px; vertical-align:top; width:50px">Secondary Phone</td> 
+                                             <td style="vertical-align:top; width: 100px;">                                                   
+                                                    <support:clickToDial number="{!accRecord.Secondary_Phone__c}" 
+                                                                entityId="{!accRecord.id}" 
+                                                                params="myparam1,myparam2" 
+                                                                /> 
+                                             </td>          
+                                        </tr>
+ 
+                                    </table>           
+                                    <!-- Account Record Table Finish -->                                     
+                                            
+                                </div>  
+                                <!-- DETAILS TAB FINISH --->  
+                            </div>     
+                        
+                         <script>
+                                $('.slds-tabs--default__item').on('click', function(){   
+                                    console.log('Test1');                
+                                    $(this).addClass('slds-active');
+                                    $(this).find('a').attr('aria-selected', true);
+                                    var $contentToShow = $('#'+$(this).find('a').attr('aria-controls'));
+                                    $contentToShow.removeClass('slds-hide');
+                                    $contentToShow.addClass('slds-show');
+
+                                    $(this).siblings().removeClass('slds-active');
+                                    $(this).siblings().find('a').attr('aria-selected', false);
+                                    $contentToShow.siblings('.slds-tabs--default__content').removeClass('slds-show');
+                                    $contentToShow.siblings('.slds-tabs--default__content').addClass('slds-hide');
+                                }); 
+                                
+                                $('.suggestionEmail_close').on('click', function(){
+                                    $('#suggestionEmail').toggle('hide');    
+                                    $('#suggestionEmailOverLay').toggle('hide');    
+                                }); 
+                                
+                                function showFilterModal() {
+                                    filterMyAccs();
+                                } 
+                                function resetAccount(){
+                                    $('.PMSelect').val('-None-');
+                                    $('.AMSelect').val('-None-')
+                                    filterMyAccs();
+
+                                }
+                                function loading(val) {
+                                    if (val) {
+                                        document.getElementById('contentLoading').style.display = 'inline-block';
+                                        document.getElementById('contentLoaded').style.display = 'none';
+                                    }
+                                    else {
+                                        document.getElementById('contentLoading').style.display = 'none';
+                                        document.getElementById('contentLoaded').style.display = 'inline-block';
+                                    }
+                                }
+
+                            </script>    
+                        </apex:outputpanel>                            
+                       
+                        <apex:outputpanel id="dataTableJQId">
+                          <script>
+        
+                                $(document).ready(function(){
+                                   
+                                    applyDataTable();
+                        
+                                });
+                                
+                                function applyDataTable(){
+                                    $('#pmTable').DataTable({
+                                        "sScrollX": "0%",
+                                        "sScrollY":false,
+                                        "sScrollXInner": "100%",
+                                        "bScrollCollapse": true,
+                                        "bAutoWidth": false,
+                                        "iDisplayLength": 20,       
+                                       "oLanguage": {
+                                        "sEmptyTable": "No Accounts Available"
+                                        },
+                                        fixedColumns:   {
+                                            leftColumns: 0          
+                                        }
+                                        
+                                    });
+                                    
+                                    resetSearch();
+                                }
+                                
+                                function resetSearch(){
+                                    $('#searchbox').val('');
+                                }
+                                
+                                function searchData(val){
+                                    $('#pmTable_filter').find('input').val(val);
+                                    $('#pmTable_filter').find('input').keyup();
+                                }
+                                
+                                function entriesData(val){
+                                    $('#pmTable_length').find('select').val(val);
+                                    $('#pmTable_filter').find('select').change();
+                                }
+                                
+                                function loading(val) {
+                                    if (val) {
+                                        document.getElementById('contentLoading').style.display = 'inline-block';
+                                        document.getElementById('contentLoaded').style.display = 'none';
+                                    }
+                                    else {
+                                        document.getElementById('contentLoading').style.display = 'none';
+                                        document.getElementById('contentLoaded').style.display = 'inline-block';
+                                    }
+                                }
+                                
+                        </script>
+                       </apex:outputpanel>    
+                    </div>
+                </div>
+            </div> 
+        </body>
+    </html>
+ </apex:page>

@@ -1,0 +1,202 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" controller="CustomerActualSavingsController" extensions="ChartController" action="{!forwardToCustomAuthPage}">
+<!--    <apex:includeScript value="{!$Resource.Highcharts_JS}"/>    --> <!-- we may not need Highcharts after all -->
+    <apex:pageBlock id="LogoutLinkBlock" rendered="{!NOT(standardUser)}">
+        <div style="float:right">
+            <apex:outputLink value="{!$Site.Prefix}/secur/logout.jsp" style="font-size:15px" styleClass="nav0-link" rendered="{!NOT(standardUser)}">Logout</apex:outputLink>
+        </div>
+    </apex:pageBlock>
+    <br></br>
+    <apex:pageBlock id="DevTestReference" rendered="{false}">
+        <apex:pageBlockSection id="DevelopmentReference">
+            <apex:dataTable value="{!myCAS}" var="cas" id="MyNetSavingsTable" title="My Net Savings For The Last 12 Months (TO DELETE - reference for dev/test only)" styleClass="tableClass"> 
+                <apex:facet name="caption">My Net Savings For The Last 12 Months (TO DELETE - reference for dev/test only)</apex:facet> 
+                <apex:column > 
+                    <apex:facet name="header">Month Ending</apex:facet> 
+                    <apex:outputText value="{!cas.monthending}"></apex:outputText> 
+                </apex:column> 
+                <apex:column > 
+                    <apex:facet name="header">PV Production</apex:facet> 
+                    <apex:outputText value="{!cas.pvprod} kWh"></apex:outputText> 
+                </apex:column> 
+                <apex:column > 
+                    <apex:facet name="header">PV Savings</apex:facet> 
+                    <apex:outputText value="${0, number, ##0.00}"> 
+                        <apex:param value="{!cas.pvsavings}"/> 
+                    </apex:outputText> 
+                </apex:column> 
+                <apex:column > 
+                    <apex:facet name="header">Energy Efficiency Upgrade Savings</apex:facet> 
+                    <apex:outputText value="${0, number, ##0.00}"> 
+                        <apex:param value="{!cas.eusavings}"/> 
+                    </apex:outputText> 
+                </apex:column> 
+                <apex:column > 
+                    <apex:facet name="header">Total Savings</apex:facet> 
+                    <apex:outputText value="${0, number, ##0.00}"> 
+                        <apex:param value="{!cas.totalsavings}"/> 
+                    </apex:outputText> 
+                </apex:column> 
+                <apex:column > 
+                    <apex:facet name="header">Monthly Lease Cost</apex:facet> 
+                    <apex:outputText value="${0, number, ##0.00}"> 
+                        <apex:param value="{!cas.leasecost}"/> 
+                    </apex:outputText> 
+                </apex:column> 
+                <apex:column > 
+                    <apex:facet name="header">Net Savings</apex:facet> 
+                    <apex:outputText value="${0, number, ##0.00}"> 
+                        <apex:param value="{!cas.netsavings}"/> 
+                    </apex:outputText> 
+                </apex:column> 
+                <apex:column > 
+                    <apex:facet name="header">Cumulative Net Savings</apex:facet> 
+                    <apex:outputText value="${0, number, ##0.00}"> 
+                        <apex:param value="{!cas.cumulsavings}"/> 
+                    </apex:outputText> 
+                </apex:column> 
+            </apex:dataTable>
+        </apex:pageBlockSection>  
+    </apex:pageBlock>
+    <div style="float:left; font-size:18px; width:75%">
+        <apex:pageBlock id="Summary" title="Summary" rendered="{!hasData}">
+            <apex:outputText value="You produced {0, number, ###,###,###,##0.00}* kWh of power and saved ${1, number, ###,###,###,##0.00}** on your electricity bill over the past 12 months.">
+                <apex:param value="{!myNetPV}"/>
+                <apex:param value="{!myNetDollars}"/>
+            </apex:outputText>
+            <br></br>
+            <br></br>
+            <apex:outputText value="*Your power production offset as much pollution as if {0, number, ###,###,###,##0} {1} over the past 12 months.">
+                <apex:param value="{!myNetEnvImpactNumber}"/>
+                <apex:param value="{!myNetEnvImpactText}"/>
+            </apex:outputText> 
+            <br></br>
+            <br></br>
+            <apex:outputText value="**You saved enough money to pay for {0, number, ###,###,###,##0} {1} over the past 12 months.">
+                <apex:param value="{!myNetEconImpactNumber}"/>
+                <apex:param value="{!myNetEconImpactText}"/>
+            </apex:outputText> 
+            <br></br>
+            <br></br>
+        </apex:pageBlock>
+    </div>
+    <div style="float:right; font-size:18px; width:25%" rendered="{!hasData}">
+        <apex:pageBlock id="Ambassador" title="MyAmbassador" rendered="{!hasData}">
+            <apex:form id="AmbassadorForm">
+                <apex:outputText value="You have earned ${0, number, ###,##0.00} as an Ambassador!">
+                    <apex:param value="{!myEarnedAmbassador}"/>
+                </apex:outputText>
+                <br></br>
+                <br></br>
+                <apex:commandButton value="Refer a Friend" title="Click here to refer a friend" onclick=""/>
+                <br></br>
+                <br></br>
+                <apex:outputLink onclick="window.open('https://posigen.getambassador.com')" style="font-size:18px" styleClass="nav0-link">My Ambassador Details</apex:outputLink>  
+            </apex:form>
+        </apex:pageBlock>
+    </div>
+    <apex:pageBlock title="Monthly Savings for the Last 12 Months" rendered="{!hasData}">
+        <apex:chart name="NetSavings12mo" data="{!MNS}" width="900" height="400" colorSet="#6BAE4A">
+            <apex:axis type="Numeric" position="left" grid="true" title="Net Dollars Saved" fields="netsav"/>
+            <apex:axis type="Category" position="bottom" grid="false" title="Savings Month" fields="month">
+                <apex:chartLabel rotate="0"/>
+            </apex:axis>
+            <apex:barSeries orientation="vertical" axis="left" xField="month" yField="netsav"
+                    colorsProgressWithinSeries="false"/>
+        </apex:chart>
+    </apex:pageBlock>
+   <br></br>
+   <apex:pageBlock title="Cumulative Savings for the Last 12 Months" rendered="{!hasData}">
+       <apex:chart height="400" width="900" data="{!data}">
+              <apex:axis type="Numeric" position="left" fields="data1" 
+                title="Cumulative Dollars Saved" grid="true"/>
+              <apex:axis type="Category" position="bottom" fields="name" 
+                title="Savings Month">
+            </apex:axis>
+            <apex:lineSeries axis="left" fill="true" xField="name" yField="data1"
+              markerType="cross" markerSize="4" markerFill="#6BAE4A" fillColor="#6BAE4A"/>
+       </apex:chart>
+   </apex:pageBlock>
+   <br></br>
+   <apex:pageBlock id="MonthlySavingsPivot" rendered="{!hasData}">
+       <table class="list" border="1" cellpadding="0" cellspacing="0">
+           <apex:repeat value="{!rows}" var="row">
+              <tr>
+                <apex:repeat value="{!row.values}" var="value">
+                  <td>
+                    {!value}
+                  </td>
+                </apex:repeat>
+              </tr>
+           </apex:repeat>
+         </table>
+    </apex:pageBlock>
+    <br></br>
+   <apex:pageBlock id="FutureAndLifetimeSavings" rendered="{!hasData}">
+       <table class="list" border="1" cellpadding="0" cellspacing="0">
+           <apex:repeat value="{!futureRows}" var="f_row">
+              <tr>
+                <apex:repeat value="{!f_row.values}" var="value">
+                  <td>
+                    {!value}
+                  </td>
+                </apex:repeat>
+              </tr>
+           </apex:repeat>
+         </table>
+    </apex:pageBlock>
+    <div style="font-size:18px; width:100%">
+        <apex:pageBlock id="NoData" rendered="{!NOT(hasData)}">
+            <apex:outputText value="We don't have your savings data yet. Check here next month to see your results!">
+            </apex:outputText>
+            <br></br>
+            <br></br>
+            <apex:form id="AmbassadorFormNoData">
+                <apex:outputText value="You have earned ${0, number, ###,##0.00} as an Ambassador!">
+                    <apex:param value="{!myEarnedAmbassador}"/>
+                </apex:outputText>
+                <br></br>
+                <br></br>
+                <apex:commandButton value="Refer a Friend" title="Click here to refer a friend" onclick=""/>
+                <br></br>
+                <br></br>
+                <apex:outputLink value="https://posigen.getambassador.com" style="font-size:18px" styleClass="nav0-link">My Ambassador Details</apex:outputLink>  
+            </apex:form>
+        </apex:pageBlock>
+    </div>
+    <apex:form id="FooterButton_EE" rendered="{!hasEE}">
+        <input type="button" value="View Energy Efficiency Savings" onclick="redirectToEESavingsJS();" />
+        <br></br>
+        
+        <script>
+            function redirectToEESavingsJS()
+            {
+                // It's always the 3rd element in the list which is the community name when accessed from the communities site
+                redirectToEESavings(window.location.href.split('/')[3]);
+            }
+        </script>
+        <apex:actionFunction action="{!redirectToEESavings}" name="redirectToEESavings" >
+            <apex:param value="" name="portalName" />
+        </apex:actionFunction>
+    </apex:form>
+    <br></br>
+    <br></br>
+    <apex:form id="FooterButton_SaveMore" >
+        <input type="button" value="How Can I Save More?" onclick="redirectToHowToSaveMoreJS();" />
+        <br></br>
+        
+        <script>
+            function redirectToHowToSaveMoreJS()
+            {
+                // It's always the 3rd element in the list which is the community name when accessed from the communities site
+                redirectToHowToSaveMore(window.location.href.split('/')[3]);
+            }
+        </script>
+        <apex:actionFunction action="{!redirectToHowToSaveMore}" name="redirectToHowToSaveMore" >
+            <apex:param value="" name="portalName" />
+        </apex:actionFunction>
+    </apex:form>
+    <br></br>
+    <br></br>
+    
+    
+</apex:page>

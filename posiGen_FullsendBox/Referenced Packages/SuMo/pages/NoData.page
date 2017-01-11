@@ -1,0 +1,19 @@
+<apex:page showHeader="false" 
+	sidebar="false"
+	standardStylesheets="false"
+	cache="true">
+	
+	<style>
+	.sectionBody{margin-top:10px;margin-bottom:10px}
+	.noRecordsMsg {text-align: center;padding-top: 15px;font-family: "Arial",Arial,Helvetica,Regular;color: rgb(34, 34, 34);font-size: 18px;width: 500px;margin: 0 auto;}
+	</style>
+
+	<apex:outputPanel layout="block">
+		<div id="noRecordsContainer" class="sectionBody">
+			<div class="noRecordsMsg"><p>
+				<apex:outputText value="{!$Label.no_access_message}" />
+			</p></div>
+		</div>
+	</apex:outputPanel>
+
+</apex:page>

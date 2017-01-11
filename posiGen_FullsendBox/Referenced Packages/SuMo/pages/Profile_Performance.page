@@ -1,0 +1,206 @@
+<apex:page docType="html"
+	showHeader="false" 
+	sidebar="false"
+	standardStylesheets="false"
+	cache="true"
+	controller="success.ProfileController">
+
+	<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__jQueryPajinate)}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__jQueryFitText)}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__jsUtils)}" />
+	<apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+
+	<!-- import css component -->
+	<c:css_profile_common />
+
+	<style>
+		.leaderboardRow {
+			width: 400px !important;
+		}
+		.leaderboardNameContainer {
+			width: 400px !important;
+		}
+		#primaryTeamHeader .teamName {
+			color: #015BA7;
+		}
+		#chartPlaceHolder {
+			width: 474px;
+			height: 132px;
+			position: fixed;
+			top: 51px;
+			left: 275px;
+			text-align: center;
+			font-size: 25px;
+			padding-top: 69px;
+			background: #FFF;
+			color: #DDD;
+			cursor: pointer;
+			z-index: 999;
+		}
+	</style>
+
+	<c:Visibility edition="Achieve" showMessage="false">
+		<script type="text/javascript">
+			window.hasAchieveEdition = true;
+		</script>
+	</c:Visibility>
+	
+	<!--[if IE 8]>
+	<style>
+		body {
+			background-color : #FFFFFF !important;
+		}
+	</style>
+	<![endif]-->
+
+	<!--[if IE 7]>
+	<style>
+		body {
+			background-color : #FFFFFF !important;
+		}
+	</style>
+	<![endif]-->
+	
+	<script type="text/javascript">
+		$sj = successJQ.noConflict();
+		
+		if('{!profileUser.sumo_user__c}' == 'false' || '{!profileUser.hidden__c}' == 'true' ){
+			window.location.replace('/apex/NoData');
+			$sj("body").hide();
+		}
+		
+		var profileUserId = '{!profileUser}';
+		var PRIMARY_TEAM_LEADERBOARD = $sj.parseJSON('{!JSENCODE(primaryTeamLeaderBoardData)}');
+		var PERFORMANCE_DETAIL =  $sj.parseJSON('{!JSENCODE(performanceDetailComponentAsJSON)}');
+
+		var adjustLayout = function () {
+			var body = $sj(document.body);
+			var windowWidth = $sj(window).innerWidth();
+			body.scrollLeft(1);
+			if(body.scrollLeft() != 0 || windowWidth < body.width()){
+				body.css({overflowX:'hidden',marginRight: 0, marginLeft: 0});
+				if ($sj.support.leadingWhitespace) {
+					body.css({paddingRight: body.width() - windowWidth});
+				}
+			}
+			body.scrollLeft(0);
+			var wwidth = $sj(window).innerWidth();
+			if (!isNaN(wwidth) && wwidth > 40) {
+				body.css({width: $sj(window).innerWidth()});
+			}
+		}
+
+		var setPrimaryTeamHeader = function() {
+			var teamName = _.isObject(PERFORMANCE_DETAIL) && _.isObject(PERFORMANCE_DETAIL.primaryTeamDetails) ? PERFORMANCE_DETAIL.primaryTeamDetails.name : false;
+
+			if (teamName) {
+				$sj('#primaryTeamHeader').html('{!$Label.leaderboard} (<span class="teamName">' + teamName + '</span>)');
+			}
+		};
+
+		$sj(document).ready(function() { 
+			// hiding the FF specifix chart placeholde, if it is not a FF
+			if (Array.prototype.indexOf) { 
+				if (navigator.userAgent.toLowerCase().indexOf('firefox') == -1 || !window['hasAchieveEdition']) {
+					$sj("#chartPlaceHolder").hide();
+				}
+			}
+			
+			window.setTimeout( function () {
+				$sj('.dataTable').each(function (i, el) {
+					$sj(el).on('draw.dt', function () {
+						adjustLayout();
+					})
+				})
+			}, 50);		
+			adjustLayout();
+
+			$sj(".chart").each(function(){
+				if ($sj(".chart").children().length == 0) {
+					$sj('.chart').hide();
+					$sj('.chart').siblings('h2').hide();
+					$sj('#noRecordsChart').show();
+				}
+			});
+
+			ProfileCompetitions.setMotivateFlag(true);
+			ProfileCompetitions.setLeaderboardPageSize(5);
+			ProfileCompetitions.extendWithUserDetails(PRIMARY_TEAM_LEADERBOARD);
+
+			setPrimaryTeamHeader();
+
+			ProfileCompetitions.renderTeamMemberLeaderboard(PRIMARY_TEAM_LEADERBOARD);
+
+			$sj("#chartPlaceHolder").click(function() {
+				window.location.reload();
+			});
+
+		});
+	</script>
+
+	<c:js_profile_competitions />
+	
+	<div class="container">
+		<div class="narrow-left">
+			<h2 class="mainTitle">{!$Label.Progress}</h2>
+			<div>
+				<c:RotationComponent Performance="true" Rewards2="true" maxRewards="12" slideWidth="235" slideHeight="200" showControll="true" profileUserId="{!profileUserId}"/>
+				<style type="text/css">
+					#mainContainer {
+						width: auto;
+					}
+				</style>
+			</div>
+		</div>
+		
+		<div class="wide" style="margin-left: 40px;width:470px !important;">
+			<c:Visibility edition="Achieve" showMessage="false">
+				<h2 class="mainTitle">{!$Label.performance_history}</h2>
+				<div class="chart">
+						<c:PerformanceHistoryChartComponent helper_textbox="chartToggleState" 
+							xAxisLabel="{!$Label.time_period}" 
+							user_id="{!profileUserId}" 
+							showbuttons="true" 
+							compactMode="true" />
+				</div>
+			</c:Visibility>
+		</div>
+	</div>
+
+	<div class="container" id="primaryLeaderboardPanel">
+		<div class="wide">
+			<div id="leaderboardContainer" class="primaryTeam">
+					<h2 id="primaryTeamHeader">{!$Label.leaderboard}</h2>
+					<table id="teamMemberLeaderboardTable" class="leaderboardTable">
+						<thead>
+							<tr>
+								<th scope="col" style="padding-left:5px;">
+									<apex:outputText value="{!$Label.leaderboard_rank}" />
+								</th>
+								<th scope="col" colspan="2" style="text-align:right;padding-right:5px;">
+									<apex:outputText value="{!$Label.score}" />
+								</th>
+							</tr>
+						</thead>
+						<tbody id="teamMemberLeaderboardTableBody" class="content">
+						
+						</tbody>
+					</table>
+					<div class="noUserRecords">{!$Label.no_records_found}</div>
+					<div class="page_navigation_container">
+						<div id="leaderboardNavigation" class="page_navigation"></div>
+					</div>
+			</div>
+		</div>
+		<div class="sidebar">
+			<h2 class="mainTitle">{!$Label.comparison}</h2>
+			<div id="comparisonPanel"></div>
+		</div>
+	</div>
+	
+	<div id="chartPlaceHolder">
+		{!$Label.performance_history_placeholder}
+	</div>
+	
+</apex:page>

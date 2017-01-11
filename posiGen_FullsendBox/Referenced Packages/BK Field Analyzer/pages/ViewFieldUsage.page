@@ -1,0 +1,243 @@
+<apex:page controller="bkfa.ViewFieldUsageController" sidebar="false" tabStyle="ViewFieldUsage__tab">
+    <style>
+    table.ct {
+        border-collapse:collapse;
+        border: 1px solid #d4dadc;
+    }
+    table.ct th {
+        border: 1px solid #d4dadc;
+        padding: 5px;
+    }
+    table.ct td {
+        border: 1px solid #d4dadc;
+        padding: 5px;
+    }
+    a {
+        color: #015ba7;
+        text-decoration: none;
+    }
+    .r {
+        color: #9C0006;
+        background-color: #FFC7CE;
+    }
+    .y {
+        color: #9C6500;
+        background-color: #FFEB9C;
+    }
+    .g {
+        color: #006100;
+        background-color: #C6EFCE;
+    }
+    .al {
+        color: #015ba7;
+        text-decoration: none;
+        font-weight: normal;
+    }
+    .lreq {
+        color: #FF1C1C;
+        font-weight:bold;
+    }
+    .ledit {
+        /*color: #66CC33;*/
+        color:black;
+    }
+    .lread {
+        /*color: #FECD01;*/
+        color: #FEAC00;
+        font-weight:bold;
+    }
+    .tt {
+        position:absolute;
+        margin:0;
+        width:260px;
+        height:48px;
+        border: 1px solid #d4dadc;
+        background-color:white;
+        display:none;
+    }
+    </style>
+    <script>
+    function fixPageXY(e) {
+        if (e.pageX == null && e.clientX != null ) { 
+            var html = document.documentElement;
+            var body = document.body;
+        
+            e.pageX = e.clientX + (html.scrollLeft || body && body.scrollLeft || 0);
+            e.pageX -= html.clientLeft || 0;
+            
+            e.pageY = e.clientY + (html.scrollTop || body && body.scrollTop || 0);
+            e.pageY -= html.clientTop || 0;
+        }
+    }
+    function showTooltip(e, opText, fpText) {
+        e = e || window.event;
+        fixPageXY(e);
+        
+        var tt = document.getElementById('tt');
+        tt.style.top = (e.pageY-110) + 'px';
+        tt.style.left = e.pageX + 'px';
+        tt.style.display = 'block';
+        
+        var op = document.getElementById('op');
+        op.innerText = 'Object permissions: ' + opText;
+        if (opText.indexOf('Create') > -1 || opText.indexOf('Edit') > -1) {
+            op.className = 'g';
+        } else {
+            op.className = 'r';
+        }
+        var fp = document.getElementById('fp');
+        fp.innerText = 'Field permissions: ' + fpText;
+        if (fpText.indexOf('Visible') == 0) {
+            fp.className = 'g';
+        } else {
+            fp.className = 'r';
+        }
+    }
+    function hideTooltip() {
+        document.getElementById('tt').style.display = 'none';
+    }
+    function goOnComplete() {
+        enableControls();
+        Sortable.init();
+        genTooltips();
+    }
+    function disableControls() {
+        document.getElementById('goBtn').style.display = 'none';
+        document.getElementById('goBtnDisabled').style.display = 'inline';
+        document.getElementById('delLink').style.display = 'none';
+        document.getElementById('delLinkDisabled').style.display = 'inline';
+    }
+    function enableControls() {
+        document.getElementById('goBtn').style.display = 'inline';
+        document.getElementById('goBtnDisabled').style.display = 'none';
+        document.getElementById('delLink').style.display = 'inline';
+        document.getElementById('delLinkDisabled').style.display = 'none';
+    }
+    function genTooltips() {
+        $("#ft td.pfa").each(function(index, tagElement) {
+            new Opentip(tagElement, "Object: " + tagElement.getAttribute('data-ot-op') + "<br/>Field: " + tagElement.getAttribute('data-ot-fp'), { style: "myStyle", position:"bottom" });
+        });
+    }
+    $( document ).ready(function() {
+        Sortable.init();
+        
+        Opentip.styles.myStyle = {
+            target: true,
+            targetJoint: "right",
+            tipJoint: "left"
+        };
+        genTooltips();
+    });
+    </script>
+    <apex:includeScript value="{!$Resource.bkfa__jQuery}"/>
+    <apex:includeScript value="{!$Resource.bkfa__OpenTip}"/>
+    <apex:stylesheet value="{!$Resource.bkfa__OpenTipCss}"/>
+    <apex:includeScript value="{!URLFOR($Resource.bkfa__Sortable, 'js/sortable.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.bkfa__Sortable, 'css/sortable-theme-bootstrap.css')}"/>
+
+    <apex:sectionHeader title="Field Fillrate" subtitle="View Field Usage"/>
+    
+    <apex:form >
+    
+    <div style="overflow:auto">
+        <div style="float:left;text-align:left;font-weight:bold;padding-right:5px;line-height:22px;">Field Usage Snapshot:</div>
+        <div style="float:left;">
+            <apex:selectList id="selObj" size="1" value="{!SelectedSnapshot}">
+                <apex:selectOptions value="{!SnapshotList}"/>
+            </apex:selectList>
+            <span id="goBtn">
+                <apex:commandButton action="{!getFieldUsage}" value="Go!" onclick="disableControls();" rerender="fieldTableDiv, rtDiv" oncomplete="goOnComplete();"/>
+            </span>
+            <span id="goBtnDisabled" style="display:none;">
+                <apex:commandButton action="{!getFieldUsage}" value="Go!" disabled="true"/>
+            </span>
+        </div>
+        <div style="float:left;text-align:left;padding-left:5px;line-height:24px;">
+            <span id="delLink"><apex:commandLink action="{!delFieldUsage}" value="Delete" onclick="disableControls();"/></span>
+            <span id="delLinkDisabled" style="color:#909090;display:none;">Delete</span>
+        </div>
+        <div style="float:right;margin-left:60px;line-height:22px;">
+            <span style="font-weight:bold;">Page Layout Legend:&nbsp;</span>
+            <span style="background-color:#FEAC00;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>Read-only</span>
+            &nbsp;
+            <span style="background-color:#FF1C1C;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>Required</span>
+        </div>
+    </div>
+    
+    <apex:outputPanel id="rtDiv" layout="block">
+    <apex:outputPanel layout="block" style="overflow:auto;margin:5px 0;" rendered="{!FilterByRecordType}">
+        <div style="float:left;text-align:left;font-weight:bold;padding-right:5px;line-height:22px;">Record Type:</div>
+        <div style="float:left;">
+        <apex:selectList id="selRt" size="1" value="{!SelectedRecordType}">
+            <apex:selectOptions value="{!RecordTypeList}"/>
+            <apex:actionSupport event="onchange" action="{!fillRows}" onsubmit="disableControls()" oncomplete="enableControls();"/>
+        </apex:selectList>
+        </div>
+    </apex:outputPanel>
+    </apex:outputPanel>
+    
+    <apex:outputPanel id="fieldTableDiv" layout="block">
+        <table id="ft" class="sortable-theme-bootstrap ct" data-sortable="true">
+            <thead>
+            <tr>
+                <th>Record Type Name</th>
+                <th>Field Name</th>
+                <th data-sortable="false">Field Accessibility</th>
+                <th># Page Layouts</th>
+                <th data-sortable="false">Page Layouts</th>
+                <th data-sortable="false">Custom Report Types</th>
+                <th data-sortable="false">Custom</th>
+                <th data-sortable="false">Formula</th>
+                <th data-sortable="false">Required</th>
+                <apex:repeat value="{!ProfileList}" var="p">
+                    <th>{!p}</th>
+                    <th data-sortable="false">Filled/Total</th>
+                    <apex:outputPanel layout="none" rendered="{!Snapshot.bkfa__Grouping__c='Profile'}">
+                    <th data-sortable="false">Has Access</th>
+                    </apex:outputPanel>
+                </apex:repeat>
+            </tr>
+            </thead>
+            <tbody>
+            <apex:repeat value="{!Rows}" var="r">
+                <tr>
+                    <td data-value="{!r.RecordTypeName}-{!r.FieldInfo.Name}">{!r.RecordTypeName}</td>
+                    <td>{!r.FieldInfo.Name}</td>
+                    <td><apex:outputField value="{!r.FieldInfo.bkfa__FieldAccessibilityLink__c}"/></td>
+                    <td class="{!IF(r.FieldInfo.NumPageLayouts__c == 0, 'r', '')}">{!r.FieldInfo.NumPageLayouts__c} / {!Snapshot.TotalPageLayouts__c}</td>
+                    <!-- <td class="{!IF(r.NumPageLayouts == 0, 'r', '')}">{!r.FieldInfo.PageLayouts__c}</td> -->
+                    <td class="{!IF(r.FieldInfo.NumPageLayouts__c == 0, 'r', '')}">
+                        <apex:repeat value="{!r.FieldInfo.FieldUsageLayouts__r}" var="l">
+                            <div class="{!IF(l.bkfa__Behavior__c = 'Required', 'lreq', IF(l.bkfa__Behavior__c = 'Edit', 'ledit', 'lread'))}">{!l.Name}</div>
+                        </apex:repeat>
+                    </td>
+                    <td>
+                        <apex:repeat value="{!r.FieldInfo.FieldUsageCustomReportTypes__r}" var="c">
+                            <div>{!c.bkfa__Label__c}</div>
+                        </apex:repeat>
+                    </td>
+                    <td><apex:inputCheckbox value="{!r.FieldInfo.bkfa__IsCustom__c}" disabled="true"/></td>
+                    <td><apex:inputCheckbox value="{!r.FieldInfo.bkfa__IsFormula__c}" disabled="true"/></td>
+                    <td><apex:inputCheckbox value="{!r.FieldInfo.bkfa__IsRequired__c}" disabled="true"/></td>
+                    
+                    <apex:repeat value="{!r.UsageList}" var="u">
+                        <td class="{!IF(ISBLANK(u.bkfa__Usage__c) || u.bkfa__Usage__c < 20, 'r', IF(u.bkfa__Usage__c < 50, 'y', 'g'))}">{!IF(ISBLANK(u.bkfa__Usage__c), 0.00, u.bkfa__Usage__c)}%</td>
+                        <td class="{!IF(ISBLANK(u.bkfa__Usage__c) || u.bkfa__Usage__c < 20, 'r', IF(u.bkfa__Usage__c < 50, 'y', 'g'))}">{!u.bkfa__NumObjectsWhereFilled__c} / {!u.bkfa__NumObjectsChecked__c}</td>
+                        <apex:outputPanel layout="none" rendered="{!Snapshot.bkfa__Grouping__c='Profile'}">
+                        <td class="pfa {!IF(u.ProfileFieldAccess__c, 'g', 'r')}" data-ot-op="{!u.ProfileObjectPermissions__c}" data-ot-fp="{!u.ProfileFieldPermissions__c}"><apex:inputCheckbox value="{!u.bkfa__ProfileFieldAccess__c}" disabled="true"/></td>
+                        </apex:outputPanel>
+                    </apex:repeat>
+                </tr>
+            </apex:repeat>
+            </tbody>
+        </table>
+    </apex:outputPanel>
+
+    <div id="tt" class="tt">
+        <div id="op" style="padding:5px;"></div>
+        <div id="fp" style="padding:5px;"></div>
+    </div>
+    </apex:form>
+</apex:page>

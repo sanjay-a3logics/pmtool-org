@@ -1,0 +1,128 @@
+<apex:page controller="emma.EmmaSetupController">
+	<script>
+	j$(function(){
+		initImportOptionsJQuery();
+	});
+	
+	function initImportOptionsJQuery(){
+		//remove the user/queue selection for default owner
+		j$('.emmaDefaultRecOwnerLead').find('select').hide();		
+	}
+	</script>
+	
+	<apex:pageMessages id="pageMessages" />
+	
+	<apex:form >
+		<apex:pageBlock title="Step 3 of 3: Sync Options" id="pb">
+			<apex:pageBlockButtons >
+				<apex:commandButton value="Complete Setup" action="{!saveImportOptions}" rerender="pb,pageMessages" status="actStatus" styleClass="btnPrimary" oncomplete="initImportOptionsJQuery();"/>
+				<apex:commandButton value="Back" immediate="true" action="{!backToMappings}" />
+				<apex:commandButton value="Cancel" immediate="true" action="{!cancel}" />
+			</apex:pageBlockButtons>
+			
+			<apex:pageBlockSection columns="1" collapsible="false">
+				<!-- 
+				<apex:pageMessage severity="INFO" strength="2" summary="Use this field to indicate if the data in Emma should be treated as the master during the initial import. If checked, existing contacts and leads in Salesforce will be overwritten with the audience data from Emma. If unchecked, existing contacts and leads that matches the existing members in Emma will be published to Emma." />
+				 -->
+				<div>
+					<p>If an email address already exists in both Emma and Salesforce, which account&rsquo;s data should take priority? 
+						If you set Emma as priority, the Emma member information will replace the lead or contact information 
+						in Salesforce. If you set Salesforce as priority, your contact or lead information will replace the Emma 
+						member information. After this setup is complete, all changes will update in both accounts.<br/> 
+						Note: data will not be replaced by blank fields.
+					</p>
+				</div>				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Initial Sync Data Priority" />
+					<apex:outputPanel style="width: 500px;" layout="block">
+						<!-- 
+						<apex:inputCheckbox value="{!emmaWins}" id="emmaWins"/>&nbsp;
+						<apex:outputLabel for="emmaWins">Emma is the master for initial import</apex:outputLabel>
+						 -->
+						<apex:selectRadio value="{!emmaWins}" layout="pageDirection">
+            				<apex:selectOptions value="{!masterOptions}"/>
+            			</apex:selectRadio>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<!-- <div>
+					<p>Do you want to sync test mailings from Emma into Salesforce?
+					</p>
+				</div>-->			
+				<!--	
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Sync Test Mailings" />
+					<apex:outputPanel style="width: 500px;" layout="block">
+						<apex:selectRadio value="{!syncTestMailings}" layout="pageDirection">
+            				<apex:selectOptions value="{!syncTestMailingsOptions}"/>
+            			</apex:selectRadio>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				-->				
+				<!-- 
+				<apex:pageMessage severity="INFO" strength="1" summary="Emma will assign new Leads created in Salesforce to the user selected below." />
+				 -->
+				<div>
+					<p>New leads created in Salesforce will be assigned to the default record owner you choose.</p>
+				</div> 
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Default record owner">
+						<apex:outputPanel >
+							<sup style="color: red;">*</sup>
+						</apex:outputPanel>
+					</apex:outputLabel>
+					<apex:inputfield styleclass="emmaDefaultRecOwnerLead" value="{!emmaDefaultRecOwnerLead.OwnerId}" required="false"/>
+					<!--
+					<apex:selectList value="{emmaDefaultRecOwnerId}" size="1">
+						<apex:selectOptions value="{AdminUsers}" />
+					</apex:selectList>
+					-->
+				</apex:pageBlockSectionItem>
+				
+				<div>
+					<p>In addition to logging Emma emails received, opened, and clicked by your Salesforce Leads and Contacts visible within a custom related list, 
+					Emma for Salesforce can also create completed Salesforce Tasks for these interactions as standard Activity records.</p>
+					<p>These Salesforce Tasks are useful if you want Emma interactions to show up for Salesforce users who rely on Tasks and Activity History to track 
+					customer interactions (if, for example, you want your sales team to see their owned Leads’ interactions in their Activity History related lists and 
+					reports). However, Emma activities consume additional data storage that will impact your overall data storage limit, and will build up over time.</p>
+					<p>Create Salesforce Task records for Emma interactions?</p>
+				</div> 
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Create Activity"/>
+					<apex:inputCheckbox value="{!activityEntity}"/>
+				</apex:pageBlockSectionItem>
+				
+				<!--  
+				<apex:pageMessage rendered="{!emmaHasGroups}" severity="INFO" strength="2" summary="Please choose the Emma Audience Groups for which you wish to enable synchronization with salesforce.com. Changes to groups that are not selected here (including membership changes) will not be reflected in Salesforce." />
+				-->
+				<div>
+					<p>Choose the Emma audience groups you'd like to sync with Salesforce. Any members of your Emma audience who aren't
+					already in your Salesforce account will be added as Leads.<br></br>
+					After you have completed your sync setup, any new groups that you create in Emma will sync to Salesforce by 
+					default. If you need to change things later, you can always come back to this step to update your group sync preferences.
+					</p> 
+				</div>
+				<apex:pageBlockSectionItem rendered="{!emmaHasGroups}">
+					<apex:outputLabel value="Select Groups to Sync" />
+					<apex:outputPanel style="width: 500px;" layout="block">
+						<apex:selectCheckboxes value="{!SelectedGroups}" layout="pageDirection">
+							<apex:selectOptions value="{!EmmaGroupOptions}" />
+						</apex:selectCheckboxes>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageMessage rendered="{!NOT(emmaHasGroups)}" severity="INFO" strength="2" summary="No groups found in Emma. Please select an option below to start migrating Contacts and Leads to Emma using a default group." />
+				<apex:pageBlockSectionItem rendered="{!NOT(emmaHasGroups)}">
+					<apex:selectRadio value="{!groupSetupOption}" layout="pageDirection">
+						<apex:selectOptions value="{!groupSetupOptions}"/>
+					</apex:selectRadio>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			
+		</apex:pageBlock>
+		<apex:actionStatus id="actStatus">
+			<apex:facet name="start">
+				<c:overlay text="Please wait....." />
+			</apex:facet>
+		</apex:actionStatus>
+	</apex:form>
+</apex:page>

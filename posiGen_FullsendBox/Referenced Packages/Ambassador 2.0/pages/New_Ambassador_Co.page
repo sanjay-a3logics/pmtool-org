@@ -1,0 +1,1 @@
+<apex:page standardController="Ambassador__Test__c" extensions="Ambassador.Ambassador_Affiliate"><apex:iframe src="{!url}" width="100%" height="950px" scrolling="true" /></apex:page>

@@ -1,0 +1,393 @@
+<apex:page Controller="success.SuMoSidebarController" extensions="success.RemoteController" standardStylesheets="false" showheader="false">
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+<apex:stylesheet value="{!URLFOR($Resource.success__bootstrap_sf1, 'bootstrap-sf1-master/dist/css/bootstrap.min.css')}"/>
+
+<head>
+	 <meta name="viewport" content="width=device-width, initial-scale=1" />	 
+</head>
+
+<style>
+	iframe {
+		border: 0px;
+		width: 100%;
+		margin-bottom: 30px;
+	}
+	.container-fluid {
+		padding: 0px;
+	}
+	.row-master {
+		margin-left: 5px;
+		margin-right: 0px;
+	}
+	.column {
+		padding: 0px;
+	}
+	.card-heading {
+		padding-left: 1px !important;
+	}
+	.card {
+		border-radius: 0;
+		margin: 15px;
+		margin-left: 8px;
+		padding-right: 19px;
+	}
+	
+	.card-list {
+		border-radius: 0;
+		margin: 15px;
+		margin-left: 8px;
+	}
+	.card-detail {
+		padding-left: 0px !important;
+	}
+
+	.page-header {
+		background-color: #36a0ce !important;
+	}
+	
+	.page-header h1 {
+		margin-top: 5px;
+	}
+	
+	.page-header span {
+	}
+	.promotion {
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	.promotionsHeading {
+		padding: 15px 15px 10px;
+		font-size: 15px;
+		font-weight: 700 !important;
+	}
+	.promoImageContainer {
+		float: left;
+		margin-right: 5px;
+	}
+	.description {
+		margin-top:10px;
+		clear: both;
+	}
+	.promoImageURL {
+		width: 30px;
+		height: 30px;
+		margin: 15px;
+	}
+	.title {
+		color: #086A87;
+		font-size: 16px;
+		font-weight: 700;
+		margin: 5px;
+	}
+	.secondaryTitle {
+		font-weight: 600;
+		font-size: 11px;
+		color: #086A87;		
+	}
+	.rewardText {
+		color: #666666;
+		font-size: 12px;
+		margin-bottom: 3px;
+		font-weight: 600;
+	}
+	.clear-both {
+		clear: both;
+	}
+	
+	#noRewardsFound {
+		display: none;
+	}
+</style>
+	
+	<div class="container-fluid"> 
+		<div id="header" class="page-header page-header-anchor">
+			<div class="align-to-cards">
+			    <span class="s1icon s1icon-lg" style="background-image: url({!URLFOR($Resource[appAssets], appLogo)}); background-size: 60px 60px;"></span>
+			    <h1>{!appName}</h1>
+		    </div>
+		</div>
+		
+		
+		
+		<div class="row row-master"> <!--  container row -->
+		  <div class="col-md-5 column"><!-- first column -->
+		  
+		  <!-- Performance start -->
+			  <div id="performanceContainer" class="card col-md-12">
+			    <div class="card-heading">
+			      {!$Label.performance}
+			  	</div>
+			    <iframe id="performance" scrolling="no" />
+			  </div>
+			  <!-- Performance end -->
+			  
+			  <!-- Rewards start -->
+			  <div id="rewardsContainer" class="card col-md-12">
+			    <div class="card-heading">
+			    	{!$ObjectType.Reward__c.labelPlural}
+			    </div>
+				<c:RewardsReactiveComponent />		
+				<div class="clear-both" style="margin-bottom: 30px;" />		
+			  </div>
+			  <!-- Performance end --> 
+		  </div> <!-- first column end -->
+
+		  <div class="col-md-5 column"><!-- second column -->
+		  
+			  <!-- competiton start -->
+			  <div id="competitonContainer" class="card col-md-12">
+			    <div class="card-heading">
+			      {!$Objecttype.Team__c.labelPlural}
+			    </div>
+				<iframe id="competition" scrolling="no" /> 
+			  </div>
+			  <!-- competiton end -->
+		
+		      <!-- promotions start -->
+			  <div id="promotionsContainer" class="card-list col-md-12">
+			  	<h1 class="card-list-heading" style="padding-left: 1px; font-size: 15px; font-weight: 700; color: #3c3d3e;">
+			    	{!$Label.promotions}
+			  	</h1>	
+			    <div class="promotion card">	  		
+				  	<div class="card-detail">
+				  		<div id="promotionHeader">
+					  		<div class="promoImageContainer">
+					  			<img class="promoImageURL" />
+					  		</div>
+					  		
+							<div class="title"></div>
+					  		<div class="rewardText"></div>
+					  		<div class="secondaryTitle"></div>
+					  		<div class="clear-both"></div>
+				  		</div>
+				  		
+				  		<div class="description"></div>
+				  	</div>
+			  	</div>
+			  </div>
+			  <!-- promotion end -->
+			</div> <!--  second column end -->
+		</div> <!--  row end -->
+		
+		<!--  empty page message row -->
+		<div id="noRewardsFound" class="row row-master">
+		  <div class="card col-md-10">
+		  	<div class="card-heading">
+		  		{!$Label.no_rewards_found}
+		  	</div>
+		  	{!$Label.no_rewards_message}
+		  </div>
+		</div> <!-- row end -->
+	</div> <!--  container end -->
+	
+<script type="text/javascript">
+	// logic starts at the end of the page
+	// with $sj(document).ready event
+
+	var $sj = successJQ.noConflict();
+	var PROMOTIONS;
+	var REWARDS;
+	var VISIBILITY;
+
+
+	// this method calls the getComponentVisibility remote action
+	// If an element is not viewed, it's container removed
+	// If it is present, we'll keep it.
+	//
+	// renderPerformance()
+	// renderCompetiton()
+	// they are simply populate an iframe
+	//
+	// getPromotions() is getting the promotion list from the remote method
+	// and calls  renderPromotions() which renders them
+	// 
+	// if there are no elements, then emptyPageMessage() is called
+	// in order to show and 'empty message'
+
+	function getComponentVisibility() {
+		Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.RemoteController.getComponentVisibility}',
+			[],
+			function(result, event) {
+				if (event.status) {
+					VISIBILITY = JSON.parse(result);
+					if (VISIBILITY.isSumoUser) {
+						if (VISIBILITY.Performance) {
+							renderPerformance();
+						} else {
+							removeElement("#performanceContainer");
+						}
+						
+						if (VISIBILITY.Rewards) {
+						} else {
+							removeElement("#rewardsContainer");
+						}
+						
+						if (VISIBILITY.Competition) {
+							renderCompetiton();
+						}
+						else {
+							removeElement("#competitonContainer");
+						}
+						
+						if (VISIBILITY.Promotions) {
+							getPromotions();
+						}
+						else {
+							removeElement("#promotionsContainer");
+						}
+						if (!VISIBILITY.Performance && !VISIBILITY.Rewards
+							&& !VISIBILITY.Competition && !VISIBILITY.Promotions) {
+							emptyPageMessage();
+						}
+					}
+					else {
+						removeElement("#performanceContainer");
+						removeElement("#rewardsContainer");
+						removeElement("#competitonContainer");
+						removeElement("#promotionsContainer");
+						emptyPageMessage();
+					}
+				}
+			},
+			{escape: false}
+		);
+	}
+
+	// this method calls a remote action to get the promotion list
+	// on success it renders it calling renderPromotions()
+	function getPromotions() {    
+	 	Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.SuMoSidebarController.getPromotionDetails}',
+			function(result, event){ 	
+	      		if (event.status) {          
+					PROMOTIONS = result;	      
+					renderPromotions();         
+				}  else {
+					if (this.console) {             
+						console.log(event.message);
+					}           
+				}
+			},         
+			{escape: true}   
+		);
+	}
+	
+	// this populates the performance container iframe with the performance VF page
+	function renderPerformance() {
+		$sj("#performance").attr('src', '/apex/SidebarPerformance');
+	}
+	
+	// this populates the competition container iframe with the competition VF page
+	function renderCompetiton() {
+		$sj("#competition").attr('src', '/apex/SidebarCompetition');
+	}
+	
+	// this renders the promotions in a list. It is called by getPromotions()
+	// when successfully got the promotion list is retrieved from server
+	function renderPromotions() {
+		if (PROMOTIONS.length == 0) {
+			removeElement("#promotionsContainer");
+			return;
+		}
+		var promotionCard = $sj(".promotion")
+			.remove()
+			.clone();
+		
+		for (var i = 0; i < PROMOTIONS.length; i++) {
+			var ASSETS = { 1 : "{!URLFOR($Resource.SuMoSalesAssets, '/v3/easy.png')}",
+						   2 : "{!URLFOR($Resource.SuMoSalesAssets, '/v3/average.png')}",
+						   3 : "{!URLFOR($Resource.SuMoSalesAssets, '/v3/difficult.png')}",
+						   4 : "{!URLFOR($Resource.SuMoSalesAssets, '/v3/vhard.png')}",
+				}
+			
+			var card = promotionCard.clone();
+			var promoName = $sj("<div/>").html(PROMOTIONS[i].name).text();
+			var promoDescription = $sj("<div/>").html(PROMOTIONS[i].detail.description).text();
+			
+			card.find(".title").text(promoName);
+			card.find(".description").text(promoDescription);
+			
+			card.find(".promoImageURL").attr("src", PROMOTIONS[i].detail.imageURL);
+			card.find(".promoImageContainer").css("background", PROMOTIONS[i].detail.backgroundColour);
+			
+			if (PROMOTIONS[i].type == 'achievement') {
+				card.find(".rewardText").text(
+					$sj("<div/>").html(PROMOTIONS[i].detail.rewardText).text());
+				card.find(".secondaryTitle").text(
+					$sj("<div/>").html(PROMOTIONS[i].detail.timeLimitText).text());
+			} else {
+				card.find(".rewardText").text(
+					$sj("<div/>").html(PROMOTIONS[i].detail.rewardCompletionText).text());
+				card.find(".secondaryTitle").text(
+					$sj("<div/>").html(PROMOTIONS[i].detail.complexityText).text());
+				card.find(".secondaryTitle")
+					.append(
+						$sj("<img/>")
+						.attr("src", ASSETS[PROMOTIONS[i].detail.complexity])
+						.css("margin-left", "5px")
+					);
+			}
+			$sj("#promotionsContainer").append(card);
+		}
+	}
+	
+	// this function removes an element if it is not needed
+	function removeElement(element) {
+		$sj(element).remove();
+		// if there is an empty space in the first column, we'll fill it up
+		if ($sj(".column").eq(0).children().length < 2) {
+			var elementToMove = $sj(".column").eq(1).children().eq(0).remove();
+			if (elementToMove) {
+				$sj(".column").eq(0).append(elementToMove);
+			}
+		}
+	}
+
+	// shows the empty page message
+	function emptyPageMessage() {
+		$sj("#noRewardsFound").css("display", "block");
+	}
+
+	// this is called by the children, and resizes the components
+	// DO NOT REMOVE!
+	function iframeLoaded(params) {
+		if (! params) { return; }
+		if (params.name == 'competition') {
+			$sj("#competition").height(params.bodyHeight);
+		}
+		if (params.name == 'performance') {
+			$sj("#performance").height(params.bodyHeight);
+		}		
+	}
+
+	// this can be called from a component by calling
+	// parent.reloadMessageFromChild
+	function reloadMessageFromChild() {
+		location.reload();
+	}
+	
+	// the logic starts here
+	$sj(document).ready(function() {
+		// this method figures which component is visible, and remove them, if not
+		getComponentVisibility();
+		
+		// centering is not perfect on the bootstrap template, so this is an adjustment
+		// it is callad once at the beginning and once at evety window resize event
+		var centerRows = function() {
+			if ($sj(window).width() > 768) {
+				var emptySpace = $sj("#header").width() - $sj(".card").outerWidth(true) * 2;
+				$sj(".row-master").css("padding-left", emptySpace / 2 );
+				$sj(".align-to-cards").css("padding-left", emptySpace / 2 + 35 );
+				$sj(".column").css("padding", 5);
+			}
+			else {
+				$sj(".row-master").css("padding-left", 0);
+				$sj(".align-to-cards").css("padding-left", 0);
+				$sj(".column").css("padding", 0);
+			}
+		}
+		
+		centerRows();
+		$sj(window).resize(centerRows);
+	});
+</script>	
+</apex:page>

@@ -1,0 +1,1933 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>ADDRESS__c</fullName>
+        <externalId>false</externalId>
+        <formula>Install__r.Account.BillingStreet + BR() +
+Install__r.Account.BillingCity + &quot;, &quot; + Install__r.Account.BillingState + &quot;, &quot; + Install__r.Account.BillingPostalCode + BR()+
+Install__r.Account.BillingCountry</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ADDRESS</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Account__c</fullName>
+        <description>Unique customer identifying number</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Unique customer identifying number</inlineHelpText>
+        <label>Account</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.OwnerId</field>
+                <operation>equals</operation>
+                <valueField>$User.Id</valueField>
+            </filterItems>
+            <isOptional>true</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Energy_Efficiency</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Audit_Dropbox_link__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter in link to Dropbox folder</inlineHelpText>
+        <label>Audit Dropbox link</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Audit_process__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Where in the Audit process is the client?</inlineHelpText>
+        <label>Audit process</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Called</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Appointment scheduled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Appointment Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assessment needs more info</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Called multiple times</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Door Hanger</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unable to contact</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Refused EE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QC Later</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QC failure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>QC pass</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>true</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Auditor_Notes__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Anything someone working with the homeowner should know at a glance?</inlineHelpText>
+        <label>Auditor Notes</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Basic_quality_score__c</fullName>
+        <description>Formula field to determine the completeness of a job using the regular fields. Measures whether , assigned, completed and approved dates are filled in on a scale of 0-6. Higher score is worse</description>
+        <externalId>false</externalId>
+        <formula>if(text(EA_Auditor__c)=&quot;&quot;,0,1) + IF( ISBLANK(EA_Assigned_date__c ) , 0, 1) +
+ IF( ISBLANK(EA_Completed_date__c ) , 0, 1) + IF( ISBLANK(EA_Approved_Date__c ) , 0, 1) + if(text( EU_contractor__c )=&quot;&quot;,0,1) + IF( ISBLANK(EU_assigned_date__c ) , 0, 1) + IF( ISBLANK(EU_Completed_date__c ) , 0, 1) + IF( ISBLANK(EU_Invoice_Approval_Date__c ) , 0, 1)</formula>
+        <inlineHelpText>Formula field to determine the completeness of a job using the regular fields. Measures whether, assigned, completed and approved dates are filled in on a scale of 0-6. Higher score is worse</inlineHelpText>
+        <label>Basic quality score</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Clearesult_Submission_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Clearesult Submission Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Contractor_s_Notes__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Anything someone working with the homeowner should know at a glance?</inlineHelpText>
+        <label>Contractor&apos;s Notes</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Service_Survey__c</fullName>
+        <externalId>false</externalId>
+        <label>Customer Service Survey</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Exuberant</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Satisfied</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Neutral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dissatisfied</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solar Complaint</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Customer_Survey_Notes__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Any comments worth noting from the result of the survey performed.</inlineHelpText>
+        <label>Customer Survey Notes</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Days_bw_EA_and_EU__c</fullName>
+        <externalId>false</externalId>
+        <formula>EU_Completed_date__c -  EA_Completed_date__c</formula>
+        <inlineHelpText>Days between the Energy Audit and the Upgrade completion</inlineHelpText>
+        <label>Days bw EA and EU</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_bw_EUA_and_EUC__c</fullName>
+        <externalId>false</externalId>
+        <formula>EU_Completed_date__c  -  EU_assigned_date__c</formula>
+        <inlineHelpText>Days between when an EU is assigned and it is completed</inlineHelpText>
+        <label>Days bw EUA and EUC</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_bw_EU_released_and_invoice_paid__c</fullName>
+        <description>Days between invoice submitted and approved</description>
+        <externalId>false</externalId>
+        <formula>EU_Invoice_Approval_Date__c - EU_Invoice_Date__c</formula>
+        <inlineHelpText>Days between invoice submitted and approved</inlineHelpText>
+        <label>Days bw EU released and invoice paid</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_since_EA__c</fullName>
+        <description>Days since the Energy Assessment has been completed</description>
+        <externalId>false</externalId>
+        <formula>TODAY()  -  EA_Completed_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Days since the Energy Assessment has been completed</inlineHelpText>
+        <label>Days since EA</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_since_EU__c</fullName>
+        <externalId>false</externalId>
+        <formula>TODAY()  -  EU_Completed_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Days since the EU has been assigned</inlineHelpText>
+        <label>Days since EU</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_since_EU_assigned__c</fullName>
+        <description>Days since EU assigned</description>
+        <externalId>false</externalId>
+        <formula>TODAY() - EU_assigned_date__c</formula>
+        <inlineHelpText>Days since EU assigned</inlineHelpText>
+        <label>Days since EU assigned</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_since_EU_rejected__c</fullName>
+        <description>Days since EU rejected</description>
+        <externalId>false</externalId>
+        <formula>TODAY() - EU_Invoice_Rejection_Date__c</formula>
+        <inlineHelpText>Days since EU rejected</inlineHelpText>
+        <label>Days since EU rejected</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Days_since_audit_assigned__c</fullName>
+        <externalId>false</externalId>
+        <formula>TODAY()  -  EA_Assigned_date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>Days since the EA has been assigned</inlineHelpText>
+        <label>Days since audit assigned</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EA_Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>All Energy Audit paperwork is present and correct, ready to be released for the work.</inlineHelpText>
+        <label>EA Approved Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Assigned_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the address is assigned ot the auditor
+
+This field will trigger an email alert when filled.</inlineHelpText>
+        <label>EA Assigned date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Auditor__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the name of the auditor</inlineHelpText>
+        <label>EA Auditor</label>
+        <picklist>
+            <picklistValues>
+                <fullName>John Moore</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Adrian Manriquez</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Debra Cassisa</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Matt Killen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CORE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mr. Green Jeans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jeff Haag</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Austin Lukes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Julie Tweeter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Joey Giusti</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jason Castillion</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Roger Pino</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Andy Gostisha</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ryan Sharp</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Marcus Rozbitsky</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Richard Haley</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>EA_Completed_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the Energy Audit is completed.</inlineHelpText>
+        <label>EA Completed date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Invoice_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that an outside auditor will invoice for an audit completed.</inlineHelpText>
+        <label>EA Invoice Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Invoice_Number__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Invoice number that is associated with an outside auditor completing an audit.</inlineHelpText>
+        <label>EA Invoice Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EA_Invoice_Rejection_Date__c</fullName>
+        <description>Energy Audit Rejection Date</description>
+        <externalId>false</externalId>
+        <label>EA Invoice Rejection Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_QC_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the QC was conducted. Place earliest date in case of multiple visits</inlineHelpText>
+        <label>EA QC date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Rebate_Check_Number__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Check number associated with the audit rebate.</inlineHelpText>
+        <label>EA Rebate Check Number</label>
+        <length>25</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EA_Rebate_Received_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the rebate for the Energy Audit comes in.</inlineHelpText>
+        <label>EA Rebate Received date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EA_Rejection_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>EA Rejection Notes</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EA_rebate_submitted_date__c</fullName>
+        <externalId>false</externalId>
+        <label>EA_Rebate submitted date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EE_Solar_product__c</fullName>
+        <description>includes(Text(Install__r.Solar_Product__C,&quot;Efficiency&quot;)) to show if EE record has Energy efficiency selected</description>
+        <externalId>false</externalId>
+        <formula>includes(Install__r.Solar_Product__c,&quot;Energy Efficiency&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>A check means the item has energy efficiency selected in the Install. Formula field, cannot be edited from EE object</inlineHelpText>
+        <label>EE Solar product</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>EE_released_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the address is released to the EE department</inlineHelpText>
+        <label>EE released date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Clearesult_Rebate_Amt__c</fullName>
+        <description>Energy Upgrade rebate amount</description>
+        <externalId>false</externalId>
+        <label>EU Clearesult Rebate Amt.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>EU_Completed_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the date the upgrade was completed</inlineHelpText>
+        <label>EU Completed date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Completion_Due_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Completion Due Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Invoice_Approval_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Invoice Approval Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Invoice_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the work performed on the house was invoiced for by an outside contractor.</inlineHelpText>
+        <label>EU Invoice Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Invoice_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Invoice Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EU_Invoice_Rejection_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the upgrade work invoiced for is not approved by the EE Admin for payment. This can be for incomplete work, missing paperwork, etc.
+
+This field will trigger an email alert after data is entered</inlineHelpText>
+        <label>EU Invoice Rejection Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Rebate_Amount__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Amount of money received in the form of a rebate from energy upgrades performed at the residence.</inlineHelpText>
+        <label>EU Rebate Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>EU_Rebate_Check_Number__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Check number associated with the upgrade rebate.</inlineHelpText>
+        <label>EU Rebate Check Number</label>
+        <length>30</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>EU_Rebate_Received_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the rebate for the Energy Upgrade work performed on the house is received.</inlineHelpText>
+        <label>EU Rebate Received Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Rebate_Submission_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the rebate for the Energy Upgrade work performed on the house is submitted for.</inlineHelpText>
+        <label>EU Rebate Submission Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_Rejection_Notes__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>The reason why an address is not approved for payment.</inlineHelpText>
+        <label>EU Rejection Notes</label>
+        <length>32768</length>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>EU_Scheduled_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date the EU is scheduled</inlineHelpText>
+        <label>EU Scheduled date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_assigned_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Address and paperwork released to contractor for work to be performed.</inlineHelpText>
+        <label>EU assigned date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>EU_contractor__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Contractor that is performing the work on the house.</inlineHelpText>
+        <label>EU contractor</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Retro Fitz</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mr. Green Jeans</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EnviroGreen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rebirth Energy Solutions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tweets techs</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Posigen All-Stars</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CORE</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No Contractor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Window Contractor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fontenot Insulation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.PersonEmail</formula>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Energy_Efficiency_Status__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Status of what stage the house is at in the EE Process
+
+This field may trigger an SMS message when given a value.</inlineHelpText>
+        <label>Energy Efficiency Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Released to Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Released to EE Upgrader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Waiting to be Released</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Waiting on Release to Auditor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Waiting on Release to EE Upgrader</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Waiting on EU Invoice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Waiting on Survey</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mission Accomplished</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>GG_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Install__r.GG_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>GG Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Geocode__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Field for Geopointe</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Don&apos;t worry about it</inlineHelpText>
+        <label>Geocode</label>
+        <referenceTo>geopointe__Geocode__c</referenceTo>
+        <relationshipName>Energy_Efficiency</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Hot_water_heater__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT( Install__r.Hot_Water_Heater__c)</formula>
+        <inlineHelpText>Type of hot water heater observed at Sales</inlineHelpText>
+        <label>Hot water heater</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Install_Numeric_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Install__r.Numeric_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Install Numeric ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Install__c</fullName>
+        <externalId>false</externalId>
+        <label>Install</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Energy_Efficiency</relationshipName>
+        <relationshipOrder>1</relationshipOrder>
+        <reparentableMasterDetail>true</reparentableMasterDetail>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Invoice_Rejection_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Invoice Rejection Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>KDH_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Install__r.KDH_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>KDH Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Letter_mailed_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Representative was unable to reach the homeowner for a survey. A letter is sent providing homeowner opportunity to reach back out if there is a problem, otherwise, we will assume satisfaction.</inlineHelpText>
+        <label>Letter mailed date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Low_income_funding_source__c</fullName>
+        <description>Picklist of funding sources for a low income project. Select this field when the client is in a low-income track</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Picklist of funding sources for a low income project. Select this field when the client is in a low-income track</inlineHelpText>
+        <label>Low income funding source</label>
+        <picklist>
+            <picklistValues>
+                <fullName>None</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Energy Smart East Bank</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Energy Smart West Bank</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Mobile_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Install__r.Mobile_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Mobile Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>New_contract_marker__c</fullName>
+        <externalId>false</externalId>
+        <formula>if( Install__r.Amount  &gt; 26799, IMAGE(&quot;servlet/servlet.FileDownload?file=015d00000032vZs&quot;, &quot;MP&quot;, 100, 100),&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>New contract marker</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Numeric_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>Numeric ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Numeric_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>VALUE( Install__r.Numeric_ID__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opportunity Numeric ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Penalty_Amount__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Outside contractors can be penalized for any number of things. Most commonly it has to do with a violation of the standard operating procedure.</inlineHelpText>
+        <label>Penalty Amount</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Penalty_Amt__c</fullName>
+        <externalId>false</externalId>
+        <label>Penalty Amt.</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Penalty_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Penalty Reason</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Phone</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QC_checkbox__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Quality Control should be performed on this particular house if this box is checked</inlineHelpText>
+        <label>QC checkbox</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>REMRate_Therms__c</fullName>
+        <description>Therms saved determined by the REMRate Improvement Analysis</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter Therms saved</inlineHelpText>
+        <label>REMRate Therms</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>REM_KwH__c</fullName>
+        <description>REMRate KwH savings.  Calculated from the Improvement Analysis report generated from REMRate.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter in KwH savings from REMRate</inlineHelpText>
+        <label>REM KwH</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>REM__c</fullName>
+        <description>REMRate percentage improvement. Value is inputted manually from the Improvement Analysis exported from before and after .blg files.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the percentage savings from REMRate</inlineHelpText>
+        <label>REM percent imp</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Rebate_Check_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Rebate Check Number</label>
+        <length>25</length>
+        <maskChar>X</maskChar>
+        <maskType>lastFour</maskType>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>EncryptedText</type>
+    </fields>
+    <fields>
+        <fullName>Rejection_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Rejection Notes</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SMS_Opt_Out__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>SMS Opt Out</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Secondary_Phone__c</fullName>
+        <externalId>false</externalId>
+        <formula>Account__r.Secondary_Phone__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Secondary Phone</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Survey_date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Customer Service Survey is completed by the homeowner and has provided feedback of our EE service and solar overall.</inlineHelpText>
+        <label>Survey date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Testfield__c</fullName>
+        <description>test to check the app</description>
+        <externalId>false</externalId>
+        <inlineHelpText>testing to check the app</inlineHelpText>
+        <label>Testfield</label>
+        <length>5</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Invoice_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Upgrade Invoice Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Upgrade_Track__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter the appropriate upgrade track. Some houses may have more than one.</inlineHelpText>
+        <label>Upgrade Track</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Normal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insulation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MVR normal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CAZ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CAZ Fail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Special</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hard to reach</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>MVR Window tint</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Handyman</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Plumber</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Upsell_Product_Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Products and services the homeowner may be interested in in the future.</inlineHelpText>
+        <label>Upsell Product Opportunity</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Windows</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Doors</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Space</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Holder</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Need</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>List</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>From</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>David</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Waived_Services__c</fullName>
+        <externalId>false</externalId>
+        <label>Signed Waivers</label>
+        <picklist>
+            <picklistValues>
+                <fullName>CAZ</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Insulation</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EE rejection</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>MultiselectPicklist</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Work_Order_points__c</fullName>
+        <description>Field to capture the amount of points on the work order. Work order values are around 1800, and are averaged every quarter to make sure that contractors are getting paid no more or no less than they are contracted for.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill in points from the &quot;sushi&quot; tab</inlineHelpText>
+        <label>Work Order points</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Zip__c</fullName>
+        <externalId>false</externalId>
+        <formula>Install__r.Account.BillingPostalCode</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Zip</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>EE Archive</label>
+    <listViews>
+        <fullName>Adrians_View</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>Phone__c</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>EA_Auditor__c</columns>
+        <columns>EA_Completed_date__c</columns>
+        <columns>EA_Assigned_date__c</columns>
+        <columns>EU_assigned_date__c</columns>
+        <columns>EA_Rebate_Received_date__c</columns>
+        <columns>Zip__c</columns>
+        <columns>New_contract_marker__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Audit_process__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Adrians View</label>
+        <sharedTo>
+            <group>EE_Assessors</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <sharedTo/>
+    </listViews>
+    <listViews>
+        <fullName>Debra_OPEN_list</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <columns>EA_Completed_date__c</columns>
+        <columns>Energy_Efficiency_Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Debra Cassisa</value>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Audit_process__c</field>
+            <operation>notEqual</operation>
+            <value>Unable to contact,Appointment scheduled</value>
+        </filters>
+        <label>Debra OPEN List</label>
+        <sharedTo>
+            <group>EE_Assessors</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>EA_s_to_Review</fullName>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
+        <columns>EA_Auditor__c</columns>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Zip__c</columns>
+        <columns>EA_Completed_date__c</columns>
+        <columns>EA_Invoice_Rejection_Date__c</columns>
+        <columns>EA_Rejection_Notes__c</columns>
+        <columns>EA_Approved_Date__c</columns>
+        <columns>Upgrade_Track__c</columns>
+        <columns>EU_contractor__c</columns>
+        <columns>Hot_water_heater__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>notEqual</operation>
+            <value>Mr. Green Jeans</value>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>EU_assigned_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>EU_contractor__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>EE_Solar_product__c</field>
+            <operation>notEqual</operation>
+            <value>0</value>
+        </filters>
+        <label>EA&apos;s to Review</label>
+        <sharedTo>
+            <group>EE_office</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>EA_s_to_Review1</fullName>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
+        <columns>EA_Auditor__c</columns>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Zip__c</columns>
+        <columns>EA_Completed_date__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>EA_Rejection_Notes__c</columns>
+        <columns>EA_Approved_Date__c</columns>
+        <columns>EU_assigned_date__c</columns>
+        <columns>EU_contractor__c</columns>
+        <columns>Upgrade_Track__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>EU_assigned_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>EU_contractor__c</field>
+            <operation>contains</operation>
+            <value>Posigen All-Stars</value>
+        </filters>
+        <filters>
+            <field>Upgrade_Track__c</field>
+            <operation>includes</operation>
+            <value>Insulation</value>
+        </filters>
+        <label>Insulation Tracks to Release</label>
+        <sharedTo>
+            <group>EE_office</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>JAson_OPEN_List1</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>Install__c</columns>
+        <columns>EU_Scheduled_date__c</columns>
+        <columns>EU_Completed_date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Jason Castillion</value>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Audit_process__c</field>
+            <operation>notEqual</operation>
+            <value>Unable to contact,Appointment scheduled</value>
+        </filters>
+        <label>JAson OPEN List</label>
+        <sharedTo/>
+    </listViews>
+    <listViews>
+        <fullName>Jason_OPEN_List</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>Install__c</columns>
+        <columns>EU_Scheduled_date__c</columns>
+        <columns>EU_Completed_date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>John Moore</value>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Audit_process__c</field>
+            <operation>notEqual</operation>
+            <value>Unable to contact,Appointment scheduled</value>
+        </filters>
+        <label>John OPEN List</label>
+        <sharedTo/>
+    </listViews>
+    <listViews>
+        <fullName>Jason_s_EE_upgrades_completed</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Days_since_EU__c</columns>
+        <columns>EU_Completed_date__c</columns>
+        <columns>Zip__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EU_Completed_date__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Jason Castillion</value>
+        </filters>
+        <filters>
+            <field>EA_QC_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>Jason&apos;s EE upgrades completed</label>
+    </listViews>
+    <listViews>
+        <fullName>Joey_s_OPEN_List2</fullName>
+        <columns>GG_Number__c</columns>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>EA_Assigned_date__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <columns>EA_Completed_date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Joey Giusti</value>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Audit_process__c</field>
+            <operation>notEqual</operation>
+            <value>Unable to contact,Appointment scheduled</value>
+        </filters>
+        <label>Joey&apos;s OPEN List</label>
+        <sharedTo/>
+    </listViews>
+    <listViews>
+        <fullName>Joey_s_TOTAL_List</fullName>
+        <columns>GG_Number__c</columns>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <columns>EU_Scheduled_date__c</columns>
+        <columns>EU_Completed_date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Joey Giusti</value>
+        </filters>
+        <label>Joey&apos;s TOTAL List</label>
+        <sharedTo/>
+    </listViews>
+    <listViews>
+        <fullName>Julie_s_Open_List</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>Install__c</columns>
+        <columns>Hot_water_heater__c</columns>
+        <columns>EA_Assigned_date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Julie Tweeter</value>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Audit_process__c</field>
+            <operation>notEqual</operation>
+            <value>Unable to contact,Appointment scheduled</value>
+        </filters>
+        <label>Julie&apos;s Open List</label>
+        <sharedTo>
+            <group>EE_Assessors</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Julie_s_Total</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>EA_Completed_date__c</columns>
+        <columns>EU_assigned_date__c</columns>
+        <columns>EU_Completed_date__c</columns>
+        <columns>Energy_Efficiency_Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EU_contractor__c</field>
+            <operation>equals</operation>
+            <value>Tweets techs</value>
+        </filters>
+        <label>Julie&apos;s Upgrades Total</label>
+        <sharedTo>
+            <group>EE_office</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Kerrie_s_list</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>EU_contractor__c</columns>
+        <columns>EU_Completed_date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Survey_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>EU_Completed_date__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <filters>
+            <field>EE_Solar_product__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>Kerrie&apos;s Survey list</label>
+        <sharedTo>
+            <group>EE_office</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Marcus_view</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Audit_Dropbox_link__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Marcus Rozbitsky</value>
+        </filters>
+        <label>Marcus view</label>
+        <sharedTo>
+            <portalRole>RozbitskyConsultingPartnerUser</portalRole>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Matt_OPEN_list</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>EA_Assigned_date__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <columns>EA_Auditor__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Ryan Sharp</value>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Audit_process__c</field>
+            <operation>notEqual</operation>
+            <value>Unable to contact,Appointment scheduled,Refused EE</value>
+        </filters>
+        <label>Ryan OPEN List</label>
+        <sharedTo>
+            <group>EE_Assessors</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Matt_Open_List1</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>Install__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Matt Killen</value>
+        </filters>
+        <filters>
+            <field>EA_Completed_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>Audit_process__c</field>
+            <operation>notEqual</operation>
+            <value>Appointment scheduled,Unable to contact,Refused EE</value>
+        </filters>
+        <label>Matt Open List</label>
+        <sharedTo/>
+    </listViews>
+    <listViews>
+        <fullName>Matt_TOTAL_List1</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>Install__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <columns>EU_Scheduled_date__c</columns>
+        <columns>EU_Completed_date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Matt Killen</value>
+        </filters>
+        <label>Matt TOTAL List</label>
+        <sharedTo/>
+    </listViews>
+    <listViews>
+        <fullName>Matt_TOTAL_list</fullName>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Zip__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>Install__c</columns>
+        <columns>Days_since_audit_assigned__c</columns>
+        <columns>EU_Scheduled_date__c</columns>
+        <columns>EU_Completed_date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>equals</operation>
+            <value>Jason Castillion</value>
+        </filters>
+        <label>Jason TOTAL List</label>
+        <sharedTo/>
+    </listViews>
+    <listViews>
+        <fullName>New_Lease_Markers</fullName>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
+        <columns>New_contract_marker__c</columns>
+        <columns>Auditor_Notes__c</columns>
+        <columns>EA_Auditor__c</columns>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>Zip__c</columns>
+        <columns>EA_Completed_date__c</columns>
+        <columns>EA_Invoice_Rejection_Date__c</columns>
+        <columns>EA_Rejection_Notes__c</columns>
+        <columns>EA_Approved_Date__c</columns>
+        <columns>Upgrade_Track__c</columns>
+        <columns>EU_contractor__c</columns>
+        <columns>Hot_water_heater__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>EA_Auditor__c</field>
+            <operation>notEqual</operation>
+            <value>Mr. Green Jeans</value>
+        </filters>
+        <filters>
+            <field>EU_assigned_date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>EU_contractor__c</field>
+            <operation>equals</operation>
+        </filters>
+        <filters>
+            <field>EE_Solar_product__c</field>
+            <operation>notEqual</operation>
+            <value>0</value>
+        </filters>
+        <label>New Lease Markers</label>
+        <sharedTo>
+            <group>EE_office</group>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>REM_kWH_not_Null</fullName>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <columns>NAME</columns>
+        <columns>ADDRESS__c</columns>
+        <columns>REM_KwH__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>REM_KwH__c</field>
+            <operation>notEqual</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>REM_KwH__c</field>
+            <operation>notEqual</operation>
+        </filters>
+        <label>REM kWH not Null</label>
+        <sharedTo/>
+    </listViews>
+    <nameField>
+        <label>Customer Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Energy Efficiency (Archive only)</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>ADDRESS__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Phone__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>KDH_Number__c</customTabListAdditionalFields>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <listViewButtons>Map_records</listViewButtons>
+        <lookupFilterFields>EA_Auditor__c</lookupFilterFields>
+        <lookupFilterFields>EU_contractor__c</lookupFilterFields>
+        <searchFilterFields>EA_Completed_date__c</searchFilterFields>
+        <searchFilterFields>EU_Completed_date__c</searchFilterFields>
+        <searchResultsAdditionalFields>ADDRESS__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Phone__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Zip__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Cant_save_without_Upgrade_Track_Data</fullName>
+        <active>true</active>
+        <description>Will not allow a user to save an Energy Efficiency record if Upgrade Track and EA completed date contain data.</description>
+        <errorConditionFormula>IF
+(
+(NOT(ISNULL(  EA_Completed_date__c )) ), 
+(ISNULL( Upgrade_Track__c )), 
+FALSE
+)</errorConditionFormula>
+        <errorMessage>When EA Completed date is entered, Upgrade Track must contain at least one entry.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Map_records</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Map records</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>// Get data array
+idArray = {!GETRECORDIDS($ObjectType.Energy_Efficiency__c)};
+// Submit URL
+f=document.createElement(&apos;form&apos;);
+f.target = &apos;_blank&apos;;f.action=&apos;/apex/geopointe__Map&apos;;
+f.method = &apos;get&apos;;
+i= document.createElement(&apos;input&apos;);
+i.id = &apos;idArray&apos;;
+i.name = &apos;idArray&apos;;
+i.type = &apos;hidden&apos;;
+i.value = idArray;
+f.appendChild(i);document.body.appendChild(f);f.submit()</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Send_SMS</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Send SMS</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/14.0/apex.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/resource/1355393414000/smagicinteract__jquery&quot;)}
+{!REQUIRESCRIPT(&quot;/resource/1355395084000/smagicinteract__jqueryUI&quot;)}
+{!REQUIRESCRIPT(&quot;/resource/1355395025000/smagicinteract__jqueryuicss&quot;)}
+{!REQUIRESCRIPT(&quot;/resource/1361524259000/smagicinteract__sendSMSJS&quot;)}
+
+
+var packagePrefix = &quot;smagicinteract__&quot;;
+var recordType = &apos;Customer_Name__c&apos;; 
+var idToUpdate = &apos;{!Energy_Efficiency__c.Id}&apos; 
+var nameField = &apos;Name&apos;;
+var mobileField = &apos;Mobile_Phone_1__c&apos;; 
+var optOutField = &apos;SMS_Opt_Out__c&apos;;
+var smsType = &apos;&apos;;
+var userId = &apos;{!$User.Id}&apos;; 
+var elementIdVar = &apos;&apos;;
+var showUserDropDown = false;
+var dialogTitle = &apos;&apos;;
+
+sendSMS(recordType, idToUpdate, userId, nameField, mobileField, optOutField, smsType, elementIdVar, packagePrefix, showUserDropDown, dialogTitle);</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,80 @@
+<apex:page controller="emma.EmmaSetupController" action="{!initAPICredsPage}">
+	<apex:stylesheet value="{!$Resource.emma__styles}" />
+	<apex:pageMessages id="pageMessages" />
+	<apex:form id="theForm">
+		
+		<apex:actionfunction name="saveApiCreds" action="{!saveApiCreds}" rerender="pb,pageMessages" status="actStatus"/>
+	
+		<apex:pageBlock title="Step 1 of 3: Account Verification" id="pb">
+			<apex:pageBlockButtons >
+				<apex:commandButton value="Next Step: Field Mappings" action="{!saveSyncMethod}" oncomplete="saveApiCreds();" rerender="pb,pageMessages" status="actStatus" styleClass="btnPrimary" />
+				<apex:commandButton value="Back" action="{!backToSetup}" />
+				<apex:commandButton value="Cancel" action="{!cancel}" />
+			</apex:pageBlockButtons>
+			
+			<apex:pageBlockSection title="Emma API Key" columns="1" collapsible="false">
+				<div>
+					<h2>Emma API Setup Instructions</h2>	
+					<p>You can find or generate your API keys in the "Account &amp; Billing" section of your Emma Account. Careful! Generating a new API key will destroy any keys you've previously created.</p>
+				</div>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Public API key" for="user_id" />
+					<apex:inputText value="{!emmaUserId}" id="user_id" style="width:150px;" />
+				</apex:pageBlockSectionItem>
+	
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Private API key" for="api_pwd" />
+					<apex:inputText value="{!emmaApiPassword}" id="api_pwd" style="width:150px;" />
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Account ID" for="account_id" />
+					<apex:outputPanel >
+						<apex:inputText value="{!emmaAccountId}" id="account_id" />&nbsp;
+						<apex:commandButton value="Verify" action="{!verifyApi}" rerender="pageMessages" status="actStatus"/>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection columns="1" collapsible="false" title="Select Event Capture Method" rendered="{!allowSyncMethodSelection}">
+				<div>
+					<p>Select the method for capturing Emma event data. "Webhook" is recommended for Enterprise and Unlimited Edition customers.</p>
+				</div>				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Your Salesforce Edition: {!edition}" />
+					<apex:outputPanel style="width: 500px;" layout="block">
+						<apex:selectRadio value="{!syncMethod}" layout="pageDirection">
+							<apex:actionSupport rerender="sitesInfoPanel" event="onchange" status="actStatus"/>
+							<apex:selectOptions value="{!syncMethods}">
+            				</apex:selectOptions>
+            			</apex:selectRadio>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:outputpanel id="sitesInfoPanel">
+			<apex:pageBlockSection title="Force.com Sites Information" columns="1" collapsible="false" rendered="{!syncMethod == 'Webhook'}">
+				<apex:pageMessage severity="INFO" strength="1" summary="Emma will notify Salesforce of campaign events and audience profile updates. Enter the URL below for your Force.com Site that is configured to receive Emma notifications." />
+				<div>
+					<h2>Force.com Sites Setup Instructions</h2>	
+					<p>Activating a Force.com site for your Emma integration will enable your Emma account share updates with your Salesforce account. To create your Force.com site, just follow the instructions in our installation guide.</p>
+				</div> 
+				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Force.com Sites Root URL" for="sites_url" />
+					<apex:outputPanel >
+						<apex:inputText value="{!emmaSitesUrl}" id="sites_url" style="width:350px;" />&nbsp;
+						<apex:commandButton value="Verify" action="{!verifyUrl}" rerender="pageMessages" status="actStatus"/>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			</apex:outputpanel>
+			
+			<!-- <apex:iframe src="https://app.e2ma.net/app2/salesforce/auth" scrolling="true" id="theIframe"/> -->
+			
+		</apex:pageBlock>
+		<apex:actionStatus id="actStatus">
+			<apex:facet name="start">
+				<c:overlay text="Please wait....." />
+			</apex:facet>
+		</apex:actionStatus>
+	</apex:form>
+</apex:page>

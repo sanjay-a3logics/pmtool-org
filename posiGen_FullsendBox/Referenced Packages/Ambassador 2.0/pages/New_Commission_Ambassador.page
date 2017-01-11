@@ -1,0 +1,3 @@
+<apex:page standardController="Ambassador__Ambassador__c" extensions="Ambassador.Ambassador_Commission">
+    <apex:iframe src="{!url}" width="100%" height="900px" scrolling="true" />
+</apex:page>

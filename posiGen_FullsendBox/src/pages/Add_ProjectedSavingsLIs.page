@@ -1,0 +1,29 @@
+<apex:page controller="AddProjectedSavingsLIsController" action="{!createmonths}">
+    <apex:form >
+        <apex:outputPanel rendered="{!added}">
+            <script>
+                window.location.reload( true );
+            </script>
+        </apex:outputPanel>
+        <apex:pageBlock id="PSLineItems">
+            <apex:variable var="rowNum" value="{!0}"  />  
+            <apex:pageBlockTable value="{!psliList}" var="psli" id="PSLIValues">
+                <apex:column value="{!psli.Projected_Savings__c}"/>
+                <apex:column headerValue="Name" value="{!psli.Name}"/>
+                <apex:column headerValue="Month" value="{!psli.Month_Projected__c}"/>
+                <apex:column headerValue="Month Bill Dollars">
+                    <apex:inputField value="{!psli.Month_Bill_Dollars__c}"/>
+                </apex:column>         
+                <apex:column headerValue="Month Bill Usage kWh">
+                    <apex:inputField value="{!psli.Month_Bill_Usage_kWh__c}"/>
+                </apex:column>         
+            </apex:pageBlockTable>
+            <apex:outputPanel id="buttons">
+                <!-- <apex:commandButton value="Save" action="{!save}" status="closer" rerender="PSLineItems"/> -->
+                <apex:commandButton value="Save" action="{!saveAndReturn}"/>
+                <apex:commandButton value="Cancel" onclick="window.top.close();"/>
+                <apex:actionStatus startText="(Saving...)" stopText="" onStop="window.top.close();" id="closer"/>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

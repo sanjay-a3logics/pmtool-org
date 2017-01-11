@@ -1,0 +1,91 @@
+<apex:component controller="UserDashboardController" id="myLeads">
+    <div class="bRelatedList">
+        <a name="a29d0000000LRVT_00Nd0000007gGaA_target"></a>
+        <!-- Begin ListElement -->
+        <!-- motif: Custom70 -->
+        <!-- WrappingClass -->
+        <div class="listRelatedObject Custom18Block">
+            <div class="bPageBlock brandSecondaryBrd secondaryPalette">
+                <div class="pbHeader">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td class="pbTitle">
+                                    <!-- THIS IS WHERE YOU'LL UPDATE THE HEADER IMAGE FOR THE LIST -->
+                                    <img src="/s.gif" alt="" width="1" height="1" class="minWidth" title=""></img>
+                                    <img src="/s.gif" alt="" class="relatedListIcon" title=""></img>
+                                    <h3 id="a29d0000000LRVT_00Nd0000007gGaA_title">
+                                        <!-- THIS IS WHERE YOU'LL UPDATE THE HEADER TITLE FOR THE LIST -->
+                                        Leads
+                                    </h3>
+                                </td>
+                                <td class="pbButton">
+                                    &nbsp;
+                                </td>
+                                <td class="pbHelp">
+                                    <span class="help" title="">
+                                        &nbsp;
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pbBody" id="a29d0000000LRVT_00Nd0000007gGaA_body">
+                    <table class="list" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr class="headerRow">
+                                <th scope="col" class=" zen-deemphasize">Last Activity</th>
+                                <th scope="col" class=" zen-deemphasize">Name</th>
+                                <th scope="col" class=" zen-deemphasize">Street</th>
+                                <th scope="col" class=" zen-deemphasize">City</th>
+                                <th scope="col" class=" zen-deemphasize">Phone</th>
+                                <th scope="col" class=" zen-deemphasize">Email</th>
+                                <th scope="col" class=" zen-deemphasize">Lead Status</th>
+                                <th scope="col" class=" zen-deemphasize">Created Date</th>
+                            </tr>
+
+                            <!-- ListRow -->
+                            <apex:repeat value="{!myLeads }" var="lead">
+                                <tr class=" dataRow even last first">
+                                    <td class="dataCell">
+                                        <apex:outputtext value="{!lead.LastActivityDate}" />
+                                        &nbsp;
+                                    </td>
+                                    <td class="dataCell">
+                                        <apex:outputlink value="../{!lead.Id}" target="_blank"><apex:outputtext value="{!lead.Name}" />&nbsp;</apex:outputlink>
+                                    </td>
+                                    <td class="dataCell">
+                                        <apex:outputtext value="{!lead.Street}" />
+                                        &nbsp;
+                                    </td>
+                                    <td class="dataCell">
+                                        <apex:outputtext value="{!lead.City}" />
+                                        &nbsp;
+                                    </td>
+                                    <td class="dataCell">
+                                        <apex:outputtext value="{!lead.Phone}" />
+                                        &nbsp;
+                                    </td>
+                                    <td class="dataCell">
+                                        <apex:outputtext value="{!lead.Email}" />
+                                        &nbsp;
+                                    </td>
+                                    <td class="dataCell">
+                                        <apex:outputtext value="{!lead.Status}" />
+                                        &nbsp;
+                                    </td>
+                                    <td class="dataCell">
+                                        <apex:outputtext value="{!lead.CreatedDate}" />
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+
+                </div><div class="pbFooter secondaryPalette"><div class="bg"></div></div>
+            </div>
+        </div><div class="listElementBottomNav"></div>
+    </div>
+</apex:component>

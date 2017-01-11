@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>How_To_Save_More__c</fullName>
+        <description>WYSIWYG Editor to manage &quot;How do I save more money&quot; content</description>
+        <externalId>false</externalId>
+        <label>How To Save More</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Minimum_Net_Savings_for_Display__c</fullName>
+        <description>If a customer&apos;s net savings for the most recent 12 month period is below this figure, do not display the charts. Direct the customer to CSR.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If a customer&apos;s net savings for the most recent 12 month period is below this figure, do not display the charts. Direct the customer to CSR.</inlineHelpText>
+        <label>Minimum Net Savings for Display</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Posigen_BCC_for_Referrals__c</fullName>
+        <description>The &quot;Refer a friend&quot; link on the customer savings page will BCC this address.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The &quot;Refer a friend&quot; link on the customer savings page will BCC this address.</inlineHelpText>
+        <label>Posigen BCC for Referrals</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Annual_Energy_Inflation_Rate__c</fullName>
+        <description>using a flat escalation to apply to &quot;future projected savings&quot; in the Customer Portal</description>
+        <externalId>false</externalId>
+        <inlineHelpText>using a flat escalation to apply to &quot;future projected savings&quot; in the Customer Portal</inlineHelpText>
+        <label>Projected Annual Energy Inflation Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Refer_a_Friend_Email_Body_Text__c</fullName>
+        <description>Simple verbiage to prefill the email body on customer community Refer a Friend link.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Simple verbiage to prefill the email body on customer community Refer a Friend link.</inlineHelpText>
+        <label>Refer a Friend Email Body Text</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Refer_a_Friend_Email_Subject__c</fullName>
+        <description>Subject line for the Refer a Friend link</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Subject line for the Refer a Friend link</inlineHelpText>
+        <label>Refer a Friend Email Subject</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>X2016_Assumed_Cost_Per_kWh__c</fullName>
+        <description>Customer Portal - using for conversion of Energy to $, may be more granular later</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Customer Portal - using for conversion of Energy to $, may be more granular later</inlineHelpText>
+        <label>2016 Assumed Cost Per kWh</label>
+        <precision>16</precision>
+        <required>false</required>
+        <scale>8</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <label>Customer Portal Global Setting</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>{0}</displayFormat>
+        <label>Name</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Customer Portal Global Settings</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

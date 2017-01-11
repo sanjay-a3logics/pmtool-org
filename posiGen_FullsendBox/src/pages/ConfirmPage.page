@@ -1,0 +1,6 @@
+<apex:page sidebar="false" standardStylesheets="false" tabStyle="Box_Authenatication__tab">
+  <link href="{!URLFOR($Resource.Box,'Box/metro-bootstrap.css')}" rel="stylesheet" media="screen" />
+  <div class="jumbotron">
+   <center><h2>Authenticated with Box Sucessfully!</h2></center>
+  </div>
+</apex:page>

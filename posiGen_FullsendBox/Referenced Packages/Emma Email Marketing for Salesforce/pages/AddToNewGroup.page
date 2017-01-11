@@ -1,0 +1,17 @@
+<apex:page standardcontroller="emma__Emma_Group_Member__c" extensions="emma.AddToNewGroupController" title="Emma Group Membership Edit: New Emma Group Membership">
+<apex:form >
+<apex:sectionheader title="Emma Group Membership Edit" subtitle="New Emma Group Membership"/>
+<apex:pagemessages />
+<apex:pageblock title="Emma Group Membership Edit" mode="edit">
+<apex:pageblockbuttons >
+<apex:commandbutton value="Save" action="{!save}"/>
+<apex:commandbutton value="Cancel" action="{!cancel}"/>
+</apex:pageblockbuttons>
+<apex:pageblocksection columns="2" title="Information">
+<apex:inputfield value="{!emma__Emma_Group_Member__c.emma__Emma_Group__c}"/>
+<apex:inputfield value="{!emma__Emma_Group_Member__c.emma__Contact__c}" rendered="{!!isLead}"/>
+<apex:inputfield value="{!emma__Emma_Group_Member__c.emma__Lead__c}" rendered="{!isLead}"/>
+</apex:pageblocksection>
+</apex:pageblock>
+</apex:form>
+</apex:page>

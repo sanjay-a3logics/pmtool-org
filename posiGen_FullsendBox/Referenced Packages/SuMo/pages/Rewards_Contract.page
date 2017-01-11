@@ -1,0 +1,5 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="true" standardController="Contract" extensions="success.AchievementsComponentController">
+
+    <c:RewardsComponent recordid="{!Contract.Id}" />
+
+</apex:page>

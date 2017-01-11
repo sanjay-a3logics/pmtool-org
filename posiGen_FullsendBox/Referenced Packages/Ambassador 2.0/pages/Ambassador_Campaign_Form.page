@@ -1,0 +1,66 @@
+<apex:page standardController="Ambassador__Ambassador_Campaign__c" extensions="Ambassador.Ambassador_Campaign_Form">
+    <apex:form id="Ambassador_Campaign_Form">
+        <apex:sectionHeader title="Ambassador Campaign Edit" subtitle="{!Ambassador__Ambassador_Campaign__c.Name}" />    
+        <apex:pageBlock id="pgBlock" mode="edit" title="Ambassador Campaign Edit">
+            <apex:pageMessages />
+            <apex:pageBlockButtons location="both">
+                <apex:commandButton value="Save" action="{!Save}"/>
+                <apex:commandButton value="Cancel" action="{!Cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection id="pgBlockSectionAcctInfo" title="Information" collapsible="false" columns="1" >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Ambassador Campaign Name</apex:outputLabel>
+                    <apex:outputField id="campaignName" value="{!Ambassador__Ambassador_Campaign__c.Name}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Campaign ID</apex:outputLabel>
+                    <apex:outputField id="campaignId" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Campaign_ID__c}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Create_Lead_Commission__c.inlineHelpText}">
+                    <apex:outputLabel >Create Lead Commission</apex:outputLabel>
+                    <apex:inputCheckbox id="leadCommission" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Create_Lead_Commission__c}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Create_Conversion_Commission__c.inlineHelpText}">
+                    <apex:outputLabel >Create Conversion Commission</apex:outputLabel>
+                    <apex:inputCheckbox id="conversionCommission" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Create_Conversion_Commission__c}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Create_Contact_Commission__c.inlineHelpText}">
+                    <apex:outputLabel >Create Contact Commission</apex:outputLabel>
+                    <apex:inputCheckbox id="contactCommission" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Create_Contact_Commission__c}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Positive_Opportunity_Stage__c.inlineHelpText}">
+                    <apex:outputLabel >Positive Opportunity Stage</apex:outputLabel>
+                    <apex:selectList id="positiveStage" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Positive_Opportunity_Stage__c}" multiselect="false" size="1">
+                        <apex:selectOptions value="{!positiveOpportunityOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Wait_Until_Opportunity_Amount_Is_Set__c.inlineHelpText}">
+                    <apex:outputLabel >Wait Until Opportunity Amount Is Set</apex:outputLabel>
+                    <apex:inputCheckbox id="waitUnitlOpportunityAmountIsSet" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Wait_Until_Opportunity_Amount_Is_Set__c}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Negative_Opportunity_Stage__c.inlineHelpText}">
+                    <apex:outputLabel >Negative Opportunity Stage</apex:outputLabel>
+                    <apex:selectList id="negativeStage" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Negative_Opportunity_Stage__c}" multiselect="false" size="1">
+                        <apex:selectOptions value="{!negativeOpportunityOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Approve_Closed_Opportunity_Commission__c.inlineHelpText}">
+                    <apex:outputLabel >{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Approve_Closed_Opportunity_Commission__c.label}</apex:outputLabel>
+                    <apex:selectList id="negativeStage" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Approve_Closed_Opportunity_Commission__c}" multiselect="false" size="1">
+                        <apex:selectOptions value="{!approveClosedOpportunityCommissionOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Opportunity_Stage_To_Send_Custom_Email_1__c.inlineHelpText}">
+                    <apex:outputLabel >{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__Opportunity_Stage_To_Send_Custom_Email_1__c.label}</apex:outputLabel>
+                    <apex:selectList id="opportunityStageToSendCustomEmail1" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__Opportunity_Stage_To_Send_Custom_Email_1__c}" multiselect="false" size="1">
+                        <apex:selectOptions value="{!opportunityStageToSendCustomEmailOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem HelpText="{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__API_Name_Of_Custom_Email_1__c.inlineHelpText}">
+                    <apex:outputLabel >{!$ObjectType.Ambassador__Ambassador_Campaign__c.fields.Ambassador__API_Name_Of_Custom_Email_1__c.label}</apex:outputLabel>
+                    <apex:inputField id="apiNameCustomEmail1" value="{!Ambassador__Ambassador_Campaign__c.Ambassador__API_Name_Of_Custom_Email_1__c}" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>       
+    </apex:form>
+</apex:page>

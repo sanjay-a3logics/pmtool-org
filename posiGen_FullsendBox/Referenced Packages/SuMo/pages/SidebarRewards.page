@@ -1,0 +1,416 @@
+<apex:page standardstylesheets="false" showheader="false" Controller="success.SuMoSidebarController" cache="true" >
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+
+<style> 
+
+img{-ms-interpolation-mode:bicubic}
+*{border:0;margin:0;padding:0;font-family:Helvetica; cursor: default;}
+body{}
+#rewardsTable{
+	border-spacing:1px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.sumo-dark{background-color:#064467}
+.noRecords{color:#fff;font-size:12px;padding-top:25px;height:100px;width:150px;margin:0 auto;text-align:center;overflow:hidden}
+.rewardImg{cursor:default;display:table;float:left;overflow:hidden;width:100%;text-align:center;position:absolute;top:25%}
+.rewardImg span{display:table-cell;vertical-align:middle;text-align:center}
+.rewardImg img{width:26px;height:26px;padding-right:3px}
+.rewardImg .large{width:45px!important;height:45px!important}
+.count{position:absolute;top:4px;right:4px;font-size:13px}
+.upper-border{border-top:1px solid #cfeef8}
+.lower-border{border-bottom:1px solid #cfeef8}
+.left-border{border-left:1px solid #cfeef8}
+.right-border{border-right:1px solid #cfeef8}
+.float-left{float:left}
+.float-right{float:right}
+.sumo-3x3{display:block;width:182px;height:150px;position:relative}
+.sumo-3x1{display:block;width:181px;height:50px;position:relative}
+.sumo-3xhalf{display:block;width:182px;height:75px;position:relative}
+.sumo-halfxhalf{display:block;width:90px;height:75px;position:relative}
+.sumo-halfx1{display:block;width:90px;height:50px;position:relative}
+.sumo-2x3{display:block;width:120px;height:150px;position:relative}
+.sumo-2x2{display:block;width:114px;height:94px;position:relative}
+.sumo-2x1{display:block;width:62px;height:94px;position:relative}
+.sumo-1x3{display:block;width:60px;height:150px;position:relative}
+.sumo-1x2{display:block;width:114px;height:50px;position:relative}
+.sumo-1x2b{display:block;width:118px;height:50px;position:relative}
+.sumo-1x2c{display:block;width:121px;height:50px;position:relative}
+.sumo-1x1{display:block;width:62px;height:50px;position:relative}
+.sumo-1x1b{display:block;width:59px;height:50px;position:relative}
+.sumo-1x1c{display:block;width:58px;height:50px;position:relative}
+.sumo-1x1e{display:block;width:61px;height:50px;position:relative}
+
+</style>
+
+<!--[if IE 8]>
+<style>
+	body {
+		background-color: #CEEEF9;
+	}
+</style>
+<![endif]-->
+
+<!--[if IE 7]>
+<style>
+	body {
+		background-color: #CEEEF9;
+	}
+</style>
+<![endif]-->
+
+<script type="text/javascript">
+	var $sj = successJQ.noConflict();
+	
+	var REWARDS = [];
+	
+	var STYLE = $sj.parseJSON('{!JSENCODE(styles)}');
+	
+	var hexGenerate = function(hex) {
+		if(hex == null || hex == undefined || hex == '' || hex == 'transparent') {
+			return 'transparent';
+		} else {
+			if(hex.indexOf("#") == -1) {
+				return '#' + hex;
+			} else {
+				return hex;
+			}
+		}
+	};
+	
+	
+	var fontColorValidate = function(defaultColor, bgColor) {
+		if(bgColor == 'transparent') {
+			return '#00476d';
+		}
+			return defaultColor;
+	};
+	
+	var compare  = function(a,b) {
+	  if (a.rewardCount < b.rewardCount) return 1;
+	  if (a.rewardCount > b.rewardCount) return -1;
+	  return 0;
+	};
+
+	var getRewardTiles = function(rewardsArray) {
+		
+		rewardsArray.sort(compare);
+
+		switch (rewardsArray.length) {
+			case 0:
+		      return '<tbody>' + 
+					'<tr>' + 
+						'<td><div class="sumo-3x3 sumo-dark"><div class="noRecords">' + 
+							'{!JSENCODE($Label.no_rewards_message)}' +
+						'</div></div></td>' + 
+					'</tr>' + 
+					'</tbody>';
+					
+			case 1:
+		    	return '<tbody>' + 
+					'<tr>' + 
+						'<td><div class="sumo-3x3" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img class="large" src="' + rewardsArray[0].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' + 
+						'</div></td>' + 
+					'</tr>' + 
+					'</tbody>';
+		   
+		   case 2:
+		   		return '<tbody>' + 
+					'<tr>' + 
+						'<td><div class="sumo-3xhalf" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img class="large" src="' + rewardsArray[0].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' + 
+						'</div></td>' + 
+					'</tr>' + 
+					'<tr>' + 
+						'<td><div class="sumo-3xhalf" style="background-color:' + hexGenerate(rewardsArray[1].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[1].rewardWithExperienceText + '"><span><img class="large" src="' + rewardsArray[1].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[1].backgroundColour) ) + ';">' + rewardsArray[1].rewardCount + '</span>' + 
+						'</div></td>' + 
+					'</tr>' + 
+					'</tbody>';	
+		   
+		   case 3:
+		   		return '<tbody>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-3xhalf" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img class="large" src="' + rewardsArray[0].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' + 
+						'</div></td>' + 
+					'</tr>' + 
+					'<tr>' + 
+						'<td><div class="sumo-halfxhalf" style="background-color:' + hexGenerate(rewardsArray[1].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[1].rewardWithExperienceText + '"><span><img class="large" src="' + rewardsArray[1].imageURL + '" /></span></div>' +
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[1].backgroundColour) ) + ';">' + rewardsArray[1].rewardCount + '</span>' + 
+						'</div></td>' +
+						'<td><div class="sumo-halfxhalf" style="background-color:' + hexGenerate(rewardsArray[2].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[2].rewardWithExperienceText + '"><span><img class="large" src="' + rewardsArray[2].imageURL + '" /></span></div>' +
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[2].backgroundColour) ) + ';">' + rewardsArray[2].rewardCount + '</span>' + 
+						'</div></td>' + 
+					'</tr>' + 
+					'</tbody>';
+					
+			case 4:
+		   		return '<tbody>' + 
+					'<tr>' + 
+						'<td><div class="sumo-2x2" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img class="large" src="' + rewardsArray[0].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' +  
+							'</div>' +
+							'<div class="sumo-1x2 upper-border" style="background-color:' + hexGenerate(rewardsArray[1].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[1].rewardWithExperienceText + '"><span><img src="' + rewardsArray[1].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[1].backgroundColour) ) + ';">' + rewardsArray[1].rewardCount + '</span>' + 
+						'</div></td>' +
+						'<td><div class="sumo-2x1 lower-border" style="background-color:' + hexGenerate(rewardsArray[2].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[2].rewardWithExperienceText + '" style="padding-top:2px;"><span><img class="large" src="' + rewardsArray[2].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[2].backgroundColour) ) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[2].backgroundColour) ) + ';">' + rewardsArray[2].rewardCount + '</span>' + 
+							'</div>' +
+							'<div class="sumo-1x1" style="background-color:' + hexGenerate(rewardsArray[3].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[3].rewardWithExperienceText + '"><span><img src="' + rewardsArray[3].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[3].backgroundColour) ) + ';">' + rewardsArray[3].rewardCount + '</span>' + 							
+						'</div></td>' +
+					'</tr>' + 
+					'</tbody>';
+					
+			case 5:
+		   		return '<tbody>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-3x1" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img src="' + rewardsArray[0].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' + 
+						'</div></td>' +
+					'</tr>' + 
+					'<tr>' + 
+						'<td><div class="sumo-halfx1" style="background-color:' + hexGenerate(rewardsArray[1].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[1].rewardWithExperienceText + '"><span><img src="' + rewardsArray[1].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[1].backgroundColour) ) + ';">' + rewardsArray[1].rewardCount + '</span>' +							
+						'</div></td>' +
+						'<td><div class="sumo-halfx1" style="background-color:' + hexGenerate(rewardsArray[2].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[2].rewardWithExperienceText + '"><span><img src="' + rewardsArray[2].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[2].backgroundColour) ) + ';">' + rewardsArray[2].rewardCount + '</span>' +							
+						'</div></td>' + 
+					'</tr>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-1x2c float-left" style="background-color:' + hexGenerate(rewardsArray[3].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[3].rewardWithExperienceText + '"><span><img src="' + rewardsArray[3].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[3].backgroundColour) ) + ';">' + rewardsArray[3].rewardCount + '</span>' + 
+							'</div>' +
+							'<div class="sumo-1x1b left-border float-right" style="background-color:' + hexGenerate(rewardsArray[4].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[4].rewardWithExperienceText + '"><span><img src="' + rewardsArray[4].imageURL + '" /></span></div>' +
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[4].backgroundColour) ) + ';">' + rewardsArray[4].rewardCount + '</span>' +							
+						'</div></td>' +
+					'</tr>' + 
+					'</tbody>';
+			
+			case 6:
+		   		return '<tbody>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-1x2c float-left" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img src="' + rewardsArray[0].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' + 
+							'</div>' +
+							'<div class="sumo-1x1b left-border float-right" style="background-color:' + hexGenerate(rewardsArray[1].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[1].rewardWithExperienceText + '"><span><img src="' + rewardsArray[1].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[1].backgroundColour) ) + ';">' + rewardsArray[1].rewardCount + '</span>' +							
+						'</div></td>' +
+					'</tr>' + 
+					'<tr>' + 
+						'<td><div class="sumo-halfx1" style="background-color:' + hexGenerate(rewardsArray[2].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[2].rewardWithExperienceText + '"><span><img src="' + rewardsArray[2].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) +  ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[2].backgroundColour) ) + ';">' + rewardsArray[2].rewardCount + '</span>' +							
+						'</div></td>' +
+						'<td><div class="sumo-halfx1" style="background-color:' + hexGenerate(rewardsArray[3].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[3].rewardWithExperienceText + '"><span><img src="' + rewardsArray[3].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) +  ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[3].backgroundColour) ) + ';">' + rewardsArray[3].rewardCount + '</span>' +							
+						'</div></td>' + 
+					'</tr>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-1x2c float-left" style="background-color:' + hexGenerate(rewardsArray[4].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[4].rewardWithExperienceText + '"><span><img src="' + rewardsArray[4].imageURL + '" /></span></div><span class="count" style="color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[4].backgroundColour) ) + ';">' + rewardsArray[4].rewardCount + '</span>' + 
+							'</div>' +
+							'<div class="sumo-1x1b left-border float-right" style="background-color:' + hexGenerate(rewardsArray[5].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[5].rewardWithExperienceText + '"><span><img src="' + rewardsArray[5].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) +  ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[5].backgroundColour) ) + ';">' + rewardsArray[5].rewardCount + '</span>' +							
+						'</div></td>' +
+					'</tr>' + 
+					'</tbody>';
+				
+			case 7:
+		   		return '<tbody>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-1x2c float-left" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img src="' + rewardsArray[0].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1b left-border float-right" style="background-color:' + hexGenerate(rewardsArray[1].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[1].rewardWithExperienceText + '"><span><img src="' + rewardsArray[1].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[1].backgroundColour) ) + ';">' + rewardsArray[1].rewardCount + '</span>' +							
+						'</div></td>' +
+					'</tr>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-1x1b right-border float-left" style="background-color:' + hexGenerate(rewardsArray[2].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[2].rewardWithExperienceText + '"><span><img src="' + rewardsArray[2].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[2].backgroundColour) ) + ';">' + rewardsArray[2].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x2c float-right" style="background-color:' + hexGenerate(rewardsArray[3].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[3].rewardWithExperienceText + '"><span><img src="' + rewardsArray[3].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[3].backgroundColour) ) + ';">' + rewardsArray[3].rewardCount + '</span>' +							
+							'</div></td>' +
+					'</tr>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-3x1">' +
+							'<div class="sumo-1x1b float-left" style="background-color:' + hexGenerate(rewardsArray[4].backgroundColour) + ';">' +					
+							'<div class="rewardImg" title="' + rewardsArray[4].rewardWithExperienceText + '"><span><img src="' + rewardsArray[4].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[4].backgroundColour) ) + ';">' + rewardsArray[4].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1e float-left left-border" style="background-color:' + hexGenerate(rewardsArray[5].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[5].rewardWithExperienceText + '"><span><img src="' + rewardsArray[5].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[5].backgroundColour) ) + ';">' + rewardsArray[5].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1b float-right left-border" style="background-color:' + hexGenerate(rewardsArray[6].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[6].rewardWithExperienceText + '"><span><img src="' + rewardsArray[6].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[6].backgroundColour) ) +';">' + rewardsArray[6].rewardCount + '</span>' +							
+							'</div>' +
+						'</div></td>' +
+					'</tr>' + 
+					'</tbody>';
+			
+			case 8:
+		   		return '<tbody>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-1x2c float-left" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img src="' + rewardsArray[0].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1b left-border float-right" style="background-color:' + hexGenerate(rewardsArray[1].backgroundColour) + ';">' + 
+							'<div class="rewardImg" title="' + rewardsArray[1].rewardWithExperienceText + '"><span><img src="' + rewardsArray[1].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[1].backgroundColour) ) + ';">' + rewardsArray[1].rewardCount + '</span>' +							
+						'</div></td>' +
+					'</tr>' +  
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-3x1">' +
+							'<div class="sumo-1x1b float-left" style="background-color:' + hexGenerate(rewardsArray[2].backgroundColour) + ';">' +					
+							'<div class="rewardImg" title="' + rewardsArray[2].rewardWithExperienceText + '"><span><img src="' + rewardsArray[2].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[2].backgroundColour) ) + ';">' + rewardsArray[2].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1e float-left left-border" style="background-color:' + hexGenerate(rewardsArray[3].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[3].rewardWithExperienceText + '"><span><img src="' + rewardsArray[3].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[3].backgroundColour) ) + ';">' + rewardsArray[3].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1b float-right left-border" style="background-color:' + hexGenerate(rewardsArray[4].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[4].rewardWithExperienceText + '"><span><img src="' + rewardsArray[4].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[4].backgroundColour) ) + ';">' + rewardsArray[4].rewardCount + '</span>' +							
+							'</div>' +
+						'</div></td>' +
+					'</tr>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-3x1">' +
+							'<div class="sumo-1x1b float-left" style="background-color:' + hexGenerate(rewardsArray[5].backgroundColour) + ';">' +					
+							'<div class="rewardImg" title="' + rewardsArray[5].rewardWithExperienceText + '"><span><img src="' + rewardsArray[5].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[5].backgroundColour) ) + ';">' + rewardsArray[5].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1e float-left left-border" style="background-color:' + hexGenerate(rewardsArray[6].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[6].rewardWithExperienceText + '"><span><img src="' + rewardsArray[6].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[6].backgroundColour) ) + ';">' + rewardsArray[6].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1b float-right left-border" style="background-color:' + hexGenerate(rewardsArray[7].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[7].rewardWithExperienceText + '"><span><img src="' + rewardsArray[7].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[7].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[7].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[7].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[7].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[7].backgroundColour) ) + ';">' + rewardsArray[7].rewardCount + '</span>' +							
+							'</div>' +
+						'</div></td>' +
+					'</tr>' + 
+					'</tbody>';
+			
+			default:	
+				return '<tbody>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-3x1">' +
+							'<div class="sumo-1x1b float-left" style="background-color:' + hexGenerate(rewardsArray[0].backgroundColour) + ';">' +					
+							'<div class="rewardImg" title="' + rewardsArray[0].rewardWithExperienceText + '"><span><img src="' + rewardsArray[0].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[0].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[0].backgroundColour) ) + ';">' + rewardsArray[0].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1e float-left left-border" style="background-color:' + hexGenerate(rewardsArray[1].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[1].rewardWithExperienceText + '"><span><img src="' + rewardsArray[1].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[1].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[1].backgroundColour) ) + ';">' + rewardsArray[1].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1b float-right left-border" style="background-color:' + hexGenerate(rewardsArray[2].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[2].rewardWithExperienceText + '"><span><img src="' + rewardsArray[2].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[2].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[2].backgroundColour) ) + ';">' + rewardsArray[2].rewardCount + '</span>' +							
+							'</div>' +
+						'</div></td>' +
+					'</tr>' +  
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-3x1">' +
+							'<div class="sumo-1x1b float-left" style="background-color:' + hexGenerate(rewardsArray[3].backgroundColour) + ';">' +					
+							'<div class="rewardImg" title="' + rewardsArray[3].rewardWithExperienceText + '"><span><img src="' + rewardsArray[3].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[3].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[3].backgroundColour) ) + ';">' + rewardsArray[3].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1e float-left left-border" style="background-color:' + hexGenerate(rewardsArray[4].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[4].rewardWithExperienceText + '"><span><img src="' + rewardsArray[4].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[4].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[4].backgroundColour) ) + ';">' + rewardsArray[4].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1b float-right left-border" style="background-color:' + hexGenerate(rewardsArray[5].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[5].rewardWithExperienceText + '"><span><img src="' + rewardsArray[5].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[5].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[5].backgroundColour) ) + ';">' + rewardsArray[5].rewardCount + '</span>' +							
+							'</div>' +
+						'</div></td>' +
+					'</tr>' + 
+					'<tr>' + 
+						'<td colspan="2"><div class="sumo-3x1">' +
+							'<div class="sumo-1x1b float-left" style="background-color:' + hexGenerate(rewardsArray[6].backgroundColour) + ';">' +					
+							'<div class="rewardImg" title="' + rewardsArray[6].rewardWithExperienceText + '"><span><img src="' + rewardsArray[6].imageURL + '" /></span></div>' +
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[6].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[6].backgroundColour) ) + ';">' + rewardsArray[6].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1e float-left left-border" style="background-color:' + hexGenerate(rewardsArray[7].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[7].rewardWithExperienceText + '"><span><img src="' + rewardsArray[7].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[7].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[7].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[7].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[7].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[7].backgroundColour) ) + ';">' + rewardsArray[7].rewardCount + '</span>' +							
+							'</div>' +
+							'<div class="sumo-1x1b float-right left-border" style="background-color:' + hexGenerate(rewardsArray[8].backgroundColour) + ';">' +
+							'<div class="rewardImg" title="' + rewardsArray[8].rewardWithExperienceText + '"><span><img src="' + rewardsArray[8].imageURL + '" /></span></div>' + 
+							'<span class="count" style="text-shadow: -1px -1px 0 ' + hexGenerate(rewardsArray[8].backgroundColour) + ', 1px -1px 0 ' + hexGenerate(rewardsArray[8].backgroundColour) + ', -1px 1px 0 ' + hexGenerate(rewardsArray[8].backgroundColour) + ', 1px 1px 0 ' + hexGenerate(rewardsArray[8].backgroundColour) + ';color:' + fontColorValidate('#ffffff', hexGenerate(rewardsArray[8].backgroundColour) ) + ';">' + rewardsArray[8].rewardCount + '</span>' +							
+							'</div>' +
+						'</div></td>' +
+					'</tr>' + 
+					'</tbody>';
+		}
+	};			
+	
+				
+	function rewardsCallBack() {    
+	 	Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.SuMoSidebarController.getRewardSummaryDetails}',
+			function(result, event){ 	
+	      		if (event.status) {          
+					REWARDS = result;	      
+					render();         
+				}  else {
+					if (this.console) {             
+						console.log(event.message);
+					}           
+				}
+			},         
+			{escape: true}   
+		);
+	}
+	
+	function render() {
+		// obtain the sidebar module
+		var sidebarSumo = $sj('body'); 
+				
+		var rewardsHTML = '<div><table id="rewardsTable">';
+				
+		rewardsHTML += getRewardTiles(REWARDS);
+		
+		rewardsHTML += '</table></div>';
+		
+		// append the new content 
+		$sj(sidebarSumo).append(rewardsHTML);
+		
+		// style corrections
+		$sj(".sumo-dark").css("background-color", hexGenerate(STYLE.rewardGeneric.backgroundColour));
+		$sj(".rewardImg").each(function() {
+			if($sj(this).find('.large').length  == 0) {
+				if($sj(this).next('.count').text().length > 1) {
+                   $sj(this).next('.count').css("font-size", "11px");
+                }
+			}
+		});
+		
+	}
+	
+	$sj(document).ready(function() { 
+		rewardsCallBack();
+	});
+</script>
+</apex:page>

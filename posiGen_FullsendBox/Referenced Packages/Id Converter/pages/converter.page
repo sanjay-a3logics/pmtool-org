@@ -1,0 +1,18 @@
+<apex:page controller="ities_id.converter_controller" showHeader="false" standardStylesheets="true">
+<!--
+    Created by: Interactive Ties
+    Last Update: 2 August 2011 by Greg_H
+    Questions?: InteractiveTies.com/contact
+    Copyright (c) 2003-2011 Interactive Ties LLC
+-->
+    <body style="background-color: #{!CASE(UserTheme,'Theme3','CFEEF8','E8E8E8')};">
+        <div class="sidebareModule">
+            <apex:form >
+                <div><apex:inputText id="sel_15_char_id" maxlength="15" size="15" tabindex="1" title="15 Character Id" value="{!sel_15_char_id}"></apex:inputText>&nbsp;<apex:commandButton action="{!convert}" id="convert" rerender="results" value="Get!"></apex:commandButton></div>
+                <div><apex:outputPanel id="results" style="display: {!IF(showResult,'','none')};"><span style="font-weight: bold;">= </span>{!eighteenChars}</apex:outputPanel><span>&nbsp;</span></div>
+                <div style="font-size: .2em;">&nbsp;</div>
+                <a href="http://www.interactiveties.com/idconverter" style="color: #{!CASE(UserTheme,'Theme3','9BB3BA','AEAEAE')}; text-decoration: none;" target="_new"><div align="center" style="color: #{!CASE(UserTheme,'Theme3','9BB3BA','AEAEAE')}; font-size: .9em;">~ Built by Interactive Ties ~</div></a>
+            </apex:form>
+        </div>
+    </body>
+</apex:page>

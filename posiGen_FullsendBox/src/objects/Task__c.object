@@ -1,0 +1,1642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Actual_Complete_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Complete Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Actual_Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Actual Start Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Needed_By_Me__c</fullName>
+        <externalId>false</externalId>
+        <formula>Approver__c  = $User.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Approval Needed By Me</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Approval_Required__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Approval Required</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Approved_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Approved Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Approver__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Approver</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Tasks_To_Approve</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Assigned_To_Me__c</fullName>
+        <externalId>false</externalId>
+        <formula>Assigned_To__c = $User.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Assigned To Me</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Assigned_To__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Assigned To</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Tasks</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Attach_File__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/a2b/e?CF00Nd0000007gcfh=&quot;+(Project_Name__c)+
+&quot;&amp;CF00Nd0000007gcfh_lkid=&quot;+Milestone__r.Project__r.Id +&quot;&amp;CF00Nd0000007gJA1=&quot;+ Name +&quot;&amp;CF00Nd0000007gJA1_lkid=&quot;+ Id +&quot;&amp;retURL=&quot; + Milestone__r.Project__r.Id , &quot;New Attachment&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <inlineHelpText>URL to make an attachment associated with this task and project and return the user to the Project screen.</inlineHelpText>
+        <label>Attach File</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Class__c</fullName>
+        <externalId>false</externalId>
+        <label>Class</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ad-Hoc</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Planned</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Rework</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Complete__c</fullName>
+        <externalId>false</externalId>
+        <formula>ISPICKVAL(Status__c , &apos;Completed&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Complete</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Liaison__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Opportunity__r.Project_Manager__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Customer Liaison</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deadline__c</fullName>
+        <externalId>false</externalId>
+        <label>Deadline</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Decision_Answer__c</fullName>
+        <externalId>false</externalId>
+        <label>Decision Answer</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Set</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Decision_Question__c</fullName>
+        <externalId>false</externalId>
+        <label>Decision Question</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Decision_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Decision Reason</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Default_Assignee_Position_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Default_Assignee_Position__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Default Assignee Position Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Default_Assignee_Position__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Default Assignee Position</label>
+        <referenceTo>Position__c</referenceTo>
+        <relationshipName>Tasks_Default_To</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>32000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>10</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Has_Predecessor__c</fullName>
+        <externalId>false</externalId>
+        <formula>NOT(ISBLANK( Predecessor_Task__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Has Predecessor</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Import_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Import ID</label>
+        <length>18</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Kickoff__c</fullName>
+        <externalId>false</externalId>
+        <label>Kickoff</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Milestone_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Milestone_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Milestone Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Milestone__c</fullName>
+        <externalId>false</externalId>
+        <label>Milestone</label>
+        <referenceTo>Milestone__c</referenceTo>
+        <relationshipName>Tasks</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Numeric_ID__c</fullName>
+        <externalId>true</externalId>
+        <label>Numeric ID</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Numeric_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Opportunity_Numeric_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opportunity Numeric ID</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predecessor_Decision_Answer__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Predecessor_Task__r.Decision_Answer__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Predecessor Decision Answer</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predecessor_Decision_Question__c</fullName>
+        <externalId>false</externalId>
+        <formula>Predecessor_Task__r.Decision_Question__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Predecessor Decision Question</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predecessor_Task_Import_Id__c</fullName>
+        <externalId>false</externalId>
+        <label>Predecessor Task Import Id</label>
+        <length>18</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predecessor_Task_Outline_Num_from_Import__c</fullName>
+        <externalId>false</externalId>
+        <label>Predecessor Task Outline Num from Import</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predecessor_Task_Outline_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Predecessor_Task__r.Task_Outline_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Predecessor Task Outline Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predecessor_Task_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Predecessor_Task__r.Status__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Predecessor Task Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Predecessor_Task__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Predecessor Task</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Task__c.Milestone__c</field>
+                <operation>equals</operation>
+                <valueField>$Source.Milestone__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Task__c</referenceTo>
+        <relationshipName>Successor_Tasks</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ProjectId__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID(Milestone__r.Project__r.Id)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>ProjectId</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Marked_Complete_On__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Marked_Completed_On_Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Marked Complete On</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Project_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Project_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Record_Type__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.RecordTypeId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Record Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Milestone__r.Project__r.Status__c)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_Template_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Template_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project Template Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project__c</fullName>
+        <externalId>false</externalId>
+        <formula>HYPERLINK( Milestone__r.Project__c , Milestone__r.Project__r.Name,&apos;_self&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Project</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Project_for_Related_List__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>this faciliates easy related list use.</inlineHelpText>
+        <label>Project</label>
+        <referenceTo>Project__c</referenceTo>
+        <relationshipName>Tasks</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Ready_To_Work__c</fullName>
+        <externalId>false</externalId>
+        <formula>AND(
+	NOT(TEXT(Status__c) = &apos;Completed&apos;),
+	OR( NOT(Milestone__r.Has_Predecessor__c),  Milestone__r.Predecessor_Milestone_Complete__c ),
+	OR( NOT(Has_Predecessor__c), 
+		AND(Predecessor_Task__r.Complete__c,
+			OR(NOT( Predecessor_Task__r.Task_Is_a_Decision__c ), 
+			   OR(ISPICKVAL(Successor_Applies_When_Pred_Decision_Is__c, &apos;Either&apos;), 
+			      TEXT(Successor_Applies_When_Pred_Decision_Is__c) = TEXT(Predecessor_Task__r.Decision_Answer__c))
+			)
+		)
+	)
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Ready To Work</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Ready_to_Approve__c</fullName>
+        <externalId>false</externalId>
+        <formula>AND (Approval_Required__c,   ISPICKVAL(Status__c, &apos;Completed&apos;))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Ready to Approve</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Required_Attachment_to_Complete__c</fullName>
+        <externalId>false</externalId>
+        <label>Required Attachment to Complete</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Building Permit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Contractor License</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EE Assessment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EE Upgrade Forms</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electrical Permit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Net Meter Interconnect Agreement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV Feasibility Analysis</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV Roof Layout</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PV System Spec</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Sales_Person__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Opportunity__r.OwnerId</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Sales Person</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Source_Project_Template_Number__c</fullName>
+        <externalId>false</externalId>
+        <label>Source Project Template Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Subcontractor_User__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Subcontractor__r.Default_Assignee_User__r.Id</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Subcontractor User</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Successor_Applies_When_Pred_Decision_Is__c</fullName>
+        <externalId>false</externalId>
+        <label>Successor Applies When Pred Decision Is</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Either</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Task_Is_a_Decision__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Task Is a Decision</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Task_Number_within_Milestone__c</fullName>
+        <externalId>false</externalId>
+        <label>Task Number (within Milestone)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Opportunity__c</fullName>
+        <externalId>false</externalId>
+        <formula>Milestone__r.Project__r.Opportunity__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Task Opportunity</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Task_Outline_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Milestone__r.Milestone_Number__c) + &apos;.&apos; +   TEXT(Task_Number_within_Milestone__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Task Outline Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Template_Project_Task_Outline_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>TEXT(Project_Template_Number__c) + &apos;.&apos; +  Task_Outline_Number__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Template Project Task Outline Number</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Task - MPM</label>
+    <listViews>
+        <fullName>EE_Assessments_Open_Tasks_Ready_to_Work</fullName>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Kickoff__c</columns>
+        <columns>Predecessor_Task__c</columns>
+        <columns>Predecessor_Task_Import_Id__c</columns>
+        <columns>Import_ID__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Ready_To_Work__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Project_Record_Type__c</field>
+            <operation>equals</operation>
+            <value>Project__c.EE_Assessment</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <label>EE Assessments Open Tasks Ready to Work</label>
+    </listViews>
+    <listViews>
+        <fullName>EE_Open_Tasks_Ready_to_Work</fullName>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Kickoff__c</columns>
+        <columns>Predecessor_Task__c</columns>
+        <columns>Predecessor_Task_Import_Id__c</columns>
+        <columns>Import_ID__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Ready_To_Work__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Project_Record_Type__c</field>
+            <operation>equals</operation>
+            <value>Project__c.EE_Assessment,Project__c.EE_Upgrade</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <label>EE Open Tasks Ready to Work</label>
+    </listViews>
+    <listViews>
+        <fullName>EE_Upgrade_Open_Tasks_Ready_to_Work</fullName>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Kickoff__c</columns>
+        <columns>Predecessor_Task__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Ready_To_Work__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Project_Record_Type__c</field>
+            <operation>equals</operation>
+            <value>Project__c.EE_Upgrade</value>
+        </filters>
+        <filters>
+            <field>Project_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <label>EE Upgrade Open Tasks Ready to Work</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Open_Project_Tasks_Not_Ready_to_Work</fullName>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Kickoff__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Assigned_To_Me__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Ready_To_Work__c</field>
+            <operation>equals</operation>
+            <value>0</value>
+        </filters>
+        <label>My Open Project Tasks Not Ready to Work</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Open_Project_Tasks_Ready_to_Work</fullName>
+        <columns>NAME</columns>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Assigned_To__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Assigned_To_Me__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Ready_To_Work__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>My Open Project Tasks Ready to Work</label>
+    </listViews>
+    <listViews>
+        <fullName>My_Project_Tasks_Ready_to_Review</fullName>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Kickoff__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Approval_Needed_By_Me__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Ready_to_Approve__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>My Project Tasks Ready to Review</label>
+    </listViews>
+    <listViews>
+        <fullName>Open_Tasks_Not_Ready_to_Work</fullName>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Kickoff__c</columns>
+        <columns>Status__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Ready_To_Work__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <label>Open Tasks Not Ready to Work</label>
+    </listViews>
+    <listViews>
+        <fullName>Open_Tasks_Ready_to_Work</fullName>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>Status__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>Kickoff__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Ready_To_Work__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <label>Open Tasks Ready to Work</label>
+    </listViews>
+    <listViews>
+        <fullName>PV_Feasibility_Open_Tasks</fullName>
+        <columns>Project__c</columns>
+        <columns>NAME</columns>
+        <columns>Assigned_To__c</columns>
+        <columns>Status__c</columns>
+        <columns>Actual_Start_Date__c</columns>
+        <columns>Actual_Complete_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Project__c</field>
+            <operation>contains</operation>
+            <value>PV Feas</value>
+        </filters>
+        <filters>
+            <field>Project__c</field>
+            <operation>notContain</operation>
+            <value>Template</value>
+        </filters>
+        <label>PV Feasibility Open Tasks</label>
+    </listViews>
+    <listViews>
+        <fullName>PV_Install_Completed_Tasks</fullName>
+        <columns>Project__c</columns>
+        <columns>NAME</columns>
+        <columns>Assigned_To__c</columns>
+        <columns>Status__c</columns>
+        <columns>Actual_Start_Date__c</columns>
+        <columns>Actual_Complete_Date__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Project__c</field>
+            <operation>contains</operation>
+            <value>PV Install</value>
+        </filters>
+        <filters>
+            <field>Project__c</field>
+            <operation>notContain</operation>
+            <value>Template</value>
+        </filters>
+        <label>PV Install Completed Tasks</label>
+    </listViews>
+    <listViews>
+        <fullName>PV_Install_Open_Tasks</fullName>
+        <columns>Project__c</columns>
+        <columns>NAME</columns>
+        <columns>Assigned_To__c</columns>
+        <columns>Status__c</columns>
+        <columns>Actual_Start_Date__c</columns>
+        <columns>Actual_Complete_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Project__c</field>
+            <operation>contains</operation>
+            <value>PV Install</value>
+        </filters>
+        <filters>
+            <field>Project__c</field>
+            <operation>notContain</operation>
+            <value>Template</value>
+        </filters>
+        <label>PV Install Open Tasks</label>
+    </listViews>
+    <listViews>
+        <fullName>PV_Installs_Not_Left_WH</fullName>
+        <columns>CREATED_DATE</columns>
+        <columns>Project__c</columns>
+        <columns>NAME</columns>
+        <columns>Assigned_To__c</columns>
+        <columns>Status__c</columns>
+        <columns>Actual_Start_Date__c</columns>
+        <columns>Actual_Complete_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>notEqual</operation>
+            <value>Completed</value>
+        </filters>
+        <filters>
+            <field>Project__c</field>
+            <operation>contains</operation>
+            <value>PV Install</value>
+        </filters>
+        <filters>
+            <field>Project__c</field>
+            <operation>notContain</operation>
+            <value>Template</value>
+        </filters>
+        <filters>
+            <field>NAME</field>
+            <operation>equals</operation>
+            <value>Pick Up Mechanical</value>
+        </filters>
+        <filters>
+            <field>Actual_Complete_Date__c</field>
+            <operation>equals</operation>
+        </filters>
+        <label>PV Installs Not Left WH</label>
+    </listViews>
+    <listViews>
+        <fullName>Provisioning_In_Progress</fullName>
+        <columns>NAME</columns>
+        <columns>Project__c</columns>
+        <columns>LAST_UPDATE</columns>
+        <columns>Assigned_To__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Status__c</field>
+            <operation>equals</operation>
+            <value>In Progress</value>
+        </filters>
+        <filters>
+            <field>NAME</field>
+            <operation>contains</operation>
+            <value>Provisioning</value>
+        </filters>
+        <label>Check Provisioning In Progress</label>
+    </listViews>
+    <listViews>
+        <fullName>SF_2_0_Implementation_Tasks</fullName>
+        <columns>CREATED_DATE</columns>
+        <columns>Project__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>Task_Outline_Number__c</columns>
+        <columns>NAME</columns>
+        <columns>Assigned_To__c</columns>
+        <columns>Status__c</columns>
+        <columns>Default_Assignee_Position__c</columns>
+        <columns>Predecessor_Task__c</columns>
+        <columns>Decision_Question__c</columns>
+        <columns>Approver__c</columns>
+        <columns>Required_Attachment_to_Complete__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Project__c</field>
+            <operation>contains</operation>
+            <value>SF 2.0</value>
+        </filters>
+        <label>SF 2.0 Implementation Tasks</label>
+    </listViews>
+    <listViews>
+        <fullName>Service_Call_Testing_1</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Ready_To_Work__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <filters>
+            <field>NAME</field>
+            <operation>contains</operation>
+            <value>visit</value>
+        </filters>
+        <label>Service Call Testing 1</label>
+    </listViews>
+    <listViews>
+        <fullName>Template_Project_Tasks</fullName>
+        <columns>CREATED_DATE</columns>
+        <columns>Project__c</columns>
+        <columns>Template_Project_Task_Outline_Number__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>Assigned_To__c</columns>
+        <columns>Default_Assignee_Position_Name__c</columns>
+        <columns>Predecessor_Task__c</columns>
+        <columns>Required_Attachment_to_Complete__c</columns>
+        <columns>Decision_Question__c</columns>
+        <columns>Approver__c</columns>
+        <columns>RECORDTYPE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Project_Template_Number__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </filters>
+        <label>Template Project Tasks</label>
+    </listViews>
+    <listViews>
+        <fullName>Template_Project_Tasks_Std_Rec_Type</fullName>
+        <columns>CREATED_DATE</columns>
+        <columns>Project__c</columns>
+        <columns>Template_Project_Task_Outline_Number__c</columns>
+        <columns>Milestone__c</columns>
+        <columns>NAME</columns>
+        <columns>Assigned_To__c</columns>
+        <columns>Default_Assignee_Position_Name__c</columns>
+        <columns>Predecessor_Task__c</columns>
+        <columns>Required_Attachment_to_Complete__c</columns>
+        <columns>Decision_Question__c</columns>
+        <columns>Approver__c</columns>
+        <columns>RECORDTYPE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Project_Template_Number__c</field>
+            <operation>greaterThan</operation>
+            <value>0</value>
+        </filters>
+        <filters>
+            <field>RECORDTYPE</field>
+            <operation>equals</operation>
+            <value>Task__c.Standard</value>
+        </filters>
+        <label>Template Project Tasks (Std Rec Type)</label>
+    </listViews>
+    <nameField>
+        <label>Task Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Tasks</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>Service_Call</fullName>
+        <active>true</active>
+        <label>Service Call</label>
+        <picklistValues>
+            <picklist>Class__c</picklist>
+            <values>
+                <fullName>Ad-Hoc</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Planned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rework</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Decision_Answer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Set</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Required_Attachment_to_Complete__c</picklist>
+            <values>
+                <fullName>Building Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contractor License</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE Assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE Upgrade Forms</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electrical Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net Meter Interconnect Agreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Feasibility Analysis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Roof Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV System Spec</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Successor_Applies_When_Pred_Decision_Is__c</picklist>
+            <values>
+                <fullName>Either</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Standard</fullName>
+        <active>true</active>
+        <label>Standard</label>
+        <picklistValues>
+            <picklist>Class__c</picklist>
+            <values>
+                <fullName>Ad-Hoc</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Planned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rework</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Decision_Answer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Set</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Required_Attachment_to_Complete__c</picklist>
+            <values>
+                <fullName>Building Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contractor License</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE Assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE Upgrade Forms</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electrical Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net Meter Interconnect Agreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Feasibility Analysis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Roof Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV System Spec</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Successor_Applies_When_Pred_Decision_Is__c</picklist>
+            <values>
+                <fullName>Either</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Task_with_Decision</fullName>
+        <active>true</active>
+        <label>Task with Decision</label>
+        <picklistValues>
+            <picklist>Class__c</picklist>
+            <values>
+                <fullName>Ad-Hoc</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Planned</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Rework</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Decision_Answer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Set</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Required_Attachment_to_Complete__c</picklist>
+            <values>
+                <fullName>Building Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Contractor License</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE Assessment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EE Upgrade Forms</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Electrical Permit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Invoice</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net Meter Interconnect Agreement</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Feasibility Analysis</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV Roof Layout</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PV System Spec</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Completed</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Started</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Successor_Applies_When_Pred_Decision_Is__c</picklist>
+            <values>
+                <fullName>Either</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>Assigned_To__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <validationRules>
+        <fullName>Cant_Status_Complete_if_ASD_Is_Null</fullName>
+        <active>true</active>
+        <errorConditionFormula>ISNULL( Actual_Start_Date__c )  &amp;&amp;  ISPICKVAL(Status__c,&quot;Completed&quot;)</errorConditionFormula>
+        <errorMessage>Can&apos;t set a Start with no Actual Start Date as Complete.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Mark_As_Complete</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Mark As Complete</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/23.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/23.0/apex.js&quot;)} 
+
+var url = parent.location.href; //string for the URL of the current page
+var records = {!GETRECORDIDS($ObjectType.Task__c)}; //grabs the Task__c records that the user is requesting to update
+var updateRecords = []; //array for holding records that this code will ultimately update
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+	alert(&quot;Please select at least one record to update.&quot;); //alert the user that they didn&apos;t make a selection 
+} else { //otherwise, there was a record selection
+	for (var a=0; a&lt;records.length; a++) { //for all records
+		var update_Task__c = new sforce.SObject(&quot;Task__c&quot;); //create a new sObject for storing updated record details
+		update_Task__c.Id = records[a]; //set the Id of the selected Task__c record
+		update_Task__c.Status__c = &quot;Completed&quot;; //set the value for Status to &apos;Completed&apos;
+		updateRecords.push(update_Task__c); //add the updated record to our array
+	}
+	result = sforce.connection.update(updateRecords); //push the updated records back to Salesforce
+	parent.location.href = url; //refresh the page
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Mark_As_Started</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Mark As Started</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/23.0/connection.js&quot;)} 
+{!REQUIRESCRIPT(&quot;/soap/ajax/23.0/apex.js&quot;)} 
+
+var url = parent.location.href; //string for the URL of the current page
+var records = {!GETRECORDIDS($ObjectType.Task__c)}; //grabs the Task__c records that the user is requesting to update
+var updateRecords = []; //array for holding records that this code will ultimately update
+
+if (records[0] == null) { //if the button was clicked but there was no record selected
+	alert(&quot;Please select at least one record to update.&quot;); //alert the user that they didn&apos;t make a selection 
+} else { //otherwise, there was a record selection
+	for (var a=0; a&lt;records.length; a++) { //for all records
+		var update_Task__c = new sforce.SObject(&quot;Task__c&quot;); //create a new sObject for storing updated record details
+		update_Task__c.Id = records[a]; //set the Id of the selected Task__c record
+		update_Task__c.Status__c = &quot;In Progress&quot;; //set the value for Status to &apos;Completed&apos;
+		updateRecords.push(update_Task__c); //add the updated record to our array
+	}
+	result = sforce.connection.update(updateRecords); //push the updated records back to Salesforce
+	parent.location.href = url; //refresh the page
+}</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,13 @@
+<apex:page standardController="Lead" showHeader="false">
+    <apex:form >
+    <apex:inlineEditSupport disabled="false" />
+   <apex:pageBlock mode="mainDetail" tabStyle="Lead">
+    <apex:pageBlockSection columns="2"> 
+           <apex:outputField value="{!lead.LeadSource}" />
+           <apex:outputField value="{!lead.Sub_Lead_Source__c} "/>
+           <apex:outputField value="{!lead.Referring_Customer__c}" 
+               rendered="{!lead.Sub_Lead_Source__c == "Customer Referral"}" />
+    </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

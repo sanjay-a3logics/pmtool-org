@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BK Field Analyzer</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <namespacePrefix>bkfa</namespacePrefix>
+    <types>
+        <members>AnalyzeFieldUsageController</members>
+        <members>BatchSummarizeFieldUsage</members>
+        <members>MetadataService</members>
+        <members>MetadataServiceTest</members>
+        <members>TestFieldUsage</members>
+        <members>ToolingAPI</members>
+        <members>ToolingAPITest</members>
+        <members>ViewFieldUsageController</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>AnalyzeFieldUsage</members>
+        <members>ViewFieldUsage</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Account.NumberofLocations__c</members>
+        <members>Account.SLAExpirationDate__c</members>
+        <members>Account.SLA__c</members>
+        <members>FieldInfo__c.FieldAccessibilityLink__c</members>
+        <members>FieldInfo__c.FieldAccessibilityURL__c</members>
+        <members>FieldInfo__c.FieldUsageSnapshot__c</members>
+        <members>FieldInfo__c.IsCustom__c</members>
+        <members>FieldInfo__c.IsFormula__c</members>
+        <members>FieldInfo__c.IsRequired__c</members>
+        <members>FieldInfo__c.NumPageLayouts__c</members>
+        <members>FieldUsageCustomReportType__c.FieldInfo__c</members>
+        <members>FieldUsageCustomReportType__c.Label__c</members>
+        <members>FieldUsageLayout__c.Behavior__c</members>
+        <members>FieldUsageLayout__c.FieldInfo__c</members>
+        <members>FieldUsageSnapshot__c.ExcludeFormulaFields__c</members>
+        <members>FieldUsageSnapshot__c.ExcludeRequiredFields__c</members>
+        <members>FieldUsageSnapshot__c.Filter__c</members>
+        <members>FieldUsageSnapshot__c.GroupingField__c</members>
+        <members>FieldUsageSnapshot__c.Grouping__c</members>
+        <members>FieldUsageSnapshot__c.TopRoleId__c</members>
+        <members>FieldUsageSnapshot__c.TotalPageLayouts__c</members>
+        <members>FieldUsageSnapshot__c.sObjectKeyPrefix__c</members>
+        <members>FieldUsageSnapshot__c.sObjectLabel__c</members>
+        <members>FieldUsageSnapshot__c.sObjectName__c</members>
+        <members>FieldUsage__c.FieldInfo__c</members>
+        <members>FieldUsage__c.NumObjectsChecked__c</members>
+        <members>FieldUsage__c.NumObjectsWhereFilled__c</members>
+        <members>FieldUsage__c.ProfileFieldAccess__c</members>
+        <members>FieldUsage__c.ProfileFieldPermissions__c</members>
+        <members>FieldUsage__c.ProfileObjectPermissions__c</members>
+        <members>FieldUsage__c.ProfileOrRoleId__c</members>
+        <members>FieldUsage__c.ProfileOrRoleName__c</members>
+        <members>FieldUsage__c.RecordTypeId__c</members>
+        <members>FieldUsage__c.RecordTypeName__c</members>
+        <members>FieldUsage__c.Usage__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>FieldInfo__c</members>
+        <members>FieldUsageCustomReportType__c</members>
+        <members>FieldUsageLayout__c</members>
+        <members>FieldUsageSnapshot__c</members>
+        <members>FieldUsage__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>AnalyzeFieldUsage</members>
+        <members>ViewFieldUsage</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>FieldInfo__c-Field Info Layout</members>
+        <members>FieldUsageCustomReportType__c-Field Usage Custom Record Type Layout</members>
+        <members>FieldUsageLayout__c-Field Usage Layout Layout</members>
+        <members>FieldUsageSnapshot__c-Field Usage Snapshot Layout</members>
+        <members>FieldUsage__c-Field Usage Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>FieldUsage__c.All</members>
+        <name>ListView</name>
+    </types>
+    <types>
+        <members>OpenTip</members>
+        <members>OpenTipCss</members>
+        <members>Sortable</members>
+        <members>jQuery</members>
+        <members>jsTree</members>
+        <name>StaticResource</name>
+    </types>
+    <version>36.0</version>
+</Package>

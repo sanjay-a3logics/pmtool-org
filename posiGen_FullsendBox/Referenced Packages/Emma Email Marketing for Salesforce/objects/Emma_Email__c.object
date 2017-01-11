@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Contact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipName>Emma_Emails</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Date_Opened__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Date/time the email was first opened.</inlineHelpText>
+        <label>Date Opened</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Emma_Mailing__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Emma Mailing</label>
+        <referenceTo>Emma_Mailing__c</referenceTo>
+        <relationshipName>Emma_Emails</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Lead</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipName>Emma_Emails</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Mailing_ID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <inlineHelpText>Emma ID of the mailing this email message is a part of.</inlineHelpText>
+        <label>Mailing ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Member_Name__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>HYPERLINK(&quot;/&quot;&amp; BLANKVALUE(Lead__c,Contact__c), IF(ISBLANK(Lead__c), Contact__r.FirstName &amp; &quot; &quot; &amp; Contact__r.LastName, Lead__r.FirstName &amp; &quot; &quot; &amp; Lead__r.LastName), &quot;_top&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Member Name</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Member_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF(ISBLANK(Lead__c), &quot;Contact&quot;, &quot;Lead&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Member Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Message_ID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>Message ID</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Opened__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>IF ( Summary_Num_of_Opens__c &gt; 0, &quot;Yes&quot;, &quot;No&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Opened?</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Clicks__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of clicks.</description>
+        <externalId>false</externalId>
+        <label># of Clicks</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Click</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Facebook_Clicks__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number link clicks in Facebook.</description>
+        <externalId>false</externalId>
+        <label># of Facebook Clicks</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Share Click</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Social_Network__c</field>
+            <operation>equals</operation>
+            <value>Facebook</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Mailing_Link__c</field>
+            <operation>notEqual</operation>
+            <value>NULL</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Facebook_Shares__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of Facebook shares.</description>
+        <externalId>false</externalId>
+        <label># of Facebook Shares</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Share</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Social_Network__c</field>
+            <operation>equals</operation>
+            <value>Facebook</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Forwards__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of forwards.</description>
+        <externalId>false</externalId>
+        <label># of Forwards</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Forward</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_LinkedIn_Clicks__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of clicks from LinkedIn</description>
+        <externalId>false</externalId>
+        <label># of LinkedIn Clicks</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Share Click</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Social_Network__c</field>
+            <operation>equals</operation>
+            <value>LinkedIn</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Mailing_Link__c</field>
+            <operation>notEqual</operation>
+            <value>NULL</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_LinkedIn_Shares__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of LinkedIn shares.</description>
+        <externalId>false</externalId>
+        <label># of LinkedIn Shares</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Share</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Social_Network__c</field>
+            <operation>equals</operation>
+            <value>LinkedIn</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Opens__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of message opens</description>
+        <externalId>false</externalId>
+        <label># of Opens</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Open</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Shares__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of Shares.</description>
+        <externalId>false</externalId>
+        <label># of Shares</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Share</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Twitter_Clicks__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of link clicks from Twitter.</description>
+        <externalId>false</externalId>
+        <label># of Twitter Clicks</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Share Click</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Social_Network__c</field>
+            <operation>equals</operation>
+            <value>Twitter</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Mailing_Link__c</field>
+            <operation>notEqual</operation>
+            <value>NULL</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Twitter_Shares__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of Twitter shares.</description>
+        <externalId>false</externalId>
+        <label># of Twitter Shares</label>
+        <summaryFilterItems>
+            <field>Email_Action__c.Action__c</field>
+            <operation>equals</operation>
+            <value>Share</value>
+        </summaryFilterItems>
+        <summaryFilterItems>
+            <field>Email_Action__c.Social_Network__c</field>
+            <operation>equals</operation>
+            <value>Twitter</value>
+        </summaryFilterItems>
+        <summaryForeignKey>Email_Action__c.Emma_Email__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>View_In_Emma__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>hyperlink(&quot;javascript:alert(&apos;Mailing or Message? Need Emma URL.&apos;)&quot;, &quot;View In Emma&quot;, &quot;_blank&quot;)</formula>
+        <inlineHelpText>Click to view this (MESSAGE|MAILING) in Emma.</inlineHelpText>
+        <label>remove</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Response Activity</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Email Subject</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Emma Response Activities</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Emma_Campaigns_Page</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Emma Campaigns Page</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>false</requireRowSelection>
+        <url>window.open(&apos;https://app.e2ma.net/app2/campaigns/&apos;)</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,116 @@
+<apex:page standardcontroller="success__Challenge__c" extensions="success.ChallengeController">
+
+        <apex:form >
+        <apex:sectionHeader title="{!$ObjectType.success__Challenge__c.Label} {!$Label.view}" subtitle="{!success__Challenge__c.Name}"/>
+            <apex:pageBlock title="{!$ObjectType.success__Challenge__c.Label} {!$Label.view}"  mode="maindetail">
+                <apex:pageMessages />
+                 
+                 <!--  Buttons -->
+                <apex:pageBlockButtons >
+                    <apex:commandButton title="{!$Label.edit}" value="{!$Label.edit}" action="{!edit}" rendered="{!$ObjectType.success__Challenge__c.updateable}"/>
+                    <apex:commandButton title="{!$Label.delete}" value="{!$Label.delete}" action="{!delete}" rendered="{!$ObjectType.success__Challenge__c.deletable}"/>
+                    <apex:commandButton action="{!URLFOR($Action.Challenge__c.Share,Challenge__c.Id)}" value="Share"/>
+                </apex:pageBlockButtons>
+                
+                 <!-- Information Section -->
+                 <apex:pageBlockSection columns="2" title="{!$ObjectType.success__Challenge__c.Label} {!$Label.information}" collapsible="true">
+                     <apex:repeat value="{!$ObjectType.success__Challenge__c.FieldSets.success__StandardInformationFieldSet}" var="infofield"> 
+                         <apex:outputField value="{!success__Challenge__c[infofield]}" />
+                     </apex:repeat>
+                	<apex:outputField value="{!success__Challenge__c.success__Frequency__c}" />
+				 </apex:pageBlockSection>
+                 
+                 <!-- Details Section -->
+                 <apex:pageBlockSection columns="1" title="{!$ObjectType.success__Challenge__c.Label} {!$Label.Details}" collapsible="true">
+                 	<apex:repeat value="{!$ObjectType.success__Challenge__c.FieldSets.success__DetailsFieldSet}" var="detailsfield"> 
+                         <apex:outputField value="{!success__Challenge__c[detailsfield]}" />
+                     </apex:repeat>
+                 </apex:pageBlockSection>
+              
+                 <!-- Challenge Section -->
+                 <apex:pageBlockSection columns="1" id="challenge1" title="{!$ObjectType.success__Achievement__c.Label} {!$Label.information}" collapsible="false">
+                        <apex:outputField value="{!completionAchievement.success__Description__c}"/>
+                 </apex:pageBlockSection>
+                 
+                 <apex:pageBlockSection columns="2" id="challenge2" collapsible="true">   
+                 	<apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__ChallengeFieldSet}" var="infofield"> 
+	                	 <apex:outputField value="{!completionAchievement[infofield]}" />
+	             	</apex:repeat>                                     
+                 </apex:pageBlockSection>
+
+                 <!-- Acceptance Section -->
+                 <apex:pageBlockSection columns="2" id="acceptance" title="{!$Label.acceptance_reward}" collapsible="true">
+                        <apex:outputField value="{!acceptanceAchievement.success__Experience_Formula__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                        <apex:outputField value="{!acceptanceAchievement.success__Reward_Message__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+                                 
+                 
+                 <!-- Repetition Section -->
+                  <apex:pageBlockSection title="{!$Label.repeated_reward}" columns="2" id="repetition" rendered="{!IF(success__Challenge__c.success__Frequency__c == 'Recurring',True,False)}">
+
+                    <apex:outputField value="{!completionAchievement.success__Experience_Repeat_Formula__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                    <apex:outputField value="{!completionAchievement.success__Repetition_Reward_Message__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+
+
+                    <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.accessible}"
+                         helpText="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.InlineHelpText}">
+                        <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.Label}" /> 
+                        <apex:outputText value="{!aggregateField}"  />
+                     </apex:pageBlockSectionItem>   
+
+                       <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.accessible}"
+                                                    helpText="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.InlineHelpText}">   
+                          <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.Label}" />  
+                          <apex:outputPanel >
+                              <apex:outputField value="{!completionAchievement.success__Minimum_hours_between_actions__c}" style="width: 30px" />
+                              <apex:outputText value=" {!completionAchievement.success__Minimum_time_unit__c}" />
+                          </apex:outputPanel>
+                      </apex:pageBlockSectionItem>
+
+                     <apex:outputField value="{!completionAchievement.success__Number_of_occurrences__c}" /> 
+                    
+                     <apex:pageBlockSectionItem />
+
+                    <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.accessible}"
+                                                helpText="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.InlineHelpText}">   
+                      <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.Label}" />  
+                      <apex:outputPanel >
+                          <apex:outputField value="{!completionAchievement.success__Time_limit_in_days__c}" style="width: 30px" />
+                          <apex:outputText value=" {!completionAchievement.success__Time_Limit_Unit__c}" />
+                      </apex:outputPanel>
+                    </apex:pageBlockSectionItem>
+
+	             </apex:pageBlockSection>	
+                
+                 
+                 <!--  Completion Section -->
+                  <apex:pageBlockSection columns="2" id="completion" title="{!$Label.completion_reward}" collapsible="true" >
+
+                        <apex:outputField value="{!completionAchievement.success__Experience_Formula__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                        <apex:outputField value="{!completionAchievement.success__Reward_Message__c}" />
+                        <apex:pageBlockSectionItem ><apex:outputPanel ></apex:outputPanel><apex:outputPanel ></apex:outputPanel></apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+                 
+                 
+                <!-- System Information Section -->
+                <apex:pageBlockSection columns="2" title="{!$Label.sysinfo}" collapsible="true">
+                    <apex:repeat value="{!$ObjectType.success__Challenge__c.FieldSets.success__SystemInformationFieldSet}" var="field"> 
+                        <apex:outputField value="{!success__Challenge__c[field]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+                
+               
+            </apex:pageBlock>
+           
+        </apex:form>
+        
+    
+         <apex:relatedList list="user_challenges__r" rendered="{!renderUserChallengesRelatedList}"  />
+
+
+</apex:page>

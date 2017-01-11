@@ -1,0 +1,162 @@
+<apex:page standardController="success__Challenge__c" extensions="success.ChallengeController">
+
+<!--
+     <link rel="stylesheet" type="text/css" href="{!URLFOR($Resource.jQuery,'css/cupertino/jquery-ui-1.8.10.custom.css')}" />    
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'js/jquery-1.3.2.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.jQuery, 'js/jquery-ui-1.8.10.custom.min.js')}" />
+-->
+
+
+    <apex:stylesheet value="{!URLFOR($Resource.success__jQuery, 'css/neutral/jquery-ui-1.11.1.custom.min.css')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.11.1.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-ui-1.11.1.min.js')}" />
+
+    <script type="text/javascript">var $sj = successJQ.noConflict();</script>
+
+    <apex:includeScript value="{!URLFOR($Resource.success__Underscore)}" />
+    
+    <script type="text/javascript">
+
+        function experienceFormulaButtonHandler(inputId, callback) {
+            return componentModule_experienceFormulaComponent.show({
+                inputId: inputId,
+                insertCallBack: callback
+            });
+        }
+
+    </script>
+  
+    <apex:form >
+
+
+
+            <c:FormulaFieldCustomSelector cid="experienceFormulaComponent" selectObjects="{!completionAchievement.success__Object__c},{!$ObjectType.User.Name}:Recipient" formulaFormat="$object.$field" restrictChildRelations="true" />
+
+            <apex:sectionHeader title="{!$ObjectType.success__Challenge__c.Label} {!$Label.edit}" subtitle="{!success__Challenge__c.Name}"/>
+           <apex:pageBlock title="{!$ObjectType.success__Challenge__c.Label} {!$Label.edit}"  mode="edit">
+            <apex:pageMessages />
+                
+                <!--  Buttons -->
+                <apex:pageBlockButtons >
+                    <apex:commandButton title="{!$Label.save}" value="{!$Label.save}" action="{!saveAchievements}" />
+                    <apex:commandButton title="{!$Label.cancel_no_save}" value="{!$Label.cancel}" action="{!cancel}" />
+                </apex:pageBlockButtons>
+                
+                 <!-- Information Section -->
+                 <apex:pageBlockSection columns="2" title="{!$ObjectType.success__Challenge__c.Label} {!$Label.information}" collapsible="false">
+                     <apex:repeat value="{!$ObjectType.success__Challenge__c.FieldSets.success__StandardInformationFieldSet}" var="infofield"> 
+                         <apex:inputField value="{!success__Challenge__c[infofield]}" required="{!OR(infofield.required, infofield.dbrequired)}"/>
+                     </apex:repeat>
+                     <apex:pageBlockSectionItem >
+                     	<apex:outputLabel value="{!$ObjectType.success__Challenge__c.Fields.success__Frequency__c.Label}" />
+	                     <apex:outputPanel styleClass="requiredInput" layout="block" >
+				    		<apex:outputPanel styleClass="requiredBlock" layout="block"/>
+							<apex:actionRegion >
+							<apex:inputField value="{!success__Challenge__c.success__Frequency__c}">
+							 	<apex:actionSupport event="onchange"  rerender="output" action="{!initialiseAchievements}" />
+							</apex:inputField>
+							
+                            </apex:actionRegion>
+					    </apex:outputPanel>
+					</apex:pageBlockSectionItem>
+                 </apex:pageBlockSection>
+                 
+                 <!-- Details Section -->
+                 <apex:pageBlockSection columns="1" title="{!$ObjectType.success__Challenge__c.Label} {!$Label.Details}" collapsible="false">
+                 	<apex:repeat value="{!$ObjectType.success__Challenge__c.FieldSets.success__DetailsFieldSet}" var="detailsfield"> 
+                         <apex:inputField value="{!success__Challenge__c[detailsfield]}" required="{!OR(detailsfield.required, detailsfield.dbrequired)}"/>
+                     </apex:repeat>
+                 </apex:pageBlockSection>
+                 
+              
+                 <apex:outputPanel id="output"> 
+                 <!-- Challenge Section -->
+                 <apex:pageBlockSection columns="1" id="challenge1" title="{!$ObjectType.success__Achievement__c.Label} {!$Label.information}" collapsible="false">
+                        <apex:inputField value="{!completionAchievement.success__Description__c}" style="width:550px" />
+                 </apex:pageBlockSection>
+                 
+                 <apex:pageBlockSection columns="2" id="challenge2" collapsible="false">   
+                 	<apex:repeat value="{!$ObjectType.success__Achievement__c.FieldSets.success__ChallengeFieldSet}" var="infofield"> 
+	                	 <apex:inputField value="{!completionAchievement[infofield]}" required="{!OR(infofield.required, infofield.dbrequired)}"/>
+	             	</apex:repeat>                                     
+                 </apex:pageBlockSection>
+
+                 <!-- Acceptance Section -->
+
+                <!-- Acceptance Reward Section --> 
+                <apex:inputHidden value="{!acceptanceAchievement.success__Experience_Formula__c}" id="acceptanceFormula" />
+                <c:FormulaComposer cid="acceptanceFormulaComposer" inputElement="{!$Component.acceptanceFormula}" formulaFieldHandler="experienceFormulaButtonHandler" fieldLabel="{!$ObjectType.success__Achievement__c.fields.success__Experience_Formula__c.Label}" fieldHelptext="{!$ObjectType.success__Achievement__c.fields.success__Experience_Formula__c.InlineHelpText}" sectionTitle="{!$Label.acceptance_reward}" />
+
+                <apex:pageBlockSection columns="1" collapsible="false">
+                    <apex:inputField value="{!acceptanceAchievement.success__Reward_Message__c}" required="true" style="width: 320px; height: 42px;" />
+                </apex:pageBlockSection>
+                                 
+                 
+                 <!-- Repetition Section -->
+                <apex:inputHidden value="{!completionAchievement.success__Experience_Repeat_Formula__c}" id="repetitionFormula" rendered="{!IF(success__Challenge__c.success__Frequency__c == 'Recurring',True,False)}" />
+                <c:FormulaComposer cid="repetitionFormulaComposer" inputElement="{!$Component.repetitionFormula}" formulaFieldHandler="experienceFormulaButtonHandler" fieldLabel="{!$ObjectType.success__Achievement__c.fields.success__Experience_Repeat_Formula__c.Label}" fieldHelptext="{!$ObjectType.success__Achievement__c.fields.success__Experience_Repeat_Formula__c.InlineHelpText}" sectionTitle="{!$Label.repeated_reward}"  rendered="{!IF(success__Challenge__c.success__Frequency__c == 'Recurring',True,False)}" />
+
+                  <apex:pageBlockSection columns="1" id="repetition_message" collapsible="false" rendered="{!IF(success__Challenge__c.success__Frequency__c == 'Recurring',True,False)}">
+                         <apex:inputField value="{!completionAchievement.success__Repetition_Reward_Message__c}" style="width:320px; height: 42px;" required="true"/>                                          
+                 </apex:pageBlockSection>
+
+                  <apex:pageBlockSection columns="2" id="noOfOccurrences" collapsible="false" rendered="{!IF(success__Challenge__c.success__Frequency__c == 'Recurring',True,False)}">
+
+                        <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.accessible}"
+                             helpText="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.InlineHelpText}">
+                            <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Aggregate_Field__c.Label}" /> 
+                            <apex:outputText value="{!aggregateField}"  />
+                        </apex:pageBlockSectionItem>      
+
+                        <apex:pageBlockSectionItem />
+
+                        <apex:inputField value="{!completionAchievement.success__Number_of_occurrences__c}" required="true"/>
+                        
+
+                       <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.accessible}"
+                                                    helpText="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.InlineHelpText}">   
+                          <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Minimum_hours_between_actions__c.Label}" />  
+                          <apex:outputPanel >
+                              <apex:inputField value="{!completionAchievement.success__Minimum_hours_between_actions__c}" style="width: 30px" />
+                          
+                              <apex:SelectList value="{!completionAchievement.success__Minimum_time_unit__c}" size="1">
+                                <apex:selectOptions value="{!waitTimeOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                          </apex:outputPanel>
+                      </apex:pageBlockSectionItem>
+
+
+                      <apex:pageBlockSectionItem rendered="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.accessible}"
+                                                    helpText="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.InlineHelpText}">   
+                          <apex:outputLabel value="{!$ObjectType.success__Achievement__c.Fields.success__Time_limit_in_days__c.Label}" />  
+                          <apex:outputPanel >
+                              <apex:inputField value="{!completionAchievement.success__Time_limit_in_days__c}" style="width: 30px" />
+                          
+                              <apex:SelectList value="{!completionAchievement.success__Time_Limit_Unit__c}" size="1">
+                                <apex:selectOptions value="{!timeLimitOptions}"></apex:selectOptions>
+                              </apex:SelectList>
+                          </apex:outputPanel>
+                      </apex:pageBlockSectionItem>
+
+
+
+                 </apex:pageBlockSection>
+                 
+                 
+                 <!--  Completion Section -->
+
+                <apex:inputHidden value="{!completionAchievement.success__Experience_Formula__c}" id="completionFormula" />
+                <c:FormulaComposer cid="completionFormulaComposer" inputElement="{!$Component.completionFormula}" formulaFieldHandler="experienceFormulaButtonHandler" fieldLabel="{!$ObjectType.success__Achievement__c.fields.success__Experience_Formula__c.Label}" fieldHelptext="{!$ObjectType.success__Achievement__c.fields.success__Experience_Formula__c.InlineHelpText}" sectionTitle="{!$Label.completion_reward}" />
+
+                  <apex:pageBlockSection columns="1" id="completion_message" collapsible="false" >                       
+                        <apex:inputField value="{!completionAchievement.success__Reward_Message__c}" style="width:320px; height 42px;" required="true" />                                              
+                 </apex:pageBlockSection>
+                 
+                 </apex:outputPanel>
+                 
+         </apex:pageBlock>  
+            
+    </apex:form>    
+             
+    
+</apex:page>

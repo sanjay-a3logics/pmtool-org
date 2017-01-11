@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>NewEmmaMailing</content>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Email_Subject__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Subject line of the email.</inlineHelpText>
+        <label>Email Subject</label>
+        <length>120</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Emma_Mailing_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>Emma Mailing Id</label>
+        <length>80</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Mailing_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Mailing Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Regular</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Test</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Notification</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Trigger</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Forward</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Split Test</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Num_of_Recipients__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Number of leads or contacts that received this mailing.</inlineHelpText>
+        <label># of Recipients</label>
+        <summaryForeignKey>Emma_Email__c.Emma_Mailing__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Public_Web_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>URL for mailing in Emma.</inlineHelpText>
+        <label>Public Web URL</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Clicks__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of clicks.</description>
+        <externalId>false</externalId>
+        <label># of Clicks</label>
+        <summarizedField>Emma_Email__c.Summary_Num_of_Clicks__c</summarizedField>
+        <summaryForeignKey>Emma_Email__c.Emma_Mailing__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Forwards__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of forwards</description>
+        <externalId>false</externalId>
+        <label># of Forwards</label>
+        <summarizedField>Emma_Email__c.Summary_Num_of_Forwards__c</summarizedField>
+        <summaryForeignKey>Emma_Email__c.Emma_Mailing__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Opens__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of opens</description>
+        <externalId>false</externalId>
+        <label># of Opens</label>
+        <summarizedField>Emma_Email__c.Summary_Num_of_Opens__c</summarizedField>
+        <summaryForeignKey>Emma_Email__c.Emma_Mailing__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Summary_Num_of_Shares__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of shares.</description>
+        <externalId>false</externalId>
+        <label># of Shares</label>
+        <summarizedField>Emma_Email__c.Summary_Num_of_Shares__c</summarizedField>
+        <summaryForeignKey>Emma_Email__c.Emma_Mailing__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>View_in_Emma__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>HYPERLINK( Public_Web_URL__c , &apos;See this Mailing&apos; , &apos;_blank&apos;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>See this Mailing</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Visits_from_Facebook__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of visits to this mailing from Facebook.</description>
+        <externalId>false</externalId>
+        <label>Visits from Facebook</label>
+        <summarizedField>Emma_Email__c.Summary_Num_of_Facebook_Clicks__c</summarizedField>
+        <summaryForeignKey>Emma_Email__c.Emma_Mailing__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Visits_from_LinkedIn__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of visits to this campaign from LinkedIn</description>
+        <externalId>false</externalId>
+        <label>Visits from LinkedIn</label>
+        <summarizedField>Emma_Email__c.Summary_Num_of_LinkedIn_Clicks__c</summarizedField>
+        <summaryForeignKey>Emma_Email__c.Emma_Mailing__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Visits_from_Twitter__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Total number of visits to this mailing from Twitter</description>
+        <externalId>false</externalId>
+        <label>Visits from Twitter</label>
+        <summarizedField>Emma_Email__c.Summary_Num_of_Twitter_Clicks__c</summarizedField>
+        <summaryForeignKey>Emma_Email__c.Emma_Mailing__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <label>Emma Mailing</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Num_of_Recipients__c</columns>
+        <columns>Summary_Num_of_Opens__c</columns>
+        <columns>Summary_Num_of_Clicks__c</columns>
+        <columns>View_in_Emma__c</columns>
+        <columns>Mailing_Type__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Emma Mailing Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Emma Mailings</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Num_of_Recipients__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Summary_Num_of_Opens__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Summary_Num_of_Clicks__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+        <customTabListAdditionalFields>View_in_Emma__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <startsWith>Vowel</startsWith>
+    <webLinks>
+        <fullName>View_in_Emma</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>See this Mailing</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>window.open(&apos;{!Emma_Mailing__c.Public_Web_URL__c}&apos;)</url>
+    </webLinks>
+</CustomObject>

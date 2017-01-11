@@ -1,0 +1,5 @@
+<apex:page standardController="Contact" recordSetVar="listRecs" extensions="NVMConnect.ListFromListViewController"> 
+
+    <NVMConnect:ListFromListView dataSource="{!me}" />
+
+ </apex:page>

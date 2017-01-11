@@ -1,0 +1,69 @@
+<apex:page controller="NVMConnect.ListUploadController">
+<apex:pagemessages />
+
+  <apex:sectionHeader title="Upload Dial List Data in CSV File"/>
+
+  <apex:form enctype="multipart/form-data">
+
+    <apex:pageBlock title="Upload List Data" rendered="{!dataRows < 1}">
+
+      <apex:pageBlockButtons >
+        <apex:commandButton action="{!Upload}" value="Upload"/>
+      </apex:pageBlockButtons>
+
+      <apex:pageBlockSection showHeader="false" columns="2" id="block1">
+
+      <apex:pageBlockSectionItem >
+          <apex:inputFile contentType="text" required="true" value="{!document.body}" filename="{!document.name}" id="file"/>
+        </apex:pageBlockSectionItem>
+
+      </apex:pageBlockSection>
+
+    </apex:pageBlock>
+    <apex:pageBlock title="Map columns" rendered="{!dataRows > 0}">
+      <apex:pageBlockButtons >
+        <apex:commandButton action="{!Save}" value="Save"/>
+      </apex:pageBlockButtons>
+        <apex:pageblockSection showHeader="false" columns="2" id="mapcols">
+
+            <apex:pageBlockSectionItem >
+              <apex:outputLabel for="listName" value="New List Name"/>
+              <apex:inputText id="listName" value="{!dialListName}" required="true"/>
+            </apex:pageBlockSectionItem>
+
+            <apex:pageBlockSectionItem >
+            </apex:pageBlockSectionItem>
+
+
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="idVal" value="ID Column"/>
+                <apex:selectList id="idVal" value="{!idColumn}" size="1" style="padding-left:1px;padding-right:1px;width:150px">
+                    <apex:selectOptions value="{!columnNames}" />
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="descVal" value="Entry Description"/>
+                <apex:selectList id="descVal" value="{!descColumn}" size="1" style="padding-left:1px;padding-right:1px;width:150px">
+                    <apex:selectOptions value="{!columnNames}" />
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="primaryPhoneVal" value="Primary Phone"/>
+                <apex:selectList id="primaryPhoneVal" value="{!primaryPhoneColumn}" size="1" style="padding-left:1px;padding-right:1px;width:150px">
+                    <apex:selectOptions value="{!columnNames}" />
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="secondaryPhoneVal" value="Secondary Phone"/>
+                <apex:selectList id="secondaryPhoneVal" value="{!secondaryPhoneColumn}" size="1" style="padding-left:1px;padding-right:1px;width:150px">
+                    <apex:selectOptions value="{!columnNames}" />
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+
+        </apex:pageblockSection>
+
+    </apex:pageBlock>
+
+  </apex:form>
+
+</apex:page>

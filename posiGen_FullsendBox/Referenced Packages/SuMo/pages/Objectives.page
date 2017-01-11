@@ -1,0 +1,186 @@
+<apex:page sidebar="false" 
+  cache="false"
+  controller="success.ObjectivesController">
+
+  <!-- Remote Objects Definitions -->
+  <apex:remoteObjects jsNamespace="RemoteObjectModel">
+    <!-- Objectives -->
+    <apex:remoteObjectModel name="success__Team__c" jsShorthand="Objective" fields="Id,Name,RecordTypeId">
+      <apex:remoteObjectField name="success__Description__c" jsShorthand="Description" />
+    </apex:remoteObjectModel>
+    <!-- Objective Achievements -->
+    <apex:remoteObjectModel name="success__Team_Achievement__c" jsShorthand="ObjectiveAchievement" fields="Id,Name">
+      <apex:remoteObjectField name="success__Team__c" jsShorthand="ObjectiveId" />
+      <apex:remoteObjectField name="success__Achievement__c" jsShorthand="AchievementId" />
+    </apex:remoteObjectModel>
+    <!-- Achievements -->
+    <apex:remoteObjectModel name="success__Achievement__c" jsShorthand="Achievement" fields="Id,Name">
+      <apex:remoteObjectField name="success__Active__c" jsShorthand="Active" />
+      <apex:remoteObjectField name="success__Hidden__c" jsShorthand="Hidden" />
+      <apex:remoteObjectField name="success__Competition_Only__c" jsShorthand="Restricted" />
+      <apex:remoteObjectField name="success__Publish_Date__c" jsShorthand="PublishDate" />
+      <apex:remoteObjectField name="success__Retire_Date__c" jsShorthand="RetireDate" />
+      <apex:remoteObjectField name="success__Level_Up__c" jsShorthand="LevelUp" />
+      <apex:remoteObjectField name="success__Functional_Area__c" jsShorthand="FunctionalArea" />
+      <apex:remoteObjectField name="success__Object__c" jsShorthand="Obj" />
+      <apex:remoteObjectField name="success__Available__c" jsShorthand="Available" />
+    </apex:remoteObjectModel>
+  </apex:remoteObjects>
+
+
+    <!-- styles -->
+    <apex:stylesheet value="{!URLFOR($Resource.success__LightningBundle, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'vendor/rome/rome.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'vendor/charts/angular-chart.min.css')}"/>
+
+    <apex:stylesheet value="{!URLFOR($Resource.success__ObjectivesBundle, 'objectives/objectives.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalAchievements/achievements.css')}" />
+
+
+    <div class="slds" ng-app="objectives" ng-cloak="true" style="min-height:500px;">
+      
+      <div ng-include="' {!URLFOR($Resource.ObjectivesBundle, 'components/permissionsAlert/permissionsAlert.html')} '"></div>
+
+      <div class="slds-page-header" 
+            role="banner" 
+            ng-include="' {!URLFOR($Resource.ObjectivesBundle, 'components/header/header.html')} '"></div>
+
+
+      <div class="container" 
+            ng-include="' {!URLFOR($Resource.ObjectivesBundle, 'objectives/objectives.html')} '"></div>
+
+    </div>
+
+    <!-- vendor js -->
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/jquery/jquery-2.1.3.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/jquery/jquery.dropdown.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/rome/rome.min.js')}"/>
+
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/lodash.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/moment/moment.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/moment/moment-locales.js')}" />
+    <script type="text/javascript">moment.locale('{!userLocale}');</script>
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/loki.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/angular/angular.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/angular/angular-animate.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/angular/angular-modal-service.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/rome/rome.directive.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/charts/Chart.min.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/charts/barLine.extension.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/charts/angular-chart.min.js')}" />
+
+    <!-- app js -->
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'app.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/permissionsAlert/permissionsAlert.controller.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/header/header.controller.js')}" />
+
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalIndicators/indicators.controller.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalIndicators/indicators.service.js')}" />
+
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalObjectiveEdit/modalObjectiveEdit.controller.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalObjectiveDelete/modalObjectiveDelete.controller.js')}" />
+    
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalAchievements/achievements.controller.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalAchievements/achievementLookup.controller.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalAchievements/achievementLookup.directive.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalAchievements/autoFocus.directive.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/modalAchievements/achievements.service.js')}" />
+    
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'objectives/remoteObjects.service.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'components/lib/counter.service.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'objectives/objectives.service.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'objectives/objectives.controller.js')}" />
+    <apex:includeScript value="{!URLFOR($Resource.success__ObjectivesBundle, 'objectives/objective.decorator.js')}" />
+
+    <script type="text/javascript">
+      var CONSTANTS = {
+        "symbols": {
+          "utilitySort": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#sort')}",
+          "utilityDown": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#down')}",
+          "customClock": "{!URLFOR($Resource.LightningBundle, '/assets/icons/custom-sprite/svg/symbols.svg#custom95')}",
+          "utilitySuccess": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#success')}",
+          "utilityPreview": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#preview')}",
+          "customSafe": "{!URLFOR($Resource.LightningBundle, '/assets/icons/custom-sprite/svg/symbols.svg#custom87')}",
+          "actionClose": "{!URLFOR($Resource.LightningBundle, '/assets/icons/action-sprite/svg/symbols.svg#close')}",
+          "utilitySettings": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#settings')}",
+          "utilityCheck": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#check')}",
+          "utilityClose": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#close')}",
+          "utilitySearch": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#search')}",
+          "utilityAdd": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#add')}",
+          "utilityChart": "{!URLFOR($Resource.LightningBundle, '/assets/icons/utility-sprite/svg/symbols.svg#chart')}",
+          "actionGoal": "{!URLFOR($Resource.LightningBundle, '/assets/icons/action-sprite/svg/symbols.svg#goal')}",
+        },
+
+        "labels": {
+          "objective": "{!JSENCODE($Label.Objective)}",
+          "objectives": "{!JSENCODE($Label.Objectives)}",
+
+          "activateAll": "{!JSENCODE($Label.Activate_all)}",
+          "deactivateAll": "{!JSENCODE($Label.Deactivate_all)}",
+          "hideAll": "{!JSENCODE($Label.Hide_all)}",
+          "unhideAll": "{!JSENCODE($Label.Unhide_all)}",
+          "restrictAll": "{!JSENCODE($Label.Restrict_all)}",
+          "unrestrictAll": "{!JSENCODE($Label.Unrestrict_all)}",
+          "setPublishRetireDates": "{!JSENCODE($Label.Set_publish_retire_dates)}",
+          "delete": "{!JSENCODE($Label.delete)}",
+          "confirm_delete": "{!JSENCODE($Label.confirm_delete)}",
+          "add": "{!JSENCODE($Label.add)}",
+          "edit": "{!JSENCODE($Label.edit)}",
+          "new": "{!JSENCODE($Label.new)}",
+          "cancel": "{!JSENCODE($Label.cancel)}",
+          "save": "{!JSENCODE($Label.save)}",
+          "remove": "{!JSENCODE($Label.remove)}",
+          "apply": "{!JSENCODE($Label.apply)}",
+          "count": "{!JSENCODE($Label.count)}",
+          "status": "{!JSENCODE($Label.status)}",
+          "by": "{!JSENCODE($Label.by)}",
+          "records": "{!JSENCODE($Label.records)}",
+          "ordered": "{!JSENCODE($Label.ordered)}",
+          "threshold": "{!JSENCODE($Label.caution)}",
+
+
+          "hidden": "{!JSENCODE($ObjectType.Achievement__c.Fields.Hidden__c.Label)}",
+          "unhidden": "{!JSENCODE($Label.visible)}",
+          "restricted": "{!JSENCODE($ObjectType.Achievement__c.Fields.Competition_Only__c.Label)}",
+          "notset": "{!JSENCODE($Label.not_set)}",
+          "unrestricted": "{!JSENCODE($Label.unrestricted)}",
+          "active": "{!JSENCODE($ObjectType.Achievement__c.Fields.Active__c.Label)}",
+          "inactive": "{!JSENCODE($Label.inactive)}",
+          "variable": "{!JSENCODE($Label.inconsistent)}",
+          "inconsistent": "{!JSENCODE($Label.inconsistent)}",
+          "insufficientObjectivePermissions": "{!JSENCODE($Label.insufficientObjectivePermissions)}",
+
+          "achievement": "{!JSENCODE($ObjectType.Achievement__c.Label)}",
+          "achievements": "{!JSENCODE($ObjectType.Achievement__c.LabelPlural)}",
+          "achievementName": "{!JSENCODE($ObjectType.Achievement__c.Fields.Name.Label)}",
+          "achievementActive": "{!JSENCODE($ObjectType.Achievement__c.Fields.Active__c.Label)}",
+          "achievementAvailable": "{!JSENCODE($ObjectType.Achievement__c.Fields.Available__c.Label)}",
+          "achievementHidden": "{!JSENCODE($ObjectType.Achievement__c.Fields.Hidden__c.Label)}",
+          "achievementRestricted": "{!JSENCODE($ObjectType.Achievement__c.Fields.Competition_Only__c.Label)}",
+          "achievementPublishDate": "{!JSENCODE($ObjectType.Achievement__c.Fields.Publish_Date__c.Label)}",
+          "achievementRetireDate": "{!JSENCODE($ObjectType.Achievement__c.Fields.Retire_Date__c.Label)}",
+          "achievementFunctionalArea": "{!JSENCODE($ObjectType.Achievement__c.Fields.Functional_Area__c.Label)}",
+          "achievementObject": "{!JSENCODE($Label.object)}", 
+          "objectiveName": "{!JSENCODE($ObjectType.Team__c.Fields.Name.Label)}",
+          "objectiveDescription": "{!JSENCODE($ObjectType.Team__c.Fields.Description__c.Label)}"
+        },
+
+        "spinner": "{!URLFOR($Resource.LightningBundle, '/assets/images/spinners/slds_spinner_brand.gif')}",
+        "appPath": "{!URLFOR($Resource.ObjectivesBundle, '')}",
+        "objectiveRecordTypeId": "{!objectiveRecordTypeId}",
+        "triggerEnabledObjects": "{!JSENCODE(triggerEnabledObjects)}",
+        "userChallengeObjectName": "{!$ObjectType.User_Challenge__c.Name}",
+        "achievementsThreshold": "{!maxNumberOfAchievements}",
+        "userCanCreateObjectives": "{!userCanCreateObjectives}",
+        "getObjectLabelsByNames": "{!$RemoteAction.ObjectivesController.getObjectLabelsByNames}"
+      };
+
+    </script>
+
+    <apex:includeScript value="{!URLFOR($Resource.success__CommonBundle, 'vendor/svg4everybody.min.js')}"/>
+
+    <script type="text/javascript">
+      svg4everybody();
+    </script>
+
+</apex:page>

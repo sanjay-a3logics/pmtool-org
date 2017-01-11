@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NewVoiceMedia_Cloud8_oauth</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <modules>
+        <module>
+            <label>NewVoiceMedia_Cloud8_oauth</label>
+            <moduleType>connected</moduleType>
+            <name>NewVoiceMedia_Cloud8_oauth</name>
+            <types>
+                <members>NewVoiceMedia_Cloud8_oauth_devConfig</members>
+                <name>ConnectivityDevConfigMetadata</name>
+            </types>
+            <types>
+                <members>NVMContactWorld__NewVoiceMedia_Cloud8_oauth</members>
+                <name>Module</name>
+            </types>
+            <version>69.0</version>
+        </module>
+    </modules>
+    <namespacePrefix>NVMContactWorld</namespacePrefix>
+    <version>36.0</version>
+</Package>

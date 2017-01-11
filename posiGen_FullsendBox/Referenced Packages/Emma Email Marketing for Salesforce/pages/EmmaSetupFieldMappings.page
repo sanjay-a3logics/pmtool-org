@@ -1,0 +1,128 @@
+<apex:page id="t2" controller="emma.EmmaSetupController" action="{!initMappingsPage}">
+	
+<script>
+var shortcutName = '';
+
+function formatDisplayName(dispName){
+	//replace special characters with spaces
+	shortcutName = dispName.replace(/[^A-Z0-9]+/ig, ' ');
+	//remove leading/trailing/whitespace
+	shortcutName = shortcutName.trim();
+	//replace remaining whitespace with dashes
+	shortcutName = shortcutName.replace(/\s+/g, '-');
+
+}
+
+function writeShortcutName(elem){
+	
+	if(elem.value==null || elem.value==''){
+		elem.value=shortcutName;
+	}
+
+}
+</script>
+	
+	<apex:stylesheet value="{!$Resource.emma__styles}" />
+	<apex:pageMessages id="pageMessages" />
+	<apex:form id="page" >
+	
+		<apex:outputPanel id="pbPanel">
+			<apex:pageBlock id="pb" title="Step 2 of 3: Map your Member Fields" rendered="{!NOT(createNewField)}">
+				<apex:pageBlockButtons >
+					<apex:commandButton value="Next Step: Sync Options" action="{!saveFieldMappings}" rerender="pb,pageMessages" status="fieldMappingStatus" styleClass="btnPrimary" />
+					<apex:commandButton value="Back" action="{!backToSetup}" />
+					<apex:commandButton value="Cancel" action="{!cancel}" />
+				</apex:pageBlockButtons>
+				
+				<apex:pageBlockSection columns="1">
+					<div>
+						<p>Choose which fields you want to sync between Emma and Salesforce. Select the Lead and Contact field name that matches the 
+							corresponding Emma member field listed on the left. Select “Not Mapped” to ignore a field. <br/>
+							
+						</p>
+					</div>
+					<apex:pageBlockTable value="{!mappings}" var="mapping" frame="border">
+						<apex:column headerValue="Emma field">
+							{!mapping.emmaFieldLabel}
+							<apex:outputPanel rendered="{!mapping.required}">
+								<sup style="color: red;">*</sup>
+							</apex:outputPanel>
+						</apex:column>
+						<apex:column headerValue="Salesforce.com Lead field"> 
+							<apex:selectList value="{!mapping.leadFieldApiName}" multiselect="false" size="1">
+					            <apex:selectOptions value="{!mapping.leadFields}"/>
+					        </apex:selectList>
+						</apex:column>
+						<apex:column headerValue="Salesforce.com Contact field">
+							<apex:selectList value="{!mapping.contactFieldApiName}" multiselect="false" size="1">
+					            <apex:selectOptions value="{!mapping.contactFields}"/>
+					        </apex:selectList>
+						</apex:column>
+						<!-- 
+						<apex:column headerValue="Default Value">
+							<apex:inputText value="{!mapping.defaultValue}" />
+						</apex:column>
+						 -->
+					</apex:pageBlockTable>
+					<!-- <apex:outputPanel >
+						<p>Do you want to map a field in Salesforce that doesn't exist in Emma yet? "Create New Emma Field" 
+							lets you add the custom field to your Emma account without leaving this setup process.
+						</p>
+						
+						<apex:commandButton value="Create New Emma Field" action="{!requestCreateNewField}" rerender="pbPanel, pb1" status="fieldMappingStatus"/>
+					</apex:outputPanel> -->
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+		</apex:outputPanel>
+		
+		<apex:outputPanel id="pb1">
+			<apex:pageBlock id="pb2" title="Create new custom field in Emma" rendered="{!createNewField}">
+				<apex:pageBlockButtons >
+				 
+					<apex:commandButton value="Save" rendered="{!createNewField}" action="{!saveNewField}" rerender="pbPanel, pb1, pageMessages" status="fieldMappingStatus"/>
+					<apex:commandButton value="Cancel" rendered="{!createNewField}" action="{!cancelNewField}" rerender="pbPanel, pb1, pageMessages" status="fieldMappingStatus"/>
+				</apex:pageBlockButtons>
+				<apex:pageBlockSection id="p3" columns="1">
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel >Display Name
+							 <apex:outputPanel >
+								<sup style="color: red;">*</sup>
+							</apex:outputPanel>
+						</apex:outputLabel>
+						<apex:inputText onblur="formatDisplayName(this.value);" value="{!displayName}" />
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem id="testing" >
+						<apex:outputLabel >Shortcut Name
+							 <apex:outputPanel >
+								<sup style="color: red;">*</sup>
+							</apex:outputPanel>
+						</apex:outputLabel>
+						<apex:inputText onfocus="writeShortcutName(this);" id="exname1" value="{!shortcutName}"  >
+						</apex:inputText>
+						
+						
+					</apex:pageBlockSectionItem>
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel >Data Type
+							 <apex:outputPanel >
+								<sup style="color: red;">*</sup>
+							</apex:outputPanel>
+						</apex:outputLabel>
+						<apex:selectList value="{!dataType}" multiselect="false" size="1">
+				            <apex:selectOptions value="{!dataTypes}"/>
+				        </apex:selectList>
+				        
+					</apex:pageBlockSectionItem>
+					<apex:outputPanel >
+						<sup style="color: red;">*</sup> Indicate required fields.
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+			</apex:pageBlock>
+		</apex:outputPanel>
+		<apex:actionStatus id="fieldMappingStatus">
+			<apex:facet name="start">
+				<c:overlay text="Please wait....." />
+			</apex:facet>
+		</apex:actionStatus>
+	</apex:form>
+</apex:page>

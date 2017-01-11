@@ -1,0 +1,5 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="true" standardController="Account" extensions="success.AchievementsComponentController">
+
+    <c:AchievementsComponent recordid="{!Account.Id}" extensionObjects="Task,Event" />
+
+</apex:page>

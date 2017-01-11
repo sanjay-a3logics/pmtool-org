@@ -1,0 +1,748 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" controller="CustomerActualSavingsController" extensions="ChartController" action="{!forwardToCustomAuthPage}">
+    <head>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets1, 'fontawesome/css/font-awesome.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets2, 'metisMenu/dist/metisMenu.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets1, 'animate.css/animate.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerNamespacedBootstrap, 'dist/css/bootstrap.css')}"/>
+
+    <!-- App styles -->
+    <apex:stylesheet value="{!URLFOR($Resource.homerFonts, 'fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerFonts, 'fonts/pe-icon-7-stroke/css/helper.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerStylesDev, 'styles/style.css')}"/>
+    <style type="text/css">
+        .page-header {
+            /*background-color: #2980B9;*/
+        }
+
+
+        small {
+            display: block;
+        }
+
+        .page-header-panel {
+            background-color: #3D8CBF;
+            color: white;
+            border-radius: 10px;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+
+.page-header-panel .referral-link {
+  border: .5px solid white;
+  color: white;
+  font-weight: 100;
+  padding: 10px 10px;
+  text-transform: uppercase;
+
+}
+
+.page-header-panel  .ambassador-link {
+  color: white;
+  text-decoration: underline;
+}
+
+.content .chart-title {
+    color: #4E96C4;
+}
+
+.content .chart-dates {
+  color: #85B6D6;
+  text-transform: uppercase;
+}
+
+.content .table-title{
+  color: #2CAF64;
+  text-transform: uppercase;
+}
+
+.content .table-description {
+  text-transform: uppercase;
+  display: block;
+}
+
+.content .savings-summary th, .content .projected-savings th {
+  text-align: center;
+}
+
+
+.content .savings-summary td:nth-child(n+2), .content .projected-savings td:nth-child(n+2) {
+  text-align: center;
+}
+
+
+.content .savings-summary thead {
+  background-color: #2980B9;
+  color: white;
+  text-transform: uppercase;
+}
+
+.content .savings-summary th:last-child, .content .savings-summary td:last-child {
+  background-color: #27AE60;
+  color: white;
+
+}
+
+.content .savings-summary td {
+  color: black;
+}
+
+.content .projected-savings {
+  color: black;
+}
+
+.content .projected-savings thead {
+  background-color: #2980B9;
+  color: white;
+  text-transform: uppercase;
+}
+
+.content .modal canvas {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.content .modal-dialog {
+  width: 80%;
+  padding-right: 20px;
+}
+
+.content .nav-links {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.content .nav-link {
+  background-color: #27AE60;
+  color: white;
+  display: inline-block;
+  font-size: 12px;
+  height: 40px;
+  margin: 0px 10px;
+  padding: 10px 5px;
+  text-transform: uppercase;
+  width: 230px;
+}
+
+.ico {
+    margin-bottom: 10px;
+}
+
+.content .savings {
+  color: #2CAF64;
+}
+
+.content .magnify-text {
+  vertical-align: super;
+}
+
+#FooterButton_SaveMore, #FooterButton_EE {
+  display: inline-block;
+  position: relative;
+}
+
+#wrapper {
+  margin-left: 240px;
+}
+
+    </style>
+    </head>
+<body class="fixed-navbar fixed-sidebar">
+<div class="bootstrap">
+
+
+
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+
+<div class="row">
+        <div class="col-lg-12">
+        <div class="hpanel">
+            <div class="panel-heading text-center">
+                <h1>Solar Energy Summary</h1>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                  <div class="col-md-2 text-center page-header-panel">
+                      <div >
+                          <i class="ico ico-bolt"></i>
+                      </div>
+                      <div>
+                          <h1 class="font-extra-bold page-header-panel-title">
+                            <apex:outputText value="${0, number, ###,###,###,##0.00}">
+                              <apex:param value="{!myNetDollars}"/>
+                            </apex:outputText>
+                          </h1>
+                          <small>Saved Over Past 12 Months</small>
+                      </div>
+                      <div class="small ">
+                           <apex:outputText value="You produced {0, number, ###,###,###,##0.00}* kWh of power and saved ${1, number, ###,###,###,##0.00}** on your electricity bill over the past 12 months.">
+                            <apex:param value="{!myNetPV}"/>
+                            <apex:param value="{!myNetDollars}"/>
+                           </apex:outputText>
+                      </div>
+                  </div> <!-- Close power saved panel -->
+                  <div class="col-md-2 col-md-offset-1 page-header-panel text-center">
+                      <div class="ico ico-tree">
+                          <i></i>
+                      </div>
+                      <div >
+                          <h1 class="font-extra-bold ">
+                            <apex:outputText value="{0, number, ###,###,###,##0}">
+                                <apex:param value="{!myNetEnvImpactNumber}"/>
+                            </apex:outputText> Trees
+                          </h1>
+                          <small>
+                            were planted in the past 12 months </small>
+                      </div>
+                      <div class="small">
+                          <apex:outputText value="*Your power production offset as much pollution as if {0, number, ###,###,###,##0} {1} over the past 12 months.">
+                            <apex:param value="{!myNetEnvImpactNumber}"/>
+                            <apex:param value="{!myNetEnvImpactText}"/>
+                          </apex:outputText>
+                      </div>
+                  </div> <!-- Close tree offset -->
+                  <div class="col-md-2 col-md-offset-1 page-header-panel text-center">
+                      <div class="ico ico-money">
+                          <i ></i>
+                      </div>
+                      <div class="saved-parties">
+                          <h1 class="font-extra-bold ">
+                              <apex:outputText value="{0, number, ###,###,###,##0} {1}">
+                                <apex:param value="{!myNetEconImpactNumber}"/>
+                                <apex:param value="{!myNetEconImpactText}"/>
+                              </apex:outputText>
+                          </h1>
+                      </div>
+                      <div class="superbowl-savings small ">
+                          <apex:outputText value="**You saved enough money to pay for {0, number, ###,###,###,##0} {1} over the past 12 months.">
+                            <apex:param value="{!myNetEconImpactNumber}"/>
+                            <apex:param value="{!myNetEconImpactText}"/>
+                           </apex:outputText>
+                      </div>
+                  </div> <!-- Close super bowl parties panel -->
+                  <div class="ambassador-panel col-md-2 col-md-offset-1 page-header-panel text-center">
+                      <div class="ico ico-people">
+                          <i></i>
+                      </div>
+                      <div>
+                          <h1 class="font-extra-bold">
+                              My Ambassador
+                          </h1>
+                      </div>
+                      <div class="small">
+                          <apex:outputText value="You have earned ${0, number, ###,##0.00} as an Ambassador!" >
+                            <apex:param value="{!myEarnedAmbassador}"/>
+                          </apex:outputText>
+                      </div>
+                      <div class="small m-t-xl">
+                          <apex:outputLink html-class="referral-link" value="mailto:?bcc={!bccEmail}&subject={!subjectEmail}&body={!bodyEmail}%20{!ambassadorReferralURL}">Refer a Friend</apex:outputLink>
+                      </div>
+                      <div class="small m-t-xl">
+                      <apex:outputLink html-class="ambassador-link" onclick="window.open('https://posigen.getambassador.com')">
+                          My Ambassador Details
+                      </apex:outputLink>
+                      </div>
+                  </div> <!-- Close Ambassador Panel -->
+              </div> <!-- Close panel body row -->
+            </div>
+        </div>
+    </div>
+  <div class="content animate-panel"> <!-- Open content -->
+    
+
+      <div class="row">
+      <div class="col-lg-4">
+              <div class="hpanel">
+                  <div class="chart-panel panel-body text-center h-200">
+
+                     <h4 class="chart-title m-xs">Cumulative Savings</h4>
+                      <small class="chart-dates">Oct 2013 - Sept 2014</small>
+                      <h3 id="cumulative-savings-amount" class="font-extra-bold no-margins savings">
+
+                      </h3>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="hpanel">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div class="chartElements">
+                        <canvas id="cumulativeSavingsChart" height="140"></canvas>
+                        <div class="text-center verticalAxis-label">Cumulative Dollars Saved</div>
+                    </div>
+                </div>
+                <div class="panel-footer text-center"> <!-- Open panel-footer -->
+                  <a href="#" data-toggle="modal" data-target="#cumulativeSavingsModal">
+                    <i class="ico ico-magnify"></i><span class="magnify-text">Enlarge</span>
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="cumulativeSavingsModal" tabindex="-1" role="dialog" aria-labelledby="cumulativeSavingsModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="cumulativeSavingsModalLabel">Savings By Month</h4>
+                        </div>
+                        <div class="modal-body">
+                          <canvas id="cumulativeSavingsModalCanvas" height="140px"></canvas>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> <!-- Closepanel-footer -->
+            </div> <!-- Close hpanel -->
+          </div> <!-- Close col-lg-8 -->
+      </div> <!-- Close row -->
+      <div class="row">
+      <div class="col-lg-4">
+              <div class="hpanel">
+                  <div class="chart-panel panel-body text-center h-200">
+                      <h4 class="chart-title m-xs">Savings Over Last 12 Months</h4>
+                      <small class="chart-dates">Oct 2013 - Sept 2014</small>
+                      <h3 id="annual-savings-amount" class="font-extra-bold no-margins savings">
+
+                      </h3>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="hpanel">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div class="chart-elements">
+                        <canvas id="annualSavingsChart" height="140"></canvas>
+                        <div class="text-center verticalAxis-label">Cumulative Dollars Saved </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-center">
+                  <a href="#" data-toggle="modal" data-target="#annualSavingsModal">
+                    <i class="ico ico-magnify"></i> <span class="magnify-text">Enlarge</span>
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="annualSavingsModal" tabindex="-1" role="dialog" aria-labelledby="annualSavingsModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="annualSavingsModalLabel">Savings By Month</h4>
+                        </div>
+                        <div class="modal-body">
+                          <canvas id="annualSavingsModalCanvas" height="140px"></canvas>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+      <div class="col-lg-4">
+              <div class="hpanel">
+                  <div class="chart-panel panel-body text-center h-200">
+                      <h4 class="chart-title m-xs">Savings By Month</h4>
+                      <small class="chart-dates">Sept 2014</small>
+                      <h3 id="net-savings-amount" class="font-extra-bold no-margins savings">
+
+                      </h3>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-8">
+            <div class="hpanel">
+                <div class="panel-heading">
+                </div>
+                <div class="panel-body">
+                    <div>
+                        <canvas id="monthlySavingsOptions" height="140"></canvas>
+                        <div class="text-center verticalAxis-label">Net Dollars Saved </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer text-center">
+                  <a href="#" data-toggle="modal" data-target="#monthlySavingsModal">
+                    <i class="ico ico-magnify"></i><span class="magnify-text">Enlarge</span>
+                  </a>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="monthlySavingsModal" tabindex="-1" role="dialog" aria-labelledby="monthlySavingsModalLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="monthlySavingsModalLabel">Savings By Month</h4>
+                        </div>
+                        <div class="modal-body">
+                          <canvas id="monthlySavingsModalCanvas" height="140px"></canvas>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+      <div class="col-lg-12">
+            <div class="hpanel">
+              <div class="panel-heading text-center">
+                <h1 class="table-title">Current</h1>
+                <h4 class="table-description">Production and Savings Summary</h4>
+              </div>
+              <div class="panel-body">
+                <div class="savings-summary  table-responsive">
+                <table cellpadding="1" cellspacing="1" class="current-savings-table table table-bordered">
+                    <thead>
+                    <tr>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+                    </tr>
+                    <tr id="solar-savings-row">
+                    </tr>
+                    <tr id="ee-savings-row">
+                    </tr>
+                    <tr id="total-savings-row">
+                    </tr>
+                    <tr id="lease-cost-row">
+                    </tr>
+                    <tr id="net-savings-row">
+                    </tr>
+                    <tr id="cum-net-savings-row" >
+                    </tr>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+      <div class="col-lg-12">
+            <div class="hpanel">
+              <div class="panel-heading text-center ">
+                <h1 class="table-title">Projected</h1>
+                <h4 class="table-description">Production and Savings Summary</h4>
+              </div>
+                <div class="panel-body">
+                  <div class="projected-savings table-responsive">
+                    <table cellpadding="1" cellspacing="1" class="future-savings-table table table-bordered">
+                        <thead>
+                        <tr>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                          </tr>
+                          <tr>
+                          </tr>
+                          <tr>
+                          </tr>
+                          <tr>
+                          </tr>
+                          <tr>
+                          </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="row">
+      <div class="nav-links panel-body text-center">
+
+                
+          </div>
+      </div>
+  </div> <!-- Close content -->
+
+
+</div> <!-- Close Wrapper -->
+
+</div> <!-- Close bootstrap-->
+
+
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery/dist/jquery.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-ui/jquery-ui.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.resize.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.pie.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery.flot.spline/index.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets1, 'flot.curvedlines/curvedLines.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets1, 'iCheck/icheck.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerNamespacedBootstrap, 'dist/js/bootstrap.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'slimScroll/jquery.slimscroll.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'metisMenu/dist/metisMenu.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'moment/min/moment.min.js')}"></apex:includescript>>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'peity/jquery.peity.min.js')}"></apex:includescript>>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'slimScroll/jquery.slimscroll.min.js')}"></apex:includescript>>
+
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'sparkline/index.js')}"></apex:includescript>ipt>
+
+<!-- App scripts -->
+<apex:includeScript value="{!URLFOR($Resource.homerScripts, 'scripts/charts.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerScripts, 'scripts/homer.js')}"></apex:includescript>
+
+<script>
+        var pvLabels = [];
+        var pvData = [];
+
+        var idx=0;
+        var idy=0;
+        <apex:repeat value="{!data}" var="ele">
+            pvLabels[idx++]='{!ele.name}';
+            pvData[idy++]='{!ele.data1}';
+        </apex:repeat>
+
+        var eeLabels = [];
+        var eeData = [];
+
+        var idx=0;
+        var idy=0;
+        <apex:repeat value="{!eeData}" var="ele">
+            eeLabels[idx++]='{!ele.name}';
+            eeData[idy++]='{!ele.data1}';
+        </apex:repeat>
+
+
+        //Pull rows data into JS array
+        var rowsData = [];
+
+        var idx=0;
+        <apex:repeat value="{!rows}" var="ele">
+            rowsData[idx++]='{!ele.values}';
+        </apex:repeat>
+
+        //Parse and clean data for entry into table; assumes the first element has a carried over '[' that needs to be removed. Additionally, assumes last 'summary' element has a ']'.
+        rowsData.forEach(function(e, i, arr){
+            rowsData[i] = e.split(", ");
+            rowsData[i][0] = rowsData[i][0].slice(1);
+            var lastIndex = rowsData[i].length - 1;
+            rowsData[i][lastIndex] = rowsData[i][lastIndex].slice(0, -1);
+        });
+
+        //Separate the headers to their own table
+        var headers = rowsData[0];
+        rowsData.splice(0, 1);
+
+        //Populate header of current savings table
+        var headerRow = $(".current-savings-table thead tr");
+        headers.forEach(function(e, i, arr){
+            var headerCell = "<th>" + e + "</th>";
+            headerRow.append(headerCell);
+        });
+
+        //Iterate over the cleaned up row and add its contents to the table
+        rowsData.forEach(function(e, i, arr){
+            var row = $(".current-savings-table tbody tr:nth-child(" + (i + 1) + ")");
+            e.forEach(function(e2, i, arr){
+                var tag = "<td>" + e2 + "</td>";
+                row.append(tag);
+            });
+        });
+
+        //Pull futureRows data into array
+        var futureData = [];
+
+        var idx=0;
+        <apex:repeat value="{!futureRows}" var="ele">
+            futureData[idx++]='{!ele.values}';
+        </apex:repeat>
+        futureData.forEach(function(e, i, arr){
+            futureData[i] = futureData[i].split(", ");
+            futureData[i][0] = futureData[i][0].slice(1);
+            var lastIndex = futureData[i].length - 1;
+            futureData[i][lastIndex] = futureData[i][lastIndex].slice(0, -1);
+        });
+        console.log(futureData);
+
+        //Remove and processs header rows from futureRows
+        var headers = futureData[0];
+        futureData.splice(0, 1);
+
+        futureTableHeaderRow = $(".future-savings-table thead tr")
+        headers.forEach(function(e, i, arr){
+            var headerTag = "<th>" + e + "</th>";
+            futureTableHeaderRow.append(headerTag);
+        });
+
+        //Iterate over the table contents
+        futureData.forEach(function(e, i, arr){
+            var row = $(".future-savings-table tbody tr:nth-child(" + (i + 1) +  ")");
+            e.forEach(function(e2, i, arr){
+                var tag = "<td>" + e2 + "</td>";
+                row.append(tag);
+            });
+        });
+
+        //Configure charts for page
+
+        var cumulativeSavingsChartData = {
+            labels: pvLabels,
+
+            datasets: [
+                {
+                    fillColor: "rgba(148, 191, 220, 1)",
+                    strokeColor: "rgba(148, 191, 220, 1)",
+                    pointColor: "rgba(148, 191, 220, 1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(98,203,49,1)",
+                    data: pvData
+                }
+            ]
+        };
+
+        var cumulativeSavingsChartOptions = {
+            scaleShowGridLines : true,
+            scaleGridLineColor : "rgba(0,0,0,.05)",
+            scaleGridLineWidth : 1,
+            bezierCurve : false,
+            pointDot : true,
+            pointDotRadius : 4,
+            pointDotStrokeWidth : 1,
+            pointHitDetectionRadius : 20,
+            datasetStroke : true,
+            datasetStrokeWidth : 1,
+            datasetFill : true,
+            responsive: true,
+        };
+
+        var ctx = document.getElementById("cumulativeSavingsChart").getContext("2d");
+        var myNewChart = new Chart(ctx).Line(cumulativeSavingsChartData, cumulativeSavingsChartOptions);
+
+        $('#cumulativeSavingsModal').on('shown.bs.modal', function(event){
+          var ctx = document.getElementById("cumulativeSavingsModalCanvas").getContext("2d");
+          var myNewChart = new Chart(ctx).Line(cumulativeSavingsChartData, cumulativeSavingsChartOptions);
+        });
+
+        var cumulativeSavingsLabel = document.getElementById("cumulative-savings-amount");
+        var sum = pvData.reduce(function(previousValue, currentValue, currentIndex, array) {
+          return parseFloat(previousValue) + parseFloat(currentValue);
+        });
+        cumulativeSavingsLabel.textContent = "$" + sum;
+
+
+    var annualSavingsChartData = {
+        labels: pvLabels,
+        datasets: [
+            {
+                label: "Example dataset",
+                fillColor: "rgba(148, 191, 220, 1)",
+                strokeColor: "rgba(148, 191, 220, 1)",
+                pointColor: "rgba(148, 191, 220, 1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(98,203,49,1)",
+                data: pvData
+            }
+        ]
+    };
+
+    var annualSavingsChartOptions = {
+        scaleShowGridLines : true,
+        scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleGridLineWidth : 1,
+        bezierCurve : false,
+        pointDot : true,
+        pointDotRadius : 4,
+        pointDotStrokeWidth : 1,
+        pointHitDetectionRadius : 20,
+        datasetStroke : true,
+        datasetStrokeWidth : 1,
+        datasetFill : true,
+        responsive: true
+    };
+
+
+    var ctx = document.getElementById("annualSavingsChart").getContext("2d");
+    var myNewChart = new Chart(ctx).Line(annualSavingsChartData, annualSavingsChartOptions);
+
+    $('#annualSavingsModal').on('shown.bs.modal', function(event){
+      var ctx = document.getElementById("annualSavingsModalCanvas").getContext("2d");
+      var myNewChart = new Chart(ctx).Line(annualSavingsChartData, annualSavingsChartOptions);
+    });
+
+        var annualSavingsLabel = document.getElementById("annual-savings-amount");
+        var sum = pvData.reduce(function(previousValue, currentValue, currentIndex, array) {
+          return parseFloat(previousValue) + parseFloat(currentValue);
+        });
+        annualSavingsLabel.textContent = "$" + sum;
+
+    /**
+     * Options for Bar chart
+     */
+    var monthlySavingsOptions = {
+        scaleBeginAtZero : true,
+        scaleOverride: false,
+        scaleShowGridLines : true,
+        scaleSteps: 20,
+        scaleStepWidth: 2,
+
+        scaleGridLineColor : "rgba(0,0,0,.05)",
+        scaleGridLineWidth : 1,
+        barBeginAtOrigin: true,
+        barShowStroke : false,
+        barStrokeWidth : 1,
+        barValueSpacing : 5,
+        barDatasetSpacing : 1,
+        responsive:true
+    };
+
+    /**
+     * Data for Bar chart
+     */
+    var monthlySavingsData = {
+      labels: pvLabels,
+        datasets: [
+            {
+                label: "My Second dataset",
+                fillColor: "rgba(148, 191, 220, 1)",
+                strokeColor: "rgba(148, 191, 220, 1)",
+                highlightFill: "rgba(98,203,49,0.75)",
+                highlightStroke: "rgba(98,203,49,1)",
+                data: pvData
+            }
+        ]
+    };
+
+    var ctx = document.getElementById("monthlySavingsOptions").getContext("2d");
+    var myNewChart = new Chart(ctx).Bar(monthlySavingsData, monthlySavingsOptions);
+
+    $('#monthlySavingsModal').on('shown.bs.modal', function(event){
+      var ctx = document.getElementById("monthlySavingsModalCanvas").getContext("2d");
+      var myNewChart = new Chart(ctx).Bar(monthlySavingsData, monthlySavingsOptions);
+    });
+
+    var monthlyNetLabel = document.getElementById("net-savings-amount");
+    var sum = pvData.reduce(function(previousValue, currentValue, currentIndex, array) {
+          return parseFloat(previousValue) + parseFloat(currentValue);
+    });
+    monthlyNetLabel.textContent = "$" + sum;
+
+
+
+</script>
+
+</div>
+</div>
+</body>
+</apex:page>

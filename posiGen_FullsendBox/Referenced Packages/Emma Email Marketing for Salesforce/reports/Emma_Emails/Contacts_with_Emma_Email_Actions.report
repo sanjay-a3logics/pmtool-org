@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Emma_Mailing__c.Emma_Emails__r$Contact__c.Id</field>
+    </columns>
+    <columns>
+        <field>Emma_Mailing__c.Emma_Emails__r$Contact__c</field>
+    </columns>
+    <columns>
+        <field>Emma_Mailing__c.Emma_Emails__r$Name</field>
+    </columns>
+    <columns>
+        <field>Emma_Mailing__c.Emma_Emails__r$Summary_Num_of_Opens__c</field>
+    </columns>
+    <columns>
+        <field>Emma_Mailing__c.Emma_Emails__r$Summary_Num_of_Clicks__c</field>
+    </columns>
+    <columns>
+        <field>Emma_Mailing__c.Emma_Emails__r.Email_Actions__r$Mailing_Link__c.Link_Name__c</field>
+    </columns>
+    <columns>
+        <field>Emma_Mailing__c.Emma_Emails__r.Email_Actions__r$Mailing_Link__c.Link_Target__c</field>
+    </columns>
+    <description>Provides what actions contacts have taken in emails sent through Emma</description>
+    <filter>
+        <criteriaItems>
+            <column>Emma_Mailing__c.Emma_Emails__r$Contact__c</column>
+            <operator>notEqual</operator>
+            <value></value>
+        </criteriaItems>
+    </filter>
+    <format>Tabular</format>
+    <name>Contacts with Emma Email Actions</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Emma_Mailings_with_Contact_and_Leads__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Emma_Mailing__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

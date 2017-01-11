@@ -1,0 +1,83 @@
+<apex:page controller="ZD_System_Detail_Controller">
+    <style>
+    .actionColumn, .pbButton {display:none; visibility:hidden}
+    .pbSubheader {background-color: #1797c0 !important;}
+
+    </style>
+    <apex:messages />
+    <apex:pageBlock mode="detail" title="Energy Efficiency">        
+        <apex:pageBlockSection title="Estimated Energy Production" columns="1">
+            <table class="list">
+                <thead class="rich-table-thead">
+                    <tr class="headerRow">
+                        <th class="headerRow" scope="col" colspan="1"></th>
+                        <th class="headerRow" scope="col" colspan="1">Jan</th>
+                        <th class="headerRow" scope="col" colspan="1">Feb</th>
+                        <th class="headerRow" scope="col" colspan="1">Mar</th>
+                        <th class="headerRow" scope="col" colspan="1">April</th>
+                        <th class="headerRow" scope="col" colspan="1">May</th>
+                        <th class="headerRow" scope="col" colspan="1">Jun</th>
+                        <th class="headerRow" scope="col" colspan="1">July</th>
+                        <th class="headerRow" scope="col" colspan="1">Aug</th>
+                        <th class="headerRow" scope="col" colspan="1">Sep</th>
+                        <th class="headerRow" scope="col" colspan="1">Oct</th>
+                        <th class="headerRow" scope="col" colspan="1">Nov</th>
+                        <th class="headerRow" scope="col" colspan="1">Dec</th>
+                        <th class="headerRow" scope="col" colspan="1">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="dataRow odd">
+                        <td class="dataCell">AC Energy (kWh)</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[0],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[1],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[2],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[3],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[4],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[5],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[6],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[7],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[8],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[9],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[10],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lACEnergyKwh[11],0)}</td>
+                        <td class="dataCell">{!ROUND(m_dACEnergyTotalKwh,0)}</td>
+                    </tr>
+                    <tr class="dataRow even">
+                        <td class="dataCell">Energy Value ($)</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[0],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[1],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[2],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[3],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[4],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[5],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[6],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[7],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[8],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[9],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[10],0)}</td>
+                        <td class="dataCell">{!ROUND(m_lEnergyValueDollar[11],0)}</td>
+                        <td class="dataCell">{!ROUND(m_dEnergyValueTotalDollar,0)}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="PV Install Information" columns="2">
+            <apex:outputField value="{!m_oInstallProject.Building_Permit_Received_Date__c}"/>
+            <apex:outputField value="{!m_oInstallProject.Electrical_Permit_Received_Date__c}"/>
+            <apex:outputField value="{!m_oInstallProject.PVI_Rails_Installed_Date__c}"/>
+            <apex:outputField value="{!m_oInstallProject.PVI_Electrical_Installed_Date__c}"/>    
+            <apex:outputField value="{!m_oInstallProject.PVI_Placed_In_Service_Date__c}"/>                
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Net Meter" columns="1">
+            <apex:outputField value="{!m_oInstallProject.Net_Meter_Status__c}"/>
+            <apex:outputField value="{!m_oInstallProject.Net_Meter_Install_Scheduled_Date__c}"/>
+            <apex:outputField value="{!m_oInstallProject.Informed_Net_Meter_Installed_Date__c}"/>            
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="PV Install Quality Control" columns="1">
+            <apex:outputField value="{!m_oInstallProject.QC_Date__c}"/>   
+            <apex:outputField value="{!m_oInstallProject.QC_Passed__c}"/>               
+        </apex:pageBlockSection>        
+        <apex:relatedList list="Cases__r" title="Project Cases" subject="{!m_oInstallProject}" rendered="true" />
+    </apex:pageBlock>
+</apex:page>

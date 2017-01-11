@@ -1,0 +1,87 @@
+<apex:page controller="emma.EmmaSetupController" title="Emma Email Marketing ~ for salesforce.com" tabStyle="Emma_Setup__tab">
+<apex:includeScript value="{!URLFOR($Resource.emma__jqueryui, 'js/jquery-1.9.1.js')}" />
+<script>
+var j$ = jQuery.noConflict();
+</script>
+<apex:stylesheet value="{!$Resource.emma__styles}" />
+<apex:sectionHeader subtitle="Emma Setup" help="http://myemma.com/resources/how-to/emma-for-salesforce-overview" title="Emma Email Marketing ~ for salesforce.com" />
+<apex:form >
+<apex:pageMessages id="pageMessages" />
+	<apex:pageBlock rendered="{!(selected_page=='instructions')}">
+		
+		<div style="margin: 0px 200px">
+			<h2>Getting Started</h2>	
+			<p>This is a one-time setup for your Emma and Salesforce contact synchronization. Here, you'll enter your Emma API key, Force.com 
+				URL and choose which groups and fields to sync. Don't worry, you can come back to change the group or field preferences 
+				later if needed.</p>
+			<br />
+			<p><table>
+				<tr>
+					<th width="250">Setup Step</th>
+					<th>Status</th>
+				</tr>
+				<tr>
+					<td>1. Account Verification</td>
+					<td>
+						<apex:image value="/img/msg_icons/confirm16.png" rendered="{!(AccountRegComplete)}" />
+						<apex:image value="/img/msg_icons/warning16.png" rendered="{!(!AccountRegComplete)}" />
+						<apex:outputPanel layout="none" rendered="{!(!AccountRegComplete)}">
+							<a href="/apex/emma_EmmaSetup?page=reg">GO</a>
+						</apex:outputPanel>
+					</td>
+				</tr>
+				<tr>
+					<td>2. Field Mappings</td>
+					<td>
+						<apex:image value="/img/msg_icons/confirm16.png" rendered="{!(MappingsComplete)}" />
+						<apex:image value="/img/msg_icons/warning16.png" rendered="{!(!MappingsComplete)}" />
+						<apex:outputPanel layout="none" rendered="{!(!MappingsComplete)}">
+							<a href="/apex/emma__EmmaSetup?page=map">GO</a>
+						</apex:outputPanel>
+					</td>
+				</tr>
+				<tr>
+					<td>3. Sync Options</td>
+					<td>
+						<apex:image value="/img/msg_icons/confirm16.png" rendered="{!(ImportOptionsComplete)}" />
+						<apex:image value="/img/msg_icons/warning16.png" rendered="{!(!ImportOptionsComplete)}" />
+						<apex:outputPanel layout="none" rendered="{!(!ImportOptionsComplete)}">
+							<a href="/apex/emma__EmmaSetup?page=opt">GO</a>
+						</apex:outputPanel>
+					</td>
+				</tr>
+			</table></p>
+			
+			<br />
+			<h2>Sync Status: {!bootstrapMessage}</h2>
+			
+		</div>
+			
+		
+		<apex:pageBlockButtons location="bottom">
+			<apex:commandButton value="Start Setup" action="{!startSetup}" styleClass="btnPrimary" />
+			<apex:commandButton value="Launch Scheduled Apex Cleanup" action="{!launchCleanupJob}" 
+				styleClass="btn" rendered="{!tempAdmin}"/>
+			
+		</apex:pageBlockButtons>
+	</apex:pageBlock>
+	
+	<apex:actionFunction name="doResetApplication" action="{!doResetApplication}" rerender="pageMessages" />
+	
+</apex:form>
+
+<apex:outputPanel rendered="{!(selected_page=='registration')}">
+	<apex:include pageName="emma__EmmaSetupAPICreds" />
+</apex:outputPanel>
+	
+<apex:outputPanel rendered="{!(selected_page=='options')}">
+	<apex:include pageName="emma__EmmaSetupImportOptions" />
+</apex:outputPanel>
+	
+<apex:outputPanel rendered="{!(selected_page=='mappings')}">
+	<apex:include pageName="emma__EmmaSetupFieldMappings" />
+</apex:outputPanel>
+	
+
+
+</apex:page>

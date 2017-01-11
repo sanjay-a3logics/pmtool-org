@@ -1,0 +1,5 @@
+<apex:page standardController="Lead" recordSetVar="listRecs" extensions="NVMConnect.ListFromListViewController">
+
+<c:ListFromListView dataSource="{!me}" />
+
+</apex:page>

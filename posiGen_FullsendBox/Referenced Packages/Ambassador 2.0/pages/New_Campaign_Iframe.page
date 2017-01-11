@@ -1,0 +1,15 @@
+<apex:page showHeader="false" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'styles.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'app/scripts/lib/highlightjs/github.min.css')}"/>
+    
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-info" role="alert">Ambassador Campaigns only sync when first added in the Ambassador platform.</div>
+                    <h2>In order to create a campaign that syncs, please login at <a href="https://getambassador.com/login" target="_blank">Ambassador</a> and go to <a href="https://getambassador.com/v3/c/campaigns/new/" target="_blank">https://getambassador.com/v3/c/campaigns/new/</a> and create a campaign.</h2>
+                </div>
+            </div>
+        </div>
+    </body>
+</apex:page>

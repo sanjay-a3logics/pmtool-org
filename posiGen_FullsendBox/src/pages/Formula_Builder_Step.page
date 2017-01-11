@@ -1,0 +1,248 @@
+<apex:page controller="FormulaBuilder" sidebar="false" standardStylesheets="false">
+    <apex:includeScript value="{!URLFOR($Resource.formulaBuilder, 'jquery-2.2.4.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.formulaBuilder, 'bootstrap.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.formulaBuilder, 'jQuery.extendext.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.formulaBuilder, 'doT.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.formulaBuilder, 'moment.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.formulaBuilder, 'query-builder.min.js')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.formulaBuilder, 'query-builder.default.min.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.formulaBuilder, 'bootstrap.min.css')}"/>
+    
+    <style>
+        .mainGroupDiv{
+            border : 1px solid green;
+            border-radius : 5px;
+            /*background : rgba(159, 214, 111, 0.5)*/
+        }
+        
+        #stageDiv{
+            border : 1px solid green;
+            border-radius : 5px;
+            background : rgba(159, 214, 111, 0.5) !important;
+            padding : 5px;
+            margin: 5px 0px;
+        }
+        
+        .resultDiv{
+            padding: 5px;
+        }
+        
+        #contentLoading{
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            position: fixed;
+            display: block;
+            opacity: 0.7;
+            background-color: #fff;
+            z-index: 99;
+            text-align: center;
+        }
+
+        #contentLoading1{
+            position: absolute;
+            top:350px;
+            z-index: 100;
+        }
+        
+    </style>
+    <apex:form >
+        <apex:actionFunction status="loading" action="{!saveFormulaForStep}" name="saveFormulaString" reRender="msg">
+            <apex:param name="p1" assignTo="{!formulaString}" value=""/>
+        </apex:actionFunction>
+        <apex:actionStatus id="loading" onstart="loading(true)" onstop="loading(false)" />
+        <div id="contentLoading" style="display:none; ">
+            <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+        </div>
+        <apex:pagemessages id="msg"></apex:pagemessages>
+        <div id="stageDiv">
+            <label>Select Step : </label> 
+            <apex:selectList styleClass="slds-select" value="{!selectedStep}" multiselect="false" size="1" >
+                <apex:selectOptions value="{!BusinessSteps}"/>
+                <apex:actionSupport status="loading" action="{!populateSelectedMarketForStep}" event="onchange" oncomplete="" reRender="formulaPanel, addGroupScript, msg">
+                </apex:actionSupport>
+            </apex:selectList>
+        
+            <button onclick="addGroup(); return false;" style="float:right;">Add Group</button>
+        </div>
+        
+        <apex:outputPanel id="formulaPanel">
+            <div id="formulaGroup">
+                
+            </div>
+            
+            <script>loadFormulaBuilder({!PmToolFilterData}, {!BasicRulesForStep});</script>
+        </apex:outputPanel>
+        
+        <div class="btn-group">
+          <!--<button id="btn-reset" class="btn btn-warning reset" data-target="basic">Reset</button>-->
+          <!--<button id="btn-set" class="btn btn-success set-json" data-target="basic">Set rules</button>-->
+          <button id="btn-get" class="btn btn-primary parse-json" data-target="basic">Save Formula</button>
+        </div>
+    <script>
+        var groupId = 0;
+        var group_id_array = [];
+    </script>    
+    
+    <apex:outputPanel id="addGroupScript">
+    <script>
+            
+            
+            function addGroup(){
+                groupId++;
+                
+                 var html = '<div class="mainGroupDiv">';
+                    html += '<div class="resultDiv">';
+                    html += '<label>Select Status : </label>';  
+                    html += '<select id="group_result'+groupId+'">';
+                    html += '<apex:repeat value="{!resultList}" var="stage">';
+                    html += '<option value="{!stage.Score__c}">{!stage.Name}</option>';
+                    html += '</apex:repeat>';
+                    html += '</select>'; 
+                    html += '<button onclick="deleteGroup(this,'+groupId+'); return false;" style="float:right;">Delete Group</button>';
+                    html += '</div>';
+                    html += '<div id="group'+groupId+'"></div>';
+                    html += '</div>';
+                
+                var script_str = 'var rules_basic = {condition: \'AND\',rules: [{id: \'name\'}]};';
+                script_str += '$(\'#group'+groupId+'\').queryBuilder({plugins: [\'bt-tooltip-errors\'],filters: {!PmToolFilterData},rules: rules_basic});';
+
+                $('#formulaGroup').append(html);
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.id = 'groupScript'+groupId;
+                $('#scriptDiv').append(script);
+                $('#groupScript'+groupId).html(script_str);
+                
+                group_id_array.push(groupId);
+                console.log(group_id_array);
+                
+            }
+            
+            function createEle(index, obj, fData){
+            
+                index++;
+                 var html = '<div class="mainGroupDiv">';
+                    html += '<div class="resultDiv">';
+                    html += '<label>Select Status : </label>';  
+                    html += '<select id="group_result'+index+'">';
+                    html += '<apex:repeat value="{!resultList}" var="stage">';
+                    if({!stage.Score__c} == obj.score){
+                        html += '<option selected="selected" value="{!stage.Score__c}">{!stage.Name}</option>'; 
+                    }
+                    else{
+                        html += '<option value="{!stage.Score__c}">{!stage.Name}</option>'; 
+                    }
+                    html += '</apex:repeat>';
+                    html += '</select>'; 
+                    html += '<button onclick="deleteGroup(this,'+index+'); return false;" style="float:right;">Delete Group</button>';
+                    html += '</div>';
+                    html += '<div id="group'+index+'"></div>';
+                    html += '</div>';
+                
+                var script_str = 'var rules_basic = '+JSON.stringify(obj)+';';
+                script_str += '$(\'#group'+index+'\').queryBuilder({plugins: [\'bt-tooltip-errors\'],filters: '+JSON.stringify(fData)+',rules: rules_basic});';
+
+                $('#formulaGroup').append(html);
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.id = 'groupScript'+index;
+                $('#scriptDiv').append(script);
+                $('#groupScript'+index).html(script_str);
+                
+                group_id_array.push(index);
+                groupId = index;
+                console.log(group_id_array);
+        }
+            
+            function deleteGroup(element,group_id){
+               $(element).parent().parent().remove();
+               
+               for(var i = group_id_array.length - 1; i >= 0; i--) {
+                    if(group_id_array[i] === group_id) {
+                       group_id_array.splice(i, 1);
+                    }
+                }
+               //console.log('group_id_array ='+group_id_array );
+            }
+    </script>
+    </apex:outputPanel>
+    <script>
+    
+        function loadFormulaBuilder(fData, bRules){
+            
+            //console.log('AAAAA'+bRules);
+            for(var i = group_id_array.length; i > 0; i--) {
+                $('#groupScript'+i).remove();
+            }
+            
+            group_id_array = [];
+            groupId = 0;
+            jQuery.each(bRules.formula, function(i, val) {
+              console.log('i='+i+'---'+JSON.stringify(val));
+              createEle(i,val, fData);
+            });
+        }
+        
+        $('#btn-reset').on('click', function() {
+          $('#group1').queryBuilder('reset');
+          return false;
+        });
+        
+        $('#btn-set').on('click', function() {
+          $('#group1').queryBuilder('setRules', rules_basic);
+          return false;
+        });
+        
+        $('#btn-get').on('click', function() {
+        
+          var data_array = [];
+          
+          var error = false;  
+          for(var i = group_id_array.length - 1; i >= 0; i--) {
+                
+                var result = $('#group'+group_id_array[i]).queryBuilder('getRules'); 
+                if (!$.isEmptyObject(result)) {
+                    var r =  $('#group_result'+group_id_array[i]+' option:selected').val();
+                    result.score = r;
+                    data_array.push(result);
+                }
+                else{
+                    error = true;
+                }
+            }
+ 
+          console.log(JSON.stringify(data_array));   
+          if(error == false){
+              saveFormulaString(JSON.stringify(data_array));
+          }
+          
+
+          return false;
+        });
+        
+        function loading(val) {
+            if (val) {
+                document.getElementById('contentLoading').style.display = 'inline-block';
+                document.getElementById('contentLoaded').style.display = 'none';
+            }
+            else {
+                document.getElementById('contentLoading').style.display = 'none';
+                document.getElementById('contentLoaded').style.display = 'inline-block';
+            }
+        }
+        
+        
+    </script>
+    
+    <script>
+    
+        $(document).ready(function(){
+            loadFormulaBuilder({!PmToolFilterData}, {!BasicRulesForStep});
+        })
+    </script>
+    
+    <script id="scriptDiv"></script>
+    </apex:form>
+</apex:page>

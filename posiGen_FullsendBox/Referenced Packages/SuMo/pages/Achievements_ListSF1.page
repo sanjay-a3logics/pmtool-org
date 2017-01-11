@@ -1,0 +1,250 @@
+<apex:page controller="success.AchievementsComponentController" action="{!initialize}" sidebar="true" showHeader="false" standardStylesheets="false">
+
+<apex:includeScript value="{!URLFOR($Resource.success__jQuery, 'js/jquery-1.9.0.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQueryCyclePlugin)}" />
+<apex:includeScript value="{!URLFOR($Resource.success__jQueryFitText)}" />
+
+<style>
+body {
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+.listElement {
+    clear: both;
+    padding: 9px;
+    margin-bottom: 8px;
+    background-color: #ffffff;
+}
+
+.badgeContainer {
+    width: 64px;
+    height: 64px;   
+    float: left; 
+    margin-right: 7px;
+    margin-bottom: 9px;
+}
+
+.badgeImage {
+    width: 38px;
+    height: 38px;
+    margin-left: 2px;
+    margin-top: 13px;
+}
+
+.promoted {
+    float: left;
+    color: #ffffff;
+    margin-left: 3px;
+    margin-top: 0px;
+    font-weight:bold; 
+    font-size: 14px;
+}
+
+.title {
+    font-size:19px;
+    margin-bottom: 3px;
+    color:#026C96;
+    font-weight:bold; 
+}
+
+.rewardText {
+    font-size: 15px;
+    margin-bottom: 3px;
+    color: #999999;
+    font-weight: bold;    
+}
+
+.timelimitText {
+    font-size: 14px;
+    color: #026C96;
+    font-weight: bold;
+}
+
+.description {
+    clear:both;
+    font-size: 14px;
+    color: #999999;
+    margin-bottom: 9px;
+}
+
+.detailedText {
+    clear: both;
+    padding: 12px;
+    background-color: rgb(5, 83, 117);
+    color: #ffffff;
+    font-size: 13px;
+}
+
+</style>
+
+<!-- this is to fix  the scrolling problems on iPhone -->
+<script> 
+    (function(){try{var a=navigator.userAgent; 
+    if((a.indexOf('Salesforce')!=-1)&&(a.indexOf('iPhone')!=-1||a.indexOf('iPad')!=-1)&&(a.indexOf('OS/8')!=-1||a.indexOf('OS 8')!=-1)&&(a.indexOf('Safari')==-1)){ 
+    var s=document.createElement('style'); 
+    s.innerHTML="html,html body{overflow: auto;-webkit-overflow-scrolling:touch;}body{position:absolute;left:0;right:0;top:0;bottom:0;}"; 
+    document.getElementsByTagName('head')[0].appendChild(s);}}catch(e){}})(); 
+
+    var ua=navigator.userAgent; 
+    if((ua.indexOf('Salesforce')!=-1)&&(ua.indexOf('iPhone')!=-1||ua.indexOf('iPad')!=-1)&&(ua.indexOf('OS/8')!=-1||ua.indexOf('OS 8')!=-1)&&(ua.indexOf('Safari')==-1)){ 
+    function IOS_SCROLL_BOOTSTRAP() { 
+    var children = Array.prototype.slice.call(document.body.children), 
+    placeholder = document.createElement('section'), 
+    fragment = document.createDocumentFragment(), 
+    styles, 
+    width, 
+    height; 
+    children.forEach(function(c){fragment.appendChild(c);}); 
+    placeholder.appendChild(fragment); 
+    styles = [ 
+    'width:100%;', 
+    'height:', (window.screen.height - 42), 'px;', 
+    'position: absolute; overflow: auto; -webkit-overflow-scrolling: touch' 
+    ].join(''); 
+    placeholder.style.cssText = styles; 
+    document.body.appendChild(placeholder); 
+    } 
+    window.addEventListener('load', function (e) { 
+    IOS_SCROLL_BOOTSTRAP(); 
+    }); 
+    } 
+</script>
+
+
+<div class="listContainer">
+	<div class="listElement">
+        <div class="cardHeader">
+    		<div class="badgeContainer">
+                <div class="promoted">
+                    p
+                </div>
+    			<img class="badgeImage"/>
+    		</div>
+    		
+    		<div class="title">
+    		</div>
+
+            <div class="rewardText">
+            </div>
+
+            <div class="timelimitText">
+            </div>
+        </div>
+
+		<div class="description">
+		</div>
+
+        <div class="detailedText">
+        </div>
+	</div>
+</div>
+
+<script>
+    var $sj = successJQ.noConflict();
+	var ACHIEVEMENTS = $sj.parseJSON('{!JSENCODE(achievements)}');
+    var STYLE = $sj.parseJSON('{!JSENCODE(styles)}');
+    var LISTELEMENT;
+
+    console.log(ACHIEVEMENTS);
+
+	var hexGenerate = function(hex, exception) {
+        if(hex == null || hex == undefined || hex == '') {
+            if(exception) {
+                return exception;
+            }
+            return 'transparent';
+        } else {
+            if(hex.indexOf("#") == -1) {
+                return '#' + hex;
+            } else {
+                return hex;
+            }
+        }
+    };
+
+    var imgValidate = function(url, type, customStandardUrl) {
+        if(type == 'achievement') {
+            if(url == null || url == undefined || url == '') {
+                if(customStandardUrl != undefined) {
+                    return customStandardUrl;
+                } else {
+                    return '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/achievements_to_do.png')}';
+                }               
+            } else {
+                return url;
+            }
+        }
+        
+        if(type == 'achievementWatermark') {
+            if(url == null || url == undefined || url == '') {
+                return '{!URLFOR($Resource.SuMoSalesAssets, 'large_background_icons/achievements_to_do_large.png')}';
+            } else {
+                return url;
+            }
+        }
+
+        if(type == 'experience') {
+            if(url == null || url == undefined || url == '') {
+                return '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/experience.png')}';
+            } else {
+                return url;
+            }
+        }
+    };
+    
+    var fontColorValidate = function(defaultColor, bgColor) {
+        if(bgColor != null && bgColor.indexOf('transparent') > -1) {
+            return '#00476d';
+        }
+            return defaultColor;
+    }
+
+	var render = function() {
+		LISTELEMENT = $sj(".listElement").clone();
+		$sj(".listElement").remove();	
+
+	    ACHIEVEMENTS.forEach(function(achievement){ 
+	    	var listElement = LISTELEMENT.clone();
+	        //achievement fields                        
+	        var imageURL = imgValidate(achievement.imageURL, 'achievement', STYLE.achievement.imageURL),
+	            achievementBadgeBackground = hexGenerate(achievement.backgroundColour),
+	            achievementName = achievement.title,
+	            achievementBadgeName = (achievement.badgeName == null) ? '' : achievement.badgeName,
+	            achievementDescription = achievement.description,
+	            achievementExperience = achievement.experience,
+	            achievementRewardText = achievement.rewardText,
+	            achievementTimeLimitText = achievement.timeLimitText,
+	            achievementDetailedText = achievement.detailedText,
+	            achievementFeatured = achievement.promoted,
+	            popBackgroundColour = hexGenerate(STYLE.achievement.backgroundColour, '#035E7F');
+	        
+	        if(imageURL == STYLE.achievement.imageURL || imageURL == '{!URLFOR($Resource.SuMoSalesAssets, 'main_icons/achievements_to_do.png')}') {
+	            achievementBadgeBackground = hexGenerate(STYLE.achievement.backgroundColour);
+	        }
+
+	        listElement.find('.title').html(achievementName);
+	        listElement.find('.description').html(achievementDescription);
+            listElement.find('.rewardText').html(achievementRewardText);
+            listElement.find('.timelimitText').html(achievementTimeLimitText);
+            listElement.find('.detailedText').html(achievementDetailedText);
+	        listElement.find('.badgeImage').attr('src', imageURL);
+	        listElement.find('.badgeContainer').css('background-color', achievementBadgeBackground);
+
+            if (achievementFeatured == false) {
+                listElement.find('.promoted').css({visibility : 'hidden'});
+            } else {
+                listElement.find('.promoted').css({color : fontColorValidate('#ffffff', achievementBadgeBackground)});
+            }
+	        $sj('.listContainer').append(listElement);
+	    });		
+	}
+
+	$sj(document).ready(function() {
+		render();
+	});
+
+
+</script>
+
+
+</apex:page>

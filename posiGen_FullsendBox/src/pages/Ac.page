@@ -1,0 +1,332 @@
+<apex:page Controller="AccountDetailsController1" showHeader="true"  sidebar="true"
+standardStylesheets="false" tabStyle="Account" applyBodyTag="false" docType="html-5.0" >  
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">   
+        <apex:includeScript value="{!URLFOR($Resource.Loop__Scripts, 'jquery-2.1.4.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.Loop__Scripts, 'jquery.ui-1.11.3.js')}"/>   
+        <apex:stylesheet value="{!URLFOR($Resource.Loop__SalesforceLightning, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}"/>
+
+        <apex:form >
+            <apex:actionFunction status="loading" action="{!getAccountDetails}" name="showAccDetails" reRender="op1">
+                <apex:param assignTo="{!accountId}" value="" name="accId"/>   
+            </apex:actionFunction>
+
+            <apex:actionStatus id="loading" onstart="loading(true)" onstop="loading(false)" />
+        </apex:form> 
+        <head>
+            <title>AM Tool</title>
+        </head>
+        <body style="overflow-y: hidden;">   
+
+            <style>
+                #contentLoading{
+                    width: 100%;
+                    height: 100%;
+                    top: 0px;
+                    left: 0px;
+                    position: fixed;
+                    display: block;
+                    opacity: 0.7;
+                    background-color: #fff;
+                    z-index: 99;  
+                    text-align: center;
+                }
+                #contentLoading1{
+                    position: absolute;
+                    top:350px;
+                    z-index: 100;
+                }
+            </style>
+            
+            <div class="slds" style="border-left: 8px solid #a8b7c7; border-top: 8px solid #a8b7c7">    
+                <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size--1-of-2 slds-medium-size--1-of-2 slds-large-size--1-of-2">
+                        <div class="slds-card">
+
+                        <!--FILTER-->
+
+                            <div class="slds-page-header" role="banner" style="border-top: 1px solid #d8dde6; padding: 10px 5px 10px 25px;">
+
+                                <apex:form >
+                                    <apex:actionFunction status="loading" action="{!filterAccs}" name="filterMyAccs" reRender="leftPanel, op1">
+                                    </apex:actionFunction>
+                                    <div id="contentLoading" style="display:none; ">
+                                        <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+                                    </div>
+                                    
+                                   <div> 
+                                    Project Manager :  
+                                    <apex:selectList value="{!selMan}" size="1" styleClass="slds-select" style="width: 150px;">    
+                                        <apex:selectOptions value="{!listProjMan}">    
+                                        </apex:selectOptions>
+                                    </apex:selectList>
+                                    
+                                    &nbsp;&nbsp; 
+                                    Account Manager :  
+                                    <apex:selectList value="{!selAcc}" size="1" styleClass="slds-select" style="width: 210px;;">
+                                        <apex:selectOptions value="{!listAccMan}">    
+                                        </apex:selectOptions>
+                                    </apex:selectList>
+                                    </div>
+                                    
+                                    <div style="margin-top: 5px;"> 
+                                    <button onclick="showFilterModal(); return false;" class="slds-button slds-button--neutral slds-not-selected" aria-live="assertive" style="margin-right: 5px;">          
+                                        <span class="slds-text-not-selected">
+                                            <svg aria-hidden="true" class="slds-button__icon--stateful slds-button__icon--left">
+                                                <use xlink:href="{!URLFOR($Resource.sldc, 'icons/utility-sprite/svg/symbols.svg#filterList')}"></use>
+                                            </svg>Filter
+                                        </span>
+                                    </button>    
+                                    <a href="/apex/AccountConsole" class="slds-button slds-button--neutral slds-not-selected" aria-live="assertive" style="margin-right: 5px;">
+                                    Reset
+                                    </a>
+                                    </div> 
+                                </apex:form>  
+                            </div>
+                            
+                        <!--Filter END-->
+                       
+                       <!-- Light Panel  ---->
+                            <div class="slds-card__header slds-grid">
+                                <div class="slds-media slds-media--center slds-has-flexi-truncate">
+                                    <div class="slds-media__figure">
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <h2 class="slds-text-heading--small slds-truncate">Business Accounts</h2>
+                                    </div>
+                                </div>                          
+                            </div>
+                            <div class="slds-card__body slds-scrollable--y" style="overflow:auto; height:625px">    
+                                <apex:outputPanel id="leftPanel">
+
+                                    <table class="slds-table slds-table--bordered slds-table--cell-buffer">
+                                        <thead>
+                                            <tr class="slds-text-heading--label">
+                                                <th scope="col">
+                                                    <div class="slds-truncate" title="Account Name">Account Name</div>
+                                                </th>
+                                                <th scope="col">
+                                                    <div class="slds-truncate" title="Phone">Phone</div>
+                                                </th>
+                                                <th scope="col">
+                                                    <div class="slds-truncate" title="Email">Email</div>
+                                                </th>
+                                            </tr>
+                                        </thead>                                        
+                                        <tbody>
+                                            <apex:repeat value="{!Accounts}" var="accRecords" id="Repeat">
+                                                <tr>             
+                                                    <td data-label="Account Name">                 
+                                                        <div class="slds-truncate" title="">
+                                                            <apex:form >    
+                                                                <apex:commandlink value="{!accRecords.Name}" onClick="showAccDetails('{!accRecords.Id}'); return false;"/>  
+                                                            </apex:form>  
+                                                        </div>
+                                                    </td>                                       
+                                                    <td data-label="Phone">                 
+                                                        <div class="slds-truncate" title="">
+                                                               {!accRecords.PersonHomePhone}                                             
+                                                        </div>
+                                                    </td>  
+                                                    <td data-label="Email">                  
+                                                        <div class="slds-truncate" title="">
+                                                                {!accRecords.PersonEmail}                                              
+                                                        </div>
+                                                    </td>                                                    
+                                                </tr>
+                                            </apex:repeat>                                
+                                        </tbody>
+                                    </table>  
+                               
+                                <div style="margin-top: 7px;">      
+                                <apex:outputPanel id="myButtons" >
+                               <apex:form style="margin-left: 150px;">
+                                   <!-- <apex:commandButton action="{!first}" title="Beginning" value="<<" disabled="{!disablePrevious}" reRender="leftPanel,myButtons"/> -->
+                                    <apex:commandButton styleclass="slds-button slds-button--brand" action="{!Previous}" status="loading" title="Previous" value="Previous" disabled="{!disablePrevious}" reRender="leftPanel,myButtons"/>        
+                                    <apex:commandButton styleclass="slds-button slds-button--brand" action="{!Next}" status="loading" title="Next" value="Next" disabled="{!disableNext}" reRender="leftPanel,myButtons"/>
+                                   <!-- <apex:commandButton action="{!last}" title="End" value=">>" disabled="{!disableNext}" reRender="leftPanel,myButtons"/> -->
+                               </apex:form>
+                               </apex:outputPanel>
+                               </div> 
+                              </apex:outputPanel>
+                            </div>
+                        </div>  
+                    </div>                        
+ 
+
+                    <!-- Right Panel  ---->
+              
+                    <div class="slds-col slds-size--1-of-2 slds-medium-size--1-of-2 slds-large-size--1-of-2" id="div1">
+                        <apex:outputpanel id="op1" >
+
+                            <div class="slds-card">
+                                <div class="slds-card__body slds-scrollable--y" style="overflow:auto; height:250px; width:600p; border-style: groove;" >                           
+                                 
+                                   
+                                    <!-- chatter:newsfeed reRender="{!accountId}"/>  -->
+                                   <!-- chatter:feed entityId="{!accountId}"/> -->
+                                                    
+                                   <chatter:feed entityId="{!accountId}" id="chatterId"  showpublisher="True"/>
+                                </div>   
+                            </div>  
+
+                            <div class="slds-tabs--default slds-scrollable--y" style="overflow:auto; height:425px;">
+                                <ul class="slds-tabs--default__nav" role="tablist">
+                                    <li class="slds-tabs--default__item slds-text-heading--label slds-active" title="Item One" role="presentation"><a class="slds-tabs--default__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-default-1" id="tab-default-1__item" >RELATED</a></li>
+                                    <li class="slds-tabs--default__item slds-text-heading--label" title="Item Two" role="presentation"><a class="slds-tabs--default__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-default-2" id="tab-default-2__item" >DETAILS</a></li>
+                                </ul>
+
+                                <!-- RELATED TAB   --->
+                                
+                                <div id="tab-default-1" class="slds-tabs--default__content slds-show" role="tabpanel" aria-labelledby="tab-default-1__item">
+
+                                    <!-- code for Display the Related List of Lease-->                                              
+                                    
+                                    <table border="1" style="width: 560px; margin-left: 40px;">  
+                                        <caption>Lease Status</caption>
+                                                                            
+                                          <tr style="height: 30px; background-color: #cccccc;">
+                                             <th style="width: 150px;">Lease</th>   
+                                             <th style="width: 220px;">Days Delinquent</th>  
+                                             <th>Total Past Due</th> 
+                                          </tr>                                         
+                                         
+                                         <apex:repeat value="{!accRecord.LD_Leases__r}" var="leaseRecords">
+                                              <tr style="height: 30px; {!IF(leaseRecords.Days_Delinquent__c==null,'',IF(leaseRecords.Days_Delinquent__c<=30,'background-color:  lightgreen;',IF(leaseRecords.Days_Delinquent__c>30 && leaseRecords.Days_Delinquent__c<=60,'background-color: #fff2cc;','background-color: #ea9999;')))}"> 
+                                                <td> <a href="/{!leaseRecords.Id}" target="_blank"> {!leaseRecords.Name} </a> </td>
+                                                <td>{!leaseRecords.Days_Delinquent__c}</td>
+                                                <td>{!leaseRecords.Total_Past_Due__c}</td>                                            
+                                              </tr> 
+                                        </apex:repeat>                                           
+                                    </table>      
+                                    <!-- Lease Finish    -->     
+
+                                    <br/>
+
+                                    <!-- code for Display the Related List of Case-->                                              
+                                    <table border="1" style="width: 560px; margin-left: 40px;">   
+                                        <caption>Case Status</caption>
+                                                                            
+                                          <tr style="height: 30px; background-color: #cccccc;">
+                                             <th style="width: 150px;">Case</th>
+                                             <th style="width: 220px;">Case Age</th>
+                                             <th>Case Status</th>
+                                          </tr>                                         
+                                         
+                                         <apex:repeat value="{!accRecord.cases}" var="caseRecords">
+                                              <tr style="height: 30px; {!IF(caseRecords.CaseAgeDays__c==null,'',IF(caseRecords.CaseAgeDays__c<=30,'background-color:  lightgreen;;',IF(caseRecords.CaseAgeDays__c>30 && caseRecords.CaseAgeDays__c<=60,'background-color: #fff2cc;','background-color: #ea9999;')))}">
+                                                <td><a href="/{!caseRecords.Id}" target="_blank"> {!caseRecords.CaseNumber} </a></td>
+                                                <td>{!caseRecords.CaseAgeDays__c}</td> 
+                                                <td>{!caseRecords.status}</td>                                            
+                                              </tr> 
+                                        </apex:repeat>                                           
+                                    </table>   
+                                    <!-- Case Finish---- -->     
+
+                                    <br/>     
+
+                                    <!-- code for Display the Related List of Opportunity -->                                               
+                                    <table border="1" style="width: 560px; margin-left: 40px;">   
+                                        <caption>Opportunity</caption>
+                                                                            
+                                          <tr style="height: 30px; background-color: #cccccc;">   
+                                             <th style="width: 150px;">Opp ID</th>
+                                             <th style="width: 220px;">System Size</th> 
+                                             <th>Product</th>
+                                          </tr>                                         
+                                         
+                                         <apex:repeat value="{!accRecord.Opportunities}" var="oppRecords">
+                                              <tr style="height: 30px;">
+                                                <td> <a href="/{!oppRecords.Id}" target="_blank"> {!oppRecords.Numeric_ID__c} </a> </td>
+                                                <td>{!oppRecords.System_Size_in_KW__c}</td>
+                                                <td>{!oppRecords.Solar_Product__c}</td>                                            
+                                              </tr> 
+                                        </apex:repeat>                                           
+                                    </table>   
+                                    <!-- Opportunities Finish -->  
+                                                  
+                                </div>
+
+
+                                                
+                                <!-- DETAILS TAB   --->                           
+                                <div id="tab-default-2" class="slds-tabs--default__content slds-hide" role="tabpanel" aria-labelledby="tab-default-2__item">
+
+                                    <!-- code for Display Account Record-->                                             
+                                    <table border="0" style="width: 500px; margin-left: 50px;">  
+                                     
+                                        
+                                                                               
+                                        <tr>
+                                            <td style="font-weight: bold; height:50px; width:100px">Name</td>
+                                            <td> {!accRecord.Name} </td>
+                                            <td style="font-weight: bold; height:50px; width:100px">Phone</td>
+                                            <td>{!accRecord.PersonHomePhone}</td>
+                                        </tr> 
+                                                                                                                             
+                                        <tr>  
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:100px">Address</td>
+                                            <td style="vertical-align:top;">{!accRecord.BillingStreet}, {!accRecord.BillingCity} <br/> {!accRecord.BillingPostalCode} {!accRecord.BillingState} {!accRecord.BillingCountry}</td>   
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:100px">Cell</td> 
+                                            <td style="vertical-align:top;">  {!accRecord.PersonMobilePhone}  </td>
+                                        </tr>
+                                      
+                                        <tr>
+                                            <td style="font-weight: bold; height:50px; vertical-align:top; width:100px">NVM Phone</td> 
+                                            <td style="vertical-align:top;"> <support:clickToDial number="{!accRecord.Phone}" 
+entityId="{!accRecord.id}" 
+params="myparam1,myparam2" 
+/> <!--<apex:outputField value="{!accRecord.NVMContactWorld__NVM_Phone__c}"/>--> </td>     
+                                        </tr>
+ 
+                                    </table>           
+                                    <!-- Account Record Table Finish -->                                     
+                                            
+                                </div>  
+                                <!-- DETAILS TAB FINISH --->  
+                            </div>     
+
+                            <script>
+
+                                $('.slds-tabs--default__item').on('click', function(){   
+                                    console.log('Test1');                
+                                    $(this).addClass('slds-active');
+                                    $(this).find('a').attr('aria-selected', true);
+                                    var $contentToShow = $('#'+$(this).find('a').attr('aria-controls'));
+                                    $contentToShow.removeClass('slds-hide');
+                                    $contentToShow.addClass('slds-show');
+
+                                    $(this).siblings().removeClass('slds-active');
+                                    $(this).siblings().find('a').attr('aria-selected', false);
+                                    $contentToShow.siblings('.slds-tabs--default__content').removeClass('slds-show');
+                                    $contentToShow.siblings('.slds-tabs--default__content').addClass('slds-hide');
+                                }); 
+                                
+                                $('.suggestionEmail_close').on('click', function(){
+                                    $('#suggestionEmail').toggle('hide');    
+                                    $('#suggestionEmailOverLay').toggle('hide');    
+                                }); 
+                                
+                                function showFilterModal() {
+                                    filterMyAccs();
+                                } 
+
+                                function loading(val) {
+                                    if (val) {
+                                        document.getElementById('contentLoading').style.display = 'inline-block';
+                                        document.getElementById('contentLoaded').style.display = 'none';
+                                    }
+                                    else {
+                                        document.getElementById('contentLoading').style.display = 'none';
+                                        document.getElementById('contentLoaded').style.display = 'inline-block';
+                                    }
+                                }
+
+                            </script> 
+                            
+                        </apex:outputpanel>  
+                    </div>
+                </div>
+            </div> 
+        </body>
+    </html>
+</apex:page>

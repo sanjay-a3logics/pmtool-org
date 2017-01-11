@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Month_Bill_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Month Bill Dollars</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Month_Bill_Usage_kWh__c</fullName>
+        <externalId>false</externalId>
+        <label>Month Bill Usage kWh</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_EU_Projected_Electrical_Savings__c</fullName>
+        <externalId>false</externalId>
+        <label>Month EU Projected Electrical Savings $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Month_EU_Projected_Electrical_kWh_Saving__c</fullName>
+        <externalId>false</externalId>
+        <label>Month EU Projected Electrical kWh Saving</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_EU_Projected_NatGas_Therms_Savings__c</fullName>
+        <externalId>false</externalId>
+        <label>Month EU Projected NatGas Therms Savings</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_EU_Projected_Nat_Gas_Savings__c</fullName>
+        <externalId>false</externalId>
+        <label>Month EU Projected Nat Gas Savings $</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Month_Production_kWh__c</fullName>
+        <externalId>false</externalId>
+        <label>Month Production kWh</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_Projected__c</fullName>
+        <externalId>false</externalId>
+        <label>Month Projected</label>
+        <length>9</length>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Month_Savings_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Month Savings Dollars</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Month_Solar_Radiation__c</fullName>
+        <description>Solar Radiation kWh/m^2/day</description>
+        <externalId>false</externalId>
+        <label>Month Solar Radiation</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Numeric_Month_Projected__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE( Month_Projected__c , 
+  &quot;January&quot;, 1, 
+  &quot;February&quot;, 2, 
+  &quot;March&quot;, 3, 
+  &quot;April&quot;, 4, 
+  &quot;May&quot;, 5, 
+  &quot;June&quot;, 6, 
+  &quot;July&quot;, 7, 
+  &quot;August&quot;, 8, 
+  &quot;September&quot;, 9, 
+  &quot;October&quot;, 10, 
+  &quot;November&quot;, 11, 
+  12)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Numeric Month Projected</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Savings__c</fullName>
+        <externalId>false</externalId>
+        <label>Projected Savings</label>
+        <referenceTo>Projected_Savings__c</referenceTo>
+        <relationshipLabel>Projected Savings Line Items</relationshipLabel>
+        <relationshipName>Projected_Savings_Line_Items</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <label>Projected Savings Line Item</label>
+    <nameField>
+        <label>Projected Savings Line Item Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Projected Savings Line Items</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <webLinks>
+        <fullName>Add_Projected_Savings_Line_Items</fullName>
+        <availability>online</availability>
+        <description>Create line item detail records for Jan-Dec, then open bulk editing page for entering monthly projection figures.</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add Projected Savings Line Items</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>window.open(&apos;/apex/Add_ProjectedSavingsLIs?id={!Projected_Savings__c.Id}&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit_Projected_Savings_Line_Items</fullName>
+        <availability>online</availability>
+        <description>Create line item detail records for Jan-Dec, then open bulk editing page for entering monthly projection figures.</description>
+        <displayType>massActionButton</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Edit Projected Savings Line Items</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>window.open(&apos;/apex/Add_ProjectedSavingsLIs?id={!Projected_Savings__c.Id}&apos;);</url>
+    </webLinks>
+</CustomObject>

@@ -1,0 +1,28 @@
+<apex:page controller="success.ThemeIconController" >
+    <apex:form >
+        <apex:pageBlock title="{!$Label.themeIcon_edit}" >
+        	<apex:pagemessages />
+            
+            <apex:pageBlockButtons >
+            		<apex:CommandButton action="{!Save}" value="{!$Label.save}"  title="{!$Label.save}" />
+                    <apex:CommandButton action="{!Cancel}" value="{!$Label.cancel}" title="{!$Label.cancel_no_save}" />
+             </apex:pageBlockButtons>
+             
+             <apex:pageBlockSection title="{!$Label.icon}" columns="1">
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.themeIcon}" for="icon" />
+                	<apex:outputText id="icon" value="{!iconlabel}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel value="{!$Label.game_conf_mappedGraphic}" for="graphic"></apex:outputLabel>
+					<apex:selectList id="graphic" value="{!icon}" size="1" title="Icon">
+						<apex:selectOptions value="{!iconOptions}"></apex:selectOptions>
+					</apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

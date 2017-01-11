@@ -1,0 +1,20 @@
+<aura:component >
+    <aura:attribute name="isMass" type="Boolean" default="false"/>
+    <aura:method name="save" action="{!c.save}" access="Public"/>
+    <div class="slds">
+        <div class="border slds-m-bottom--medium">
+            <Loop:EnableDisableOAuth aura:id="oAuth"/>
+        </div>
+        <aura:if isTrue="{!v.isMass == true}">
+            <div class="slds-box">
+                <Loop:SetupWizardSettingsMassReports />
+            </div>
+            <aura:set attribute="else">
+                <div class="border slds-theme--shade slds-m-bottom--medium">
+                    <div class="slds-text-heading--small slds-m-bottom--small" title="Setup Wizard">Mass via Reports</div>
+                    Add the Mass DDPs add-on to your subscription to use this feature.
+                </div>
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

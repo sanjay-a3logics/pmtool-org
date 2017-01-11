@@ -1,0 +1,8 @@
+<apex:page standardController="Project__c">
+    <div style='min-height: 200px; overflow: overlay; max-height: 300px;'>
+    <div style='width: 100%; float: left; height: 200px; overflow: overlay;'>
+    <c:ProjectTaskAttachments >
+    </c:ProjectTaskAttachments>
+    </div>
+    </div>
+</apex:page>

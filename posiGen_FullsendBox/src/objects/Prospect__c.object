@@ -1,0 +1,2638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Mirror object for Native Leads</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Activity_Time_Difference__c</fullName>
+        <description>First Activity date/time and Created date/time difference.</description>
+        <externalId>false</externalId>
+        <formula>IF(ISNULL(created_date_time__c  ),0, (First_Activity_date_time__c - created_date_time__c)*24*60*60*1000)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Activity Time Difference</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Add_to_Campaign__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Triggers the Process flow that adds a new lead to a campaign as a campaign member</description>
+        <externalId>false</externalId>
+        <label>Add to Campaign</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Ambassador_Referring_Contact__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lead__r.Ambassador__Referred_By_Contact__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Abmassador Referring Contact</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Appt_Date_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Brightcurrent Appt. Date Time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>Are_you_past_due_on_your_electric_bill__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>This question is for NY/CT customers.  Check if they are past due.</inlineHelpText>
+        <label>Are you past due on your electric bill?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Brightcurrent_Average_Monthly_bill__c</fullName>
+        <externalId>false</externalId>
+        <label>Brightcurrent Average Monthly bill</label>
+        <precision>14</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Can_owner_access_utility_bill_online__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check if Yes</inlineHelpText>
+        <label>Can owner access utility bill online?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>CaseSafeID__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASESAFEID(Id)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>CaseSafeID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Checked_for_Duplicates__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Have you clicked on the Find Duplicates button to ensure there are no duplicate Leads for this customer?</inlineHelpText>
+        <label>Checked for Duplicates?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>City__c</fullName>
+        <externalId>false</externalId>
+        <label>City</label>
+        <length>40</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Client_has_a_unique_ownership_situation__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>The client either has a deceased spouse/shared homeowner, POA, divorce, offshore worker, succession etc. If you are unsure as to whether or not the client has a unique situation, check with Telemarketing management or Sales.</inlineHelpText>
+        <label>Client has a unique ownership situation</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Company__c</fullName>
+        <externalId>false</externalId>
+        <label>Company</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Confirmed_home_is_not_a_double__c</fullName>
+        <description>Confirmed home is not double</description>
+        <externalId>false</externalId>
+        <label>Confirmed home is not a double</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Contact_Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Contact Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Contacting Process</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Returned - Not Feasible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Returned - Not Interested</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Returned - Existing Customer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Can&apos;t Reach Client</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Called 6x, no response</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <length>32000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>DoNotCall__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Do Not Call</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Does_client_have_shading_around_home__c</fullName>
+        <description>Have you spoken to the client about potential shading around the roof of their home?</description>
+        <externalId>false</externalId>
+        <label>Does client have shading around home?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Electricity_Provider_BC__c</fullName>
+        <externalId>false</externalId>
+        <label>Electricity Provider BC</label>
+        <picklist>
+            <picklistValues>
+                <fullName>National Grid</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ConEdison</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PSEG</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Eversource</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>United Illuminating</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Electricity_Provider__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Electricity Provider</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Utility</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Prospects (Electricity Provider)</relationshipLabel>
+        <relationshipName>Prospects_Providing_Electricity</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Email</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Emma_Bounced__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lead__r.emma__Bounced__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Emma Bounced</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Emma_Member_ID__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lead__r.emma__Emma_Member_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Emma Member ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>FirstName__c</fullName>
+        <externalId>false</externalId>
+        <label>First Name</label>
+        <length>40</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>First_Activity_date_time__c</fullName>
+        <externalId>false</externalId>
+        <label>First Activity date/time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>HasOptedOutOfEmail__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Email Opt Out</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Heating_Provider__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Heating Provider</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Utility</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Prospects (Heating Provider)</relationshipLabel>
+        <relationshipName>Prospects</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Highest_Electric_Bill_in_Past_12_Months__c</fullName>
+        <externalId>false</externalId>
+        <label>Highest Electric Bill in Past 12 Months</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Home_Heating_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Home Heating Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Natural Gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Propane</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hot_Water_Heater__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What type of hot water heater?</inlineHelpText>
+        <label>Hot Water Heater</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Hot_Water_Heating_Method__c</fullName>
+        <externalId>false</externalId>
+        <label>Hot Water Heating Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Natural Gas</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Propane</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tankless</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Oil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>If_yes_shading_details__c</fullName>
+        <description>Explanation of shading situation for home.</description>
+        <externalId>false</externalId>
+        <label>If yes, shading details</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ImportBatch__c</fullName>
+        <description>Batch note for bulk imports.  All records of same batch will have the same batch note.</description>
+        <externalId>false</externalId>
+        <label>ImportBatch</label>
+        <length>88</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ImportID__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <description>External ID used in batch imports.  ID may be manually created prior to adding or may be machine-generated by external source</description>
+        <externalId>true</externalId>
+        <label>ImportID</label>
+        <length>88</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>Infomercial_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Infomercial Type</label>
+        <picklist>
+            <controllingField>Sub_Lead_Source__c</controllingField>
+            <picklistValues>
+                <fullName>Late Night</fullName>
+                <default>false</default>
+                <controllingFieldValues>Infomercial</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Daytime</fullName>
+                <default>false</default>
+                <controllingFieldValues>Infomercial</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>IsConverted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>IsConverted</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Portion_of_Roof_Facing_South_or_West__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Portion of Roof Facing South or West</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Keyword__c</fullName>
+        <externalId>false</externalId>
+        <label>Keyword</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Landing_PAge__c</fullName>
+        <externalId>false</externalId>
+        <label>Landing Page</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastName__c</fullName>
+        <externalId>false</externalId>
+        <label>Last Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LeadSource__c</fullName>
+        <externalId>false</externalId>
+        <label>Lead Source</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Ambassador</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Brightcurrent</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Call from Web</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Canvassing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CT PPC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Direct Mail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Energy Audit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Faraday</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>FL SHW</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>LA PPC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Modernize</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Nonprofit Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NY PPC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Outdoor</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Outside Company</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Radio</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Referral</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sales Event</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Telemarketing Calls</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TelephoneLists.Biz</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>TV</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Walk-In</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Age__c</fullName>
+        <externalId>false</externalId>
+        <formula>TODAY () -  DATEVALUE( CreatedDate )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Lead Age</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lead_Source_Detail_1__c</fullName>
+        <externalId>false</externalId>
+        <label>Lead Source Detail 1</label>
+        <picklist>
+            <picklistValues>
+                <fullName>News 12</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CBS</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fox</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ABC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>NBC</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Lead__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Lead</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipLabel>Prospects</relationshipLabel>
+        <relationshipName>Prospects</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Source_Detail_2__c</fullName>
+        <externalId>false</externalId>
+        <label>Lease Source Detail 2</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Morning News</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mid Day News</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Evening News</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Today Show</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CBS This Morning</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fox Morning News</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Good Morning America</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Judge Judy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Jeopardy</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dr. Phil</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Lock_Lead_Source__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Lock Lead Source</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Mobile_Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Mobile Phone c</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>Modernize_Lead_ID__c</fullName>
+        <externalId>false</externalId>
+        <label>Modernize Lead ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Multiple_Owner_Names__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter Additional Owner names, birthdates and social security numbers.</inlineHelpText>
+        <label>Multiple Owner Name(s)</label>
+        <length>5000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Multiple_Owners__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Does the property have multiple owners?</inlineHelpText>
+        <label>Multiple Owners?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Municipality__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Which Municipality is this property in?</inlineHelpText>
+        <label>Municipality</label>
+        <lookupFilter>
+            <active>true</active>
+            <filterItems>
+                <field>Account.RecordTypeId</field>
+                <operation>equals</operation>
+                <value>Municipality</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Prospects In This Municipality</relationshipLabel>
+        <relationshipName>Prospects_In_This_Municipality</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Number_of_Activities__c</fullName>
+        <externalId>false</externalId>
+        <label># of Activities</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Months_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Answer if &quot;Are you past due on your electric bill?&quot; is checked.</inlineHelpText>
+        <label>Number of Months Past Due</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Owners__c</fullName>
+        <externalId>false</externalId>
+        <label># of Owners</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Number_of_Units__c</fullName>
+        <defaultValue>1</defaultValue>
+        <description>How many units are in the building.</description>
+        <externalId>false</externalId>
+        <label># of Units</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Numeric_IDx__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lead__r.Numeric_ID__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Numeric ID</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Original_Keyword__c</fullName>
+        <externalId>false</externalId>
+        <label>Original Keyword</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Original_Search_Campaign__c</fullName>
+        <externalId>false</externalId>
+        <label>Original Search Campaign</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Original_Search_Engine__c</fullName>
+        <externalId>false</externalId>
+        <label>Original Search Engine</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Original_Search_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Original Search Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Outside_Company__c</fullName>
+        <externalId>false</externalId>
+        <label>Outside Company</label>
+        <picklist>
+            <controllingField>LeadSource__c</controllingField>
+            <picklistValues>
+                <fullName>Greener Dawn</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Company</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>RE Leads</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Company</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Clear Compass Digital</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Company</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Joule Solar Energy</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Company</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sader</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Company</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solar Advantage</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Company</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Organic Invasion</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Company</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CBM: Freedom Faith</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outside Company</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CBM: Operation Fuel</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>OverrideProcessBuilder__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>OverrideProcessBuilder</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Own_Property_at_This_Address__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Own Property at this Address</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Phone__c</fullName>
+        <externalId>false</externalId>
+        <label>Phone</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Phone</type>
+    </fields>
+    <fields>
+        <fullName>PostalCode__c</fullName>
+        <externalId>false</externalId>
+        <label>Postal Code</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Preferred_Method_Notes__c</fullName>
+        <externalId>false</externalId>
+        <label>Preferred Method Notes</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Preferred_Method_of_Contact__c</fullName>
+        <externalId>false</externalId>
+        <label>Preferred Method of Contact</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mobile Phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Home Phone</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Text Message</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Rating__c</fullName>
+        <externalId>false</externalId>
+        <label>Rating</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Hot</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Warm</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cold</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Ready_To_Sync__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Ready To Sync</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Reason_for_Past_Due__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Fill in if &quot;Are you past due on your electric bill?&quot; is checked</inlineHelpText>
+        <label>Reason for Past Due</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Referred_By_Ambassador__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Referring Ambassador</label>
+        <referenceTo>Ambassador__Ambassador__c</referenceTo>
+        <relationshipLabel>Prospects</relationshipLabel>
+        <relationshipName>Prospects</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Referred_By_Ambassador_id__c</fullName>
+        <externalId>false</externalId>
+        <label>Referred By Ambassador id</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Referred_By_Ambassadorx__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lead__r.Ambassador__Referred_By_Ambassador__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Referred By Ambassador</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Residence_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Residence Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Stand-Alone House</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Townhome</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Condominum</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Apartment</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mobile Home</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Roof_Type_SF2__c</fullName>
+        <externalId>false</externalId>
+        <label>Roof Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Shingle</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Corrugated Metal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Seam/Standard Metal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Terracotta</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Slate</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wood</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Hurricane</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Flat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Roof_Type__c</fullName>
+        <description>Inbound Email Roof Type</description>
+        <externalId>false</externalId>
+        <label>Roof Type Text</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SMS_Opt_Out__c</fullName>
+        <externalId>false</externalId>
+        <formula>Lead__r.smagicinteract__SMSOptOut__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>SMS Opt Out</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Search_Campaign__c</fullName>
+        <externalId>false</externalId>
+        <label>Search Campaign</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Engine__c</fullName>
+        <externalId>false</externalId>
+        <label>Search Engine</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Search_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Search Type</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>State__c</fullName>
+        <externalId>false</externalId>
+        <label>State</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Connecticut</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Louisiana</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New York</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>State_text__c</fullName>
+        <externalId>false</externalId>
+        <label>State (text)</label>
+        <length>80</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Lead Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Open</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Qualified</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Not Qualified</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Lost</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Application</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Approved</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assessed- Feasible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assessment Requested</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Assessment(s) Requested</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Close</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Non Feasible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Signed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Submitted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Street__c</fullName>
+        <externalId>false</externalId>
+        <label>Street</label>
+        <length>100</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Sub_Lead_Source__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the associated child lead source that reference the Parent campaigns.</inlineHelpText>
+        <label>Sub Lead Source</label>
+        <picklist>
+            <controllingField>LeadSource__c</controllingField>
+            <picklistValues>
+                <fullName>Solar Party</fullName>
+                <default>false</default>
+                <controllingFieldValues>Canvassing</controllingFieldValues>
+                <controllingFieldValues>Referral</controllingFieldValues>
+                <controllingFieldValues>Sales Event</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Pure Rewards</fullName>
+                <default>false</default>
+                <controllingFieldValues>Call from Web</controllingFieldValues>
+                <controllingFieldValues>Canvassing</controllingFieldValues>
+                <controllingFieldValues>Referral</controllingFieldValues>
+                <controllingFieldValues>Sales Event</controllingFieldValues>
+                <controllingFieldValues>Web</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PosiGen Vehicle</fullName>
+                <default>false</default>
+                <controllingFieldValues>Canvassing</controllingFieldValues>
+                <controllingFieldValues>Outdoor</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yard Sign</fullName>
+                <default>false</default>
+                <controllingFieldValues>Outdoor</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+                <controllingFieldValues>Call from Web</controllingFieldValues>
+                <controllingFieldValues>Canvassing</controllingFieldValues>
+                <controllingFieldValues>Referral</controllingFieldValues>
+                <controllingFieldValues>Web</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+                <controllingFieldValues>Call from Web</controllingFieldValues>
+                <controllingFieldValues>Canvassing</controllingFieldValues>
+                <controllingFieldValues>Referral</controllingFieldValues>
+                <controllingFieldValues>Web</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PosiGen.com</fullName>
+                <default>false</default>
+                <controllingFieldValues>Call from Web</controllingFieldValues>
+                <controllingFieldValues>Referral</controllingFieldValues>
+                <controllingFieldValues>Web</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Customer Referral</fullName>
+                <default>false</default>
+                <controllingFieldValues>Referral</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Infomercial</fullName>
+                <default>false</default>
+                <controllingFieldValues>TV</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+                <controllingFieldValues>TV</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Door Knocking</fullName>
+                <default>false</default>
+                <controllingFieldValues>Canvassing</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Posigen</fullName>
+                <default>false</default>
+                <controllingFieldValues>Brightcurrent</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TimeToContact__c</fullName>
+        <description>First Activity date/time and Created date/time difference.</description>
+        <externalId>false</externalId>
+        <formula>(First_Activity_date_time__c -  CreatedDate )*24*60</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time to First Contact (Minutes)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Title__c</fullName>
+        <externalId>false</externalId>
+        <label>Title</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Mr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Ms.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mrs.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Dr.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Prof.</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Unique_Ownership_Details__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Provide as much detail regarding the ownership situation as possible to allow admin to research more.</inlineHelpText>
+        <label>Unique Ownership Details</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Unqualified_Reason__c</fullName>
+        <externalId>false</externalId>
+        <label>Unqualified Reason</label>
+        <picklist>
+            <controllingField>Status__c</controllingField>
+            <picklistValues>
+                <fullName>Not Interested</fullName>
+                <default>false</default>
+                <controllingFieldValues>Lost</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Paperwork Declined</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Roof Assessment Not Feasible</fullName>
+                <default>false</default>
+                <controllingFieldValues>Not Qualified</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Solar Hot Water Heater Not Feasible</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Too Expensive</fullName>
+                <default>false</default>
+                <controllingFieldValues>Lost</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Unable to Reach</fullName>
+                <default>false</default>
+                <controllingFieldValues>Lost</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Renters</fullName>
+                <default>false</default>
+                <controllingFieldValues>Not Qualified</controllingFieldValues>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Already Has Solar</fullName>
+                <default>false</default>
+                <controllingFieldValues>Not Qualified</controllingFieldValues>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Verified_name_spellings_with_customer__c</fullName>
+        <description>Verified name spellings.</description>
+        <externalId>false</externalId>
+        <label>Verified name spellings with customer?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>No</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>created_date_time__c</fullName>
+        <externalId>false</externalId>
+        <label>created date/time</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>DateTime</type>
+    </fields>
+    <fields>
+        <fullName>created_day__c</fullName>
+        <externalId>false</externalId>
+        <formula>CASE(MOD( DATEVALUE(CreatedDate) - DATE(1900, 1, 6), 7), 0, &quot;Saturday&quot;, 1, &quot;Sunday&quot;, 2,&quot;Monday&quot;, 3, &quot;Tuesday&quot;, 4, &quot;Wednesday&quot;, 5, &quot;Thursday&quot;, 6,&quot;Friday&quot;,&quot;&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>created day</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>roofcondition__c</fullName>
+        <description>Condition of customers roof</description>
+        <externalId>false</externalId>
+        <inlineHelpText>We are not able to install solar panels on roofs which may need repair.</inlineHelpText>
+        <label>What is the condition of your roof?</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Sure</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>New / Fair (&lt;10 years old)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Needs Replacing (&gt;10 years old)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <label>Prospect</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Lead__c</columns>
+        <columns>FirstName__c</columns>
+        <columns>LastName__c</columns>
+        <columns>LeadSource__c</columns>
+        <columns>Phone__c</columns>
+        <columns>Ready_To_Sync__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Lead_Queue_Prospect</fullName>
+        <filterScope>Queue</filterScope>
+        <label>Lead Queue</label>
+        <queue>Lead_Queue</queue>
+        <sharedTo>
+            <allInternalUsers></allInternalUsers>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>Recently_created</fullName>
+        <columns>NAME</columns>
+        <columns>FirstName__c</columns>
+        <columns>LastName__c</columns>
+        <columns>Lead__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>IsConverted__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>CREATED_DATE</field>
+            <operation>greaterThan</operation>
+            <value>10/4/2016 12:00 AM</value>
+        </filters>
+        <label>Recently created</label>
+    </listViews>
+    <nameField>
+        <displayFormat>P{00000000}</displayFormat>
+        <label>Prospect Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Prospects</pluralLabel>
+    <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>
+    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypes>
+        <fullName>SF2</fullName>
+        <active>true</active>
+        <label>SF2</label>
+        <picklistValues>
+            <picklist>Confirmed_home_is_not_a_double__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Contact_Status__c</picklist>
+            <values>
+                <fullName>Called 6x%2C no response</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Can%27t Reach Client</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>In Contacting Process</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returned - Existing Customer</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returned - Not Feasible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Returned - Not Interested</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Does_client_have_shading_around_home__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Electricity_Provider_BC__c</picklist>
+            <values>
+                <fullName>ConEdison</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Eversource</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>National Grid</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PSEG</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>United Illuminating</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Home_Heating_Method__c</picklist>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Natural Gas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Oil</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Propane</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Hot_Water_Heater__c</picklist>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Gas</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Hot_Water_Heating_Method__c</picklist>
+            <values>
+                <fullName>Electric</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Natural Gas</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Oil</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Propane</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Tankless</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Infomercial_Type__c</picklist>
+            <values>
+                <fullName>Daytime</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Late Night</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>LeadSource__c</picklist>
+            <values>
+                <fullName>Ambassador</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Brightcurrent</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CT PPC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Call from Web</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Canvassing</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Direct Mail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Energy Audit</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>FL SHW</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Faraday</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>LA PPC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Modernize</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NY PPC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Nonprofit Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Outdoor</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Outside Company</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Radio</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sales Event</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TV</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Telemarketing Calls</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>TelephoneLists%2EBiz</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Walk-In</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Web</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lead_Source_Detail_1__c</picklist>
+            <values>
+                <fullName>ABC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CBS</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fox</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>NBC</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>News 12</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Lease_Source_Detail_2__c</picklist>
+            <values>
+                <fullName>CBS This Morning</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Dr%2E Phil</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Evening News</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Fox Morning News</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Good Morning America</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Jeopardy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Judge Judy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mid Day News</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Morning News</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Today Show</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Multiple_Owners__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Outside_Company__c</picklist>
+            <values>
+                <fullName>CBM%3A Freedom Faith</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CBM%3A Operation Fuel</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Clear Compass Digital</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Greener Dawn</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Joule Solar Energy</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Organic Invasion</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>RE Leads</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Sader</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solar Advantage</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Preferred_Method_of_Contact__c</picklist>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Home Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Phone</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Text Message</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Rating__c</picklist>
+            <values>
+                <fullName>Cold</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hot</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Warm</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Residence_Type__c</picklist>
+            <values>
+                <fullName>Apartment</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Condominum</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mobile Home</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Stand-Alone House</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Townhome</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Roof_Type_SF2__c</picklist>
+            <values>
+                <fullName>Corrugated Metal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Flat</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Hurricane</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Seam%2FStandard Metal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Shingle</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Slate</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Terracotta</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wood</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>State__c</picklist>
+            <values>
+                <fullName>Connecticut</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Louisiana</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New York</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>Lost</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Qualified</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Open</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Qualified</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Sub_Lead_Source__c</picklist>
+            <values>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Customer Referral</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Door Knocking</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Infomercial</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PosiGen Vehicle</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PosiGen%2Ecom</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Posigen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Pure Rewards</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solar Party</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yard Sign</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Title__c</picklist>
+            <values>
+                <fullName>Dr%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mr%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Mrs%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Ms%2E</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Prof%2E</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Unqualified_Reason__c</picklist>
+            <values>
+                <fullName>Already Has Solar</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Interested</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Paperwork Declined</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Renters</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Roof Assessment Not Feasible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Solar Hot Water Heater Not Feasible</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Too Expensive</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Unable to Reach</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Verified_name_spellings_with_customer__c</picklist>
+            <values>
+                <fullName>No</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Yes</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>roofcondition__c</picklist>
+            <values>
+                <fullName>Needs Replacing %28%3E10 years old%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New %2F Fair %28%3C10 years old%29</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Not Sure</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <customTabListAdditionalFields>FirstName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LastName__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>LeadSource__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OWNER.FIRST_NAME</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OWNER.LAST_NAME</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Cannot_Edit_Converted_Prospect</fullName>
+        <active>true</active>
+        <errorConditionFormula>/*not(ISBLANK(Lead__r.ConvertedDate) )*/
+PRIORVALUE(IsConverted__c)</errorConditionFormula>
+        <errorMessage>You cannot edit a prospect record that has already been converted.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Client_Ownership_and_Details</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( Client_has_a_unique_ownership_situation__c , ISBLANK( Unique_Ownership_Details__c ) )</errorConditionFormula>
+        <errorDisplayField>Unique_Ownership_Details__c</errorDisplayField>
+        <errorMessage>You must provide ownership details is &quot;Client has a unique ownership situations&quot; is selected.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>DoNotCall_Lock</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(ISCHANGED(DoNotCall__c),
+    NOT(DoNotCall__c),
+    NOT( $User.ProfileId = &quot;00ed0000000tWnG&quot;)
+    )</errorConditionFormula>
+        <errorDisplayField>DoNotCall__c</errorDisplayField>
+        <errorMessage>You Cannot Uncheck the Do Not Call box</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Email_Unsubscribe_Lock</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(ISCHANGED( HasOptedOutOfEmail__c ),
+    NOT(HasOptedOutOfEmail__c),
+    NOT( $User.ProfileId = &quot;00ed0000000tWnG&quot;)
+    )</errorConditionFormula>
+        <errorDisplayField>HasOptedOutOfEmail__c</errorDisplayField>
+        <errorMessage>You Cannot Uncheck the Email Opt Out box</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Lock_Lead_Source</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( ISCHANGED( LeadSource__c ) ,
+ Lock_Lead_Source__c )</errorConditionFormula>
+        <errorDisplayField>LeadSource__c</errorDisplayField>
+        <errorMessage>You cannot change the lead source once it is set.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Number_of_Months_Past_Due_Required</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND(  Are_you_past_due_on_your_electric_bill__c  = TRUE , ISBLANK( Number_of_Months_Past_Due__c ) )</errorConditionFormula>
+        <errorDisplayField>Number_of_Months_Past_Due__c</errorDisplayField>
+        <errorMessage>Number of Months Past Due cannot be blank if &quot;Are you past due on your electric bill?&quot; is checked.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Owner_change_restriction</fullName>
+        <active>true</active>
+        <description>lead owner change can only be changed by sales or telemarketing manager</description>
+        <errorConditionFormula>AND(
+ISCHANGED(OwnerId),
+NOT( $User.ProfileId = &quot;00ed0000000WhYl&quot;),
+NOT( $User.ProfileId = &quot;00ed0000000X2nD&quot;),
+NOT( $User.ProfileId = &quot;00ed0000000X20L&quot;),
+NOT( $User.Username = &quot;mmann@posigen.com&quot;),
+NOT( $User.ProfileId = &quot;00ed0000000tWnG&quot;),
+NOT( $User.ProfileId = &quot;00ed0000000WhP5&quot;),
+NOT(  $User.Id  = &quot;005d0000006701S&quot;)
+)</errorConditionFormula>
+        <errorDisplayField>OwnerId</errorDisplayField>
+        <errorMessage>Only Sales and Telemarketing Managers can change Lead Owner.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Reason_for_Past_Due_Must_Not_Be_Blank</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( Are_you_past_due_on_your_electric_bill__c  = TRUE, ISBLANK( Reason_for_Past_Due__c ) )</errorConditionFormula>
+        <errorDisplayField>Reason_for_Past_Due__c</errorDisplayField>
+        <errorMessage>Reason for Past Due cannot be blank if &quot;Are you past due on your electric bill?&quot; is checked.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Unique_Ownership</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND( NOT( ISBLANK( Unique_Ownership_Details__c ) ) ,  AND( Client_has_a_unique_ownership_situation__c =FALSE))</errorConditionFormula>
+        <errorDisplayField>Client_has_a_unique_ownership_situation__c</errorDisplayField>
+        <errorMessage>You must check &quot;Client has a unique ownership situation&quot; is the Unique Ownership Details are filled in.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Unqualified_Validation_Rule</fullName>
+        <active>true</active>
+        <errorConditionFormula>AND ( ISPICKVAL( Contact_Status__c , &quot;Unqualified&quot;),   ISPICKVAL( Unqualified_Reason__c ,&quot;&quot;))</errorConditionFormula>
+        <errorDisplayField>Unqualified_Reason__c</errorDisplayField>
+        <errorMessage>When Status is Unqualified, you must select an Unqualified Reason.</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Unsubscribe_Lock</fullName>
+        <active>true</active>
+        <errorConditionFormula>and(ISCHANGED( HasOptedOutOfEmail__c ),
+    NOT(HasOptedOutOfEmail__c),
+    NOT( $User.ProfileId = &quot;00ed0000000tWnG&quot;)
+    )</errorConditionFormula>
+        <errorDisplayField>HasOptedOutOfEmail__c</errorDisplayField>
+        <errorMessage>You Cannot Uncheck the Email Opt Out box</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Convert_Lead</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Convert Lead</masterLabel>
+        <openType>sidebar</openType>
+        <page>CustomLeadConversionButton</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

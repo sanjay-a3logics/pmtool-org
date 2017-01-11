@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Ambassador_API_Key</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Ambassador API Key</shortDescription>
+        <value>1e2201ff9e1eb41724e72eb7ea9f019c</value>
+    </labels>
+    <labels>
+        <fullName>Ambassador_API_Username</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Ambassador API Username</shortDescription>
+        <value>Ambassador</value>
+    </labels>
+</CustomLabels>

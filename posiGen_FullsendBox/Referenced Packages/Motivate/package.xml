@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Motivate</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <description>Motivate your ContactWorld users to promote best practice and Salesforce adoption through game mechanics</description>
+    <namespacePrefix>NVMMotivate</namespacePrefix>
+    <setupWeblink>Configuration</setupWeblink>
+    <types>
+        <members>PostInstallHandler</members>
+        <members>PostInstallHandlerTest</members>
+        <members>PreUninstallHandler</members>
+        <members>PreUninstallHandlerTest</members>
+        <members>Utility</members>
+        <members>UtilityTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>NVM_Motivate</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>Configuration</members>
+        <name>CustomPageWebLink</name>
+    </types>
+    <types>
+        <members>Motivate</members>
+        <members>Motivate1</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>NewVoiceMedia_Documents</members>
+        <members>NewVoiceMedia_Documents/Motivate_Application_logo2.png</members>
+        <name>Document</name>
+    </types>
+    <types>
+        <members>Competition</members>
+        <members>Motivate</members>
+        <members>MotivateToolkit</members>
+        <members>Performance</members>
+        <members>Performance History</members>
+        <members>Promotions</members>
+        <members>Rewards</members>
+        <name>HomePageComponent</name>
+    </types>
+    <types>
+        <members>Achievement</members>
+        <members>Achievement_Criteria</members>
+        <members>Graphic</members>
+        <members>MotivateAssets</members>
+        <name>StaticResource</name>
+    </types>
+    <version>36.0</version>
+</Package>

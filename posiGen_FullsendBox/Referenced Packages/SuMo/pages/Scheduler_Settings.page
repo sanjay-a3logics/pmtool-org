@@ -1,0 +1,38 @@
+<apex:page controller="success.SchedulerSettingsSetController" >
+    <apex:form >
+    <apex:image url="{!$Resource.success__Settings_icon}" width="50" height="50" />
+ 
+    <apex:pageBlock title="{!$Label.scheduler_settings}" mode="maindetail">
+            <apex:pagemessages />
+            <apex:pageBlockButtons >
+                <apex:commandButton action="{!back}" title="{!$Label.back}" value="{!$Label.back}"/>
+                <apex:commandButton action="{!add}" title="{!$Label.scheduler_submit_helptext}" value="{!$Label.new}"/>
+             </apex:pageBlockButtons>
+             
+            <apex:pageBlockSection title="{!$Label.information}" collapsible="true" columns="1">
+            <apex:pageBlockSectionItem >
+                {!$Label.scheduler_helptext1}
+                <BR />  
+                <BR />
+                {!$Label.scheduler_helptext2}
+                <BR />  
+                <BR /> 
+                {!$Label.scheduler_helptext3}
+            </apex:pageBlockSectionItem>
+
+            </apex:pageBlockSection>
+            
+             <apex:pageBlockSection title="{!$Label.engines_schedule}" collapsible="true" columns="1">
+           
+                 <apex:repeat value="{!engines}" var="engine">
+                    <c:SchedulingComponent engine="{!engine}" recordstate="edit" description="{!engine.success__Label__c} {!$Label.current_settings}:" />
+                </apex:repeat>
+            
+            </apex:pageBlockSection>
+           
+          
+            
+          
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

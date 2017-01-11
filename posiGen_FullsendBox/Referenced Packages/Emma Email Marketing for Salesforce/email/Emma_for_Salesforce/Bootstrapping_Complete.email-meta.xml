@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Bootstrapping Complete</name>
+    <style>none</style>
+    <subject>Emma Sync is Complete!</subject>
+    <textOnly>Hi there,
+
+The sync is all done! Now your groups will stay up to date no matter where you make changes. Remember you can change your sync settings in the setup process anytime.
+
+For more details, check out the Emma for Salesforce help guide, or contact support@myemma.com.
+
+Cheers,
+Emma</textOnly>
+    <type>custom</type>
+</EmailTemplate>

@@ -1,0 +1,77 @@
+<apex:page standardController="Deal__c" title="Collaboration Status" extensions="AddCollaborationController" action="{!createCollaboration}" >
+    <style>
+        #contentLoading{
+        width: 100%;
+        height: 100%;
+        top: 0px;   			
+        left: 0px;
+        position: fixed;
+        display: block;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        text-align: center;
+        }
+        
+        #contentLoading1{
+        position: absolute;
+        top:350px;
+        z-index: 100;
+        }
+        
+    </style>
+    <script>
+        window.onload =function(){ startup();};
+        function checkoppcoll(){
+            jscheckoppcoll();
+        }
+        function loading(val) {
+            if (val) {
+                document.getElementById('contentLoading').style.display = 'inline-block';
+                document.getElementById('contentLoaded').style.display = 'none';
+            }
+            else {
+                document.getElementById('contentLoading').style.display = 'none';
+                document.getElementById('contentLoaded').style.display = 'inline-block';
+            }
+        } 
+    </script>
+    <apex:form >
+        <apex:actionFunction name="startup" status="loading" action="{!createColl}" rerender="" oncomplete="checkoppcoll();return false;"/>
+        <apex:actionFunction name="jscheckoppcoll" status="loading" action="{!collaborationlogist}" rerender="logtable"/>
+        <apex:actionStatus id="loading" onstart="loading(true)" onstop="loading(false)" />
+        <div id="contentLoading" style="display:none; ">
+            <img id="contentLoading1" src="/img/loading32.gif" alt="Loading graphic" />
+        </div>
+        <!--<apex:inputHidden value="{!Opportunity.OwnerId}"/>-->
+          
+        <apex:pageBlock id="logtable" title="Box User Permission Status">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Back to Deal" action="{!backtoOpportunity}"/>
+            </apex:pageBlockButtons>
+           
+            <apex:outputLabel style="font-weight:bold;" rendered="{!boxfolderLog.size>0 && boxfolderLog!=null}" value="Folders"></apex:outputLabel>
+            <apex:pageBlockTable value="{!boxfolderLog}" var="logfold" rendered="{!boxfolderLog.size>0 && boxfolderLog!=null}">
+                <apex:column headerValue="Folder name" value="{!logfold.SubFolder}"/>
+                <apex:column headerValue="Deal Name" value="{!logfold.OppName}"/>
+                <apex:column headerValue="Status Code" value="{!logfold.StatusCode}"/>
+                <apex:column headerValue="Status" value="{!logfold.Status}"/>
+                <apex:column headerValue="Error Messgae" value="{!logfold.msg}"/>
+            </apex:pageBlockTable><br/>  
+            
+            <apex:outputPanel rendered="{!boxLogList.size == 0 && boxLogList!=null}"><apex:outputLabel value="No Collabration For this User on Folder"></apex:outputLabel></apex:outputPanel>
+            
+                <apex:outputLabel style="font-weight:bold;" rendered="{!boxLogList.size>0 && boxLogList!=null}" value="Collaborations"></apex:outputLabel>
+                <apex:pageBlockTable value="{!boxLogList}" var="log" rendered="{!boxLogList.size>0 && boxLogList!=null}">
+                    <apex:column headerValue="Folder name" value="{!log.SubFolder}"/>
+                    <apex:column headerValue="User Email" value="{!log.email}"/>
+                    <apex:column headerValue="Stage" value="{!log.stagename}"/>
+                    <apex:column headerValue="Role" value="{!log.role}"/>
+                    <apex:column headerValue="Status Code" value="{!log.ErrorCode}"/>
+                    <apex:column headerValue="Status" value="{!log.Status}"/>
+                    <apex:column headerValue="Error Message" value="{!log.msg}"/>
+                </apex:pageBlockTable>
+            
+        </apex:pageblock>
+    </apex:form>
+    </apex:page>

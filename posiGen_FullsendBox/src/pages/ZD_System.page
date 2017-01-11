@@ -1,0 +1,34 @@
+<apex:page controller="ZD_System_Detail_Controller">
+    <style>
+    .x-grid3-dirty-cell {
+        background-image: none;
+    }
+    </style>
+    <script type="text/javascript">    
+    function endsWith(str, suffix) {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
+    function setActions() {        
+        Ext.ComponentMgr.all.each( function(item, index, length) {
+            if(endsWith(item.id, "grid")) {    
+                var action = '<a href="/apex/ZD_System_Detail?id=%s"><span>EE</span></a>'; 
+                item.store.each( function(record) {
+                    var id = record.id;
+                    var temp = action;
+                    temp = temp.replace("%s", id);
+                    record.set("ACTION_COLUMN", [temp]);
+                });
+                item.store.on("load", function() {
+                    item.store.each( function(record) {
+                        var id = record.id;
+                        var temp = action;
+                        temp = temp.replace("%s", id);
+                        record.set("ACTION_COLUMN", [temp]);
+                    });
+                });
+            }
+        });
+    }
+    </script>
+    <apex:enhancedList type="Systems__c" height="300" oncomplete="setActions();" />
+</apex:page>

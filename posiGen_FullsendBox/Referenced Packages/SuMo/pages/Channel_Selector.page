@@ -1,0 +1,83 @@
+<apex:page showHeader="true" sidebar="true" controller="success.SuMoSidebarController">
+        
+        <div ng-app="sensei.channelSelector" ng-cloak="true">
+            <div ng-controller="selectorController" 
+                ng-include="' {!URLFOR($Resource.ChannelSelectorBundle, 'templates/selector.html')} '"
+                style="position: relative;"></div>
+        </div>
+
+        
+        <apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'vendor/bootstrap/css/bootstrap.min.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.success__ChannelSelectorBundle, 'vendor/jquery-flipster/jquery.flipster.min.css')}" />
+
+        <apex:stylesheet value="{!URLFOR($Resource.success__CommonBundle, 'css/icon-font.css')}"/>
+            <apex:stylesheet value="{!URLFOR($Resource.success__FontsBundle, 'css/fonts.css')}"/>
+
+        <apex:stylesheet value="{!URLFOR($Resource.success__ChannelSelectorBundle, 'app.css')}" />
+
+        <!-- vendor js -->
+        
+        <script type="text/javascript">
+            window.SELECTOR_FILES = {
+                'tile.html': "{!URLFOR($Resource.ChannelSelectorBundle, 'templates/tile.html')}",
+                'icon-error.png': "{!URLFOR($Resource.ChannelSelectorBundle, 'icon-error.png')}"
+            };
+
+            window.CHANNELS_REMOTE_ACTION = '{!$RemoteAction.SuMoSidebarController.getInspireChannelsChatterSafe}';
+
+            window.DISCONNECTED_CHANNEL_MESSAGE = '{!JSENCODE($Label.inspireChannelLaunchingWithNoChatterGroup)}';
+            window.CONNECTED_CHANNEL_MESSAGE = '{!JSENCODE($Label.inspireChannelLaunchingWithChatterGroup)}';
+
+
+            window.INSPIRE_PAGE = '{!URLFOR($Page.Inspire)}';
+            window.SELECTOR_BUNDLE = "{!URLFOR($Resource.ChannelSelectorBundle, '')}";
+            window.SOUNDS_BUNDLE_ROOT = "{!URLFOR($Resource.SoundsBundle, '')}";
+
+            //
+            //
+            // ALL URLs NEED TO BE ESCAPED FOR THE ?isdtp PARAMETER
+            //
+            //
+            if (window.INSPIRE_PAGE.indexOf('?') > -1) {
+                window.INSPIRE_PAGE = window.INSPIRE_PAGE.substring(0, window.INSPIRE_PAGE.indexOf('?'));
+            }
+            if (window.SELECTOR_BUNDLE.indexOf('?') > -1) {
+                window.SELECTOR_BUNDLE = window.SELECTOR_BUNDLE.substring(0, window.SELECTOR_BUNDLE.indexOf('?'));
+            }
+
+
+            window.CHANNEL_CUSTOM_LABELS = { 
+                inspirechannelSelector_noChannels: '{!JSENCODE($Label.inspirechannelSelector_noChannels)}',
+                inspirechannelSelector_navigate: '{!JSENCODE($Label.inspirechannelSelector_navigate)}'
+            };
+        </script>
+        
+
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/lodash.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/postal.js')}"></script>
+
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/jquery/jquery-2.1.3.min.js')}"></script>
+
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/angular/angular.min.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/angular/angular-animate.min.js')}"></script>
+
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'vendor/tinycolor.min.js')}"></script>
+
+        <script type="text/javascript" src="{!URLFOR($Resource.ChannelSelectorBundle, 'vendor/jquery-flipster/jquery.flipster.min.js')}"></script>
+
+        <!-- app js -->
+
+        <script type="text/javascript" src="{!URLFOR($Resource.ChannelSelectorBundle, 'app.js')}"></script>
+
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/common.module.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/components.factory.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/audio.service.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/sfdc.service.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/channel.service.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.CommonBundle, 'common/style.service.js')}"></script>
+
+        <script type="text/javascript" src="{!URLFOR($Resource.ChannelSelectorBundle, 'selector.controller.js')}"></script>
+        <script type="text/javascript" src="{!URLFOR($Resource.ChannelSelectorBundle, 'tile.directive.js')}"></script>
+
+
+</apex:page>

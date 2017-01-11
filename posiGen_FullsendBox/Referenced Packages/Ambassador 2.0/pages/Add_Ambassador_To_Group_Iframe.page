@@ -1,0 +1,1026 @@
+<apex:page controller="Ambassador.Ambassador_Add_To_Group_Iframe" showHeader="false" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'styles.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'master.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.Ambassador__Assets, 'app/scripts/lib/highlightjs/github.min.css')}"/>
+    <head>
+        <base href="{!URLFOR($Resource.Assets)}/" />
+    </head>
+    <body ng-app="GaApp" ng-controller="MgDeAmbassadorCtrl">
+        <style type="text/css">
+            .async-loader i { 
+                position: absolute;
+                top: 36px;
+                right: 25px;
+            }
+            .group-add-edit-modal .description {
+                font-size: 11px;
+                color: gray;
+                font-family: proxima_novalight;
+                padding-top: 27px;
+            }
+            .selected .label {
+                padding: .2em .6em .3em;
+            }
+        </style>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/jquery/dist/jquery.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular/angular.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/json3/lib/json3.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/button.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/carousel.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/dropdown.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/modal.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/popover.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-resource/angular-resource.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-cookies/angular-cookies.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-sanitize/angular-sanitize.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-touch/angular-touch.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-route/angular-route.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-bootstrap/ui-bootstrap-tpls.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/lodash/dist/lodash.compat.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/restangular/dist/restangular.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-scroll/angular-scroll.min.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/spin.js/spin.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angular-spinner/angular-spinner.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/chartjs/Chart.min.js')}"></script>
+        <script src="{!URLFOR($Resource.Bower, 'bower_components/angles/angles.js')}"></script>
+        
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'app/scripts/lib/highlightjs/highlight.min.js')}"/>
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'app/scripts/lib/highlightjs/angular-highlight.js')}"/>
+        
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'ambassador/scripts/ng-ambassador.tables.js')}"/>
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'ambassador/scripts/ng-ambassador.js')}"/>
+        
+        <script type="text/javascript" src="{!URLFOR($Resource.Assets, 'app/scripts/constants.js')}"/>
+        <script type="text/javascript">
+        'use strict';
+        angular.module("ambassador.constants", [])
+.constant("STATIC_URL", "{!URLFOR($Resource.Assets)}")
+.constant("AMBASSADOR_CLIENT_URL", "https://getambassador.com")
+.constant("AMBASSADOR_API_URL", "{!JSENCODE(apiUrl)}")
+
+angular.module('ambassador.auth', [])
+        .value('TOKEN', '{!JSENCODE(apiToken)}');
+
+        angular.module('GaApp', ['ngRoute', 'duScroll', 'ambassador.constants', 'ngAmbassador', 'ui.bootstrap', 'hljs', 'restangular', 'ambassador.constants', 'ambassador.auth'])
+            .factory('$errors', ['$alert', function($alert) {
+  return {
+    output: function (options, error) {
+      var errorAlerts = [];
+      var fieldError = false;
+
+      if (error && typeof error === 'object') {
+        for (var key in error) {
+          if (key === 'detail') {
+            errorAlerts.push(error[key]);
+          }else if(key === 'non_field_errors' || key === 'billing_zip'){
+            errorAlerts.push(error[key][0]);
+          }
+          else {
+            fieldError = true;
+          }
+        }
+        if(fieldError === true){
+          errorAlerts.push("Please ensure all required fields are properly completed.");
+        }
+      }
+      else {
+        if (angular.isDefined(options.defaultMessage)) {
+          errorAlerts.push(options.defaultMessage);
+        }
+        else {
+          errorAlerts.push('Something went wrong. Please try again or contact support.');
+        }
+      }
+
+      for (var i = 0; i < errorAlerts.length; i++) {
+        if (i < 2) {
+
+          var alertConfig = {
+            type: options.alertSystemType ? options.alertSystemType : 'page',
+            name: options.alertSystem,
+            register: true,
+            style: 'danger',
+            text: errorAlerts[i]
+          };
+
+          if(alertConfig.type === 'page'){
+            alertConfig.register = false;
+          }
+
+          $alert.add(alertConfig);
+        }
+      }
+    }
+  };
+}])
+.factory('$v3API', ['Restangular', 'AMBASSADOR_API_URL', 'TOKEN', function(Restangular, AMBASSADOR_API_URL, TOKEN) {
+    return Restangular.withConfig(function(RestangularConfigurer) {
+      RestangularConfigurer.setBaseUrl(AMBASSADOR_API_URL);
+      RestangularConfigurer.setDefaultHeaders({'Authorization': 'Token ' + TOKEN});
+      RestangularConfigurer.setRequestSuffix('/');
+      RestangularConfigurer.setRestangularFields({
+        id: "uid"
+      });
+      RestangularConfigurer.setResponseExtractor(function(response, operation, what, url) {
+        // This is a get for a list
+        var newResponse;
+
+        if (operation === "getList") {
+          // Have to break up the response for restangular to handle
+          // It expects data to be in an array
+          if (angular.isDefined(response.count)) {
+            newResponse = response.results;
+            newResponse.count = response.count;
+            newResponse.next = response.next;
+            newResponse.previous = response.previous;
+          }
+          else {
+            newResponse = response;
+            newResponse.count = _.size(response);
+          }
+        }
+        else {
+          // This is an element
+          newResponse = response;
+        }
+
+        return newResponse;
+      });
+    });
+  }])
+  .factory('$validationUtilities', ['$q', '$v3API', '$helper', function($q, $v3API, $helper) {
+  return {
+    does_ambassador_email_exist: function(value, originalValue) {
+      var deferred = $q.defer();
+
+      if(value === originalValue) {
+        setTimeout(function() {
+          deferred.resolve();
+        });
+      } else {
+        $v3API.all('ambassadors').getList({ email: value}).then(function(data) {
+          if(data.count >= 1 && value !== originalValue) {
+            deferred.reject('This email address already exists.');
+          } else {
+            deferred.resolve();
+
+          }
+        });
+      }
+
+      return deferred.promise;
+    },
+    does_team_member_exist: function(value, originalValue) {
+      var deferred = $q.defer();
+
+      if(value === originalValue) {
+        setTimeout(function() {
+          deferred.resolve();
+        });
+      } else {
+        $v3API.all('team').getList({ email: value}).then(function(data) {
+          if(data.count >= 1 && value !== originalValue) {
+            deferred.reject('Email address is already in use by another user.');
+          } else {
+            deferred.resolve();
+          }
+        });
+      }
+
+      return deferred.promise;
+    },
+    dropdown_item_selected: function(value) {
+      var deferred = $q.defer();
+
+      setTimeout(function() {
+        if(value === undefined) {
+          deferred.reject("You must make a selection.");
+        } else {
+          deferred.resolve();
+        }
+      });
+
+      return deferred.promise;
+    },
+    is_integer: function(value) {
+      var deferred = $q.defer();
+
+      setTimeout(function() {
+        var integer_regex = /^-?\d+$/;
+        if(integer_regex.test(value)) {
+          deferred.resolve();
+        } else {
+          deferred.reject("Invalid number.  Please enter a whole number.");
+        }
+      });
+
+      return deferred.promise;
+    },
+    is_integer_or_float: function(value) {
+      var deferred = $q.defer();
+
+      setTimeout(function() {
+        var float_regex = /^-?\d+\.?\d+?$/,
+            integer_regex = /^-?\d+$/;
+
+        if(float_regex.test(value) || integer_regex.test(value)) {
+          deferred.resolve();
+        } else {
+          deferred.reject("Invalid format.  Please enter a whole or decimal number.");
+        }
+
+      });
+
+      return deferred.promise;
+    },
+    is_less_than_512_characters: function(value) {
+      var deferred = $q.defer();
+
+      if(value.length > 512) {
+        deferred.reject('You may only use up to 512 characters.');
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    },
+    is_less_than_max_length: function(value, originalValue, maxLength) {
+      var deferred = $q.defer();
+
+      if(value.length > maxLength) {
+        deferred.reject('You may only use up to '+maxLength+' characters.');
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    },
+    is_less_than_max_number: function(value, originalValue, maxNumber) {
+      var deferred = $q.defer();
+
+      var dollarValue = parseInt(value,10);
+
+      if(dollarValue > maxNumber) {
+        deferred.reject('Number cannot be larger than '+maxNumber+'.');
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    },
+    is_not_empty: function(value) {
+      var deferred = $q.defer();
+
+      setTimeout(function() {
+        if(value.toString().length > 0) {
+          deferred.resolve();
+        } else {
+          deferred.reject('The field must not be empty.');
+        }
+      });
+
+      return deferred.promise;
+    },
+    is_valid_credit_card: function(value, originalValue) {
+      var deferred = $q.defer();
+
+      if(value === originalValue) {
+        setTimeout(function() {
+          deferred.resolve();
+        });
+      } else {
+        if (/[^0-9-\s]+/.test(value)){
+          deferred.reject('Invalid credit card number.');
+        }
+        var nCheck = 0, nDigit = 0, bEven = false;
+        value = value.replace(/\D/g, "");
+
+        for (var n = value.length - 1; n >= 0; n--) {
+          var cDigit = value.charAt(n);
+          nDigit = parseInt(cDigit, 10);
+
+          if (bEven) {
+            if ((nDigit *= 2) > 9) {
+              nDigit -= 9;
+            }
+          }
+
+          nCheck += nDigit;
+          bEven = !bEven;
+        }
+
+        if((nCheck % 10) === 0) {
+          deferred.resolve();
+        } else {
+          deferred.reject('Invalid credit card number.');
+        }
+      }
+
+      return deferred.promise;
+    },
+    is_valid_email: function(value) {
+      var deferred = $q.defer();
+
+      setTimeout(function() {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(re.test(value)) {
+          deferred.resolve();
+        } else {
+          deferred.reject('Invalid email address.');
+        }
+      });
+
+      return deferred.promise;
+    },
+    is_valid_url: function(value) {
+      var deferred = $q.defer();
+
+      setTimeout(function() {
+        var re = /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+        if(re.test(value)) {
+          deferred.resolve();
+        } else {
+          deferred.reject('Invalid url.  Please use the format "http(s)://url.com".');
+        }
+      });
+
+      return deferred.promise;
+    },
+    is_valid_url_without_protocol: function(value) {
+      var deferred = $q.defer();
+
+      setTimeout(function() {
+        var re = /^(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
+        if(re.test(value)) {
+          deferred.resolve();
+        } else {
+          deferred.reject('Invalid url.  Please use the format "url.com or subdomain.url.com".');
+        }
+      });
+
+      return deferred.promise;
+    },
+    is_zip_code: function(value) {
+      var deferred = $q.defer();
+
+      setTimeout(function() {
+        var re = /^\d{5}([\-]?\d{4})?$/;
+        if(re.test(value)) {
+          deferred.resolve();
+        } else {
+          deferred.reject("Invalid zip code.  Please follow the XXXXX-XXXX format (with last 4 digits optional).");
+        }
+      });
+
+      return deferred.promise;
+    },
+    valid_dollar_amount: function(value, originalValue) {
+      var deferred = $q.defer(),
+        currency_regex = /^-?\d{1,6}\.?\d{1,2}?$/,
+        integer_regex = /^-?\d+$/;
+
+      setTimeout(function() {
+        if(currency_regex.test(value) || integer_regex.test(value)) {
+          deferred.resolve();
+        } else {
+          deferred.reject("Invalid format.  Please enter a whole number, or a number in the format 'xx.xx'.");
+        }
+      });
+
+      return deferred.promise;
+    },
+    valid_email_or_shortcode: function(value, originalValue) {
+      var deferred = $q.defer(),
+        error_message = '',
+        re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        search_object = {};
+
+      var key = (re.test(value)) ? 'email' : 'short_code';
+      search_object[key] = value;
+
+      if(key === 'email') {
+        error_message = 'Referring with this email does not exist.';
+      } else {
+        error_message = 'Short code does not exist or the email is incomplete.';
+      }
+
+      $v3API.all('ambassadors').getList(search_object).then(function(data) {
+        if(data.count === 0) {
+          deferred.reject(error_message);
+        } else {
+          deferred.resolve();
+
+        }
+      }, function(error) {
+        deferred.reject(error_message);
+      });
+
+      return deferred.promise;
+    },
+    is_not_future_date: function(date) {
+      var deferred = $q.defer(),
+        today = new Date(),
+        dateInFuture = false;
+
+      // if an array of dates is passed
+      if (date instanceof Array) {
+        for (var i=0; i<date.length; i++) {
+          if (new Date(date[i]).setHours(0,0,0,0) > today.setHours(0,0,0,0)) {
+            deferred.reject();
+            dateInFuture = true;
+            break;
+          }
+          if (i === (date.length - 1) && !dateInFuture) {
+            deferred.resolve();
+          }
+        }
+      }
+      // if a single date is passed
+      else {
+        if (new Date(date).setHours(0,0,0,0) > today.setHours(0,0,0,0)) {
+          deferred.reject();
+        }
+        else {
+          deferred.resolve();
+        }
+      }
+
+      return deferred.promise;
+    }
+  };
+}])
+
+//
+// validatedFormField Directive
+//
+// Make validating form fields with multiple validation restrictions easy by allowing you to pass
+// any number of validation functions in via the controller scope.  'rules' is an array of functions
+// from the controller scope that validate data on the field.  They accept a variable named 'value'
+// and return promise.
+//
+// Usage: <validated-form-field
+//            extra-classes='sm-md-col'  /* These are added to the outer div. */
+//            required='true|false'
+//            pristine='pristine'
+//            model='my.ng-model'
+//            rules='array_from_scope'
+//            stateClasses='object_from_scope'
+//            label='Some Label'
+//            helpText='This is some helpful text.'
+//            validated-field='validatedFields.somefield'
+//            validationThreshold=3></validated-form-field>
+//
+// In the controller:
+//
+// $scope.validatedFields{
+//      someField: true
+// };
+// $scope.pristine = true;
+// $scope.array_from_scope = [function(value, originalValue) {
+//    var deferred = $q.defer();
+//    setTimeout(function() {
+//       deferred.resolve();
+//       // OR //
+//       deferred.reject('Validation failed.');
+//    }, 500);
+//    return deferred.promise;
+// }]
+//
+// Each validation function must return a promise!  To see the save implementation, check out
+// $scope.savePage:~886 in the MgDeAmbassadorAccountCtrl in logged-in/js/app/manage/controllers/controllers.js
+//
+.directive('validatedFormField', ['$q', '$timeout', '$compile', function($q, $timeout, $compile) {
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {
+            isDisabled: "=?",
+            extraClasses: "@",
+            fieldType: "@?",
+            helpText: "@?",
+            label: "@?",
+            model: "=?",
+            modelValue: '@',
+            modelText: '@',
+            maxLength: '@',
+            selectFunction: "=?",
+            options: "=?",
+            pristine: "=",
+            required: "@?",
+            monthDropdown: "@?",
+            requiredText: "@?",
+            rules: "=?",
+            stateClasses: "=?",
+            validatedField: "=",
+            validationThreshold: "@?"
+        },
+        link: function(scope, element, attrs, ctrl) {
+            scope.disableField = false;
+            scope.fieldInitialized = false;
+
+            scope.$watch('isDisabled', function() {
+                scope.disableField = scope.isDisabled;
+            });
+
+            function get_template() {
+                var input_template = "";
+                var type_string = (scope.fieldType === 'password') ? "type='password'" : "type='text'";
+                var disabled_string = (scope.isDisabled !== undefined) ? "ng-disabled='disableField'" : "";
+                input_template = "<input ng-model='model' class='form-control' " + type_string + " " + disabled_string + ">";
+                input_template += "<span class='help-block'>{{ helpText }}</span>" +
+                "<i ng-show=\"state=='working'\" class='fa fa-refresh fa-spin'></i>" +
+                "<i ng-show=\"state=='success'\" class='fa fa-check'></i>" +
+                "<i ng-show=\"state=='error'\" class='fa fa-exclamation'></i>";
+                var textarea_template = "" +
+                "<textarea ng-model='model' class='form-control'></textarea>" +
+                "<span class='help-block'>{{ helpText }}</span>";
+                var template = "" +
+                "<div class='form-group {{ extraClasses }}'>" +
+                "    <label>{{ label }}</label>" +
+                "    <div class='async-loader'>";
+                var select_template = "";
+                if(scope.options) {
+                    if(scope.fieldType === 'simple-select') {
+                        var model_value = (scope.modelValue ? scope.modelValue : 'value');
+                        var model_text = (scope.modelText ? scope.modelText : 'text');
+                        select_template = '' +
+                        '<div class="dropdown dropdown-select dropdown-form">' +
+                            '<a class="dropdown-toggle btn btn-default">' +
+                                '<span ng-if="monthDropdown && model">{{model.'+model_value+'}} - </span>{{model.'+model_text+'}} <i class="fa fa-caret-down"></i>' +
+                            '</a>' +
+                            '<ul class="dropdown-menu">' +
+                                '<li ng-repeat="o in options">' +
+                                    '<a ng-click="selectOption(o)"><span ng-if="monthDropdown">{{o.'+model_value+'}} - </span>{{o.'+model_text+'}}</a>' +
+                                '</li>' +
+                            '</ul>' +
+                        '</div>';
+                    } else {
+                        select_template = '' +
+                        '<div class="dropdown dropdown-select dropdown-form">' +
+                            '<a class="dropdown-toggle btn btn-default">' +
+                                '{{modelLabel || "Select referral type"}} <i class="fa fa-caret-down"></i>' +
+                            '</a>' +
+                            '<ul class="dropdown-menu">' +
+                                '<li ng-repeat="o in options">' +
+                                    '<a ng-click="selectCommissionType(o)">{{o.name}}</a>' +
+                                '</li>' +
+                            '</ul>' +
+                        '</div>';
+                    }
+                    select_template += "<span class='help-block'>{{ helpText }}</span>";
+                }
+
+                if(scope.fieldType === 'textarea') {
+                    template += textarea_template;
+                } else if(scope.fieldType === 'select' || scope.fieldType === 'simple-select') {
+                    template += select_template;
+                } else {
+                    template += input_template;
+                }
+
+                template += "" +
+                "    </div>" +
+                "</div>";
+
+                return template;
+            }
+
+            scope.selectCommissionType = function(type) {
+                scope.modelLabel = type.name;
+                scope.model = type.value;
+
+                validate('change');
+            };
+
+            scope.selectOption = function(option) {
+                scope.model = option;
+                validate('change');
+            };
+
+            function getTypeLabel(type) {
+                angular.forEach(scope.options, function(commissionType) {
+                    if (type === commissionType.value) {
+                        scope.modelLabel = commissionType.name;
+                    }
+                });
+
+                if (angular.isUndefined(scope.modelLabel)) {
+                    scope.modelLabel = 'Select referral type';
+                }
+            }
+
+            scope.$watch('model', function(val) {
+                //run validation on model changes
+                if(val !== 'undefined' && val && !scope.fieldInitialized){
+                    validate('change');
+                    scope.fieldInitialized = true;
+                }
+                if (angular.isDefined(scope.model) && scope.fieldType === 'select') {
+                    getTypeLabel(scope.model);
+                }
+            });
+
+            function get_field_type() {
+                if(scope.fieldType === 'password') {
+                    return element.find('input');
+                } else if(scope.fieldType === 'simple-select') {
+                    return element.find('select');
+                } else {
+                    return element.find(scope.fieldType);
+                }
+            }
+
+            if(scope.fieldType === undefined) {
+                scope.fieldType = 'input';
+            }
+
+            element.html(get_template());
+            $compile(element.contents())(scope);
+
+            var defaultStateClasses = {
+                error: 'has-error',
+                success: 'has-success',
+                working: 'working'
+            },
+            fieldPristine = true,
+            inputElement = get_field_type(),
+            labelElement = element.find('label'),
+            originalHelpText = scope.helpText,
+            originalValue = (fieldPristine && scope.model !== null) ? angular.copy(scope.model) : '',
+            required = null,
+            timer = null;
+
+            // Set up element keyDown and blur handling.
+            function bind_events() {
+                if(scope.fieldType === 'select' || scope.fieldType === 'simple-select') {
+                    inputElement.bind('change', validate);
+                }
+                inputElement.bind('blur keyup', function(evt) {
+                    if (timer) {
+                        $timeout.cancel(timer);
+                    }
+
+                    if (evt.type === 'blur') {
+                        validate(evt);
+                    }
+                    else {
+                        timer = $timeout(function() {
+                            if (inputElement[0].value !== '') {
+                                validate(evt);
+                            }
+                        }, 1500);
+                    }
+                });
+                inputElement.bind('focus', function() {
+                    if(fieldPristine) {
+                        originalValue = angular.copy(scope.model);
+                        fieldPristine = false;
+                    }
+                });
+            }
+
+            // Handle any errors thrown by validation functions and set form field
+            // error status classes
+            function handle_error(error) {
+                $timeout(function() {
+                    scope.state = 'error';
+                    scope.helpText = error;
+                    scope.validatedField = false;
+                    element.addClass(scope.stateClasses.error);
+                    labelElement.addClass(scope.stateClasses.error);
+                });
+            }
+
+            // Initialize any variables passed into the directive.
+            function initialize() {
+
+                // Override default state classes.
+                if(scope.stateClasses === undefined) {
+                    scope.stateClasses = defaultStateClasses;
+                } else {
+                    for(var key in defaultStateClasses) {
+                        if(!scope.stateClasses.hasOwnProperty(key)) {
+                            scope.stateClasses[key] = defaultStateClasses[key];
+                        }
+                    }
+                }
+
+                // Set how many key strokes before validation is run.
+                scope.validationThreshold = (scope.validationThreshold === undefined) ? 1 : parseInt(scope.validationThreshold, 10);
+
+                // Set required to a boolean value.
+                required = (scope.required === 'true') ? true : false;
+            }
+
+            // Set the success class on the form field.
+            function success() {
+                scope.state = 'success';
+                scope.helpText = originalHelpText;
+                element.removeClass(scope.stateClasses.error);
+                scope.validatedField = true;
+                element.addClass(scope.stateClasses.success);
+                labelElement.removeClass(scope.stateClasses.error);
+            }
+
+            // Runs all of the validation functions that are passed in to the validationFunctions
+            // scope variable, but only if onBlur or past validation threshold.
+            function validate(evt) {
+                var value = null,
+                    result = null,
+                    first = true;
+
+                if(scope.fieldType === 'select') {
+                    value = scope.model;
+                } else if(scope.fieldType === 'simple-select') {
+                    if(scope.model === "") {
+                        value = '';
+                    } else {
+                        value = scope.model.text;
+                    }
+                } else {
+                    if(evt.target !== undefined){
+                        try {
+                            value = evt.srcElement.value;
+                        } catch(e) {
+                            value = evt.target.value;
+                        }
+                    }else{
+                        value = scope.model;
+                    }
+                }
+
+                scope.validatedField = true;
+                scope.pristine = false;
+
+                // Field is required, but is empty.
+                if(required === true && value === '') {
+                    if(scope.requiredText) {
+                        handle_error(scope.requiredText);
+                    } else {
+                        handle_error("This field is required.");
+                    }
+
+                // Field is need of validation, regardless of required state.
+                } else if(value !== '') {
+                    scope.state = 'working';
+
+                    if(evt.type === 'change' || evt.type === 'blur' || (value !== undefined && value.toString().length >= scope.validationThreshold) || value !== undefined) {
+                        angular.forEach(scope.rules, function(validation_function, key) {
+                            if(first) {
+                                result = validation_function(value, originalValue, scope.maxLength);
+                                first = false;
+                            } else {
+                                result = result.then(function() {
+                                    return validation_function(value, originalValue, scope.maxLength);
+                                });
+                            }
+                        });
+
+                        if(scope.rules.length > 0) {
+                            result.then(success, handle_error);
+                        }
+                    }
+
+                // Field isn't required, and is empty.
+                } else {
+                    // This isn't a required field, so clear the validation errors
+                    for(var key in scope.stateClasses) {
+                        element.removeClass(scope.stateClasses[key]);
+                        labelElement.removeClass(scope.stateClasses[key]);
+                    }
+                    scope.state = '';
+                    scope.$apply(function(scope) {
+                        scope.helpText = (originalHelpText === undefined) ? "" : originalHelpText;
+                    });
+                    scope.validatedField = true;
+                }
+            }
+
+            // Lets get this started.
+            initialize();
+            bind_events();
+        }
+    };
+}])
+
+.directive('groupSelect', ['$v3API', '$q', '$filter', function($v3API, $q, $filter) {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        model: '=',
+        label: '@',
+        amplaceholder: '@',
+        comparator: '@',
+      },
+      templateUrl: 'assets/logged-in/partials/group-select.html',
+      link: function(scope, elm, attrs) {
+
+        var Groups = $v3API.all('groups'),
+        abortSearch;
+
+        scope.asyncWaitTime = 500;
+        scope.loadingGroups = false;
+        scope.selected = {
+            group: ''
+        };
+
+        // Initialize empty array
+        if (scope.model === undefined) {
+          scope.model = [];
+        }
+
+        //show a dropdown if results are less than 25
+        Groups.getList().then(function(data){
+          scope.groups = data;
+
+          scope.$watch('model', function(model){
+            scope.resetGroups();
+          });
+
+          scope.useDropdown = false;
+          if(scope.groups.length < 25 ){
+            scope.useDropdown = true;
+          }
+        });
+
+        scope.$watch('model', function(model){
+          scope.model = model;
+          scope.resetGroups();
+        });
+
+        scope.resetGroups = function(){
+          if(scope.groups && scope.model){
+            scope.allowedGroups = [];
+            for (var i = 0; i < scope.groups.length; i++) {
+              var found = false;
+              for (var x = 0; x < scope.model.length; x++) {
+                if( scope.model[x].uid === scope.groups[i].uid ){
+                  found = true;
+                }
+              }
+              if(!found){
+                scope.allowedGroups.push( scope.groups[i] );
+              }
+            }
+          }
+        };
+
+        // Async loader for searching groups
+        scope.searchGroups = function(value) {
+            scope.loadingGroups = true;
+            // Add a deferrer to cancel an ongoing request
+            // if another request is made
+            if (abortSearch) { abortSearch.resolve(); }
+            abortSearch = $q.defer();
+
+            return Groups.withHttpConfig({timeout: abortSearch.promise}).getList({search: value, ordering: 'group_name'}).then(function(data) {
+                var results = [];
+                for (var x = 0; x < data.length; x++) {
+                  var found = false;
+                  for (var y = 0; y < scope.model.length; y++) {
+                    if (data[x].uid === scope.model[y].uid) {
+                      found = true;
+                    }
+                  }
+                  if(!found){
+                    results.push(data[x]);
+                  }
+                }
+                scope.loadingGroups = false;
+                return results;
+            });
+        };
+
+        // Remove from model
+        scope.removeItem = function(item) {
+          var index = scope.model.indexOf(item);
+          scope.model.splice(index, 1);
+          scope.resetGroups();
+        };
+
+        // Add to model, clear input
+        scope.addItem = function(item) {
+          scope.model.push(item);
+          scope.selected.group = '';
+        };
+
+        // Filter list against items already in model
+        scope.filterChosen = function(item) {
+          if (scope.model.length === 0) { return item; }
+          else {
+            var chosen = true;
+            for (var i = 0, l = scope.model.length; i < l; i++) {
+              if (item.uid === scope.model[i].uid) {
+                return false;
+              }
+            }
+            return item;
+          }
+        };
+      }
+    };
+}])
+
+.controller('MgDeAmbassadorCtrl', ['$scope', '$v3API', 'STATIC_URL', '$alert', '$errors', '$modal', function($scope, $v3API, STATIC_URL, $alert, $errors, $modal){
+    
+    $scope.ambassador = $v3API.one('ambassadors', '{!JSENCODE(ambassadorId)}').get().then(function(data) {
+    
+        var modalInstance = $modal.open({
+            templateUrl: STATIC_URL + '/app/logged-in/pages/manage/partials/groups.modal.manage.html',
+            controller: 'manageTableModal',
+            windowClass: "group-add-edit-modal",
+            backdrop: false,
+            resolve: {
+                groups: function () {
+                    return data.groups;
+                },
+                data: function () {
+                    return data;
+                },
+                alertName: function () {
+                    return 'group-model-alerts';
+                },
+                add_remove: function () {
+                    return 'add_remove';
+                }
+            }
+        });
+    });
+    
+}])
+
+// Ambassador Group Add/Remove Controller
+.controller('manageTableModal', ['$scope', '$v3API', '$modalInstance', '$timeout', '$q', '$alert', '$errors', 'groups', 'data', 'alertName', 'add_remove', function($scope, $v3API, $modalInstance, $timeout, $q, $alert, $errors, groups, data, alertName, add_remove) {
+    $scope.selectedGroups = groups;
+
+    $scope.saving = false;
+    $scope.spinnerConfig = {
+        radius: 4,
+        width: 3,
+        length: 4,
+        lines: 9,
+        color: '#ffffff'
+    };
+    
+    // Normalize data
+    for (var i = 0, l = $scope.selectedGroups.length; i < l; i++) {
+        $scope.selectedGroups[i].group_name = $scope.selectedGroups[i].name;
+    }
+    
+    // save groups and close modal
+    $scope.save = function() {
+        $scope.saving = true;
+        var group_ids = "";
+
+        for (var i = 0, l = $scope.selectedGroups.length; i < l; i++) {
+            group_ids = $scope.selectedGroups[i].uid + "," + group_ids;
+
+            // normalize for table
+            $scope.selectedGroups[i].name = $scope.selectedGroups[i].group_name;
+        }
+        group_ids = group_ids.replace(/,\s*$/, "");
+
+        // Save groups via csv
+        // Then update table
+        data.patch({groups: group_ids}).then(function() {
+            data.groups = [];
+
+            angular.forEach($scope.selectedGroups, function(group) {
+                data.groups.push(group);
+            });
+
+            $alert.add({
+                type: 'form',
+                name: alertName,
+                style: 'success',
+                text: "Groups assignment successfully updated."
+            });
+            $timeout(function() {
+                window.parent.location = '{!URLFOR($Action.Ambassador__Ambassador__c.View, sfAmbassadorId)}';
+            }, 4000);
+        }, function(error) {
+            $errors.output({
+                alertSystem: alertName,
+                alertSystemType: 'form',
+                defaultMessage: 'Something went wrong. Please try again.'
+            }, error.data);
+
+            $scope.saving = false;           
+        });
+    };
+    
+    $scope.cancel = function () {
+        window.parent.location = '{!URLFOR($Action.Ambassador__Ambassador__c.View, sfAmbassadorId)}';
+    };
+    
+}]);
+
+
+        </script>
+    </body>
+</apex:page>

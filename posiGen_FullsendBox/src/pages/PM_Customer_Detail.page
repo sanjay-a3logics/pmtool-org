@@ -1,0 +1,242 @@
+<apex:page showHeader="false" standardStylesheets="false" controller="PMTool">
+  <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Project Management Tool</title>
+    <apex:includeScript value="{!$Resource.jquery220}"/>
+
+    <apex:stylesheet value="{!URLFOR($Resource.sldc, 'styles/salesforce-lightning-design-system.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.sldc, 'styles/salesforce-lightning-design-system-vf.css')}"/>
+    <style>
+        body {
+            
+        }
+        
+        .slds-page-header{
+            margin-bottom: 5px;
+        }
+        
+        #tableDiv {                 
+            margin: 10px 50px;
+            background-color: #f4f6f9;
+            border: 1px solid #d8dde6;
+        }
+        
+        .slds-table {
+            background-color: #f4f6f9 !important;
+        }
+        
+        .slds-table th{
+            vertical-align: top;
+            font-weight: bold;
+        }
+        
+        table#innerTable tbody td, table#innerTable thead th{
+            padding: 0 10px !important;
+        }
+        
+        table#innerTable tr:first-child > th, table#innerTable tr:first-child > td{
+            border-top: 0px;
+        }
+        
+        table.secondInner tr:first-child > td{
+            border-top: 1px solid #d8dde6 !important;
+        }
+        
+        .slds-table th, .slds-table td{
+            padding: 6px 0px;
+        }
+        
+        .slds-table tr > th:last-child, .slds-table tr > td:last-child{
+            padding-right: 0;
+        }
+ 
+        
+    </style>
+    
+    <apex:form >
+        <apex:pageMessages id="msgs"></apex:pageMessages>
+        <div class="slds-page-header" role="banner">
+          <div class="slds-grid">
+            <div class="slds-col slds-has-flexi-truncate">
+              <p class="slds-text-heading--label">PM Tool</p>
+              <div class="slds-grid">
+                <div class="slds-grid slds-no-space">
+                    <h1 class="slds-text-heading--medium slds-truncate" title="Project Management Tool">Project Score Card</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tableDiv">
+            <table class="slds-table slds-table--bordered">
+                <tr>
+                    <th style="border-right: 1px solid #d8dde6;">Project Manager</th>
+                    <td style="background-color: #fff; padding-left: 10px;">{!customerDetailWrapperObj.pmTool.Project_Manager__r.Name}</td>
+                </tr>
+                <tr>
+                    <th style="border-right: 1px solid #d8dde6;">Deal Numeric ID</th>
+                    <td style="background-color: #fff; padding-left: 10px;">{!customerDetailWrapperObj.pmTool.Deal__r.Numeric_ID__c}</td>
+                </tr>
+                <tr>
+                    <th style="border-right: 1px solid #d8dde6;">General Information</th>
+                    <td style="background-color: #fff">
+                        <table id="innerTable">
+                            <tr>
+                                <td>Customer Name</td>
+                                <td>{!customerDetailWrapperObj.pmTool.Customer_Name__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td>{!customerDetailWrapperObj.pmTool.Email__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Primary Phone</td>
+                                <td>{!customerDetailWrapperObj.pmTool.Primary_Phone__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Secondary Phone</td>
+                                <td>{!customerDetailWrapperObj.pmTool.Secondary_Phone__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>{!customerDetailWrapperObj.pmTool.Address__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Lease Type</td>
+                                <td>{!customerDetailWrapperObj.pmTool.Lease_Type__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Contract Signed Date</td>
+                                <td>
+                                    <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                                 <apex:param value="{!customerDetailWrapperObj.pmTool.Contract_Signed_Date__c}" />
+                                            </apex:outputText>
+                                    </td>
+                            </tr>
+                            <tr>
+                                <td>Contract Approved Date</td>
+                                <td>
+                                    <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                                 <apex:param value="{!customerDetailWrapperObj.pmTool.Contract_Approved_Date__c}" />
+                                            </apex:outputText>
+                                    </td>
+                            </tr>
+                            <tr>
+                                <td>System Size</td>
+                                <td>{!customerDetailWrapperObj.pmTool.System_Size__c} - {!customerDetailWrapperObj.pmTool.Actual_System_Size_Parallel__c}</td>
+                            </tr>
+                            <tr>
+                                <td>EE Accepted</td>
+                                <td>{!customerDetailWrapperObj.pmTool.EE_Accepted__c}</td>
+                            </tr>
+                            <tr>
+                                <td>PV Lease Payment</td>
+                                <td>{!customerDetailWrapperObj.pmTool.PV_Lease_Payment__c}</td>
+                            </tr>
+                            <tr>
+                                <td>EE Lease Payment</td>
+                                <td>{!customerDetailWrapperObj.pmTool.EE_Lease_Payment__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Sales Person</td>
+                                <td>{!customerDetailWrapperObj.pmTool.Sales_Person__c}</td>
+                            </tr>
+                            <tr>
+                                <td>Telemarketer</td>
+                                <td>{!customerDetailWrapperObj.pmTool.Telemarketer_Parallel__c}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Referring Customer                                   
+                                </td>
+                                <td>
+                                    {!customerDetailWrapperObj.pmTool.Referring_Customer__c}                               
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="/{!customerDetailWrapperObj.pmTool.id}" class="slds-truncate" target="_blank">Go to record</a>                                    
+                                </td>
+                                
+                            </tr>
+                            
+                        </table>
+                    </td>
+                </tr>
+                
+                <tr>
+                    
+                    <th style="padding-top: 8px; border-right: 1px solid #d8dde6;">Installation</th>
+                    <td style="background-color: #fff;padding: 0;">
+                        <table id="innerTable" class="secondInner">
+                            <thead>
+                                <tr>
+                                    <td style="background-color: #f4f6f9; text-align: center;" colspan="6">Project Requirement / Completion Status Grid</td>
+                                </tr>
+                                <tr>
+                                    <th style="padding-left: 0;">Project Steps</th>
+                                    <th>Score</th>
+                                    <th>Aging</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <apex:repeat value="{!customerDetailWrapperObj.cdFieldWrapperList}" var="customerDetail">
+                                    <tr>
+                                        <td width="30%">{!customerDetail.step}</td>
+                                        <td>
+                                           <apex:outputText rendered="{!customerDetail.score == null}">
+                                              <img style="width:20px;" title="Not Submitted" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'NA.gif')}" alt="NA"></img>
+                                          </apex:outputText>
+                                          <apex:outputText rendered="{!customerDetail.score == 0}">
+                                              <img style="width:20px;" title="Not Started" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Not_Started.gif')}" alt="0"></img>
+                                          </apex:outputText>
+                                          <apex:outputText rendered="{!customerDetail.score == 1}">
+                                              <img style="width:20px;" title="In Process" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'In_Progress.gif')}" alt="1"></img>
+                                          </apex:outputText>
+                                          <apex:outputText rendered="{!customerDetail.score == 2}">
+                                              <img style="width:20px;" title="Completed" class="scoreImg" src="{!URLFOR($Resource.scoreImg, 'Complete.gif')}" alt="2"></img>
+                                          </apex:outputText>
+                                           
+                                        </td>
+                                        <td>{!customerDetail.aging}</td>
+                                        <td>
+                                            <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                                 <apex:param value="{!customerDetail.startDate}" />
+                                            </apex:outputText>
+                                        </td>
+                                        <td>
+                                            <apex:outputText value="{0,date,MM/dd/yyyy}">
+                                                 <apex:param value="{!customerDetail.endDate}" />
+                                            </apex:outputText>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                                <tr style="background-color: #f4f6f9;">
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td style="font-weight: bold;">{!customerDetailWrapperObj.avg}%</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>    
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+         </div>
+    </apex:form>
+    <script>
+    
+        $(document).ready(function(){
+           
+           
+
+        });
+        
+        
+    </script>
+
+   </html>
+</apex:page>

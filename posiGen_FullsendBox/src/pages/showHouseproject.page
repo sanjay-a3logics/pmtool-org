@@ -1,0 +1,20 @@
+<apex:page id="showImagePage" standardController="Project__c" extensions="ShowHouse">
+
+    <style type="text/css">
+        body {background-color : #F3F3EC!important;}
+        .pic {
+            background-color : #F3F3EC;
+            border:2px solid #E3DEB8;
+            height:180px;
+            margin :15px auto;
+            padding:5px;
+            width:320px;
+        }
+    </style>
+    
+    <apex:outputpanel styleClass="pic" id="image" layout="block">
+         <apex:image value="{!URLFOR($Resource.HouseUpload)}" rendered="{!NOT( hasPicture )}" height="115" width="150"/>
+         <apex:image value="/servlet/servlet.FileDownload?file={!file.Id}" rendered="{!hasPicture}" height="180" width="320"/>
+    </apex:outputpanel>
+    
+</apex:page>

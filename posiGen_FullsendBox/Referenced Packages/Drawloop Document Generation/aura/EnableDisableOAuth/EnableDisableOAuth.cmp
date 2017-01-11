@@ -1,0 +1,16 @@
+<aura:component controller="Loop.EnableDisableOAuth">
+    <aura:attribute name="oAuthEnabled" type="Boolean" default="false" access="Private"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:registerEvent name="moveToNextStep" type="Loop:moveToNextStep"/>
+    <aura:method name="save" action="{!c.save}"/>
+	<div class="slds">
+        <div class="slds-text-heading--small" title="Setup Wizard">Connected Apps and OAuth</div>
+        <div class="slds-text-body--regular slds-p-top--small">
+            This app supports Salesforce authorization and authentication with <a href="https://help.salesforce.com/apex/HTViewHelpDoc?id=connected_app_overview.htm" target="_blank">Connected Apps</a>. A connected app allows administrators to set various security policies and have explicit control over who may use the corresponding applications.
+        </div>
+        <div class="slds-grid slds-p-top--small">
+            <Loop:Button label="Enable" aura:id="Enable"  data="Enable" onclick="{!c.onChange}" class="slds-button slds-button--neutral"/>
+            <Loop:Button label="Disable" aura:id="Disable" data="Disable" onclick="{!c.onChange}" class="slds-button slds-button--neutral"/>
+        </div>
+    </div>
+</aura:component>

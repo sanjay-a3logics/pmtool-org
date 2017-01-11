@@ -1,0 +1,88 @@
+<aura:component controller="Loop.loopTools">
+    <aura:attribute name="sessionId" type="String" required="true"/>
+    <aura:attribute name="steps" type="List" default="Edition,Users,Authorize,Integrations,Settings,Sample DDPs,Basic Buttons" access="Private"/>
+    <aura:attribute name="step" type="String" default="Splash" access="Private"/>
+    <aura:attribute name="stepTitle" type="String" access="Private"/>
+    <aura:attribute name="stepDescription" type="String" access="Private"/>
+    <aura:attribute name="skipButtonLabel" type="String" default="Skip Wizard" access="Private"/>
+    <aura:attribute name="saveButtonLabel" type="String" default="Start Wizard" access="Private"/>
+    <aura:attribute name="isMass" type="Boolean" default="false" access="Private"/>
+    <aura:attribute name="busy" type="Boolean" default="false" access="Private"/>
+    <aura:attribute name="ready" type="Boolean" default="true" access="Private"/>
+    <aura:attribute name="complete" type="Boolean" default="false" access="Private"/>
+    <aura:attribute name="customizeApplication" type="Boolean" default="true" access="Private"/>
+    <aura:attribute name="alertType" type="String" default="" access="Private"/>
+    <aura:attribute name="alertText" type="String" default="" access="Private"/>
+    <aura:attribute name="sampleDdpObjects" type="List" default="" access="Private"/>
+    <aura:attribute name="layoutButtonObjects" type="List" default="" access="Private"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:handler name="salesPathSelected" event="Loop:salesPathSelected" action="{!c.changeStep}"/>
+    <aura:handler name="moveToNextStep" event="Loop:moveToNextStep" action="{!c.moveToNextStep}"/>
+    <aura:handler name="showError" event="Loop:showError" action="{!c.showError}"/>
+    <aura:handler name="setSampleObjects" event="Loop:setSampleObjects" action="{!c.setSampleObjects}"/>
+    <aura:handler name="massDdpSelected" event="Loop:massDdpSelected" action="{!c.massDdpSelected}"/>
+    <aura:registerEvent name="showError" type="Loop:showError"/>
+    <div class="slds" style="position: relative;">
+        <div class="slds-container--center" style="padding: 10px 20px 10px 20px;">
+            <h1 class="slds-text-heading--large slds-m-bottom--medium" title="Drawloop Document Generation Setup Wizard">Drawloop Document Generation Setup Wizard</h1>
+            <aura:if isTrue="{!v.step != 'Splash'}"><aura:if isTrue="{!!v.complete}">
+                <div class="slds-m-around--medium">
+                    <div class="slds-align-middle">
+                        <Loop:SalesPath step="{!v.step}" steps="{!v.steps}" disabled="{!v.busy}" complete="{!v.complete}"/>
+                    </div>
+                </div>
+            </aura:if></aura:if>
+            <aura:if isTrue="{!v.alertText != ''}">
+                <div class="slds-m-bottom--medium">
+                    <Loop:Alert type="{!v.alertType}" text="{!v.alertText}"/>
+                </div>
+            </aura:if>
+            <aura:if isTrue="{!v.stepTitle != ''}">
+                <h2 class="slds-text-heading--large">{!v.stepTitle}</h2>
+            </aura:if>
+            <aura:if isTrue="{!v.stepDescription != ''}">
+                <h3 class="slds-text-heading--small">{!v.stepDescription}</h3>
+            </aura:if>
+            <div class="slds-m-top--medium slds-m-bottom--medium">
+                <aura:if isTrue="{!!v.complete}">
+                    <aura:if isTrue="{!v.step == 'Splash'}">
+                        <Loop:SetupWizardSplash />
+                    </aura:if>
+                    <aura:if isTrue="{!v.step == 'Edition'}">
+                        <Loop:Edition aura:id="edition" sessionId="{!v.sessionId}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.step == 'Users'}">
+                        <Loop:SetupWizardUsers aura:id="setupUsers"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.step == 'Authorize'}">
+                        <Loop:AuthorizeLoopServices customizeApplication="{!v.customizeApplication}"/>
+                    </aura:if>
+
+                    <aura:if isTrue="{!v.step == 'Integrations'}">
+                        <Loop:ConfigureIntegrations sessionId="{!v.sessionId}" customizeApplication="{!v.customizeApplication}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.step == 'Settings'}">
+                        <Loop:SetupWizardSettings aura:id="settings" isMass="{!v.isMass}"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.step == 'Sample DDPs'}">
+                        <Loop:SampleDdps sessionId="{!v.sessionId}" aura:id="sampleDdps"/>
+                    </aura:if>
+                    <aura:if isTrue="{!v.step == 'Basic Buttons'}">
+                        <Loop:LayoutButtons sessionId="{!v.sessionId}" aura:id="pageLayouts" customizeApplication="{!v.customizeApplication}"/>
+                    </aura:if>
+                </aura:if>
+                <aura:if isTrue="{!v.complete}">
+                    <Loop:SetupWizardEndPage sampleDdpObjects="{!v.sampleDdpObjects}" layoutButtonObjects="{!v.layoutButtonObjects}"/>
+                </aura:if>
+            </div>
+        </div>
+        <div id="pageFooter" class="page-footer" style="{!'border-bottom: 0px;' + (v.complete ? 'display: none;' : '')}" align="right">
+            <div class="slds-x-small-buttons--horizontal">
+                <Loop:Button label="{!v.skipButtonLabel}" class="slds-button slds-button--neutral" visible="{!v.skipButtonLabel != ''}" onclick="{!c.skipStep}" disabled="{!v.busy}"/>
+                <Loop:Button label="{!v.saveButtonLabel}" class="slds-button slds-button--brand" visible="{!v.saveButtonLabel != ''}" onclick="{!c.save}" disabled="{!v.busy || !v.ready}"/>
+                <Loop:Spinner class="slds-spinner--small" visible="{!v.busy}" useGraySpinner="true"/>
+            </div>
+        </div>
+        <Loop:Prompt aura:id="errorPrompt" headerTheme="slds-theme--error slds-theme--alert-texture" />
+    </div>
+</aura:component>

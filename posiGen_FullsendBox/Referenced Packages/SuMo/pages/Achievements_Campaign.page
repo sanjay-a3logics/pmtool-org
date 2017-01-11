@@ -1,0 +1,5 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="true" standardController="Campaign" extensions="success.AchievementsComponentController">
+
+    <c:AchievementsComponent recordid="{!Campaign.Id}" />
+
+</apex:page>

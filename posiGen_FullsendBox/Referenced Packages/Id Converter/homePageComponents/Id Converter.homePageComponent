@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;iframe name=&quot;id_converter_iframe&quot; id=&quot;id_converter_iframe&quot; style=&quot;HEIGHT: 75px&quot; src=&quot;/apex/ities_id__converter&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;75&quot;&gt;&lt;/iframe&gt;&lt;script language=&quot;JavaScript&quot; type=&quot;text/javascript&quot;&gt;var url = parent.location.href;var temp_id = &quot;&quot;;if (url.indexOf(&quot;.salesforce.com/&quot;) != -1) {	var starting_point = url.indexOf(&quot;.salesforce.com/&quot;) + 16;	var remainder_url = url.substring(starting_point);	if (remainder_url.length == 15) {		temp_id = remainder_url;	} else {		var url_array = new Array();		url_array = remainder_url.split(&quot;=&quot;);		for (var a = 0; a &lt;= url_array.length ; a++) {			var a_temp_array = new Array();			a_temp_array = url_array[a].split(&quot;&amp;&quot;);			if (a_temp_array[0].length == 15) {				temp_id = a_temp_array[0];				break;			}		}	}}document.getElementById(&quot;id_converter_iframe&quot;).src = &quot;/apex/ities_id__converter?id=&quot;+temp_id ;&lt;/script&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>narrow</width>
+</HomePageComponent>

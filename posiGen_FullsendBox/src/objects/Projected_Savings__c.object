@@ -1,0 +1,1156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Follow</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Array_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Array Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Fixed (open rack)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Fixed (roof mount)</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-Axis Tracking</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>1-Axis Backtracking</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>2-Axis Tracking</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Average_Monthly_Usage__c</fullName>
+        <description>Customers may enter EITHER monthly average usage in kWh OR actual figures from their bills.</description>
+        <externalId>false</externalId>
+        <label>Average Monthly Usage</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Average_Monthly_Utility_Bill__c</fullName>
+        <description>Customers may enter EITHER monthly average OR actual figures from their bills.</description>
+        <externalId>false</externalId>
+        <label>Average Monthly Utility Bill</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Avg_Cost_of_Electricity_from_Util_kWh__c</fullName>
+        <description>PVWatts Estimate field</description>
+        <externalId>false</externalId>
+        <label>Avg Cost of Electricity from Util $/kWh</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Azimuth_Degrees__c</fullName>
+        <externalId>false</externalId>
+        <label>Azimuth Degrees</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Calc_Avg_Cost_of_Elec_Purc_fr_Util_kW2__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( Rollup_Year_Total_Production_kWh__c = 0, 0, ( Rollup_Year_Total_Savings_Dollars__c / Rollup_Year_Total_Production_kWh__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Calc Avg Cost of Elec Purc fr Util $/kW2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Count_Of_Projected_Months__c</fullName>
+        <externalId>false</externalId>
+        <label>Count Of Projected Months</label>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>count</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Created_For_Lead_Id__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <description>Related Lead Id for this Projected Savings.</description>
+        <externalId>false</externalId>
+        <label>Created For Lead Id</label>
+        <referenceTo>Lead</referenceTo>
+        <relationshipLabel>Projected_Savings</relationshipLabel>
+        <relationshipName>Projected_Savings</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DC_System_Size_kW__c</fullName>
+        <externalId>false</externalId>
+        <label>DC System Size (kW)</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DC_to_AC_Size_Ratio__c</fullName>
+        <externalId>false</externalId>
+        <label>DC to AC Size Ratio</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Direction__c</fullName>
+        <externalId>false</externalId>
+        <label>Direction</label>
+        <picklist>
+            <picklistValues>
+                <fullName>North</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Northeast</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>East</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Southeast</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>South</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Southwest</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>West</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Northwest</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>EU_Projected_Electrical_Savings_yr__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Projected Electrical Savings $/yr</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_EU_Projected_Electrical_Savings__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>EU_Projected_Electrical_kWh_yr_Savings__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Projected Electrical kWh/yr Savings</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_EU_Projected_Electrical_kWh_Saving__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>EU_Projected_Nat_Gas_Savings_yr__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Projected Nat Gas Savings $/yr</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_EU_Projected_Nat_Gas_Savings__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>EU_Projected_Nat_Gas_Therms_yr_Savings__c</fullName>
+        <externalId>false</externalId>
+        <label>EU Projected Nat Gas Therms/yr Savings</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_EU_Projected_NatGas_Therms_Savings__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Email__c</fullName>
+        <externalId>false</externalId>
+        <label>Email</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Email</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Flights_saved_projection__c</fullName>
+        <externalId>false</externalId>
+        <label>Flights saved projection</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Initial_Cost_Wdc__c</fullName>
+        <externalId>false</externalId>
+        <label>Initial Cost $/Wdc</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Inverter_Efficiency_Pct__c</fullName>
+        <externalId>false</externalId>
+        <label>Inverter Efficiency Pct</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>Lead_Numeric_Id_Text__c</fullName>
+        <description>Lead Numeric ID, either from the linked Opportunity if available or from the linked Lead if no Opportunity exists yet.</description>
+        <externalId>false</externalId>
+        <formula>IF( OR( ISBLANK( Opportunity_Id__c ) , ISNULL( Opportunity_Id__c ) ) ,  Created_For_Lead_Id__r.Numeric_ID_Copy_For_Conversion__c ,  Opportunity_Id__r.Lead_Numeric_ID_Text__c )</formula>
+        <label>Lead Numeric Id Text</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Lease_Start_Date__c</fullName>
+        <description>Use to calculate net savings projection over life of the lease</description>
+        <externalId>false</externalId>
+        <label>Lease Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Lease_Term_Months__c</fullName>
+        <description>Use to calculate net savings projection over life of the lease</description>
+        <externalId>false</externalId>
+        <label>Lease Term (Months)</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationCity__c</fullName>
+        <description>Location City for the address of the projected savings</description>
+        <externalId>false</externalId>
+        <label>LocationCity</label>
+        <length>40</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationCountry__c</fullName>
+        <externalId>false</externalId>
+        <label>LocationCountry</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationLat__c</fullName>
+        <externalId>false</externalId>
+        <label>LocationLat</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>15</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationLng__c</fullName>
+        <externalId>false</externalId>
+        <label>LocationLng</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>15</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationPostalCode__c</fullName>
+        <externalId>false</externalId>
+        <label>LocationPostalCode</label>
+        <length>20</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationState__c</fullName>
+        <description>Location State for projected savings</description>
+        <externalId>false</externalId>
+        <label>LocationState</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LocationStreet__c</fullName>
+        <description>Street Address of the location for projected savings</description>
+        <externalId>false</externalId>
+        <label>LocationStreet</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Module_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Module Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Standard</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Premium</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Thin Film</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity_Id__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Opportunity Id</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Projected_Savings</relationshipLabel>
+        <relationshipName>Projected_Savings_LeadNumeric</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Net_Annual_kWh_Used__c</fullName>
+        <externalId>false</externalId>
+        <formula>Year_Total_Bill_Usage_kWh__c - Rollup_Year_Total_Production_kWh__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Net Annual kWh Used</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Projected_Net_Year_Total_Bill__c</fullName>
+        <externalId>false</externalId>
+        <formula>Year_Total_Bill_Dollars__c - Rollup_Year_Total_Savings_Dollars__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Net Year Total Bill</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Savings_First_Year_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <formula>Rollup_Year_Total_Savings_Dollars__c - Year_Total_Bill_Dollars__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Savings First Year Dollars</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Projected_Savings_First_Year_kWh__c</fullName>
+        <externalId>false</externalId>
+        <formula>Rollup_Year_Total_Production_kWh__c - Year_Total_Bill_Usage_kWh__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Projected Savings First Year kWh</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Rollup_Year_Total_Production_kWh__c</fullName>
+        <externalId>false</externalId>
+        <label>Rollup Year Total Production kWh</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_Production_kWh__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Rollup_Year_Total_Savings_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Rollup Year Total Savings Dollars</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_Savings_Dollars__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Rollup_Year_Total_Solar_Radiation__c</fullName>
+        <externalId>false</externalId>
+        <label>Rollup Year Total Solar Radiation</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_Solar_Radiation__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Roof_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Roof Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Flat</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Low</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Average</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Steep</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>System_Losses_Pct__c</fullName>
+        <externalId>false</externalId>
+        <label>System Losses Pct</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Percent</type>
+    </fields>
+    <fields>
+        <fullName>System_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>System Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Residential</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+            </picklistValues>
+            <restrictedPicklist>true</restrictedPicklist>
+            <sorted>false</sorted>
+        </picklist>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Tilt_Degrees__c</fullName>
+        <externalId>false</externalId>
+        <label>Tilt Degrees</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Trees_saved_projection__c</fullName>
+        <externalId>false</externalId>
+        <label>Trees saved projection</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Truck_miles_saved_projection__c</fullName>
+        <externalId>false</externalId>
+        <label>Truck miles saved projection</label>
+        <precision>9</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Use_Actual_Utility_Bills__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Check this box to indicate that usage figures from 12 months of actual utility bills will be entered. Leave unchecked to enter average utility bill and usage figures.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Check this box to indicate that usage figures from 12 months of actual utility bills will be entered. Leave unchecked to enter average utility bill and usage figures.</inlineHelpText>
+        <label>Use Actual Utility Bills</label>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_City__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station City</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_Distance__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station Distance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_Elev__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station Elev</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_Filename__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station Filename</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_Lat__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station Lat</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_Lng__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station Lng</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_Location__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station Location</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_State__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station State</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Weather_Station_TZ_Offset__c</fullName>
+        <externalId>false</externalId>
+        <label>Weather Station TZ Offset</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year_Total_AC_Energy_kWh__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Total AC Energy kWh</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year_Total_Bill_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Total Bill Dollars</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_Bill_Dollars__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Year_Total_Bill_Usage_kWh__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Total Bill Usage kWh</label>
+        <summarizedField>Projected_Savings_Line_Item__c.Month_Bill_Usage_kWh__c</summarizedField>
+        <summaryForeignKey>Projected_Savings_Line_Item__c.Projected_Savings__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Year_Total_Energy_Value_Dollars__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Total Energy Value Dollars</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Year_Total_Solar_Radiation__c</fullName>
+        <externalId>false</externalId>
+        <label>Year Total Solar Radiation</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Projected Savings</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Opportunity_Id__c</columns>
+        <columns>Avg_Cost_of_Electricity_from_Util_kWh__c</columns>
+        <columns>Year_Total_AC_Energy_kWh__c</columns>
+        <columns>Year_Total_Bill_Usage_kWh__c</columns>
+        <columns>Year_Total_Bill_Dollars__c</columns>
+        <columns>Year_Total_Energy_Value_Dollars__c</columns>
+        <columns>Count_Of_Projected_Months__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Projected Savings Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Projected_Savings</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>EnterAverages_If_UseActuals_Unchecked</fullName>
+        <active>true</active>
+        <description>If &quot;Use Actuals&quot; is not checked, averages must be entered.</description>
+        <errorConditionFormula>and ( Use_Actual_Utility_Bills__c == FALSE, 
+      or ( Average_Monthly_Usage__c == 0,
+           Average_Monthly_Utility_Bill__c == 0 ))</errorConditionFormula>
+        <errorMessage>You must enter average monthly billing and usage figures here or check the &quot;Use Actuals&quot; box.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Add_Projected_Savings_Line_Items</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Add Projected Savings Line Items</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>window.open(&apos;/apex/Add_ProjectedSavingsLIs?id={!Projected_Savings__c.Id}&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Create_Projected_Savings</fullName>
+        <availability>online</availability>
+        <displayType>massActionButton</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Create Projected Savings</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <requireRowSelection>true</requireRowSelection>
+        <url>/a5O/e? CF00NR0000001qBaP={!Opportunity.Name}&amp;CF00NR0000001qBaP_lkid={!Opportunity.Id}&amp;retURL=%2F{!Opportunity.Id}&amp;00NR0000001i5Nl={!Opportunity.Property_Address__c}&amp;00NR0000001i5Nf={!Opportunity.Property_City__c}&amp;00NR0000001i5Nk={!Opportunity.Property_State__c}&amp;00NR0000001i5Nj={!Opportunity.Property_ZIP__c}&amp;Name={!Opportunity.Name_For_Projected_Savings__c}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit_Projected_Savings_Line_Items</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Edit Projected Savings Line Items</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>window.open(&apos;/apex/Add_ProjectedSavingsLIs?id={!Projected_Savings__c.Id}&apos;);</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Get_PVWatts</fullName>
+        <availability>online</availability>
+        <description>Click here to get projected solar production from PVWatts.gov.</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Get PVWatts</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>/*
+This is for use in a javascript button in salesforce. Must be called when
+Projected_Savings record is open (window.sfdcPage.getEntityId() will return
+this Projected_Savings record).
+*/
+
+{!REQUIRESCRIPT(&apos;//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&apos;)}
+{!requireScript(&quot;/soap/ajax/26.0/connection.js&quot;)}
+j$ = jQuery.noConflict();
+
+var getRecord = function() {
+        var sql = &quot;SELECT Id &quot;
+        + &quot;, LocationStreet__c &quot;
+        + &quot;, LocationCity__c &quot;
+        + &quot;, LocationState__c &quot;
+        + &quot;, LocationPostalCode__c &quot;
+        + &quot;, Average_Monthly_Utility_Bill__c &quot;
+        + &quot;, Average_Monthly_Usage__c &quot;
+        + &quot;, Roof_Type__c &quot;
+        + &quot;, Use_Actual_Utility_Bills__c &quot;
+        + &quot; from Projected_Savings__c &quot;
+        + &quot; WHERE Id = &apos;&quot; + currentId + &quot;&apos;&quot;;
+        window.result = sforce.connection.query(sql);
+
+        if (!result.hasOwnProperty(&quot;records&quot;) || typeof result.records != &quot;object&quot;) {
+                throw new Exception(&quot;Unable to find record.&quot;);
+        }
+
+        var address = result.records;
+
+        return address;
+}
+
+var calculateSavings = function() {
+
+        var original = j$(&quot;input[name=&apos;get_pvwatts&apos;]&quot;).val();
+        j$(&quot;input[name=&apos;get_pvwatts&apos;]&quot;).val(&quot;Loading...&quot;);
+
+        var monthNames = [];
+        monthNames[1] = &quot;January&quot;;
+        monthNames[2] = &quot;February&quot;;
+        monthNames[3] = &quot;March&quot;;
+        monthNames[4] = &quot;April&quot;;
+        monthNames[5] = &quot;May&quot;;
+        monthNames[6] = &quot;June&quot;;
+        monthNames[7] = &quot;July&quot;;
+        monthNames[8] = &quot;August&quot;;
+        monthNames[9] = &quot;September&quot;;
+        monthNames[10] = &quot;October&quot;;
+        monthNames[11] = &quot;November&quot;;
+        monthNames[12] = &quot;December&quot;;
+
+        var currentId = window.sfdcPage.getEntityId();
+
+        var urls = {
+                dev: &quot;https://192.168.1.154&quot;,
+                full_dev: &quot;https://pgcspservices.herokuapp.com&quot;,
+                production: &quot;https://pgwebservices.herokuapp.com&quot;,
+        };
+
+        function isNumeric(n) { 
+                return !isNaN(parseFloat(n)) &amp;&amp; isFinite(n); 
+        }
+ 
+        var pathArray = window.location.host.split(&apos;.&apos;); 
+        var serverName = pathArray[0]; 
+        var isSandbox = (serverName.substring(0,2)==&quot;cs&quot;) &amp;&amp; isNumeric(serverName.charAt(2)); 
+
+        var baseUrl = isSandbox?urls[&quot;full_dev&quot;]:urls[&quot;production&quot;]; 
+        //var baseUrl = urls[&quot;full_dev&quot;];
+
+        var address = getRecord();
+
+        var postData = {
+                &quot;address&quot;: address.LocationStreet__c,
+                &quot;city&quot;: address.LocationCity__c,
+                &quot;state&quot;: address.LocationState__c,
+                &quot;zip&quot;: address.LocationPostalCode__c,
+                &quot;roof_type_id&quot;: address.Roof_Type__c,
+                &quot;jan-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;feb-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;mar-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;apr-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;may-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;jun-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;jul-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;aug-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;sep-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;oct-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;nov-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;dec-amount&quot;: address.Average_Monthly_Utility_Bill__c,
+                &quot;jan-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;feb-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;mar-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;apr-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;may-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;jun-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;jul-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;aug-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;sep-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;oct-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;nov-kwh&quot;: address.Average_Monthly_Usage__c,
+                &quot;dec-kwh&quot;: address.Average_Monthly_Usage__c,
+        };
+
+        var result = sforce.connection.query(&quot;SELECT Id, Month_Projected__c, Month_Bill_Dollars__c, Month_Bill_Usage_kWh__c from Projected_Savings_Line_Item__c Where Projected_Savings__c = &apos;&quot;+currentId+&quot;&apos;&quot;);
+        var months = result.getArray(&quot;records&quot;);
+
+        for(var i = 0; i &lt; months.length; i++) {
+                var month = months[i];
+                var shortMonth = month.Month_Projected__c.substring(0, 3).toLowerCase();
+                postData[shortMonth + &quot;-amount&quot;] = month.Month_Bill_Dollars__c || address.Average_Monthly_Utility_Bill__c || 0;
+                postData[shortMonth + &quot;-kwh&quot;] = month.Month_Bill_Usage_kWh__c ||  address.Average_Monthly_Usage__c|| 0;
+        }
+
+        j$.ajax({
+                url: baseUrl + &quot;/projections/calculate&quot;,
+                method: &quot;POST&quot;,
+                data: postData,
+                beforeSend: function(xhr) {
+                        xhr.setRequestHeader(&quot;api-key&quot;, &quot;4766bea2-922abf57-95c1fced-94d4ff84&quot;);
+                },
+        }).done(function(response) {
+debugger;
+                for(var i in response.months) {
+                        if (i == &quot;remove&quot;) { continue; }
+
+                        var month = response.months[i];
+
+                        var result = sforce.connection.query(&quot;SELECT Id from Projected_Savings_Line_Item__c Where Projected_Savings__c = &apos;&quot;+currentId+&quot;&apos; and Month_Projected__c = &apos;&quot;+monthNames[month.month]+&quot;&apos;&quot;);
+                        var projectedMonth = result.getArray(&quot;records&quot;);
+
+                        var lineitem = new sforce.SObject(&quot;Projected_Savings_Line_Item__c&quot;);
+                        lineitem.Projected_Savings__c = currentId;
+                        lineitem.Month_Projected__c = monthNames[month.month];
+                        lineitem.Name = monthNames[month.month] + &quot; Projected Savings&quot;;
+                        lineitem.Month_Production_kWh__c = month.projected_ac_production;
+                        lineitem.Month_Savings_Dollars__c = month.projected_savings_dollars;
+                        lineitem.Month_Solar_Radiation__c = month.projected_solar_radiation;
+
+                        if (projectedMonth.length &gt; 0) {
+                            lineitem.Id = projectedMonth[0].Id;
+                        } else {
+                            lineitem.Month_Bill_Dollars__c = address.Average_Monthly_Utility_Bill__c || 0;
+                            lineitem.Month_Bill_Usage_kWh__c = address.Average_Monthly_Usage__c || 0;
+                        }
+                        var litenitemResult = sforce.connection.upsert(&apos;Id&apos;, [lineitem]);
+
+                }
+                location.reload();
+                }).error(function(xhr, textStatus, errorThrown) {
+
+                        if(xhr.responseText) {
+                                alert(JSON.parse(xhr.responseText).message);
+                        } else {
+                                alert(&quot;An error occurred while requesting the savings data.&quot;);
+                        }
+                }).always(function() {
+                        j$(&quot;input[name=&apos;get_pvwatts&apos;]&quot;).val(original);
+                });
+}
+
+var hasProjectedData = function() {
+        var result = sforce.connection.query(&quot;SELECT Month_Savings_Dollars__c from Projected_Savings_Line_Item__c Where Projected_Savings__c = &apos;&quot;+currentId+&quot;&apos;&quot;);
+        var months = result.getArray(&quot;records&quot;);
+
+        for(var i in months) {
+                var month = months[i];
+                //As soon as we hit a single month record with projected savings
+                //treat this record as if it has already projected savings before.
+                if(month.Month_Savings_Dollars__c) {
+                        return true;
+                }
+        }
+        return false;
+}
+
+//Warn them if they already have projections:
+var currentId = window.sfdcPage.getEntityId();
+
+var potentialCustomer = getRecord();
+
+console.log(potentialCustomer);
+if(hasProjectedData()) {
+        if(confirm(&quot;You currently have projected data, this will replace it. Proceed?&quot;)) {
+                calculateSavings();
+        }
+//} else if (potentialCustomer.Use_Actual_Utility_Bills__c == &quot;true&quot;) {
+//      console.log(&quot;using utility bills&quot;);
+} else {
+        calculateSavings();
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Save_Projection</fullName>
+        <availability>online</availability>
+        <description>Custom save button: if checkbox for actual bills is checked, save and direct the user to bulk-input monthly usage details. If unchecked, validate that averages have been entered and save.</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Save Projection</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>1=1;</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Test_IsSandbox</fullName>
+        <availability>online</availability>
+        <description>Test whether Organization.IsSandbox is available using the $Organization global variable.</description>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Test IsSandbox</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>var pathArray = window.location.host.split(&apos;.&apos;);
+var serverName = pathArray[0];
+var isSandbox = (serverName.substring(0,2)==&quot;cs&quot;) &amp;&amp; isNumeric(serverName.charAt(2));
+
+/*
+if(isSandbox) {
+  alert(&quot;Sandbox&quot;);
+} else {
+  alert(&quot;Production!&quot;);
+}
+*/
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) &amp;&amp; isFinite(n);
+}
+
+        var urls = {
+                dev: &quot;https://192.168.1.154&quot;,
+                full_dev: &quot;https://pgcspservices.herokuapp.com&quot;,
+                production: &quot;https://pgwebservices.herokuapp.com&quot;,
+        };
+
+        var baseUrl = isSandbox?urls[&quot;full_dev&quot;]:urls[&quot;production&quot;];
+alert(baseUrl);</url>
+    </webLinks>
+</CustomObject>

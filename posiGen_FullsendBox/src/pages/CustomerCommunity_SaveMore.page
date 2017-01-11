@@ -1,0 +1,369 @@
+<apex:page docType="html-5.0" sidebar="false" showHeader="false" controller="CustomerActualSavingsController" extensions="ChartController" action="{!forwardToCustomAuthPage}">
+    <head>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets1, 'fontawesome/css/font-awesome.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets2, 'metisMenu/dist/metisMenu.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerVendorAssets1, 'animate.css/animate.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerNamespacedBootstrap, 'dist/css/bootstrap.css')}"/>
+    
+    <!-- App styles -->
+    <apex:stylesheet value="{!URLFOR($Resource.homerFonts, 'fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerFonts, 'fonts/pe-icon-7-stroke/css/helper.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.homerStyles, 'styles/style.css')}"/>
+    <style type="text/css">
+        .summary-row, .summary-column, .summary-row .summary-body, .summary-row .how-to-save {
+            background-color: #2980B9;
+        }
+        
+        #menu {
+            
+        }
+        
+        .summary-row .summary-header {
+            color: white;
+            text-transform: uppercase;
+        }
+
+        small {
+            display: block;
+        }
+        
+        .page-header-panel {
+            background-color: #3D8CBF;
+            color: white;
+            border-radius: 10px;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+        
+
+
+
+
+.page-header-panel .referral-link {
+  border: .5px solid white;
+  color: white;
+  font-weight: 100;
+  padding: 10px 10px;
+  text-transform: uppercase;
+
+}
+
+.page-header-panel  .ambassador-link {
+  color: white;
+  text-decoration: underline;
+}
+
+.content .chart-title {
+    color: #4E96C4;
+}
+
+.content .chart-dates {
+  color: #85B6D6;
+  text-transform: uppercase;
+}
+
+.content .table-title{
+  color: #2CAF64;
+  text-transform: uppercase;
+}
+
+.content .table-description {
+  text-transform: uppercase;
+  display: block;
+}
+
+.content .savings-summary th, .content .projected-savings th {
+  text-align: center;
+}
+
+
+.content .savings-summary td:nth-child(n+2), .content .projected-savings td:nth-child(n+2) {
+  text-align: center;
+}
+
+
+.content .savings-summary thead {
+  background-color: #2980B9;
+  color: white;
+  text-transform: uppercase;
+}
+
+.content .savings-summary th:last-child, .content .savings-summary td:last-child {
+  background-color: #27AE60;
+  color: white;
+
+}
+
+.content .savings-summary td {
+  color: black;
+}
+
+.content .projected-savings {
+  color: black;
+}
+
+.content .projected-savings thead {
+  background-color: #2980B9;
+  color: white;
+  text-transform: uppercase;
+}
+/*
+.content .modal canvas {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.content .modal-dialog {
+  width: 80%;
+  padding-right: 20px;
+}
+
+.content .nav-links {
+  margin-bottom: 30px;
+  position: relative;
+}
+*/
+.nav-link {
+  margin: 15px 0px;
+}
+
+.ico {
+    margin-bottom: 10px;
+}
+
+.content .savings {
+  color: #2CAF64;
+}
+
+.content .magnify-text {
+  vertical-align: super;
+}
+
+#FooterButton_SaveMore, #FooterButton_EE {
+  display: inline-block;
+  position: relative;
+}
+    </style>
+    </head>
+<body class="save-money-content">
+<div class="bootstrap">
+
+<div id="header">
+    <div id="logo" class="light-version">
+        <span>
+            <i class="ico ico-posigen-logo"></i>
+        </span>
+    </div>
+    <nav role="navigation">
+        <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+        <div class="small-logo">
+            <span class="text-primary">HOMER APP</span>
+        </div>
+        <div class="mobile-menu">
+            <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
+                <i class="fa fa-chevron-down"></i>
+            </button>
+            <div class="collapse mobile-navbar" id="mobile-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="" href="login.html">Login</a>
+                    </li>
+                    <li>
+                        <a class="" href="login.html">Logout</a>
+                    </li>
+                    <li>
+                        <a class="" href="profile.html">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- Navigation -->
+<aside id="menu">
+    <div id="navigation">
+        <div class="profile-picture">
+            <a href="#">
+                
+            </a>
+
+            <div class="stats-label text-color">
+                <span class="font-extra-bold font-uppercase">John Doe</span>
+            </div>
+        </div>
+
+        <ul class="nav" id="side-menu">
+            <li class="active">
+                <apex:form html-class="nav-link" id="FooterButton_EE" rendered="{!OR(AND(hasEE, NOT(callCSR)),standardUser)}">
+                    <a onclick="redirectToEESavingsJS();" ><span class="nav-label">Efficiency Savings</span> </a>
+                    <apex:actionFunction action="{!redirectToEESavings}" name="redirectToEESavings" >
+                        <apex:param value="" name="portalName" />
+                    </apex:actionFunction>
+                </apex:form>
+            </li>
+            <li>
+                <apex:form html-class="nav-link" id="FooterButton_SaveMore" >
+                    <a onclick="redirectToHowToSaveMoreJS();"><span class="nav-label">Save More?</span></a>
+                    <apex:actionFunction action="{!redirectToHowToSaveMore}" name="redirectToHowToSaveMore" >
+                        <apex:param value="" name="portalName" />
+                    </apex:actionFunction>
+                </apex:form>
+            </li>
+            <li>
+                <a href="#"><span class="nav-label">Settings</span><span class="fa arrow"></span> </a>
+                <ul class="nav nav-second-level">
+                    <li><a href="profile.html">Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="login.html">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<!-- Main Wrapper -->
+<div id="wrapper">
+      <div class="summary-row row">
+          <div class="summary-column col-lg-12">
+              <div class="hpanel">
+                  <div class="how-to-save panel-body">
+                      <div class="col-md-12 text-center">
+                          <div>
+                              <i class="ico ico-question"></i>
+                          </div>
+                          <div class="panel-heading">
+                              <h1 class="summary-header text-center font-extra-bold">
+                                How can I save more money?
+                              </h1>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+    <div class="content animate-panel">
+        <div class="row">
+          <div class="col-lg-4 ">
+              <div class=" hpanel">
+                  <div class="saving-category panel-heading">
+                      <div class="panel-tools">
+                          <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                          <a class="closebox"><i class="fa fa-times"></i></a>
+                      </div>
+                      Save On Water Heating
+                  </div>
+                  <div class="panel-body saving-tips ">
+                    <p>Program your hot water. Set the temperature to 120 degrees.</p>
+                    <p>Install low-flow aerators on sinks. Choose high-efficiency shower heads. </p>
+                    <p>Repair leaks to protect your savings.</p>
+                    <p>Service the electric elements to maintain system efficiency and lifespan. </p>
+                    <p>Turn the faucets off. Take showers under 7 minutes, if possible. Fill sinks with hot water and turn the faucet off while shaving or washing your face. </p>
+                    <p>Wash your clothes in cold water and use cold water detergent. Install a rain cistern to store and provide water for your plants.</p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class=" hpanel">
+                <div class="saving-category panel-heading">
+                      <div class="panel-tools">
+                          <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                          <a class="closebox"><i class="fa fa-times"></i></a>
+                      </div>
+                      Lower Your Electricity Use
+                  </div>
+                  <div class="panel-body saving-tips">
+                    <p>Set your refrigerator to 37 degrees and freezer to 0 degrees. </p>
+                    <p>Clean your refrigerator coil. Dirty coils can shorten your refrigerator’s life span and increase your energy bills.</p>
+                    <p>Keep your refrigerator and freezer doors closed. Try not to open them more than necessary.</p>
+                    <p>Use a smart power strip for your entertainment system. Smart power strips sense when your TV is off and turn everything else off, too.</p>
+                    <p>Turn your lights off when you leave the room.</p>
+                    <p>Choose Energy Star Appliances, they use up to 65% less energy. </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-4">
+              <div class=" hpanel">
+                  <div class="saving-category panel-heading">
+                      <div class="panel-tools">
+                          <a class="showhide"><i class="fa fa-chevron-up"></i></a>
+                          <a class="closebox"><i class="fa fa-times"></i></a>
+                      </div>
+                      Reduce Heating and Cooling Costs
+                  </div>
+                  <div class="panel-body saving-tips">
+                    <p>Schedule annual maintenance. In the summer, check your air conditioning system and your furnace in the fall. Ask your AC professional for the results and utility rebate opportunities.</p>
+                    <p>Change your AC filter and replace the filter once per month.</p>
+                    <p>Clean your drain pan annually. This prevents expensive repairs. Program your thermostat: Winter: 68 degrees when home, 63 degrees when away Summer: 73 degrees when home, 78 degrees when away</p>
+                    <p>Use ceiling fans to feel cooler in the summer and warmer in the winter. Turn fans off when you leave the room. </p>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="nav-links panel-body text-center">
+            <a class="nav-link" href="#">Back To My Savings</a>
+          </div>
+        </div>
+
+
+
+</div>
+</div>
+
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery/dist/jquery.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-ui/jquery-ui.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.resize.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery-flot/jquery.flot.pie.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerJquery, 'jquery.flot.spline/index.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets1, 'flot.curvedlines/curvedLines.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerNamespacedBootstrap, 'dist/js/bootstrap.min.js')}"></apex:includescript> 
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'slimScroll/jquery.slimscroll.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'metisMenu/dist/metisMenu.min.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'moment/min/moment.min.js')}"></apex:includescript>>
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'peity/jquery.peity.min.js')}"></apex:includescript>>
+
+<apex:includeScript value="{!URLFOR($Resource.homerVendorAssets2, 'sparkline/index.js')}"></apex:includescript>ipt>
+
+<!-- App scripts -->
+<apex:includeScript value="{!URLFOR($Resource.homerScripts, 'scripts/charts.js')}"></apex:includescript>
+<apex:includeScript value="{!URLFOR($Resource.homerScripts, 'scripts/homer.js')}"></apex:includescript>
+
+<script>
+    $('.showhide').on('click', function (event) {
+        event.preventDefault();
+        var hpanel = $(this).closest('div.hpanel');
+        var icon = $(this).find('i:first');
+        var body = hpanel.find('div.panel-body');
+        var footer = hpanel.find('div.panel-footer');
+        body.slideToggle(300);
+        footer.slideToggle(200);
+
+        // Toggle icon from up to down
+        icon.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+        hpanel.toggleClass('').toggleClass('panel-collapse');
+        setTimeout(function () {
+            hpanel.resize();
+            hpanel.find('[id^=map-]').resize();
+        }, 50);
+    });
+    
+    //Navigation Functions
+    function redirectToEESavingsJS()
+    {
+        // Its always the 3rd element in the list which is the community name when accessed from the communities site
+        redirectToEESavings(window.location.href.split('/')[3]);
+    }
+    
+    function redirectToHowToSaveMoreJS()
+    {
+        // Its always the 3rd element in the list which is the community name when accessed from the communities site
+        redirectToHowToSaveMore(window.location.href.split('/')[3]);
+    }
+</script>
+</div>
+</body>
+</apex:page>
